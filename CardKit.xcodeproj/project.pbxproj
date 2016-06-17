@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		68C392F71D1433FA00DD6C22 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C392F61D1433FA00DD6C22 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		68C392FE1D1433FA00DD6C22 /* CardKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C392F31D1433FA00DD6C22 /* CardKit_iOS.framework */; };
+		68C392FE1D1433FA00DD6C22 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C392F31D1433FA00DD6C22 /* CardKit.framework */; };
 		68C393031D1433FA00DD6C22 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C393021D1433FA00DD6C22 /* CardKitTests.swift */; };
 		68C393151D14341800DD6C22 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C393141D14341800DD6C22 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		68C3931C1D14341800DD6C22 /* CardKit_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C393121D14341800DD6C22 /* CardKit_macOS.framework */; };
+		68C3931C1D14341800DD6C22 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C393121D14341800DD6C22 /* CardKit.framework */; };
 		68C393211D14341800DD6C22 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C393201D14341800DD6C22 /* CardKitTests.swift */; };
 		68C393351D14344300DD6C22 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C393291D14344300DD6C22 /* ActionCardSpecValidation.swift */; };
 		68C393361D14344300DD6C22 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C393291D14344300DD6C22 /* ActionCardSpecValidation.swift */; };
@@ -61,13 +61,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		68C392F31D1433FA00DD6C22 /* CardKit_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68C392F31D1433FA00DD6C22 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C392F61D1433FA00DD6C22 /* CardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKit.h; sourceTree = "<group>"; };
 		68C392F81D1433FA00DD6C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C392FD1D1433FA00DD6C22 /* CardKitTests_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardKitTests_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C393021D1433FA00DD6C22 /* CardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardKitTests.swift; sourceTree = "<group>"; };
 		68C393041D1433FA00DD6C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68C393121D14341800DD6C22 /* CardKit_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68C393121D14341800DD6C22 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C393141D14341800DD6C22 /* CardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKit.h; sourceTree = "<group>"; };
 		68C393161D14341800DD6C22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C3931B1D14341800DD6C22 /* CardKitTests_macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardKitTests_macOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C392FE1D1433FA00DD6C22 /* CardKit_iOS.framework in Frameworks */,
+				68C392FE1D1433FA00DD6C22 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C3931C1D14341800DD6C22 /* CardKit_macOS.framework in Frameworks */,
+				68C3931C1D14341800DD6C22 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +138,9 @@
 		68C392F41D1433FA00DD6C22 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				68C392F31D1433FA00DD6C22 /* CardKit_iOS.framework */,
+				68C392F31D1433FA00DD6C22 /* CardKit.framework */,
 				68C392FD1D1433FA00DD6C22 /* CardKitTests_iOS.xctest */,
-				68C393121D14341800DD6C22 /* CardKit_macOS.framework */,
+				68C393121D14341800DD6C22 /* CardKit.framework */,
 				68C3931B1D14341800DD6C22 /* CardKitTests_macOS.xctest */,
 			);
 			name = Products;
@@ -244,7 +244,7 @@
 			);
 			name = CardKit_iOS;
 			productName = CardKit;
-			productReference = 68C392F31D1433FA00DD6C22 /* CardKit_iOS.framework */;
+			productReference = 68C392F31D1433FA00DD6C22 /* CardKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		68C392FC1D1433FA00DD6C22 /* CardKitTests_iOS */ = {
@@ -280,7 +280,7 @@
 			);
 			name = CardKit_macOS;
 			productName = CardKit;
-			productReference = 68C393121D14341800DD6C22 /* CardKit_macOS.framework */;
+			productReference = 68C393121D14341800DD6C22 /* CardKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		68C3931A1D14341800DD6C22 /* CardKitTests_macOS */ = {
@@ -554,7 +554,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = CardKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -572,7 +573,8 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = CardKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -613,7 +615,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -636,7 +638,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -689,6 +691,7 @@
 				68C393091D1433FA00DD6C22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		68C3930A1D1433FA00DD6C22 /* Build configuration list for PBXNativeTarget "CardKitTests_iOS" */ = {
 			isa = XCConfigurationList;
@@ -697,6 +700,7 @@
 				68C3930C1D1433FA00DD6C22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		68C393231D14341800DD6C22 /* Build configuration list for PBXNativeTarget "CardKit_macOS" */ = {
 			isa = XCConfigurationList;
@@ -705,6 +709,7 @@
 				68C393251D14341800DD6C22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		68C393261D14341800DD6C22 /* Build configuration list for PBXNativeTarget "CardKitTests_macOS" */ = {
 			isa = XCConfigurationList;
@@ -713,6 +718,7 @@
 				68C393281D14341800DD6C22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
