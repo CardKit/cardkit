@@ -2,7 +2,7 @@
 //  CardKitTests.swift
 //  CardKitTests
 //
-//  Created by ismails on 6/17/16.
+//  Created by Justin Weisz on 7/26/16.
 //  Copyright © 2016 IBM. All rights reserved.
 //
 

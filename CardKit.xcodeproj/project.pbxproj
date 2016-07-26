@@ -1,1616 +1,1047 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>688A19BE1D148733005A6BB1</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>name</key>
-			<string>Info.plist</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>688A19D11D148745005A6BB1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>688A19BE1D148733005A6BB1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C392E91D1433FA00DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C393501D14348D00DD6C22</string>
-				<string>68C392F51D1433FA00DD6C22</string>
-				<string>68C393011D1433FA00DD6C22</string>
-				<string>68C393131D14341800DD6C22</string>
-				<string>68C3931F1D14341800DD6C22</string>
-				<string>68C392F41D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C392EA1D1433FA00DD6C22</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0730</string>
-				<key>LastUpgradeCheck</key>
-				<string>0730</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>IBM</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>68C392F21D1433FA00DD6C22</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-					</dict>
-					<key>68C392FC1D1433FA00DD6C22</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-					</dict>
-					<key>68C393111D14341800DD6C22</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-					</dict>
-					<key>68C3931A1D14341800DD6C22</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>68C392ED1D1433FA00DD6C22</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>68C392E91D1433FA00DD6C22</string>
-			<key>productRefGroup</key>
-			<string>68C392F41D1433FA00DD6C22</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>68C392F21D1433FA00DD6C22</string>
-				<string>68C392FC1D1433FA00DD6C22</string>
-				<string>68C393111D14341800DD6C22</string>
-				<string>68C3931A1D14341800DD6C22</string>
-			</array>
-		</dict>
-		<key>68C392ED1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>68C393051D1433FA00DD6C22</string>
-				<string>68C393061D1433FA00DD6C22</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>68C392EE1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C3933F1D14344300DD6C22</string>
-				<string>68C3933B1D14344300DD6C22</string>
-				<string>68C393471D14344300DD6C22</string>
-				<string>68C393491D14344300DD6C22</string>
-				<string>68C393451D14344300DD6C22</string>
-				<string>68C3934B1D14344300DD6C22</string>
-				<string>68C393431D14344300DD6C22</string>
-				<string>68C393351D14344300DD6C22</string>
-				<string>68C3933D1D14344300DD6C22</string>
-				<string>68C393391D14344300DD6C22</string>
-				<string>68C393371D14344300DD6C22</string>
-				<string>68C393521D14353000DD6C22</string>
-				<string>68C393411D14344300DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392EF1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392F01D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C392F71D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392F11D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C3934E1D14345C00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392F21D1433FA00DD6C22</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>68C393071D1433FA00DD6C22</string>
-			<key>buildPhases</key>
-			<array>
-				<string>68C392EE1D1433FA00DD6C22</string>
-				<string>68C392EF1D1433FA00DD6C22</string>
-				<string>68C392F01D1433FA00DD6C22</string>
-				<string>68C392F11D1433FA00DD6C22</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CardKit_iOS</string>
-			<key>productName</key>
-			<string>CardKit</string>
-			<key>productReference</key>
-			<string>68C392F31D1433FA00DD6C22</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>68C392F31D1433FA00DD6C22</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CardKit.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>68C392F41D1433FA00DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C392F31D1433FA00DD6C22</string>
-				<string>68C392FD1D1433FA00DD6C22</string>
-				<string>68C393121D14341800DD6C22</string>
-				<string>68C3931B1D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C392F51D1433FA00DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C392F61D1433FA00DD6C22</string>
-				<string>68C392F81D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CardKit-iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C392F61D1433FA00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CardKit.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C392F71D1433FA00DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C392F61D1433FA00DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>68C392F81D1433FA00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C392F91D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C393031D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392FA1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C392FE1D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392FB1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C392FC1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>68C3930A1D1433FA00DD6C22</string>
-			<key>buildPhases</key>
-			<array>
-				<string>68C392F91D1433FA00DD6C22</string>
-				<string>68C392FA1D1433FA00DD6C22</string>
-				<string>68C392FB1D1433FA00DD6C22</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>68C393001D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CardKitTests_iOS</string>
-			<key>productName</key>
-			<string>CardKitTests</string>
-			<key>productReference</key>
-			<string>68C392FD1D1433FA00DD6C22</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>68C392FD1D1433FA00DD6C22</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CardKitTests_iOS.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>68C392FE1D1433FA00DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C392F31D1433FA00DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C392FF1D1433FA00DD6C22</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>68C392EA1D1433FA00DD6C22</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>68C392F21D1433FA00DD6C22</string>
-			<key>remoteInfo</key>
-			<string>CardKit</string>
-		</dict>
-		<key>68C393001D1433FA00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>68C392F21D1433FA00DD6C22</string>
-			<key>targetProxy</key>
-			<string>68C392FF1D1433FA00DD6C22</string>
-		</dict>
-		<key>68C393011D1433FA00DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C393021D1433FA00DD6C22</string>
-				<string>68C393041D1433FA00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CardKitTests-iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393021D1433FA00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardKitTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393031D1433FA00DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393021D1433FA00DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393041D1433FA00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393051D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>68C393061D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.0</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>68C393071D1433FA00DD6C22</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>68C393081D1433FA00DD6C22</string>
-				<string>68C393091D1433FA00DD6C22</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>68C393081D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKit-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKit</string>
-				<key>PRODUCT_MODULE_NAME</key>
-				<string>$(PRODUCT_NAME:c99extidentifier)</string>
-				<key>PRODUCT_NAME</key>
-				<string>CardKit</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>68C393091D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKit-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKit</string>
-				<key>PRODUCT_MODULE_NAME</key>
-				<string>$(PRODUCT_NAME:c99extidentifier)</string>
-				<key>PRODUCT_NAME</key>
-				<string>CardKit</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>68C3930A1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>68C3930B1D1433FA00DD6C22</string>
-				<string>68C3930C1D1433FA00DD6C22</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>68C3930B1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKitTests-iOS/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKitTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>68C3930C1D1433FA00DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKitTests-iOS/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKitTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>68C3930D1D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C393401D14344300DD6C22</string>
-				<string>68C3933C1D14344300DD6C22</string>
-				<string>68C393481D14344300DD6C22</string>
-				<string>68C3934A1D14344300DD6C22</string>
-				<string>68C393461D14344300DD6C22</string>
-				<string>68C3934C1D14344300DD6C22</string>
-				<string>68C393441D14344300DD6C22</string>
-				<string>68C393361D14344300DD6C22</string>
-				<string>68C3933E1D14344300DD6C22</string>
-				<string>68C3933A1D14344300DD6C22</string>
-				<string>68C393381D14344300DD6C22</string>
-				<string>68C393531D14353000DD6C22</string>
-				<string>68C393421D14344300DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C3930E1D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C3930F1D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C393151D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C393101D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>688A19D11D148745005A6BB1</string>
-				<string>68C3934F1D14345C00DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C393111D14341800DD6C22</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>68C393231D14341800DD6C22</string>
-			<key>buildPhases</key>
-			<array>
-				<string>68C3930D1D14341800DD6C22</string>
-				<string>68C3930E1D14341800DD6C22</string>
-				<string>68C3930F1D14341800DD6C22</string>
-				<string>68C393101D14341800DD6C22</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CardKit_macOS</string>
-			<key>productName</key>
-			<string>CardKit</string>
-			<key>productReference</key>
-			<string>68C393121D14341800DD6C22</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>68C393121D14341800DD6C22</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CardKit.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>68C393131D14341800DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C393141D14341800DD6C22</string>
-				<string>688A19BE1D148733005A6BB1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CardKit-macOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393141D14341800DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CardKit.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393151D14341800DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393141D14341800DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>68C393171D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C393211D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C393181D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>68C3931C1D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C393191D14341800DD6C22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>68C3931A1D14341800DD6C22</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>68C393261D14341800DD6C22</string>
-			<key>buildPhases</key>
-			<array>
-				<string>68C393171D14341800DD6C22</string>
-				<string>68C393181D14341800DD6C22</string>
-				<string>68C393191D14341800DD6C22</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>68C3931E1D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CardKitTests_macOS</string>
-			<key>productName</key>
-			<string>CardKitTests</string>
-			<key>productReference</key>
-			<string>68C3931B1D14341800DD6C22</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>68C3931B1D14341800DD6C22</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CardKitTests_macOS.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>68C3931C1D14341800DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393121D14341800DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3931D1D14341800DD6C22</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>68C392EA1D1433FA00DD6C22</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>68C393111D14341800DD6C22</string>
-			<key>remoteInfo</key>
-			<string>CardKit</string>
-		</dict>
-		<key>68C3931E1D14341800DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>68C393111D14341800DD6C22</string>
-			<key>targetProxy</key>
-			<string>68C3931D1D14341800DD6C22</string>
-		</dict>
-		<key>68C3931F1D14341800DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C393201D14341800DD6C22</string>
-				<string>68C393221D14341800DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CardKitTests-macOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393201D14341800DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardKitTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393211D14341800DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393201D14341800DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393221D14341800DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393231D14341800DD6C22</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>68C393241D14341800DD6C22</string>
-				<string>68C393251D14341800DD6C22</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>68C393241D14341800DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>FRAMEWORK_VERSION</key>
-				<string>A</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKit-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/Frameworks</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.11</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKit</string>
-				<key>PRODUCT_NAME</key>
-				<string>CardKit</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>68C393251D14341800DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>FRAMEWORK_VERSION</key>
-				<string>A</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKit-iOS/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/Frameworks</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.11</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKit</string>
-				<key>PRODUCT_NAME</key>
-				<string>CardKit</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>68C393261D14341800DD6C22</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>68C393271D14341800DD6C22</string>
-				<string>68C393281D14341800DD6C22</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>68C393271D14341800DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKitTests-iOS/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.11</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKitTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>68C393281D14341800DD6C22</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>-</string>
-				<key>COMBINE_HIDPI_IMAGES</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CardKitTests-iOS/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
-				<key>MACOSX_DEPLOYMENT_TARGET</key>
-				<string>10.11</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>com.ibm.research.CardKitTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>macosx</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>68C393291D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>ActionCardSpecValidation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932A1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>BasicCardDescriptors.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932B1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardDescriptors.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932C1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardExecutionEngine.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932D1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardId.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932E1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardPath.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3932F1D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CardRendering.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393301D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>DeckBuilder.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393311D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>DeckSpecification.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393321D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>InputParameter.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393331D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>InputParameterCoordinates.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393341D14344300DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>SerializationAndParsing.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393351D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393291D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393361D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393291D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393371D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932A1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393381D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932A1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393391D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932B1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933A1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932B1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933B1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932C1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933C1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932C1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933D1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932D1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933E1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932D1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3933F1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932E1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393401D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932E1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393411D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932F1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393421D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3932F1D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393431D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393301D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393441D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393301D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393451D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393311D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393461D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393311D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393471D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393321D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393481D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393321D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393491D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393331D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3934A1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393331D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3934B1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393341D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3934C1D14344300DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393341D14344300DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3934D1D14345C00DD6C22</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>CardAssets.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C3934E1D14345C00DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3934D1D14345C00DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C3934F1D14345C00DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C3934D1D14345C00DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393501D14348D00DD6C22</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>68C3934D1D14345C00DD6C22</string>
-				<string>68C393291D14344300DD6C22</string>
-				<string>68C3932A1D14344300DD6C22</string>
-				<string>68C3932B1D14344300DD6C22</string>
-				<string>68C3932C1D14344300DD6C22</string>
-				<string>68C3932D1D14344300DD6C22</string>
-				<string>68C3932E1D14344300DD6C22</string>
-				<string>68C3932F1D14344300DD6C22</string>
-				<string>68C393301D14344300DD6C22</string>
-				<string>68C393311D14344300DD6C22</string>
-				<string>68C393321D14344300DD6C22</string>
-				<string>68C393331D14344300DD6C22</string>
-				<string>68C393341D14344300DD6C22</string>
-				<string>68C393511D14353000DD6C22</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CardKit</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393511D14353000DD6C22</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>Token.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>68C393521D14353000DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393511D14353000DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>68C393531D14353000DD6C22</key>
-		<dict>
-			<key>fileRef</key>
-			<string>68C393511D14353000DD6C22</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>68C392EA1D1433FA00DD6C22</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC9317B51D479278001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CC9317BC1D479278001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317B11D479278001B71B1 /* CardKit.framework */; };
+		CC9317C11D479278001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
+		CC9317DA1D47929F001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317D01D47929F001B71B1 /* CardKit.framework */; };
+		CC9317F61D4792B7001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317EC1D4792B7001B71B1 /* CardKit.framework */; };
+		CC9318031D47930C001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; };
+		CC9318041D47930D001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; };
+		CC9318051D47931E001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
+		CC9318061D47931F001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
+		CC93181D1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC93181E1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC93181F1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC9318201D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC9318211D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC9318221D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
+		CC9318231D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318241D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318251D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318261D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318271D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318281D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
+		CC9318291D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182A1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182B1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182C1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182D1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182E1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC93182F1D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318301D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318311D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318321D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318331D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318341D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
+		CC9318351D479527001B71B1 /* CardAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC93180C1D479527001B71B1 /* CardAssets.xcassets */; };
+		CC9318371D479527001B71B1 /* CardAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC93180C1D479527001B71B1 /* CardAssets.xcassets */; };
+		CC9318391D479527001B71B1 /* CardAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC93180C1D479527001B71B1 /* CardAssets.xcassets */; };
+		CC93183B1D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC93183C1D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC93183D1D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC93183E1D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC93183F1D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC9318401D479527001B71B1 /* DeckBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180E1D479527001B71B1 /* DeckBuilder.swift */; };
+		CC9318411D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318421D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318431D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318441D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318451D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318461D479527001B71B1 /* DeckSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180F1D479527001B71B1 /* DeckSpecification.swift */; };
+		CC9318471D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC9318481D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC9318491D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC93184A1D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC93184B1D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC93184C1D479527001B71B1 /* CardExecutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318111D479527001B71B1 /* CardExecutionEngine.swift */; };
+		CC93184D1D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC93184E1D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC93184F1D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC9318501D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC9318511D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC9318521D479527001B71B1 /* InputParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318131D479527001B71B1 /* InputParameter.swift */; };
+		CC9318531D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318541D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318551D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318561D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318571D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318581D479527001B71B1 /* InputParameterCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */; };
+		CC9318591D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185A1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185B1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185C1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185D1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185E1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
+		CC93185F1D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318601D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318611D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318621D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318631D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318641D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC9318651D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC9318661D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC9318671D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC9318681D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC9318691D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC93186A1D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
+		CC93186B1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC93186C1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC93186D1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC93186E1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC93186F1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC9318701D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC9317BD1D479278001B71B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9317A81D479278001B71B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC9317B01D479278001B71B1;
+			remoteInfo = CardKit;
+		};
+		CC9317DB1D47929F001B71B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9317A81D479278001B71B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC9317CF1D47929F001B71B1;
+			remoteInfo = CardKit;
+		};
+		CC9317F71D4792B7001B71B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9317A81D479278001B71B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC9317EB1D4792B7001B71B1;
+			remoteInfo = CardKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC9317B11D479278001B71B1 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9317B41D479278001B71B1 /* CardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKit.h; sourceTree = "<group>"; };
+		CC9317B61D479278001B71B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC9317BB1D479278001B71B1 /* CardKitTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9317C01D479278001B71B1 /* CardKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardKitTests.swift; sourceTree = "<group>"; };
+		CC9317C21D479278001B71B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC9317D01D47929F001B71B1 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9317D91D47929F001B71B1 /* CardKitTests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitTests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9317EC1D4792B7001B71B1 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9317F51D4792B7001B71B1 /* CardKitTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardDescriptors.swift; sourceTree = "<group>"; };
+		CC9318091D479527001B71B1 /* CardDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptors.swift; sourceTree = "<group>"; };
+		CC93180A1D479527001B71B1 /* CardId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardId.swift; sourceTree = "<group>"; };
+		CC93180B1D479527001B71B1 /* CardPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPath.swift; sourceTree = "<group>"; };
+		CC93180C1D479527001B71B1 /* CardAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CardAssets.xcassets; sourceTree = "<group>"; };
+		CC93180E1D479527001B71B1 /* DeckBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckBuilder.swift; sourceTree = "<group>"; };
+		CC93180F1D479527001B71B1 /* DeckSpecification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckSpecification.swift; sourceTree = "<group>"; };
+		CC9318111D479527001B71B1 /* CardExecutionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardExecutionEngine.swift; sourceTree = "<group>"; };
+		CC9318131D479527001B71B1 /* InputParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputParameter.swift; sourceTree = "<group>"; };
+		CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputParameterCoordinates.swift; sourceTree = "<group>"; };
+		CC9318161D479527001B71B1 /* CardRendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardRendering.swift; sourceTree = "<group>"; };
+		CC9318181D479527001B71B1 /* SerializationAndParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationAndParsing.swift; sourceTree = "<group>"; };
+		CC93181A1D479527001B71B1 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCardSpecValidation.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC9317AD1D479278001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317B81D479278001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9317BC1D479278001B71B1 /* CardKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317CC1D47929F001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317D61D47929F001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9317DA1D47929F001B71B1 /* CardKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317E81D4792B7001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317F21D4792B7001B71B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9317F61D4792B7001B71B1 /* CardKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC9317A71D479278001B71B1 = {
+			isa = PBXGroup;
+			children = (
+				CC9317B31D479278001B71B1 /* CardKit */,
+				CC9317BF1D479278001B71B1 /* CardKitTests */,
+				CC9317B21D479278001B71B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC9317B21D479278001B71B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC9317B11D479278001B71B1 /* CardKit.framework */,
+				CC9317BB1D479278001B71B1 /* CardKitTests iOS.xctest */,
+				CC9317D01D47929F001B71B1 /* CardKit.framework */,
+				CC9317D91D47929F001B71B1 /* CardKitTests macOS.xctest */,
+				CC9317EC1D4792B7001B71B1 /* CardKit.framework */,
+				CC9317F51D4792B7001B71B1 /* CardKitTests tvOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC9317B31D479278001B71B1 /* CardKit */ = {
+			isa = PBXGroup;
+			children = (
+				CC9317B41D479278001B71B1 /* CardKit.h */,
+				CC9317B61D479278001B71B1 /* Info.plist */,
+				CC93180C1D479527001B71B1 /* CardAssets.xcassets */,
+				CC9318071D479527001B71B1 /* Card */,
+				CC93180D1D479527001B71B1 /* Deck */,
+				CC9318101D479527001B71B1 /* Execution */,
+				CC9318121D479527001B71B1 /* Input */,
+				CC9318151D479527001B71B1 /* Rendering */,
+				CC9318171D479527001B71B1 /* Serialization */,
+				CC9318191D479527001B71B1 /* Token */,
+				CC93181B1D479527001B71B1 /* Validation */,
+			);
+			path = CardKit;
+			sourceTree = "<group>";
+		};
+		CC9317BF1D479278001B71B1 /* CardKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC9317C01D479278001B71B1 /* CardKitTests.swift */,
+				CC9317C21D479278001B71B1 /* Info.plist */,
+			);
+			path = CardKitTests;
+			sourceTree = "<group>";
+		};
+		CC9318071D479527001B71B1 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */,
+				CC9318091D479527001B71B1 /* CardDescriptors.swift */,
+				CC93180A1D479527001B71B1 /* CardId.swift */,
+				CC93180B1D479527001B71B1 /* CardPath.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		CC93180D1D479527001B71B1 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				CC93180E1D479527001B71B1 /* DeckBuilder.swift */,
+				CC93180F1D479527001B71B1 /* DeckSpecification.swift */,
+			);
+			path = Deck;
+			sourceTree = "<group>";
+		};
+		CC9318101D479527001B71B1 /* Execution */ = {
+			isa = PBXGroup;
+			children = (
+				CC9318111D479527001B71B1 /* CardExecutionEngine.swift */,
+			);
+			path = Execution;
+			sourceTree = "<group>";
+		};
+		CC9318121D479527001B71B1 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				CC9318131D479527001B71B1 /* InputParameter.swift */,
+				CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		CC9318151D479527001B71B1 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				CC9318161D479527001B71B1 /* CardRendering.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
+		CC9318171D479527001B71B1 /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				CC9318181D479527001B71B1 /* SerializationAndParsing.swift */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
+		CC9318191D479527001B71B1 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				CC93181A1D479527001B71B1 /* Token.swift */,
+			);
+			path = Token;
+			sourceTree = "<group>";
+		};
+		CC93181B1D479527001B71B1 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CC9317AE1D479278001B71B1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9317B51D479278001B71B1 /* CardKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317CD1D47929F001B71B1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318031D47930C001B71B1 /* CardKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317E91D4792B7001B71B1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318041D47930D001B71B1 /* CardKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CC9317B01D479278001B71B1 /* CardKit iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9317C51D479278001B71B1 /* Build configuration list for PBXNativeTarget "CardKit iOS" */;
+			buildPhases = (
+				CC9317AC1D479278001B71B1 /* Sources */,
+				CC9317AD1D479278001B71B1 /* Frameworks */,
+				CC9317AE1D479278001B71B1 /* Headers */,
+				CC9317AF1D479278001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CardKit iOS";
+			productName = CardKit;
+			productReference = CC9317B11D479278001B71B1 /* CardKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CC9317BA1D479278001B71B1 /* CardKitTests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9317C81D479278001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests iOS" */;
+			buildPhases = (
+				CC9317B71D479278001B71B1 /* Sources */,
+				CC9317B81D479278001B71B1 /* Frameworks */,
+				CC9317B91D479278001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC9317BE1D479278001B71B1 /* PBXTargetDependency */,
+			);
+			name = "CardKitTests iOS";
+			productName = CardKitTests;
+			productReference = CC9317BB1D479278001B71B1 /* CardKitTests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC9317CF1D47929F001B71B1 /* CardKit macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9317E11D47929F001B71B1 /* Build configuration list for PBXNativeTarget "CardKit macOS" */;
+			buildPhases = (
+				CC9317CB1D47929F001B71B1 /* Sources */,
+				CC9317CC1D47929F001B71B1 /* Frameworks */,
+				CC9317CD1D47929F001B71B1 /* Headers */,
+				CC9317CE1D47929F001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CardKit macOS";
+			productName = CardKit;
+			productReference = CC9317D01D47929F001B71B1 /* CardKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CC9317D81D47929F001B71B1 /* CardKitTests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9317E41D47929F001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests macOS" */;
+			buildPhases = (
+				CC9317D51D47929F001B71B1 /* Sources */,
+				CC9317D61D47929F001B71B1 /* Frameworks */,
+				CC9317D71D47929F001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC9317DC1D47929F001B71B1 /* PBXTargetDependency */,
+			);
+			name = "CardKitTests macOS";
+			productName = CardKitTests;
+			productReference = CC9317D91D47929F001B71B1 /* CardKitTests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC9317EB1D4792B7001B71B1 /* CardKit tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9317FD1D4792B7001B71B1 /* Build configuration list for PBXNativeTarget "CardKit tvOS" */;
+			buildPhases = (
+				CC9317E71D4792B7001B71B1 /* Sources */,
+				CC9317E81D4792B7001B71B1 /* Frameworks */,
+				CC9317E91D4792B7001B71B1 /* Headers */,
+				CC9317EA1D4792B7001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CardKit tvOS";
+			productName = CardKit;
+			productReference = CC9317EC1D4792B7001B71B1 /* CardKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CC9317F41D4792B7001B71B1 /* CardKitTests tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC9318001D4792B7001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests tvOS" */;
+			buildPhases = (
+				CC9317F11D4792B7001B71B1 /* Sources */,
+				CC9317F21D4792B7001B71B1 /* Frameworks */,
+				CC9317F31D4792B7001B71B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC9317F81D4792B7001B71B1 /* PBXTargetDependency */,
+			);
+			name = "CardKitTests tvOS";
+			productName = CardKitTests;
+			productReference = CC9317F51D4792B7001B71B1 /* CardKitTests tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC9317A81D479278001B71B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = IBM;
+				TargetAttributes = {
+					CC9317B01D479278001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					CC9317BA1D479278001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					CC9317CF1D47929F001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					CC9317D81D47929F001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					CC9317EB1D4792B7001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					CC9317F41D4792B7001B71B1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CC9317AB1D479278001B71B1 /* Build configuration list for PBXProject "CardKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CC9317A71D479278001B71B1;
+			productRefGroup = CC9317B21D479278001B71B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC9317B01D479278001B71B1 /* CardKit iOS */,
+				CC9317BA1D479278001B71B1 /* CardKitTests iOS */,
+				CC9317CF1D47929F001B71B1 /* CardKit macOS */,
+				CC9317D81D47929F001B71B1 /* CardKitTests macOS */,
+				CC9317EB1D4792B7001B71B1 /* CardKit tvOS */,
+				CC9317F41D4792B7001B71B1 /* CardKitTests tvOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC9317AF1D479278001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318351D479527001B71B1 /* CardAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317B91D479278001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317CE1D47929F001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318371D479527001B71B1 /* CardAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317D71D47929F001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317EA1D4792B7001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318391D479527001B71B1 /* CardAssets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317F31D4792B7001B71B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC9317AC1D479278001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC93184D1D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC93186B1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC93185F1D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC93182F1D479527001B71B1 /* CardPath.swift in Sources */,
+				CC9318651D479527001B71B1 /* Token.swift in Sources */,
+				CC9318291D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318531D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9318471D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC9318411D479527001B71B1 /* DeckSpecification.swift in Sources */,
+				CC9318231D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC93183B1D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC9318591D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC93181D1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317B71D479278001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318481D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC93183C1D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC9317C11D479278001B71B1 /* CardKitTests.swift in Sources */,
+				CC93186C1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC93184E1D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC9318241D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC9318601D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318301D479527001B71B1 /* CardPath.swift in Sources */,
+				CC93185A1D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC93182A1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93181E1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+				CC9318541D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9318661D479527001B71B1 /* Token.swift in Sources */,
+				CC9318421D479527001B71B1 /* DeckSpecification.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317CB1D47929F001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC93184F1D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC93186D1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC9318611D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318311D479527001B71B1 /* CardPath.swift in Sources */,
+				CC9318671D479527001B71B1 /* Token.swift in Sources */,
+				CC93182B1D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318551D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9318491D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC9318431D479527001B71B1 /* DeckSpecification.swift in Sources */,
+				CC9318251D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC93183D1D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC93185B1D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC93181F1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317D51D47929F001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC93184A1D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC93183E1D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC9318051D47931E001B71B1 /* CardKitTests.swift in Sources */,
+				CC93186E1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC9318501D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC9318261D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC9318621D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318321D479527001B71B1 /* CardPath.swift in Sources */,
+				CC93185C1D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC93182C1D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318201D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+				CC9318561D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9318681D479527001B71B1 /* Token.swift in Sources */,
+				CC9318441D479527001B71B1 /* DeckSpecification.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317E71D4792B7001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9318511D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC93186F1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC9318631D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318331D479527001B71B1 /* CardPath.swift in Sources */,
+				CC9318691D479527001B71B1 /* Token.swift in Sources */,
+				CC93182D1D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318571D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC93184B1D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC9318451D479527001B71B1 /* DeckSpecification.swift in Sources */,
+				CC9318271D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC93183F1D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC93185D1D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC9318211D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC9317F11D4792B7001B71B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC93184C1D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
+				CC9318401D479527001B71B1 /* DeckBuilder.swift in Sources */,
+				CC9318061D47931F001B71B1 /* CardKitTests.swift in Sources */,
+				CC9318701D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
+				CC9318521D479527001B71B1 /* InputParameter.swift in Sources */,
+				CC9318281D479527001B71B1 /* CardDescriptors.swift in Sources */,
+				CC9318641D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318341D479527001B71B1 /* CardPath.swift in Sources */,
+				CC93185E1D479527001B71B1 /* CardRendering.swift in Sources */,
+				CC93182E1D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318221D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
+				CC9318581D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC93186A1D479527001B71B1 /* Token.swift in Sources */,
+				CC9318461D479527001B71B1 /* DeckSpecification.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC9317BE1D479278001B71B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC9317B01D479278001B71B1 /* CardKit iOS */;
+			targetProxy = CC9317BD1D479278001B71B1 /* PBXContainerItemProxy */;
+		};
+		CC9317DC1D47929F001B71B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC9317CF1D47929F001B71B1 /* CardKit macOS */;
+			targetProxy = CC9317DB1D47929F001B71B1 /* PBXContainerItemProxy */;
+		};
+		CC9317F81D4792B7001B71B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC9317EB1D4792B7001B71B1 /* CardKit tvOS */;
+			targetProxy = CC9317F71D4792B7001B71B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CC9317C31D479278001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CC9317C41D479278001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CC9317C61D479278001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CC9317C71D479278001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CC9317C91D479278001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CC9317CA1D479278001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CC9317E21D47929F001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CC9317E31D47929F001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CC9317E51D47929F001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CC9317E61D47929F001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CC9317FE1D4792B7001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		CC9317FF1D4792B7001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CardKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKit;
+				PRODUCT_NAME = CardKit;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+		CC9318011D4792B7001B71B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		CC9318021D4792B7001B71B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CardKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC9317AB1D479278001B71B1 /* Build configuration list for PBXProject "CardKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317C31D479278001B71B1 /* Debug */,
+				CC9317C41D479278001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9317C51D479278001B71B1 /* Build configuration list for PBXNativeTarget "CardKit iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317C61D479278001B71B1 /* Debug */,
+				CC9317C71D479278001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9317C81D479278001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317C91D479278001B71B1 /* Debug */,
+				CC9317CA1D479278001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9317E11D47929F001B71B1 /* Build configuration list for PBXNativeTarget "CardKit macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317E21D47929F001B71B1 /* Debug */,
+				CC9317E31D47929F001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9317E41D47929F001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317E51D47929F001B71B1 /* Debug */,
+				CC9317E61D47929F001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9317FD1D4792B7001B71B1 /* Build configuration list for PBXNativeTarget "CardKit tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9317FE1D4792B7001B71B1 /* Debug */,
+				CC9317FF1D4792B7001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC9318001D4792B7001B71B1 /* Build configuration list for PBXNativeTarget "CardKitTests tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC9318011D4792B7001B71B1 /* Debug */,
+				CC9318021D4792B7001B71B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC9317A81D479278001B71B1 /* Project object */;
+}
