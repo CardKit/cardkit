@@ -12,8 +12,8 @@
 		CC9317C11D479278001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
 		CC9317DA1D47929F001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317D01D47929F001B71B1 /* CardKit.framework */; };
 		CC9317F61D4792B7001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317EC1D4792B7001B71B1 /* CardKit.framework */; };
-		CC9318031D47930C001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; };
-		CC9318041D47930D001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; };
+		CC9318031D47930C001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CC9318041D47930D001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC9318051D47931E001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
 		CC9318061D47931F001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
 		CC93181D1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */; };
