@@ -28,12 +28,12 @@
 		CC9318261D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
 		CC9318271D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
 		CC9318281D479527001B71B1 /* CardDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318091D479527001B71B1 /* CardDescriptors.swift */; };
-		CC9318291D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
-		CC93182A1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
-		CC93182B1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
-		CC93182C1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
-		CC93182D1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
-		CC93182E1D479527001B71B1 /* CardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardId.swift */; };
+		CC9318291D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
+		CC93182A1D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
+		CC93182B1D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
+		CC93182C1D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
+		CC93182D1D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
+		CC93182E1D479527001B71B1 /* CardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180A1D479527001B71B1 /* CardIdentifier.swift */; };
 		CC93182F1D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
 		CC9318301D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
 		CC9318311D479527001B71B1 /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93180B1D479527001B71B1 /* CardPath.swift */; };
@@ -79,12 +79,12 @@
 		CC93185C1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
 		CC93185D1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
 		CC93185E1D479527001B71B1 /* CardRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318161D479527001B71B1 /* CardRendering.swift */; };
-		CC93185F1D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
-		CC9318601D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
-		CC9318611D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
-		CC9318621D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
-		CC9318631D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
-		CC9318641D479527001B71B1 /* SerializationAndParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* SerializationAndParsing.swift */; };
+		CC93185F1D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
+		CC9318601D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
+		CC9318611D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
+		CC9318621D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
+		CC9318631D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
+		CC9318641D479527001B71B1 /* JsonConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9318181D479527001B71B1 /* JsonConvertable.swift */; };
 		CC9318651D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
 		CC9318661D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
 		CC9318671D479527001B71B1 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181A1D479527001B71B1 /* Token.swift */; };
@@ -97,6 +97,12 @@
 		CC93186E1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
 		CC93186F1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
 		CC9318701D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */; };
+		CC9319451D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
+		CC9319461D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
+		CC9319471D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
+		CC9319481D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
+		CC9319491D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
+		CC93194A1D49029F001B71B1 /* DictionaryConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,7 +142,7 @@
 		CC9317F51D4792B7001B71B1 /* CardKitTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardDescriptors.swift; sourceTree = "<group>"; };
 		CC9318091D479527001B71B1 /* CardDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptors.swift; sourceTree = "<group>"; };
-		CC93180A1D479527001B71B1 /* CardId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardId.swift; sourceTree = "<group>"; };
+		CC93180A1D479527001B71B1 /* CardIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardIdentifier.swift; sourceTree = "<group>"; };
 		CC93180B1D479527001B71B1 /* CardPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPath.swift; sourceTree = "<group>"; };
 		CC93180C1D479527001B71B1 /* CardAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CardAssets.xcassets; sourceTree = "<group>"; };
 		CC93180E1D479527001B71B1 /* DeckBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckBuilder.swift; sourceTree = "<group>"; };
@@ -145,9 +151,10 @@
 		CC9318131D479527001B71B1 /* InputParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputParameter.swift; sourceTree = "<group>"; };
 		CC9318141D479527001B71B1 /* InputParameterCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputParameterCoordinates.swift; sourceTree = "<group>"; };
 		CC9318161D479527001B71B1 /* CardRendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardRendering.swift; sourceTree = "<group>"; };
-		CC9318181D479527001B71B1 /* SerializationAndParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationAndParsing.swift; sourceTree = "<group>"; };
+		CC9318181D479527001B71B1 /* JsonConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonConvertable.swift; path = ../Extensions/JsonConvertable.swift; sourceTree = "<group>"; };
 		CC93181A1D479527001B71B1 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		CC93181C1D479527001B71B1 /* ActionCardSpecValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCardSpecValidation.swift; sourceTree = "<group>"; };
+		CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryConvertable.swift; path = CardKit/Extensions/DictionaryConvertable.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,9 +239,9 @@
 				CC9318101D479527001B71B1 /* Execution */,
 				CC9318121D479527001B71B1 /* Input */,
 				CC9318151D479527001B71B1 /* Rendering */,
-				CC9318171D479527001B71B1 /* Serialization */,
 				CC9318191D479527001B71B1 /* Token */,
 				CC93181B1D479527001B71B1 /* Validation */,
+				CC9318171D479527001B71B1 /* Extensions */,
 			);
 			path = CardKit;
 			sourceTree = "<group>";
@@ -251,9 +258,9 @@
 		CC9318071D479527001B71B1 /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				CC93180A1D479527001B71B1 /* CardIdentifier.swift */,
 				CC9318081D479527001B71B1 /* BasicCardDescriptors.swift */,
 				CC9318091D479527001B71B1 /* CardDescriptors.swift */,
-				CC93180A1D479527001B71B1 /* CardId.swift */,
 				CC93180B1D479527001B71B1 /* CardPath.swift */,
 			);
 			path = Card;
@@ -293,11 +300,13 @@
 			path = Rendering;
 			sourceTree = "<group>";
 		};
-		CC9318171D479527001B71B1 /* Serialization */ = {
+		CC9318171D479527001B71B1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CC9318181D479527001B71B1 /* SerializationAndParsing.swift */,
+				CC9318181D479527001B71B1 /* JsonConvertable.swift */,
+				CC9319441D49029F001B71B1 /* DictionaryConvertable.swift */,
 			);
+			name = Extensions;
 			path = Serialization;
 			sourceTree = "<group>";
 		};
@@ -355,6 +364,7 @@
 				CC9317AD1D479278001B71B1 /* Frameworks */,
 				CC9317AE1D479278001B71B1 /* Headers */,
 				CC9317AF1D479278001B71B1 /* Resources */,
+				CC93194B1D49056B001B71B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -391,6 +401,7 @@
 				CC9317CC1D47929F001B71B1 /* Frameworks */,
 				CC9317CD1D47929F001B71B1 /* Headers */,
 				CC9317CE1D47929F001B71B1 /* Resources */,
+				CC93194C1D490579001B71B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -427,6 +438,7 @@
 				CC9317E81D4792B7001B71B1 /* Frameworks */,
 				CC9317E91D4792B7001B71B1 /* Headers */,
 				CC9317EA1D4792B7001B71B1 /* Resources */,
+				CC93194D1D490581001B71B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -555,6 +567,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CC93194B1D49056B001B71B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		CC93194C1D490579001B71B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		CC93194D1D490581001B71B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CC9317AC1D479278001B71B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -562,11 +616,12 @@
 			files = (
 				CC93184D1D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC93186B1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
-				CC93185F1D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC93185F1D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC93182F1D479527001B71B1 /* CardPath.swift in Sources */,
 				CC9318651D479527001B71B1 /* Token.swift in Sources */,
-				CC9318291D479527001B71B1 /* CardId.swift in Sources */,
+				CC9318291D479527001B71B1 /* CardIdentifier.swift in Sources */,
 				CC9318531D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9319451D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC9318471D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
 				CC9318411D479527001B71B1 /* DeckSpecification.swift in Sources */,
 				CC9318231D479527001B71B1 /* CardDescriptors.swift in Sources */,
@@ -586,10 +641,11 @@
 				CC93186C1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
 				CC93184E1D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC9318241D479527001B71B1 /* CardDescriptors.swift in Sources */,
-				CC9318601D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318601D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC9318301D479527001B71B1 /* CardPath.swift in Sources */,
 				CC93185A1D479527001B71B1 /* CardRendering.swift in Sources */,
-				CC93182A1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93182A1D479527001B71B1 /* CardIdentifier.swift in Sources */,
+				CC9319461D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC93181E1D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
 				CC9318541D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
 				CC9318661D479527001B71B1 /* Token.swift in Sources */,
@@ -603,11 +659,12 @@
 			files = (
 				CC93184F1D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC93186D1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
-				CC9318611D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318611D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC9318311D479527001B71B1 /* CardPath.swift in Sources */,
 				CC9318671D479527001B71B1 /* Token.swift in Sources */,
-				CC93182B1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93182B1D479527001B71B1 /* CardIdentifier.swift in Sources */,
 				CC9318551D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9319471D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC9318491D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
 				CC9318431D479527001B71B1 /* DeckSpecification.swift in Sources */,
 				CC9318251D479527001B71B1 /* CardDescriptors.swift in Sources */,
@@ -627,10 +684,11 @@
 				CC93186E1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
 				CC9318501D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC9318261D479527001B71B1 /* CardDescriptors.swift in Sources */,
-				CC9318621D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318621D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC9318321D479527001B71B1 /* CardPath.swift in Sources */,
 				CC93185C1D479527001B71B1 /* CardRendering.swift in Sources */,
-				CC93182C1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93182C1D479527001B71B1 /* CardIdentifier.swift in Sources */,
+				CC9319481D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC9318201D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
 				CC9318561D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
 				CC9318681D479527001B71B1 /* Token.swift in Sources */,
@@ -644,11 +702,12 @@
 			files = (
 				CC9318511D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC93186F1D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
-				CC9318631D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318631D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC9318331D479527001B71B1 /* CardPath.swift in Sources */,
 				CC9318691D479527001B71B1 /* Token.swift in Sources */,
-				CC93182D1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93182D1D479527001B71B1 /* CardIdentifier.swift in Sources */,
 				CC9318571D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
+				CC9319491D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC93184B1D479527001B71B1 /* CardExecutionEngine.swift in Sources */,
 				CC9318451D479527001B71B1 /* DeckSpecification.swift in Sources */,
 				CC9318271D479527001B71B1 /* CardDescriptors.swift in Sources */,
@@ -668,10 +727,11 @@
 				CC9318701D479527001B71B1 /* ActionCardSpecValidation.swift in Sources */,
 				CC9318521D479527001B71B1 /* InputParameter.swift in Sources */,
 				CC9318281D479527001B71B1 /* CardDescriptors.swift in Sources */,
-				CC9318641D479527001B71B1 /* SerializationAndParsing.swift in Sources */,
+				CC9318641D479527001B71B1 /* JsonConvertable.swift in Sources */,
 				CC9318341D479527001B71B1 /* CardPath.swift in Sources */,
 				CC93185E1D479527001B71B1 /* CardRendering.swift in Sources */,
-				CC93182E1D479527001B71B1 /* CardId.swift in Sources */,
+				CC93182E1D479527001B71B1 /* CardIdentifier.swift in Sources */,
+				CC93194A1D49029F001B71B1 /* DictionaryConvertable.swift in Sources */,
 				CC9318221D479527001B71B1 /* BasicCardDescriptors.swift in Sources */,
 				CC9318581D479527001B71B1 /* InputParameterCoordinates.swift in Sources */,
 				CC93186A1D479527001B71B1 /* Token.swift in Sources */,

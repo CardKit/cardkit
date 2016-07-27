@@ -1,0 +1,14 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+  - line_length
+  - cyclomatic_complexity
+  - force_try # disabling force_try for realm - 'try! Realm()'
+  - file_length
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
+
+type_body_length:
+  - 400 # warning
+  - 500 # error
