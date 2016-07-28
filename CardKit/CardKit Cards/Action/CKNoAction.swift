@@ -1,5 +1,5 @@
 //
-//  CKNoActionCard.swift
+//  CKNoAction.swift
 //  CardKit
 //
 //  Created by Justin Weisz on 7/28/16.
@@ -23,4 +23,29 @@ extension CKDescriptors.Action {
         ends: true,
         endsDescription: "Ends instantly",
         version: 0)
+}
+
+/// Implementation of the NoAction card. Does nothing.
+public class CKNoAction: ActionCard {
+    init() {
+        super.init(with: CKDescriptors.Action.NoAction)
+    }
+    
+    //MARK: Execution
+    
+    override func setup() {
+        print("NoAction: setup")
+    }
+    
+    override func execute() {
+        print("NoAction: execute")
+    }
+    
+    override func interrupt() {
+        print("NoAction: interrupt")
+    }
+    
+    override func teardown() {
+        print("NoAction: teardown")
+    }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 public typealias CardInputs = [String: InputCardDescriptor]
 
+/// Applied to card descriptors that accept inputs
 protocol AcceptsInputs {
     var mandatoryInputs: CardInputs { get }
     var optionalInputs: CardInputs { get }

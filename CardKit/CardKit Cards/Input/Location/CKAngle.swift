@@ -1,5 +1,5 @@
 //
-//  CKAngleCard.swift
+//  CKAngle.swift
 //  CardKit
 //
 //  Created by Justin Weisz on 7/27/16.
@@ -20,6 +20,6 @@ extension CKDescriptors.Input.Location {
 }
 
 /// Implementation of the Angle card
-public class CKAngleCard: Card {
+public class CKAngle: InputCard {
     
 }

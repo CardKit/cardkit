@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Applied to card descriptors that are satisfiable
 protocol Satisfiable {
     var ends: Bool { get }
     var endDescription: String { get }

@@ -8,10 +8,9 @@
 
 import Foundation
 
-public class Card {
-    var descriptor: CardDescriptor
-    
-    init(with descriptor: CardDescriptor) {
-        self.descriptor = descriptor
-    }
+public protocol Card {
+    var identifier: CardIdentifier { get }
+    var description: String { get }
+    var assetCatalog: CardAssetCatalog { get }
+    var cardType: CardType { get }
 }

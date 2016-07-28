@@ -9,5 +9,14 @@
 import Foundation
 
 public class HandCard: Card {
+    public var identifier: CardIdentifier { return descriptor.identifier }
+    public var description: String { return descriptor.description }
+    public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
+    public var cardType: CardType { return descriptor.cardType }
     
+    public let descriptor: HandCardDescriptor
+    
+    init(with descriptor: HandCardDescriptor) {
+        self.descriptor = descriptor
+    }
 }
