@@ -23,9 +23,9 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
         }
     }
     
-    public init(name: String, subpath: String, description: String, assetCatalog: CardAssetCatalog, isConsumable: Bool, version: Int = 0) {
-        let p = (subpath == "") ? "Token" : "Token/\(subpath)"
-        self.identifier = CardIdentifier(path: p, name: name, version: version)
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, isConsumable: Bool, version: Int = 0) {
+        let p = "Token/\(subpath)" ?? "Token"
+        self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
         self.isConsumable = isConsumable

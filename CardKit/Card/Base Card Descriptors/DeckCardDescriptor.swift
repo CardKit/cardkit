@@ -21,9 +21,9 @@ public struct DeckCardDescriptor: CardDescriptor {
         }
     }
     
-    public init(name: String, subpath: String, description: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
-        let p = (subpath == "") ? "Deck" : "Deck/\(subpath)"
-        self.identifier = CardIdentifier(path: p, name: name, version: version)
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
+        let p = "Deck/\(subpath)" ?? "Deck"
+        self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
     }

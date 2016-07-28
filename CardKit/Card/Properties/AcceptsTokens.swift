@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CardTokens = [String: TokenCard]
+public typealias CardTokens = [String: TokenCardDescriptor]
 
 protocol AcceptsTokens {
     var tokens: CardTokens { get }

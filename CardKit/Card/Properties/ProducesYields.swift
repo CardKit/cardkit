@@ -8,7 +8,8 @@
 
 import Foundation
 
-protocol Yields {
-    var yields: Bool { get }
+protocol ProducesYields {
+    var producesYields: Bool { get }
     var yieldDescription: String { get }
+    var yields: [YieldType] { get }
 }

@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 public typealias CardInputs = [String: InputCardDescriptor]
 
 protocol AcceptsInputs {

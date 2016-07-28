@@ -9,6 +9,6 @@
 import Foundation
 
 protocol Satisfiable {
-    var ends : Bool { get }
+    var ends: Bool { get }
     var endDescription: String { get }
 }

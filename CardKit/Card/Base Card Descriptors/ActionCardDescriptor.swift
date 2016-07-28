@@ -10,7 +10,7 @@ import Foundation
 
 import Freddy
 
-public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens, Yields, Satisfiable {
+public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens, ProducesYields, Satisfiable {
     public let identifier: CardIdentifier
     public let description: String
     public let assetCatalog: CardAssetCatalog
@@ -20,8 +20,9 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     
     public let tokens: CardTokens
     
-    public let yields: Bool
+    public let producesYields: Bool
     public let yieldDescription: String
+    public let yields: [YieldType]
     
     public let ends: Bool
     public let endDescription: String
@@ -32,33 +33,18 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
         }
     }
     
-    public init(name: String, subpath: String, description: String, assetCatalog: CardAssetCatalog, mandatoryInputs: CardInputs?, optionalInputs: CardInputs?, tokens: CardTokens?, yields: Bool, yieldDescription: String?, ends: Bool, endsDescription: String, version: Int = 0) {
-        let p = (subpath == "") ? "Action" : "Action/\(subpath)"
-        self.identifier = CardIdentifier(path: p, name: name, version: version)
+    //swiftlint:disable:next function_parameter_count
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, mandatoryInputs: CardInputs?, optionalInputs: CardInputs?, tokens: CardTokens?, producesYields: Bool, yieldDescription: String?, yields: [YieldType]?, ends: Bool, endsDescription: String, version: Int = 0) {
+        let p = "Action/\(subpath)" ?? "Action"
+        self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
-        
-        if let mi = mandatoryInputs {
-            self.mandatoryInputs = mi
-        } else {
-            self.mandatoryInputs = [:]
-        }
-        
-        if let oi = self.optionalInputs {
-            self.optionalInputs = oi
-        } else {
-            self.optionalInputs = [:]
-        }
-        
-        if let t = self.tokens {
-            self.tokens = t
-        } else {
-            self.tokens = [:]
-        }
-        
-        self.yields = yields
-        self.yieldDescription = yieldDescription
-        
+        self.mandatoryInputs = mandatoryInputs ?? [:]
+        self.optionalInputs = optionalInputs ?? [:]
+        self.tokens = tokens ?? [:]
+        self.producesYields = producesYields
+        self.yieldDescription = yieldDescription ?? ""
+        self.yields = yields ?? []
         self.ends = ends
         self.endDescription = endsDescription
     }
@@ -75,7 +61,9 @@ extension ActionCardDescriptor: JSONEncodable {
             "mandatoryInputs": mandatoryInputs.toJSON(),
             "optionalInputs": optionalInputs.toJSON(),
             "tokens": tokens.toJSON(),
+            "producesYields": producesYields.toJSON(),
             "yieldDescription": yieldDescription.toJSON(),
+            "yields": yields.toJSON(),
             "ends": ends.toJSON(),
             "endDescription": endDescription.toJSON(),
             "cardType": cardType.toJSON()
@@ -90,24 +78,30 @@ extension ActionCardDescriptor: JSONDecodable {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        
-        let mandatoryInputs = try json.dictionary("mandatoryInputs")
-        for (k,v) in mandatoryInputs {
-            self.mandatoryInputs[k] = try InputCardDescriptor(json: v)
-        }
-        
-        let optionalInputs = try json.dictionary("optionalInputs")
-        for (k,v) in optionalInputs {
-            self.optionalInputs[k] = try InputCardDescriptor(json: v)
-        }
-        
-        let tokens = try json.dictionary("tokens")
-        for (k,v) in tokens {
-            self.tokens[k] = try TokenCardDescriptor(json: v)
-        }
-        
+        self.mandatoryInputs = try json.dictionary("mandatoryInputs").withDecodedValues()
+        self.optionalInputs = try json.dictionary("optionalInputs").withDecodedValues()
+        self.tokens = try json.dictionary("tokens").withDecodedValues()
+        self.producesYields = try json.bool("producesYields")
         self.yieldDescription = try json.string("yieldDescription")
+        self.yields = try json.arrayOf("yields", type: YieldType.self)
         self.ends = try json.bool("ends")
         self.endDescription = try json.string("endDescription")
+    }
+}
+
+
+//MARK: Dictionary
+
+extension Dictionary where Key: StringLiteralConvertible {
+    func withDecodedValues<T where T: JSONDecodable>() throws -> [String : T] {
+        var dict: [String : T] = [:]
+        for (k, v) in self {
+            //swiftlint:disable:next conditional_binding_cascade
+            if let stringKey = k as? String, let jsonVal = v as? JSON {
+                let obj = try T(json: jsonVal)
+                dict[stringKey] = obj
+            }
+        }
+        return dict
     }
 }
