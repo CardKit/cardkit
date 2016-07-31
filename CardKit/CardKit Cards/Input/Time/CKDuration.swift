@@ -26,5 +26,15 @@ extension CKDescriptors.Input.Time {
 
 /// Implementation of the Duration card
 public class CKDuration: InputCard {
+    public var duration: NSTimeInterval
     
+    init(with duration: NSTimeInterval) {
+        self.duration = duration
+        
+        super.init(with: CKDescriptors.Input.Time.Duration)
+    }
+    
+    override func getInputValue() -> YieldBinding? {
+        return .SwiftDouble(duration)
+    }
 }

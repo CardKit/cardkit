@@ -79,5 +79,6 @@ protocol ImplementsAcceptsInputs {
     var inputBindings: [InputCardSlot : InputCard] { get }
     func bind(card: InputCard, to slot: InputCardSlot)
     func unbind(slot: InputCardSlot)
+    func isBound(slot: InputCardSlot) -> Bool
     func valueForInput(slot: InputCardSlot) -> YieldBinding?
 }

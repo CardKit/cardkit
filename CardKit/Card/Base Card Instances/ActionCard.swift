@@ -40,7 +40,7 @@ public class ActionCard: Executable {
     }
 }
 
-//MARK: Card
+//MARK:- Card
 
 extension ActionCard: Card {
     // Card protocol
@@ -50,11 +50,15 @@ extension ActionCard: Card {
     public var cardType: CardType { return descriptor.cardType }
 }
 
-//MARK: ImplementsAcceptsInputs
+//MARK:- ImplementsAcceptsInputs
 
 extension ActionCard: ImplementsAcceptsInputs {
     func bind(card: InputCard, to slot: InputCardSlot) {
-        if let _ = self.inputBindings[slot] {
+        // it's not truly necessary to call unbind before doing the
+        // re-assignment, but i'm leaving this here just in case
+        // bind() / unbind() become more complicated in the future
+        // and it becomes necessary.
+        if self.isBound(slot) {
             self.unbind(slot)
         }
         
@@ -65,20 +69,25 @@ extension ActionCard: ImplementsAcceptsInputs {
         self.inputBindings.removeValueForKey(slot)
     }
     
+    func isBound(slot: InputCardSlot) -> Bool {
+        guard let _ = self.inputBindings[slot] else { return false }
+        return true
+    }
+    
     func valueForInput(slot: InputCardSlot) -> YieldBinding? {
         if let card = self.inputBindings[slot] {
-            return card.inputValue
+            return card.getInputValue()
         } else {
             return nil
         }
     }
 }
 
-//MARK: ImplementsAcceptsTokens
+//MARK:- ImplementsAcceptsTokens
 
 extension ActionCard: ImplementsAcceptsTokens {
     func bind(card: TokenCard, to slot: TokenCardSlot) {
-        if let _ = self.tokenBindings[slot] {
+        if self.isBound(slot) {
             self.unbind(slot)
         }
         
@@ -87,5 +96,10 @@ extension ActionCard: ImplementsAcceptsTokens {
     
     func unbind(slot: TokenCardSlot) {
         self.tokenBindings.removeValueForKey(slot)
+    }
+    
+    func isBound(slot: TokenCardSlot) -> Bool {
+        guard let _ = self.tokenBindings[slot] else { return false }
+        return true
     }
 }

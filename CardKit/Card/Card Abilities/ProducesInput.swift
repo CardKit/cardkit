@@ -16,5 +16,6 @@ protocol ProducesInput {
 
 /// Appled to card instances that produce input
 protocol ImplementsProducesInput {
-    var inputValue: YieldBinding? { get }
+//    var inputValue: YieldBinding? { get }
+    func getInputValue() -> YieldBinding?
 }

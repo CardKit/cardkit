@@ -545,8 +545,8 @@
 				CC9319911D4937C9001B71B1 /* Card Descriptor */,
 				CC931A331D495457001B71B1 /* Base Card Descriptors */,
 				CC931A651D496184001B71B1 /* Base Card Instances */,
-				CC931AAD1D4A7F62001B71B1 /* Yields */,
 				CC931C451D4E57D1001B71B1 /* Card Abilities */,
+				CC931AAD1D4A7F62001B71B1 /* Yields */,
 			);
 			path = Card;
 			sourceTree = "<group>";
