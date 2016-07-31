@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Time {
         subpath: "Time",
         description: "Duration (seconds)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.SwiftInt],
+        inputType: .SwiftInt,
+        inputDescription: "Duration (seconds)",
         version: 0)
 }
 

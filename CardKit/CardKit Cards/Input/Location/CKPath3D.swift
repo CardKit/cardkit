@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Location {
         subpath: "Location",
         description: "Path (3D)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.Coordinate3DPath],
+        inputType: .Coordinate3DPath,
+        inputDescription: "3D coordinate path",
         version: 0)
 }
 

@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Location {
         subpath: "Location",
         description: "Angle (in degrees)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.SwiftDouble],
+        inputType: .SwiftDouble,
+        inputDescription: "Angle (in degrees)",
         version: 0)
 }
 

@@ -228,8 +228,6 @@ extension YieldBinding: JSONDecodable {
         case .CardinalDirection:
             let value = try json.decode("value", type: YieldCardinalDirection.self)
             self = .CardinalDirection(value)
-        default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
         }
     }
 }

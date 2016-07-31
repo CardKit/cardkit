@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Location {
         subpath: "Location",
         description: "Distance (meters)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.SwiftDouble],
+        inputType: .SwiftDouble,
+        inputDescription: "Distance (meters)",
         version: 0)
 }
 

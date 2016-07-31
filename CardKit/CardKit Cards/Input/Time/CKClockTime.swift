@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Time {
         subpath: "Time",
         description: "Time (date & time)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.SwiftDate],
+        inputType: .SwiftDate,
+        inputDescription: "Date & time string",
         version: 0)
 }
 

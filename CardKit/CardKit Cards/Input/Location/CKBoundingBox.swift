@@ -17,7 +17,8 @@ extension CKDescriptors.Input.Location {
         subpath: "Location",
         description: "Bounding Box (2D)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.Coordinate2DPath],
+        inputType: .Coordinate2DPath,
+        inputDescription: "Set of 2D coordinates",
         version: 0)
 }
 

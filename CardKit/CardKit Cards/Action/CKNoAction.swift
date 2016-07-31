@@ -29,21 +29,21 @@ public class CKNoAction: ActionCard {
         super.init(with: CKDescriptors.Action.NoAction)
     }
     
-    //MARK: Execution
+    //MARK: Executable
     
     override func setup() {
-        print("NoAction: setup")
+        print("CKNoAction: setup")
     }
     
     override func execute() {
-        print("NoAction: execute")
+        print("CKNoAction: execute")
     }
     
     override func interrupt() {
-        print("NoAction: interrupt")
+        print("CKNoAction: interrupt")
     }
     
     override func teardown() {
-        print("NoAction: teardown")
+        print("CKNoAction: teardown")
     }
 }

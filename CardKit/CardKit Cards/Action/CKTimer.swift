@@ -8,24 +8,16 @@
 
 import Foundation
 
-//MARK: CKTimer Inputs
-
-public enum CKTimerInput: String {
-    case Duration
-}
-
 //MARK: CKTimer Descriptor
 
 extension CKDescriptors.Action.Trigger.Time {
     /// Descriptor for Timer card
-    public static let _timerSlot = InputCardSlot(identifier: CKTimerInput.Duration.rawValue, descriptor: CKDescriptors.Input.Time.Duration, isOptional: false)
-    
     public static let Timer = ActionCardDescriptor(
         name: "Timer",
         subpath: "Trigger/Time",
         description: "Set a timer",
         assetCatalog: CardAssetCatalog(),
-        inputs: [_timerSlot],
+        inputs: [CKTimer.Input.Duration],
         tokens: nil,
         yields: nil,
         yieldDescription: nil,
@@ -40,5 +32,32 @@ extension CKDescriptors.Action.Trigger.Time {
 public class CKTimer: ActionCard {
     init() {
         super.init(with: CKDescriptors.Action.Trigger.Time.Timer)
+    }
+    
+    //MARK: Inputs
+    public struct Input {
+        private init() {}
+        public static let Duration = InputCardSlot(
+            identifier: "Duration",
+            descriptor: CKDescriptors.Input.Time.Duration,
+            isOptional: false)
+    }
+    
+    //MARK: Executable
+    
+    override func setup() {
+        print("CKTimer: setup")
+    }
+    
+    override func execute() {
+        print("CKTImer: execute")
+    }
+    
+    override func interrupt() {
+        print("CKTimer: interrupt")
+    }
+    
+    override func teardown() {
+        print("CKTimer: teardown")
     }
 }

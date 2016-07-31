@@ -11,7 +11,8 @@ import Foundation
 /// Defines the descriptor hierarchy for all cards in CardKit, grouped by type (Action, Deck, Hand, Input, Token). Each card's implementation should extend this struct to add a new static member for its descriptor.
 // swiftlint:disable nesting
 public struct CKDescriptors {
-
+    private init() {}
+    
     // note these cannot be defined in extensions, otherwise they won't 
     // be extendable from the swift files for card implementations
     

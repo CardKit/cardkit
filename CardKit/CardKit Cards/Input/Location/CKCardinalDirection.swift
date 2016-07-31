@@ -12,13 +12,14 @@ import Foundation
 
 extension CKDescriptors.Input.Location {
     /// Descriptor for Cardinal Direction card
-    /*public static let CardinalDirection = InputCardDescriptor(
+    public static let CardinalDirection = InputCardDescriptor(
         name: "Cardinal Direction",
         subpath: "Location",
         description: "Cardinal Direction (N, S, E, W)",
         assetCatalog: CardAssetCatalog(),
-        provides: [.CardinalDirection],
-        version: 0)*/
+        inputType: .CardinalDirection,
+        inputDescription: "Cardinal Direction",
+        version: 0)
 }
 
 //MARK: CKCardinalDirection Implementation
