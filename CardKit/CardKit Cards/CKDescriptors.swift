@@ -24,11 +24,11 @@ public struct CKDescriptors {
         /// Contains descriptors for Action/Trigger cards
         public struct Trigger {
             private init() {}
-        }
-        
-        /// Contains descriptors for Action/Trigger/Time cards
-        public struct Time {
-            private init() {}
+            
+            /// Contains descriptors for Action/Trigger/Time cards
+            public struct Time {
+                private init() {}
+            }
         }
     }
 

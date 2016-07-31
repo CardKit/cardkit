@@ -8,9 +8,13 @@
 
 import Foundation
 
-/// Applied to card descriptors that produces yields
+/// Applied to card descriptors that produce yields
 protocol ProducesYields {
-    var producesYields: Bool { get }
-    var yieldDescription: String { get }
     var yields: [YieldType] { get }
+    var yieldDescription: String { get }
+}
+
+/// Applied to card instances that produce yields
+protocol ImplementsProducesYields {
+    
 }

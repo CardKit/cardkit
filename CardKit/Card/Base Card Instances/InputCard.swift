@@ -8,15 +8,26 @@
 
 import Foundation
 
-public class InputCard: Card {
-    public var identifier: CardIdentifier { return descriptor.identifier }
-    public var description: String { return descriptor.description }
-    public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
-    public var cardType: CardType { return descriptor.cardType }
-    
+public class InputCard {
     public let descriptor: InputCardDescriptor
+    
+    // ImplementsProducesInput
+    var inputValue: YieldBinding? = nil
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
 }
+
+//MARK: Card
+
+extension InputCard: Card {
+    public var identifier: CardIdentifier { return descriptor.identifier }
+    public var description: String { return descriptor.description }
+    public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
+    public var cardType: CardType { return descriptor.cardType }
+}
+
+//MARK: ImplementsProducesInput
+
+extension InputCard: ImplementsProducesInput {}

@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+//MARK: CKCardinalDirection Descriptor
+
+extension CKDescriptors.Input.Location {
+    /// Descriptor for Cardinal Direction card
+    /*public static let CardinalDirection = InputCardDescriptor(
+        name: "Cardinal Direction",
+        subpath: "Location",
+        description: "Cardinal Direction (N, S, E, W)",
+        assetCatalog: CardAssetCatalog(),
+        provides: [.CardinalDirection],
+        version: 0)*/
+}
+
+//MARK: CKCardinalDirection Implementation
+
+/// Implementation of the CKCardinalDirection card
+public class CKCardinalDirection: InputCard {
+    
+}

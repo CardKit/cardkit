@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+//MARK: CKBoundingBox Descriptor
+
+extension CKDescriptors.Input.Location {
+    /// Descriptor for Bounding Box card
+    public static let BoundingBox = InputCardDescriptor(
+        name: "Bounding Box",
+        subpath: "Location",
+        description: "Bounding Box (2D)",
+        assetCatalog: CardAssetCatalog(),
+        provides: [.Coordinate2DPath],
+        version: 0)
+}
+
+//MARK: CKBoundingBox Implementation
+
+/// Implementation of the Bounding Box card
+public class CKBoundingBox: InputCard {
+    
+}

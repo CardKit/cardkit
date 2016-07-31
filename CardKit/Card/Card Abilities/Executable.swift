@@ -8,9 +8,8 @@
 
 import Foundation
 
+/// Appled to card instances that are executable
 protocol Executable {
-    var executionFinished: Bool { get }
-    
     func setup()
     func execute()
     func interrupt()

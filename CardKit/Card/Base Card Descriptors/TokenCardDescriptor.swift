@@ -17,11 +17,7 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     
     public let isConsumable: Bool
     
-    public var cardType: CardType {
-        get {
-            return .Token
-        }
-    }
+    public let cardType: CardType = .Token
     
     public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, isConsumable: Bool, version: Int = 0) {
         let p = "Token/\(subpath)" ?? "Token"
@@ -29,6 +25,25 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
         self.description = description
         self.assetCatalog = assetCatalog
         self.isConsumable = isConsumable
+    }
+}
+
+//MARK: Equatable
+
+extension TokenCardDescriptor: Equatable {}
+
+public func == (lhs: TokenCardDescriptor, rhs: TokenCardDescriptor) -> Bool {
+    var equal = true
+    equal = equal && lhs.identifier == rhs.identifier
+    // TODO: need to test other fields here?
+    return equal
+}
+
+//MARK: Hashable
+
+extension TokenCardDescriptor: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
     }
 }
 

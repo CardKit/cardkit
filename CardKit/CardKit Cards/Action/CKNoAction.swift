@@ -12,16 +12,14 @@ extension CKDescriptors.Action {
     public static let NoAction = ActionCardDescriptor(
         name: "No Action",
         subpath: nil,
-        description: "No action performed. Used as a placeholder.",
+        description: "No action performed.",
         assetCatalog: CardAssetCatalog(),
-        mandatoryInputs: nil,
-        optionalInputs: nil,
+        inputs: nil,
         tokens: nil,
-        producesYields: false,
-        yieldDescription: nil,
         yields: nil,
+        yieldDescription: nil,
         ends: true,
-        endsDescription: "Ends instantly",
+        endsDescription: "Ends instantly.",
         version: 0)
 }
 

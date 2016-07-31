@@ -15,38 +15,53 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public let mandatoryInputs: CardInputs
-    public let optionalInputs: CardInputs
+    public let inputs: [InputCardSlot]
+    public let tokens: [TokenCardSlot]
     
-    public let tokens: CardTokens
-    
-    public let producesYields: Bool
-    public let yieldDescription: String
+    public var producesYields: Bool {
+        get {
+            return yields.count > 0
+        }
+    }
     public let yields: [YieldType]
+    public let yieldDescription: String
     
     public let ends: Bool
     public let endDescription: String
     
-    public var cardType: CardType {
-        get {
-            return .Action
-        }
-    }
+    public let cardType: CardType = .Action
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, mandatoryInputs: CardInputs?, optionalInputs: CardInputs?, tokens: CardTokens?, producesYields: Bool, yieldDescription: String?, yields: [YieldType]?, ends: Bool, endsDescription: String, version: Int = 0) {
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputs: [InputCardSlot]?, tokens: [TokenCardSlot]?, yields: [YieldType]?, yieldDescription: String?, ends: Bool, endsDescription: String, version: Int = 0) {
         let p = "Action/\(subpath)" ?? "Action"
         self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
-        self.mandatoryInputs = mandatoryInputs ?? [:]
-        self.optionalInputs = optionalInputs ?? [:]
-        self.tokens = tokens ?? [:]
-        self.producesYields = producesYields
-        self.yieldDescription = yieldDescription ?? ""
+        self.inputs = inputs ?? []
+        self.tokens = tokens ?? []
         self.yields = yields ?? []
+        self.yieldDescription = yieldDescription ?? ""
         self.ends = ends
         self.endDescription = endsDescription
+    }
+}
+
+//MARK: Equatable
+
+extension ActionCardDescriptor: Equatable {}
+
+public func == (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Bool {
+    var equal = true
+    equal = equal && lhs.identifier == rhs.identifier
+    // TODO: need to test other fields here?
+    return equal
+}
+
+//MARK: Hashable
+
+extension ActionCardDescriptor: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
     }
 }
 
@@ -58,12 +73,10 @@ extension ActionCardDescriptor: JSONEncodable {
             "identifier": identifier.toJSON(),
             "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
-            "mandatoryInputs": mandatoryInputs.toJSON(),
-            "optionalInputs": optionalInputs.toJSON(),
+            "inputs": inputs.toJSON(),
             "tokens": tokens.toJSON(),
-            "producesYields": producesYields.toJSON(),
-            "yieldDescription": yieldDescription.toJSON(),
             "yields": yields.toJSON(),
+            "yieldDescription": yieldDescription.toJSON(),
             "ends": ends.toJSON(),
             "endDescription": endDescription.toJSON(),
             "cardType": cardType.toJSON()
@@ -78,12 +91,10 @@ extension ActionCardDescriptor: JSONDecodable {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.mandatoryInputs = try json.dictionary("mandatoryInputs").withDecodedValues()
-        self.optionalInputs = try json.dictionary("optionalInputs").withDecodedValues()
-        self.tokens = try json.dictionary("tokens").withDecodedValues()
-        self.producesYields = try json.bool("producesYields")
-        self.yieldDescription = try json.string("yieldDescription")
+        self.inputs = try json.arrayOf("inputs", type: InputCardSlot.self)
+        self.tokens = try json.arrayOf("tokens", type: TokenCardSlot.self)
         self.yields = try json.arrayOf("yields", type: YieldType.self)
+        self.yieldDescription = try json.string("yieldDescription")
         self.ends = try json.bool("ends")
         self.endDescription = try json.string("endDescription")
     }
@@ -91,7 +102,7 @@ extension ActionCardDescriptor: JSONDecodable {
 
 
 //MARK: Dictionary
-
+/*
 extension Dictionary where Key: StringLiteralConvertible {
     func withDecodedValues<T where T: JSONDecodable>() throws -> [String : T] {
         var dict: [String : T] = [:]
@@ -105,3 +116,4 @@ extension Dictionary where Key: StringLiteralConvertible {
         return dict
     }
 }
+*/

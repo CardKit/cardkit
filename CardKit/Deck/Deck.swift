@@ -9,7 +9,7 @@
 import Foundation
 
 public class Deck {
-    public var hands: [HandIdentifier : Hand]
+    //public var hands: [HandIdentifier : Hand]
     
     /// Specifies whether execution should loop back to the first hand
     /// or terminate once all the hands have executed

@@ -8,15 +8,19 @@
 
 import Foundation
 
-public class DeckCard: Card {
-    public var identifier: CardIdentifier { return descriptor.identifier }
-    public var description: String { return descriptor.description }
-    public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
-    public var cardType: CardType { return descriptor.cardType }
-    
+public class DeckCard {
     public let descriptor: DeckCardDescriptor
     
     init(with descriptor: DeckCardDescriptor) {
         self.descriptor = descriptor
     }
+}
+
+//MARK: Card
+
+extension DeckCard: Card {
+    public var identifier: CardIdentifier { return descriptor.identifier }
+    public var description: String { return descriptor.description }
+    public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
+    public var cardType: CardType { return descriptor.cardType }
 }

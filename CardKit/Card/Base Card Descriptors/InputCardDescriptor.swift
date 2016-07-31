@@ -10,24 +10,42 @@ import Foundation
 
 import Freddy
 
-public struct InputCardDescriptor: CardDescriptor, ProducesYields {
+public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     public let identifier: CardIdentifier
     public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public var producesYields: Bool = true
-    public var yieldDescription: String
-    public var yields: [YieldType]
+    public var inputType: YieldType
+    public var inputDescription: String
     
-    public var cardType: CardType = .Input
+    public let cardType: CardType = .Input
     
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, provides inputs: [YieldType], version: Int = 0) {
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputType: YieldType, inputDescription: String, version: Int = 0) {
         let p = "Input/\(subpath)" ?? "Input"
         self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
-        self.yields = inputs
-        self.yieldDescription = description
+        self.inputType = inputType
+        self.inputDescription = inputDescription
+    }
+}
+
+//MARK: Equatable
+
+extension InputCardDescriptor: Equatable {}
+
+public func == (lhs: InputCardDescriptor, rhs: InputCardDescriptor) -> Bool {
+    var equal = true
+    equal = equal && lhs.identifier == rhs.identifier
+    // TODO: need to test other fields here?
+    return equal
+}
+
+//MARK: Hashable
+
+extension InputCardDescriptor: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
     }
 }
 
@@ -39,9 +57,8 @@ extension InputCardDescriptor: JSONEncodable {
             "identifier": identifier.toJSON(),
             "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
-            "producesYields": producesYields.toJSON(),
-            "yieldDescription": description.toJSON(),
-            "yields": yields.toJSON()
+            "inputType": inputType.toJSON(),
+            "inputDescription": inputDescription.toJSON()
             ])
     }
 }
@@ -53,7 +70,7 @@ extension InputCardDescriptor: JSONDecodable {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.yieldDescription = try json.string("yieldDescription")
-        self.yields = try json.arrayOf("yields", type: YieldType.self)
+        self.inputType = try json.decode("inputType", type: YieldType.self)
+        self.inputDescription = try json.string("inputDescription")
     }
 }

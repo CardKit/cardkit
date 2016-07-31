@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+//MARK: CKLocation Descriptor
+
+extension CKDescriptors.Input.Location {
+    /// Descriptor for Location card
+    public static let Location = InputCardDescriptor(
+        name: "Location",
+        subpath: "Location",
+        description: "Location (3D coordinate)",
+        assetCatalog: CardAssetCatalog(),
+        provides: [.Coordinate3D],
+        version: 0)
+}
+
+//MARK: CKLocation Implementation
+
+/// Implementation of the CKLocation card
+public class CKLocation: InputCard {
+    
+}

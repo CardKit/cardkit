@@ -1,5 +1,5 @@
 //
-//  InputParameter.swift
+//  Yield.swift
 //  CardKit
 //
 //  Created by Justin Manweiler on 7/27/16.
@@ -12,16 +12,23 @@ import Freddy
 
 //MARK: YieldType
 
-/// Represents the type of an InputParameter
+/// Represents the type of a Yield
 public enum YieldType: String {
+    // swift primitives
     case SwiftInt
     case SwiftDouble
     case SwiftString
     case SwiftData
+    case SwiftDate
+    
+    // coordinates
     case Coordinate2D
     case Coordinate2DPath
     case Coordinate3D
     case Coordinate3DPath
+    
+    // direction
+    case CardinalDirection
 }
 
 //MARK: CustomStringConvertable
@@ -40,13 +47,15 @@ extension YieldType: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
         case .SwiftInt:
-            return .String("Int")
+            return .String("SwiftInt")
         case .SwiftDouble:
-            return .String("Double")
+            return .String("SwiftDouble")
         case .SwiftString:
-            return .String("String")
+            return .String("SwiftString")
         case .SwiftData:
-            return .String("Data")
+            return .String("SwiftData")
+        case .SwiftDate:
+            return .String("SwiftDate")
         case .Coordinate2D:
             return .String("Coordinate2D")
         case .Coordinate2DPath:
@@ -55,6 +64,8 @@ extension YieldType: JSONEncodable {
             return .String("Coordinate3D")
         case .Coordinate3DPath:
             return .String("Coordinate3DPath")
+        case .CardinalDirection:
+            return .String("CardinalDirection")
         }
     }
 }
@@ -64,26 +75,10 @@ extension YieldType: JSONEncodable {
 extension YieldType: JSONDecodable {
     public init(json: JSON) throws {
         let type = try json.string()
-        switch type {
-        case "Int":
-            self = .SwiftInt
-        case "Double":
-            self = .SwiftDouble
-        case "String":
-            self = .SwiftString
-        case "Data":
-            self = .SwiftData
-        case "CKCoordinate2D":
-            self = .Coordinate2D
-        case "CKCoordinate2DPath":
-            self = .Coordinate2DPath
-        case "CKCoordinate3D":
-            self = .Coordinate3D
-        case "CKCoordinate3DPath":
-            self = .Coordinate3DPath
-        default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: YieldType.self)
+        guard let typeEnum = YieldType(rawValue: type) else {
+            throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
         }
+        self = typeEnum
     }
 }
 
@@ -96,10 +91,12 @@ public enum YieldBinding {
     case SwiftDouble(Double)
     case SwiftString(String)
     case SwiftData(NSData)
-    case Coordinate2D(CKCoordinate2D)
-    case Coordinate2DPath([CKCoordinate2D])
-    case Coordinate3D(CKCoordinate3D)
-    case Coordinate3DPath([CKCoordinate3D])
+    case SwiftDate(NSDate)
+    case Coordinate2D(YieldCoordinate2D)
+    case Coordinate2DPath([YieldCoordinate2D])
+    case Coordinate3D(YieldCoordinate3D)
+    case Coordinate3DPath([YieldCoordinate3D])
+    case CardinalDirection(YieldCardinalDirection)
 }
 
 //MARK: CustomStringConvertable
@@ -116,6 +113,8 @@ extension YieldBinding: CustomStringConvertible {
                 return "\(val) [string]"
             case .SwiftData(let val):
                 return "\(val.length) bytes [data]"
+            case .SwiftDate(let val):
+                return "\(val) [date]"
             case .Coordinate2D(let val):
                 return "\(val) [coord2d]"
             case .Coordinate2DPath(let val):
@@ -124,6 +123,8 @@ extension YieldBinding: CustomStringConvertible {
                 return "\(val) [coord3d]"
             case .Coordinate3DPath(let val):
                 return "\(val) [coord3dpath]"
+            case .CardinalDirection(let val):
+                return "\(val) [cardinal direction]"
             }
         }
     }
@@ -136,36 +137,44 @@ extension YieldBinding: JSONEncodable {
         switch self {
         case .SwiftInt(let val):
             return .Dictionary([
-                "type": "Int",
+                "type": "SwiftInt",
                 "value": val.toJSON()])
         case .SwiftDouble(let val):
             return .Dictionary([
-                "type": "Double",
+                "type": "SwiftDouble",
                 "value": val.toJSON()])
         case .SwiftString(let val):
             return .Dictionary([
-                "type": "String",
+                "type": "SwiftString",
                 "value": val.toJSON()])
         case .SwiftData(let val):
             let base64 = val.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             return .Dictionary([
-                "type": "Data",
+                "type": "SwiftData",
                 "value": base64.toJSON()])
+        case .SwiftDate(let val):
+            return .Dictionary([
+                "type": "SwiftDate",
+                "value": val.gmtTimeString.toJSON()])
         case .Coordinate2D(let val):
             return .Dictionary([
-                "type": "CKCoordinate2D",
+                "type": "YieldCoordinate2D",
                 "value": val.toJSON()])
         case .Coordinate2DPath(let val):
             return .Dictionary([
-                "type": "CKCoordinate2DPath",
+                "type": "YieldCoordinate2DPath",
                 "value": val.toJSON()])
         case .Coordinate3D(let val):
             return .Dictionary([
-                "type": "CKCoordinate3D",
+                "type": "YieldCoordinate3D",
                 "value": val.toJSON()])
         case .Coordinate3DPath(let val):
             return .Dictionary([
-                "type": "CKCoordinate3DPath",
+                "type": "YieldCoordinate3DPath",
+                "value": val.toJSON()])
+        case .CardinalDirection(let val):
+            return .Dictionary([
+                "type": "YieldCardinalDirection",
                 "value": val.toJSON()])
         }
     }
@@ -176,35 +185,49 @@ extension YieldBinding: JSONEncodable {
 extension YieldBinding: JSONDecodable {
     public init(json: JSON) throws {
         let type = try json.string("type")
-        switch type {
-        case "Int":
+        guard let typeEnum = YieldType(rawValue: type) else {
+            throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
+        }
+        
+        switch typeEnum {
+        case .SwiftInt:
             let value = try json.int("value")
             self = .SwiftInt(value)
-        case "Double":
+        case .SwiftDouble:
             let value = try json.double("value")
             self = .SwiftDouble(value)
-        case "String":
+        case .SwiftString:
             let value = try json.string("value")
             self = .SwiftString(value)
-        case "Data":
+        case .SwiftData:
             let value = try json.string("value")
             if let data = NSData(base64EncodedString: value, options: NSDataBase64DecodingOptions(rawValue: 0)) {
                 self = .SwiftData(data)
             } else {
                 throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
             }
-        case "CKCoordinate2D":
-            let value = try json.decode("value", type: CKCoordinate2D.self)
+        case .SwiftDate:
+            let value = try json.string("value")
+            if let date = NSDate.date(fromTimezoneFormattedString: value) {
+                self = .SwiftDate(date)
+            } else {
+                throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
+            }
+        case .Coordinate2D:
+            let value = try json.decode("value", type: YieldCoordinate2D.self)
             self = .Coordinate2D(value)
-        case "CKCoordinate2DPath":
-            let value = try json.arrayOf("value", type: CKCoordinate2D.self)
+        case .Coordinate2DPath:
+            let value = try json.arrayOf("value", type: YieldCoordinate2D.self)
             self = .Coordinate2DPath(value)
-        case "CKCoordinate3D":
-            let value = try json.decode("value", type: CKCoordinate3D.self)
+        case .Coordinate3D:
+            let value = try json.decode("value", type: YieldCoordinate3D.self)
             self = .Coordinate3D(value)
-        case "CKCoordinate3DPath":
-            let value = try json.arrayOf("value", type: CKCoordinate3D.self)
+        case .Coordinate3DPath:
+            let value = try json.arrayOf("value", type: YieldCoordinate3D.self)
             self = .Coordinate3DPath(value)
+        case .CardinalDirection:
+            let value = try json.decode("value", type: YieldCardinalDirection.self)
+            self = .CardinalDirection(value)
         default:
             throw JSON.Error.ValueNotConvertible(value: json, to: YieldBinding.self)
         }

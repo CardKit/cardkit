@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+//MARK: CKDistance Descriptor
+
+extension CKDescriptors.Input.Location {
+    /// Descriptor for Distance card
+    public static let Distance = InputCardDescriptor(
+        name: "Distance",
+        subpath: "Location",
+        description: "Distance (meters)",
+        assetCatalog: CardAssetCatalog(),
+        provides: [.SwiftDouble],
+        version: 0)
+}
+
+//MARK: CKDistance Implementation
+
+/// Implementation of the CKDistance card
+public class CKDistance: InputCard {
+    
+}

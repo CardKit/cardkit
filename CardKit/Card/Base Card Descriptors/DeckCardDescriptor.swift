@@ -15,17 +15,32 @@ public struct DeckCardDescriptor: CardDescriptor {
     public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public var cardType: CardType {
-        get {
-            return .Deck
-        }
-    }
+    public let cardType: CardType = .Deck
     
     public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         let p = "Deck/\(subpath)" ?? "Deck"
         self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
+    }
+}
+
+//MARK: Equatable
+
+extension DeckCardDescriptor: Equatable {}
+
+public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
+    var equal = true
+    equal = equal && lhs.identifier == rhs.identifier
+    // TODO: need to test other fields here?
+    return equal
+}
+
+//MARK: Hashable
+
+extension DeckCardDescriptor: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
     }
 }
 
