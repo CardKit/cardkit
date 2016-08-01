@@ -10,13 +10,13 @@ import Foundation
 
 import Freddy
 
-public struct InputCardDescriptor: CardDescriptor, ProducesInput {
+public struct InputCardDescriptor: CardDescriptor, ProducesYields {
     public let identifier: CardIdentifier
     public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public var inputType: YieldType
-    public var inputDescription: String
+    public let yields: [Yield]
+    public let yieldDescription: String
     
     public let cardType: CardType = .Input
     
@@ -25,8 +25,8 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
         self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
         self.assetCatalog = assetCatalog
-        self.inputType = inputType
-        self.inputDescription = inputDescription
+        self.yields = [Yield(type: inputType)]
+        self.yieldDescription = inputDescription
     }
 }
 
@@ -57,8 +57,8 @@ extension InputCardDescriptor: JSONEncodable {
             "identifier": identifier.toJSON(),
             "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
-            "inputType": inputType.toJSON(),
-            "inputDescription": inputDescription.toJSON()
+            "yields": yields.toJSON(),
+            "yieldDescription": yieldDescription.toJSON()
             ])
     }
 }
@@ -70,7 +70,7 @@ extension InputCardDescriptor: JSONDecodable {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.inputType = try json.decode("inputType", type: YieldType.self)
-        self.inputDescription = try json.string("inputDescription")
+        self.yields = try json.arrayOf("yields", type: Yield.self)
+        self.yieldDescription = try json.string("yieldDescription")
     }
 }

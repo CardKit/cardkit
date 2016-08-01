@@ -15,11 +15,14 @@ public class ActionCard: Executable {
         self.descriptor = descriptor
     }
     
-    //MARK: InputBindable
-    var inputBindings: [InputCardSlot : InputCard] = [:]
+    // input bindings
+    var inputBindings: [InputCardSlot : ImplementsProducesYields] = [:]
     
-    //MARK: TokenBindable
+    // token bindings
     var tokenBindings: [TokenCardSlot : TokenCard] = [:]
+    
+    // yields
+    var yieldData: [Yield : YieldBinding] = [:]
     
     //MARK: Executable
     // These cannot be defined in an extension as Swift does not (yet) allow declarations from extensions to be overridden.
@@ -53,7 +56,7 @@ extension ActionCard: Card {
 //MARK:- ImplementsAcceptsInputs
 
 extension ActionCard: ImplementsAcceptsInputs {
-    func bind(card: InputCard, to slot: InputCardSlot) {
+    func bind(card: ImplementsProducesYields, to slot: InputCardSlot) {
         // it's not truly necessary to call unbind before doing the
         // re-assignment, but i'm leaving this here just in case
         // bind() / unbind() become more complicated in the future
@@ -74,9 +77,9 @@ extension ActionCard: ImplementsAcceptsInputs {
         return true
     }
     
-    func valueForInput(slot: InputCardSlot) -> YieldBinding? {
+    func yieldValues(from slot: InputCardSlot) -> [YieldBinding]? {
         if let card = self.inputBindings[slot] {
-            return card.getInputValue()
+            return card.getAllYieldValues()
         } else {
             return nil
         }
@@ -101,5 +104,25 @@ extension ActionCard: ImplementsAcceptsTokens {
     func isBound(slot: TokenCardSlot) -> Bool {
         guard let _ = self.tokenBindings[slot] else { return false }
         return true
+    }
+}
+
+//MARK:- ImplementsProducesYields
+
+extension ActionCard: ImplementsProducesYields {
+    func getYieldValue(from yield: Yield) -> YieldBinding? {
+        if let data = self.yieldData[yield] {
+            return data
+        } else {
+            return nil
+        }
+    }
+    
+    func getAllYieldValues() -> [YieldBinding]? {
+        if self.yieldData.count == 0 {
+            return nil
+        }
+        
+        return Array(self.yieldData.values)
     }
 }

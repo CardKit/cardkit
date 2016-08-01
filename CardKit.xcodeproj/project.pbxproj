@@ -10,6 +10,24 @@
 		CC000D7D1D4E5AB000132B0A /* CKTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BBD1D4BAFF9001B71B1 /* CKTimer.swift */; };
 		CC000D851D4E96A500132B0A /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931ABC1D4A8557001B71B1 /* Deck.swift */; };
 		CC000D861D4E96A900132B0A /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931A071D494D1F001B71B1 /* Hand.swift */; };
+		CC000D921D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D931D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D941D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D951D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D961D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D971D4F900600132B0A /* InputCardSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D8F1D4F900600132B0A /* InputCardSlot.swift */; };
+		CC000D981D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D991D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D9A1D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D9B1D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D9C1D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D9D1D4F900600132B0A /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D901D4F900600132B0A /* Yield.swift */; };
+		CC000D9E1D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
+		CC000D9F1D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
+		CC000DA01D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
+		CC000DA11D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
+		CC000DA21D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
+		CC000DA31D4F900600132B0A /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000D911D4F900600132B0A /* YieldTypes.swift */; };
 		CC9317B51D479278001B71B1 /* CardKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CC9317B41D479278001B71B1 /* CardKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC9317BC1D479278001B71B1 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9317B11D479278001B71B1 /* CardKit.framework */; };
 		CC9317C11D479278001B71B1 /* CardKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9317C01D479278001B71B1 /* CardKitTests.swift */; };
@@ -126,18 +144,6 @@
 		CC931A8D1D49623E001B71B1 /* TokenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931A891D49623E001B71B1 /* TokenCard.swift */; };
 		CC931A8E1D49623E001B71B1 /* TokenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931A891D49623E001B71B1 /* TokenCard.swift */; };
 		CC931A8F1D49623E001B71B1 /* TokenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931A891D49623E001B71B1 /* TokenCard.swift */; };
-		CC931AB01D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB11D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB21D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB31D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB41D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB51D4A7F62001B71B1 /* YieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */; };
-		CC931AB61D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
-		CC931AB71D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
-		CC931AB81D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
-		CC931AB91D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
-		CC931ABA1D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
-		CC931ABB1D4A7F62001B71B1 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931AAF1D4A7F62001B71B1 /* Yield.swift */; };
 		CC931ABD1D4A8557001B71B1 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931ABC1D4A8557001B71B1 /* Deck.swift */; };
 		CC931ABE1D4A8557001B71B1 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931ABC1D4A8557001B71B1 /* Deck.swift */; };
 		CC931AC01D4A8557001B71B1 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931ABC1D4A8557001B71B1 /* Deck.swift */; };
@@ -298,12 +304,6 @@
 		CC931C581D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */; };
 		CC931C591D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */; };
 		CC931C5A1D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */; };
-		CC931C5B1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
-		CC931C5C1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
-		CC931C5D1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
-		CC931C5E1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
-		CC931C5F1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
-		CC931C601D4E57D1001B71B1 /* AcceptsYields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */; };
 		CC931C611D4E57D1001B71B1 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C491D4E57D1001B71B1 /* Consumable.swift */; };
 		CC931C621D4E57D1001B71B1 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C491D4E57D1001B71B1 /* Consumable.swift */; };
 		CC931C631D4E57D1001B71B1 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C491D4E57D1001B71B1 /* Consumable.swift */; };
@@ -316,12 +316,6 @@
 		CC931C6A1D4E57D1001B71B1 /* Executable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4A1D4E57D1001B71B1 /* Executable.swift */; };
 		CC931C6B1D4E57D1001B71B1 /* Executable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4A1D4E57D1001B71B1 /* Executable.swift */; };
 		CC931C6C1D4E57D1001B71B1 /* Executable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4A1D4E57D1001B71B1 /* Executable.swift */; };
-		CC931C6D1D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
-		CC931C6E1D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
-		CC931C6F1D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
-		CC931C701D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
-		CC931C711D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
-		CC931C721D4E57D1001B71B1 /* ProducesInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */; };
 		CC931C731D4E57D1001B71B1 /* ProducesToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4C1D4E57D1001B71B1 /* ProducesToken.swift */; };
 		CC931C741D4E57D1001B71B1 /* ProducesToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4C1D4E57D1001B71B1 /* ProducesToken.swift */; };
 		CC931C751D4E57D1001B71B1 /* ProducesToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C4C1D4E57D1001B71B1 /* ProducesToken.swift */; };
@@ -367,6 +361,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC000D8F1D4F900600132B0A /* InputCardSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputCardSlot.swift; sourceTree = "<group>"; };
+		CC000D901D4F900600132B0A /* Yield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yield.swift; sourceTree = "<group>"; };
+		CC000D911D4F900600132B0A /* YieldTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YieldTypes.swift; sourceTree = "<group>"; };
 		CC9317B11D479278001B71B1 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9317B41D479278001B71B1 /* CardKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKit.h; sourceTree = "<group>"; };
 		CC9317B61D479278001B71B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -399,8 +396,6 @@
 		CC931A7B1D496231001B71B1 /* HandCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandCard.swift; sourceTree = "<group>"; };
 		CC931A821D496238001B71B1 /* InputCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputCard.swift; sourceTree = "<group>"; };
 		CC931A891D49623E001B71B1 /* TokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCard.swift; sourceTree = "<group>"; };
-		CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YieldTypes.swift; sourceTree = "<group>"; };
-		CC931AAF1D4A7F62001B71B1 /* Yield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yield.swift; sourceTree = "<group>"; };
 		CC931ABC1D4A8557001B71B1 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		CC931B211D4A8ED2001B71B1 /* CKNoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKNoAction.swift; sourceTree = "<group>"; };
 		CC931B221D4A8ED2001B71B1 /* CKDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKDescriptors.swift; sourceTree = "<group>"; };
@@ -428,10 +423,8 @@
 		CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptsInputs.swift; sourceTree = "<group>"; };
 		CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptsTokens.swift; sourceTree = "<group>"; };
-		CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptsYields.swift; sourceTree = "<group>"; };
 		CC931C491D4E57D1001B71B1 /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
 		CC931C4A1D4E57D1001B71B1 /* Executable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Executable.swift; sourceTree = "<group>"; };
-		CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducesInput.swift; sourceTree = "<group>"; };
 		CC931C4C1D4E57D1001B71B1 /* ProducesToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducesToken.swift; sourceTree = "<group>"; };
 		CC931C4D1D4E57D1001B71B1 /* ProducesYields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducesYields.swift; sourceTree = "<group>"; };
 		CC931C4E1D4E57D1001B71B1 /* Satisfiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Satisfiable.swift; sourceTree = "<group>"; };
@@ -489,6 +482,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC000D8E1D4F900600132B0A /* Inputs & Yields */ = {
+			isa = PBXGroup;
+			children = (
+				CC000D8F1D4F900600132B0A /* InputCardSlot.swift */,
+				CC000D901D4F900600132B0A /* Yield.swift */,
+				CC000D911D4F900600132B0A /* YieldTypes.swift */,
+			);
+			path = "Inputs & Yields";
+			sourceTree = "<group>";
+		};
 		CC9317A71D479278001B71B1 = {
 			isa = PBXGroup;
 			children = (
@@ -546,7 +549,7 @@
 				CC931A331D495457001B71B1 /* Base Card Descriptors */,
 				CC931A651D496184001B71B1 /* Base Card Instances */,
 				CC931C451D4E57D1001B71B1 /* Card Abilities */,
-				CC931AAD1D4A7F62001B71B1 /* Yields */,
+				CC000D8E1D4F900600132B0A /* Inputs & Yields */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -628,15 +631,6 @@
 				CC931A891D49623E001B71B1 /* TokenCard.swift */,
 			);
 			path = "Base Card Instances";
-			sourceTree = "<group>";
-		};
-		CC931AAD1D4A7F62001B71B1 /* Yields */ = {
-			isa = PBXGroup;
-			children = (
-				CC931AAF1D4A7F62001B71B1 /* Yield.swift */,
-				CC931AAE1D4A7F62001B71B1 /* YieldTypes.swift */,
-			);
-			path = Yields;
 			sourceTree = "<group>";
 		};
 		CC931B1F1D4A8ED2001B71B1 /* CardKit Cards */ = {
@@ -758,12 +752,10 @@
 		CC931C451D4E57D1001B71B1 /* Card Abilities */ = {
 			isa = PBXGroup;
 			children = (
-				CC931C4B1D4E57D1001B71B1 /* ProducesInput.swift */,
 				CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */,
+				CC931C4D1D4E57D1001B71B1 /* ProducesYields.swift */,
 				CC931C4C1D4E57D1001B71B1 /* ProducesToken.swift */,
 				CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */,
-				CC931C4D1D4E57D1001B71B1 /* ProducesYields.swift */,
-				CC931C481D4E57D1001B71B1 /* AcceptsYields.swift */,
 				CC931C491D4E57D1001B71B1 /* Consumable.swift */,
 				CC931C4A1D4E57D1001B71B1 /* Executable.swift */,
 				CC931C4E1D4E57D1001B71B1 /* Satisfiable.swift */,
@@ -1064,24 +1056,25 @@
 				CC931B861D4BAF8B001B71B1 /* CKImage.swift in Sources */,
 				CC931B4E1D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
 				CC931A6E1D4961E9001B71B1 /* ActionCard.swift in Sources */,
+				CC000D9E1D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931B6D1D4AA8B1001B71B1 /* DeckConclusionAction.swift in Sources */,
 				CC931BB01D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931B941D4BAF9E001B71B1 /* CKReal.swift in Sources */,
 				CC931BC51D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A751D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931C5B1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931C611D4E57D1001B71B1 /* Consumable.swift in Sources */,
+				CC000D981D4F900600132B0A /* Yield.swift in Sources */,
 				CC9319A31D4937C9001B71B1 /* CardIdentifier.swift in Sources */,
 				CC931C671D4E57D1001B71B1 /* Executable.swift in Sources */,
 				CC931BCD1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931B421D4A8ED2001B71B1 /* CKBoundingBox.swift in Sources */,
 				CC931B7F1D4BAF81001B71B1 /* CKAudio.swift in Sources */,
 				CC931B601D4A8ED2001B71B1 /* CKPath.swift in Sources */,
+				CC000D921D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931A511D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931C551D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
 				CC931A3F1D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
 				CC931BA91D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
-				CC931C6D1D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931A081D494D1F001B71B1 /* Hand.swift in Sources */,
 				CC931BA21D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A451D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
@@ -1094,7 +1087,6 @@
 				CC931B541D4A8ED2001B71B1 /* CKDistance.swift in Sources */,
 				CC931A7C1D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931B9B1D4BAFA8001B71B1 /* CKRelativeToLocation.swift in Sources */,
-				CC931AB61D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B741D4AAB46001B71B1 /* HandIdentifier.swift in Sources */,
 				CC931BB71D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC931A4B1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
@@ -1111,7 +1103,6 @@
 				CC931A671D4961D9001B71B1 /* Card.swift in Sources */,
 				CC931C791D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC931B301D4A8ED2001B71B1 /* CKNoAction.swift in Sources */,
-				CC931AB01D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,7 +1110,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC931AB11D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 				CC931BB81D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC9319AA1D4937C9001B71B1 /* CardPath.swift in Sources */,
 				CC931B371D4A8ED2001B71B1 /* CKDescriptors.swift in Sources */,
@@ -1127,21 +1117,20 @@
 				CC931BC61D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A461D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
 				CC9317C11D479278001B71B1 /* CardKitTests.swift in Sources */,
+				CC000D931D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931C741D4E57D1001B71B1 /* ProducesToken.swift in Sources */,
-				CC931C5C1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931ABE1D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A761D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931AB71D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B5B1D4A8ED2001B71B1 /* CKLocation.swift in Sources */,
 				CC931A7D1D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931BA31D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A4C1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
+				CC000D991D4F900600132B0A /* Yield.swift in Sources */,
 				CC931C621D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CC931C801D4E57D1001B71B1 /* Satisfiable.swift in Sources */,
 				CC931A841D496238001B71B1 /* InputCard.swift in Sources */,
 				CC931A6F1D4961E9001B71B1 /* ActionCard.swift in Sources */,
 				CC931B4F1D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
-				CC931C6E1D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931A3A1D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CC931BB11D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931C681D4E57D1001B71B1 /* Executable.swift in Sources */,
@@ -1149,6 +1138,7 @@
 				CC931C7A1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC93199E1D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC931B871D4BAF8B001B71B1 /* CKImage.swift in Sources */,
+				CC000D9F1D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931B491D4A8ED2001B71B1 /* CKBoundingBox3D.swift in Sources */,
 				CC931BAA1D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
 				CC9319981D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
@@ -1185,24 +1175,25 @@
 				CC931B501D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
 				CC931A701D4961E9001B71B1 /* ActionCard.swift in Sources */,
 				CC931B6F1D4AA8B1001B71B1 /* DeckConclusionAction.swift in Sources */,
+				CC000DA01D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931BB21D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931B961D4BAF9E001B71B1 /* CKReal.swift in Sources */,
 				CC931BC71D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A771D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931C5D1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931C631D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CC9319A51D4937C9001B71B1 /* CardIdentifier.swift in Sources */,
+				CC000D9A1D4F900600132B0A /* Yield.swift in Sources */,
 				CC931C691D4E57D1001B71B1 /* Executable.swift in Sources */,
 				CC931BCF1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931B441D4A8ED2001B71B1 /* CKBoundingBox.swift in Sources */,
 				CC931B811D4BAF81001B71B1 /* CKAudio.swift in Sources */,
 				CC931B621D4A8ED2001B71B1 /* CKPath.swift in Sources */,
 				CC931A531D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
+				CC000D941D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931C571D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
 				CC931A411D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
 				CC931BAB1D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
 				CC000D7D1D4E5AB000132B0A /* CKTimer.swift in Sources */,
-				CC931C6F1D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931BA41D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A471D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
 				CC931B3E1D4A8ED2001B71B1 /* CKAngle.swift in Sources */,
@@ -1214,7 +1205,6 @@
 				CC931B561D4A8ED2001B71B1 /* CKDistance.swift in Sources */,
 				CC931A7E1D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931B9D1D4BAFA8001B71B1 /* CKRelativeToLocation.swift in Sources */,
-				CC931AB81D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B761D4AAB46001B71B1 /* HandIdentifier.swift in Sources */,
 				CC931BB91D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC931A4D1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
@@ -1232,7 +1222,6 @@
 				CC931C7B1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC000D861D4E96A900132B0A /* Hand.swift in Sources */,
 				CC931B321D4A8ED2001B71B1 /* CKNoAction.swift in Sources */,
-				CC931AB21D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,7 +1229,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC931AB31D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 				CC931BBA1D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC9319AC1D4937C9001B71B1 /* CardPath.swift in Sources */,
 				CC931B391D4A8ED2001B71B1 /* CKDescriptors.swift in Sources */,
@@ -1248,21 +1236,20 @@
 				CC931BC81D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A481D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
 				CC9318051D47931E001B71B1 /* CardKitTests.swift in Sources */,
+				CC000D951D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931C761D4E57D1001B71B1 /* ProducesToken.swift in Sources */,
-				CC931C5E1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931AC01D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A781D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931AB91D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B5D1D4A8ED2001B71B1 /* CKLocation.swift in Sources */,
 				CC931A7F1D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931BA51D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A4E1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
+				CC000D9B1D4F900600132B0A /* Yield.swift in Sources */,
 				CC931C641D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CC931C821D4E57D1001B71B1 /* Satisfiable.swift in Sources */,
 				CC931A861D496238001B71B1 /* InputCard.swift in Sources */,
 				CC931A711D4961E9001B71B1 /* ActionCard.swift in Sources */,
 				CC931B511D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
-				CC931C701D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931A3C1D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CC931BB31D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931C6A1D4E57D1001B71B1 /* Executable.swift in Sources */,
@@ -1270,6 +1257,7 @@
 				CC931C7C1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC9319A01D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC931B891D4BAF8B001B71B1 /* CKImage.swift in Sources */,
+				CC000DA11D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931B4B1D4A8ED2001B71B1 /* CKBoundingBox3D.swift in Sources */,
 				CC931BAC1D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
 				CC93199A1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
@@ -1306,24 +1294,25 @@
 				CC931B8A1D4BAF8B001B71B1 /* CKImage.swift in Sources */,
 				CC931B521D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
 				CC931A721D4961E9001B71B1 /* ActionCard.swift in Sources */,
+				CC000DA21D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931B711D4AA8B1001B71B1 /* DeckConclusionAction.swift in Sources */,
 				CC931BB41D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931B981D4BAF9E001B71B1 /* CKReal.swift in Sources */,
 				CC931BC91D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A791D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931C5F1D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931C651D4E57D1001B71B1 /* Consumable.swift in Sources */,
+				CC000D9C1D4F900600132B0A /* Yield.swift in Sources */,
 				CC9319A71D4937C9001B71B1 /* CardIdentifier.swift in Sources */,
 				CC931C6B1D4E57D1001B71B1 /* Executable.swift in Sources */,
 				CC931BD11D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931B461D4A8ED2001B71B1 /* CKBoundingBox.swift in Sources */,
 				CC931B831D4BAF81001B71B1 /* CKAudio.swift in Sources */,
 				CC931B641D4A8ED2001B71B1 /* CKPath.swift in Sources */,
+				CC000D961D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931A551D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931C591D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
 				CC931A431D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
 				CC931BAD1D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
-				CC931C711D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931A0C1D494D1F001B71B1 /* Hand.swift in Sources */,
 				CC931BA61D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A491D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
@@ -1336,7 +1325,6 @@
 				CC931B581D4A8ED2001B71B1 /* CKDistance.swift in Sources */,
 				CC931A801D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931B9F1D4BAFA8001B71B1 /* CKRelativeToLocation.swift in Sources */,
-				CC931ABA1D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B781D4AAB46001B71B1 /* HandIdentifier.swift in Sources */,
 				CC931BBB1D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC931A4F1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
@@ -1353,7 +1341,6 @@
 				CC931A6B1D4961D9001B71B1 /* Card.swift in Sources */,
 				CC931C7D1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC931B341D4A8ED2001B71B1 /* CKNoAction.swift in Sources */,
-				CC931AB41D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1361,7 +1348,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC931AB51D4A7F62001B71B1 /* YieldTypes.swift in Sources */,
 				CC931BBC1D4BAFCE001B71B1 /* CKPeriodicity.swift in Sources */,
 				CC9319AE1D4937C9001B71B1 /* CardPath.swift in Sources */,
 				CC931B3B1D4A8ED2001B71B1 /* CKDescriptors.swift in Sources */,
@@ -1369,21 +1355,20 @@
 				CC931BCA1D4BB00B001B71B1 /* CKWaitUntilTime.swift in Sources */,
 				CC931A4A1D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
 				CC9318061D47931F001B71B1 /* CardKitTests.swift in Sources */,
+				CC000D971D4F900600132B0A /* InputCardSlot.swift in Sources */,
 				CC931C781D4E57D1001B71B1 /* ProducesToken.swift in Sources */,
-				CC931C601D4E57D1001B71B1 /* AcceptsYields.swift in Sources */,
 				CC931AC21D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A7A1D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931ABB1D4A7F62001B71B1 /* Yield.swift in Sources */,
 				CC931B5F1D4A8ED2001B71B1 /* CKLocation.swift in Sources */,
 				CC931A811D496231001B71B1 /* HandCard.swift in Sources */,
 				CC931BA71D4BAFB1001B71B1 /* CKRelativeToObject.swift in Sources */,
 				CC931A501D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
+				CC000D9D1D4F900600132B0A /* Yield.swift in Sources */,
 				CC931C661D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CC931C841D4E57D1001B71B1 /* Satisfiable.swift in Sources */,
 				CC931A881D496238001B71B1 /* InputCard.swift in Sources */,
 				CC931A731D4961E9001B71B1 /* ActionCard.swift in Sources */,
 				CC931B531D4A8ED2001B71B1 /* CKCardinalDirection.swift in Sources */,
-				CC931C721D4E57D1001B71B1 /* ProducesInput.swift in Sources */,
 				CC931A3E1D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CC931BB51D4BAFC4001B71B1 /* CKDuration.swift in Sources */,
 				CC931C6C1D4E57D1001B71B1 /* Executable.swift in Sources */,
@@ -1391,6 +1376,7 @@
 				CC931C7E1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC9319A21D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC931B8B1D4BAF8B001B71B1 /* CKImage.swift in Sources */,
+				CC000DA31D4F900600132B0A /* YieldTypes.swift in Sources */,
 				CC931B4D1D4A8ED2001B71B1 /* CKBoundingBox3D.swift in Sources */,
 				CC931BAE1D4BAFBD001B71B1 /* CKClockTime.swift in Sources */,
 				CC93199C1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,

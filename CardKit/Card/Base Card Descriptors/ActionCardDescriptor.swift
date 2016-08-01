@@ -23,7 +23,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
             return yields.count > 0
         }
     }
-    public let yields: [YieldType]
+    public let yields: [Yield]
     public let yieldDescription: String
     
     public let ends: Bool
@@ -32,7 +32,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let cardType: CardType = .Action
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputs: [InputCardSlot]?, tokens: [TokenCardSlot]?, yields: [YieldType]?, yieldDescription: String?, ends: Bool, endsDescription: String, version: Int = 0) {
+    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputs: [InputCardSlot]?, tokens: [TokenCardSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, version: Int = 0) {
         let p = "Action/\(subpath)" ?? "Action"
         self.identifier = CardIdentifier(name: name, path: p, version: version)
         self.description = description
@@ -93,7 +93,7 @@ extension ActionCardDescriptor: JSONDecodable {
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
         self.inputs = try json.arrayOf("inputs", type: InputCardSlot.self)
         self.tokens = try json.arrayOf("tokens", type: TokenCardSlot.self)
-        self.yields = try json.arrayOf("yields", type: YieldType.self)
+        self.yields = try json.arrayOf("yields", type: Yield.self)
         self.yieldDescription = try json.string("yieldDescription")
         self.ends = try json.bool("ends")
         self.endDescription = try json.string("endDescription")

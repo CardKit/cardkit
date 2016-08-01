@@ -25,15 +25,15 @@ extension CardType: CustomStringConvertible {
         get {
             switch self {
             case .Action:
-                return "action"
+                return "Action"
             case .Deck:
-                return "deck"
+                return "Deck"
             case .Hand:
-                return "hand"
+                return "Hand"
             case .Input:
-                return "input"
+                return "Input"
             case .Token:
-                return "token"
+                return "Token"
             }
         }
     }

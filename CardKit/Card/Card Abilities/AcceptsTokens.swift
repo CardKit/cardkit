@@ -65,5 +65,5 @@ protocol ImplementsAcceptsTokens {
     var tokenBindings: [TokenCardSlot : TokenCard] { get }
     func bind(card: TokenCard, to slot: TokenCardSlot)
     func unbind(slot: TokenCardSlot)
-    func isBound(slot: TokenCardSlot)
+    func isBound(slot: TokenCardSlot) -> Bool
 }

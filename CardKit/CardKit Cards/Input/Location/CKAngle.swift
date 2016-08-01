@@ -26,15 +26,9 @@ extension CKDescriptors.Input.Location {
 
 /// Implementation of the Angle card
 public class CKAngle: InputCard {
-    public var angle: Double
-    
     init(withDegrees angle: Double) {
-        self.angle = angle
+        self.bindYieldData(angle)
         
         super.init(with: CKDescriptors.Input.Location.Angle)
-    }
-    
-    override func getInputValue() -> YieldBinding? {
-        return .SwiftDouble(angle)
     }
 }
