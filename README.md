@@ -16,9 +16,9 @@ A `CardDescriptor` represents the information that would appear on a printed car
 
 A `CardDescriptor` contains a `CardIdentifier` which is used to uniquely identify the card. The `CardIdentifier` consists of the following information:
 
-* Card's name -- "Detect On Ground"
-* Card's path -- "Think/Detect". The path is used to group cards with similar functionality and make it easier for users to find cards by category when the number of cards is large.
-* Card's version -- We keep track of a version number for each card in case that card's metadata ever changes or we need to support execution of multiple versions of the same card.
+* **Name**. "Detect On Ground"
+* **Path**. "Think/Detect". The path is used to group cards with similar functionality and make it easier for users to find cards by category when the number of cards is large. This is implemented by `CardPath`.
+* **Version**. We keep track of a version number for each card in case that card's metadata ever changes or we need to support execution of multiple versions of the same card.
 
 A `CardDescriptor` does not contain any information about the *implementation* of the card; it only contains the metadata associated with a card. The `Card` protocol is the bass for card implementations. Thus, all *logical* cards require two things to be defined: (1) a `CardDescriptor` and (2) a `Card`.
 
