@@ -12,7 +12,7 @@ CardKit depends on [Freddy](https://github.com/bignerdranch/Freddy) for JSON obj
 
 A `CardDescriptor` represents the information that would appear on a printed card. For example, the image below shows a sample annotated card containing various kinds of information.
 
-![Annotated card](images/card-layout-labeled-v1_1.pdf)
+![Annotated card](images/card-layout-labeled-v1_1.png)
 
 A `CardDescriptor` contains a `CardIdentifier` which is used to uniquely identify the card. The `CardIdentifier` consists of the following information:
 
@@ -26,13 +26,13 @@ A `CardDescriptor` does not contain any information about the *implementation* o
 
 Card execution works as shown below.
 
-![Card execution diagram](images/deck-hand-execution.pdf)
+![Card execution diagram](images/deck-hand-execution.png)
 
 Cards are placed in Hands, and execution flows from the first hand to the last hand.  Cards in a hand are executed in parallel. Hands are executed sequentially. Cards may produce outputs (called Yields) which may be used by cards in subsequent hands.
 
 ### Card Types
 
-There are five different kinds of base cards in `CardKit`:
+There are five different kinds of base cards in `CardKit`,
 
 #### Action
 
@@ -68,7 +68,7 @@ Token cards represent the physical IoT hardware. Implementations of Token cards 
 
 An `ActionCard` may produce some amount of data upon its execution. For example, a card that performs a computation to detect the location of an object in an image may *yield* the location of the object. These yields can then be used as Inputs to downstream cards (cards defined in later hands).
 
-#### End Flag
+### End Flag
 
 Cards may execute indefinitely or their execution may halt upon some condition. For example, a card that reads data from a humidity sensor may continuously perform these readings; a card that controls a drone to fly to a particular location may cease execution once the drone has reached that location. These two execution styles are captured by the End Flag.
 
