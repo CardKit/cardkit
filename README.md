@@ -158,6 +158,10 @@ Due to limitations in Swift reflection, we use an `enum` to box `Yield` types. T
 
 The box types are defined in `Yield.swift`. Some of the standard Swift types are supported (`Int`, `Double`, `String`, `NSData`, `NSDate`), plus some additional types that are useful for IoT applications (`YieldCoordinate2D`, `YieldCoordinate2DPath`, `YieldCardinalDirection`, etc.). Note that the structs that back the Yield boxes are prefixed with "Yield" to specify that they are used exclusively for Yields.
 
+## Building
+
+We use Carthage to manage our dependencies. Run `carthage bootstrap` to build all of the dependencies before building the CardKit Xcode project.
+
 ## Contributing
 
 If you would like to contribute to CardKit, we recommend forking the repository, making your changes, and submitting a pull request.
