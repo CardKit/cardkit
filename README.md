@@ -133,7 +133,11 @@ To set the input value for `CKAngle`, this method is used:
 
 ```
 func setAngle(inDegrees degrees: Double) {
-	self.bindYieldData(degrees)
+	do {
+		try self.bindYieldData(degrees)
+	} catch let error {
+		…
+	}
 }
 ```
 

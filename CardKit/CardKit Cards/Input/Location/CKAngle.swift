@@ -31,11 +31,18 @@ public class CKAngle: InputCard {
     }
     
     func setAngle(inDegrees degrees: Double) {
-        self.bindYieldData(degrees)
+        do {
+            try self.bindYieldData(degrees)
+        } catch {
+        }
     }
     
     func setAngle(inRadians radians: Double) {
-        let degrees = radians * (Double.pi / 180)
-        self.bindYieldData(degrees)
+        let degrees = radians * (180.0 / M_PI)
+        
+        do {
+            try self.bindYieldData(degrees)
+        } catch {
+        }
     }
 }

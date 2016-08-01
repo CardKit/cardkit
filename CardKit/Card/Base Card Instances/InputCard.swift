@@ -27,31 +27,30 @@ public class InputCard {
     /// Bind the yield data to our only yield (Input cards have only one yield).
     func bindYieldData<T>(value: T) throws {
         guard let yield = self.descriptor.yields.first else { return }
-        var yieldValue: YieldBinding? = nil
         
         // this is a little silly, but we can't just use Any.Type for our yields because
         // we can't deserialize the type from a string
-        switch value.dynamicType {
-        case Int:
-            self.yieldData[yield] = .SwiftInt(value)
-        case Double:
-            self.yieldData[yield] = .SwiftDouble(value)
-        case String:
-            self.yieldData[yield] = .SwiftString(value)
-        case NSData:
-            self.yieldData[yield] = .SwiftData(value)
-        case NSDate:
-            self.yieldData[yield] = .SwiftDate(value)
-        case YieldCoordinate2D:
-            self.yieldData[yield] = .YieldCoordinate2D(value)
-        case YieldCoordinate2DPath:
-            self.yieldData[yield] = .YieldCoordinate2DPath(value)
-        case YieldCoordinate3D:
-            self.yieldData[yield] = .YieldCoordinate3D(value)
-        case YieldCoordinate3DPath:
-            self.yieldData[yield] = .YieldCoordinate3DPath(value)
-        case YieldCardinalDirection:
-            self.yieldData[yield] = .YieldCardinalDirection(value)
+        switch value {
+        case let v as Int:
+            self.yieldData[yield] = .SwiftInt(v)
+        case let v as Double:
+            self.yieldData[yield] = .SwiftDouble(v)
+        case let v as String:
+            self.yieldData[yield] = .SwiftString(v)
+        case let v as NSData:
+            self.yieldData[yield] = .SwiftData(v)
+        case let v as NSDate:
+            self.yieldData[yield] = .SwiftDate(v)
+        case let v as YieldCoordinate2D:
+            self.yieldData[yield] = .Coordinate2D(v)
+        case let v as [YieldCoordinate2D]:
+            self.yieldData[yield] = .Coordinate2DPath(v)
+        case let v as YieldCoordinate3D:
+            self.yieldData[yield] = .Coordinate3D(v)
+        case let v as [YieldCoordinate3D]:
+            self.yieldData[yield] = .Coordinate3DPath(v)
+        case let v as YieldCardinalDirection:
+            self.yieldData[yield] = .CardinalDirection(v)
         default:
             throw InputCard.BindingError.UnsupportedDataType(type: value.dynamicType)
         }

@@ -39,28 +39,6 @@ extension YieldCoordinate2D: JSONEncodable {
     }
 }
 
-//MARK: YieldCoordinate2DPath
-
-public struct YieldCoordinate2DPath {
-    public let path: [YieldCoordinate2D]
-    
-    public init(path: [YieldCoordinate2D]) {
-        self.path = path
-    }
-}
-
-extension YieldCoordinate2DPath: JSONDecodable {
-    public init(json: JSON) throws {
-        self.path = try json.arrayOf("path", type: YieldCoordinate2D.self)
-    }
-}
-
-extension YieldCoordinate2DPath: JSONEncodable {
-    public func toJSON() -> JSON {
-        return self.path.toJSON()
-    }
-}
-
 //MARK: YieldCoordinate3D
 
 public struct YieldCoordinate3D {
@@ -90,28 +68,6 @@ extension YieldCoordinate3D: JSONEncodable {
             "longitude": self.longitude.toJSON(),
             "altitudeMeters": self.altitudeMeters.toJSON()
             ])
-    }
-}
-
-//MARK: YieldCoordinate3DPath
-
-public struct YieldCoordinate3DPath {
-    public let path: [YieldCoordinate3D]
-    
-    public init(path: [YieldCoordinate3D]) {
-        self.path = path
-    }
-}
-
-extension YieldCoordinate3DPath: JSONDecodable {
-    public init(json: JSON) throws {
-        self.path = try json.arrayOf("path", type: YieldCoordinate3D.self)
-    }
-}
-
-extension YieldCoordinate3DPath: JSONEncodable {
-    public func toJSON() -> JSON {
-        return self.path.toJSON()
     }
 }
 

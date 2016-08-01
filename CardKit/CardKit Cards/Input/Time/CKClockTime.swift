@@ -26,15 +26,14 @@ extension CKDescriptors.Input.Time {
 
 /// Implementation of the ClockTime card
 public class CKClockTime: InputCard {
-    public var clockTime: NSDate
-    
-    init(with clockTime: NSDate) {
-        self.clockTime = clockTime
-        
+    init() {
         super.init(with: CKDescriptors.Input.Time.ClockTime)
     }
     
-    override func getInputValue() -> YieldBinding? {
-        return .SwiftDate(clockTime)
+    func setClockTime(date: NSDate) {
+        do {
+            try super.bindYieldData(date)
+        } catch {
+        }
     }
 }
