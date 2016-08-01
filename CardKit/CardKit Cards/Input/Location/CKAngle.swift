@@ -26,9 +26,16 @@ extension CKDescriptors.Input.Location {
 
 /// Implementation of the Angle card
 public class CKAngle: InputCard {
-    init(withDegrees angle: Double) {
-        self.bindYieldData(angle)
-        
+    init() {
         super.init(with: CKDescriptors.Input.Location.Angle)
+    }
+    
+    func setAngle(inDegrees degrees: Double) {
+        self.bindYieldData(degrees)
+    }
+    
+    func setAngle(inRadians radians: Double) {
+        let degrees = radians * (Double.pi / 180)
+        self.bindYieldData(degrees)
     }
 }

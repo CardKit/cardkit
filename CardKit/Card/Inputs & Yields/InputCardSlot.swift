@@ -10,9 +10,7 @@ import Foundation
 
 import Freddy
 
-/// Input slots are identified by a string. These strings should be defined in a String enum by the card implementations that need inputs.
-/// For example, a `CKTimer` card may define `enum CKTimerInputSlot: String { case Duration }`.
-/// This way, we do away with having "magic" string keys and can use type-checking to make sure we are correctly binding an Input card to the right slot.
+/// Input slots are identified by a String.
 public typealias InputSlotIdentifier = String
 
 /// Represents the metadata of an input to a card. Input is bound to a specified slot in the card. Inputs may be optional.
