@@ -15,7 +15,11 @@ public struct Hand {
     
     public let identifier: HandIdentifier
     
-    init(with cards: [Card]) {
+    init() {
+        self.init(cards: [])
+    }
+    
+    init(cards: [Card]) {
         self.cards = cards
         self.identifier = HandIdentifier()
     }

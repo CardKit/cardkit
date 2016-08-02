@@ -17,13 +17,17 @@ public struct Deck {
     /// or terminate once all the hands have executed
     public var conclusionAction: DeckConclusionAction
     
-    init(with hands: [Hand], onConclusion conclusionAction: DeckConclusionAction) {
-        self.hands = hands
-        self.conclusionAction = conclusionAction
+    init() {
+        self.init(hands: [], onConclusion: .Terminate)
     }
     
-    init(with hands: [Hand]) {
-        self.init(with: hands, onConclusion: .Repeat)
+    init(hands: [Hand]) {
+        self.init(hands: hands, onConclusion: .Terminate)
+    }
+    
+    init(hands: [Hand], onConclusion conclusionAction: DeckConclusionAction) {
+        self.hands = hands
+        self.conclusionAction = conclusionAction
     }
 }
 
