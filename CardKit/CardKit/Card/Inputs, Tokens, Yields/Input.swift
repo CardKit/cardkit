@@ -76,7 +76,7 @@ extension InputType: JSONDecodable {
     public init(json: JSON) throws {
         let type = try json.string()
         guard let typeEnum = InputType(rawValue: type) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
+            throw JSON.Error.ValueNotConvertible(value: json, to: InputType.self)
         }
         self = typeEnum
     }
