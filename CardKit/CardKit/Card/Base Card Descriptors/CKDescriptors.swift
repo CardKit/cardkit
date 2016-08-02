@@ -104,6 +104,14 @@ public struct CKDescriptors {
     /// Contains descriptors for Deck cards
     public struct Deck {
         private init() {}
+        
+        //MARK: Repeat
+        public static let Repeat = DeckCardDescriptor(
+            name: "Repeat",
+            subpath: nil,
+            description: "Repeat the deck",
+            assetCatalog: CardAssetCatalog(),
+            version: 0)
     }
     
     //MARK:- Hand Cards
@@ -115,16 +123,88 @@ public struct CKDescriptors {
         /// Contains descriptors for Hand/Next cards
         public struct Next {
             private init() {}
+            
+            //MARK: Branch
+            /// Descriptor for the Branch card
+            public static let Branch = HandCardDescriptor(
+                name: "Branch",
+                subpath: "Next",
+                description: "Branch to the specified hand",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
+            
+            //MARK: Repeat
+            /// Descriptor for the Repeat card
+            public static let Repeat = HandCardDescriptor(
+                name: "Repeat",
+                subpath: "Next",
+                description: "Repeat the hand",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
         }
         
         /// Contains descriptors for Hand/End cards
         public struct End {
             private init() {}
+            
+            //MARK: All
+            /// Descriptor for the All card
+            public static let All = HandCardDescriptor(
+                name: "All",
+                subpath: "End",
+                description: "Move to the next hand when all End conditions have been satisfied",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
+            
+            //MARK: Any
+            /// Descriptor for the Any card
+            public static let Any = HandCardDescriptor(
+                name: "Any",
+                subpath: "End",
+                description: "Move to the next hand when any End condition has been satisfied",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
         }
         
         /// Contains descriptors for Hand/Logic cards
         public struct Logic {
             private init() {}
+            
+            //MARK: Not
+            /// Descriptor for the Not card
+            public static let Not = HandCardDescriptor(
+                name: "Not",
+                subpath: "Logic",
+                description: "???",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
+            
+            //MARK: Not
+            /// Descriptor for the Not card
+            public static let And = HandCardDescriptor(
+                name: "And",
+                subpath: "Logic",
+                description: "???",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
+            
+            //MARK: Not
+            /// Descriptor for the Not card
+            public static let Or = HandCardDescriptor(
+                name: "Or",
+                subpath: "Logic",
+                description: "???",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
+            
+            //MARK: Xor
+            /// Descriptor for the Xor card
+            public static let Xor = HandCardDescriptor(
+                name: "Xor",
+                subpath: "Logic",
+                description: "???",
+                assetCatalog: CardAssetCatalog(),
+                version: 0)
         }
     }
     
@@ -139,7 +219,7 @@ public struct CKDescriptors {
             private init() {}
             
             //MARK: Location/Angle
-            /// Descriptor for Angle card
+            /// Descriptor for the Angle card
             public static let Angle = InputCardDescriptor(
                 name: "Angle",
                 subpath: "Location",
@@ -150,7 +230,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/BoundingBox
-            /// Descriptor for Bounding Box card
+            /// Descriptor for the Bounding Box card
             public static let BoundingBox = InputCardDescriptor(
                 name: "Bounding Box",
                 subpath: "Location",
@@ -161,7 +241,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/BoundingBox3D
-            /// Descriptor for Bounding Box 3D card
+            /// Descriptor for the Bounding Box 3D card
             public static let BoundingBox3D = InputCardDescriptor(
                 name: "Bounding Box 3D",
                 subpath: "Location",
@@ -172,7 +252,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/CardinalDirection
-            /// Descriptor for Cardinal Direction card
+            /// Descriptor for the Cardinal Direction card
             public static let CardinalDirection = InputCardDescriptor(
                 name: "Cardinal Direction",
                 subpath: "Location",
@@ -183,7 +263,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/Distance
-            /// Descriptor for Distance card
+            /// Descriptor for the Distance card
             public static let Distance = InputCardDescriptor(
                 name: "Distance",
                 subpath: "Location",
@@ -194,7 +274,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/Location
-            /// Descriptor for Location card
+            /// Descriptor for the Location card
             public static let Location = InputCardDescriptor(
                 name: "Location",
                 subpath: "Location",
@@ -205,7 +285,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/Path
-            /// Descriptor for Path card
+            /// Descriptor for the Path card
             public static let Path = InputCardDescriptor(
                 name: "Path",
                 subpath: "Location",
@@ -216,7 +296,7 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Location/Path3D
-            /// Descriptor for Path 3D card
+            /// Descriptor for the Path 3D card
             public static let Path3D = InputCardDescriptor(
                 name: "Path 3D",
                 subpath: "Location",
