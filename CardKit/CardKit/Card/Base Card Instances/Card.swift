@@ -8,6 +8,8 @@
 
 import Foundation
 
+import Freddy
+
 public protocol Card {
     var identifier: CardIdentifier { get }
     var description: String { get }

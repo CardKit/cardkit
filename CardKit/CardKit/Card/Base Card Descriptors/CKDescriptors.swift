@@ -172,7 +172,7 @@ public struct CKDescriptors {
             
             //MARK: Not
             /// Descriptor for the Not card
-            public static let Not = HandCardDescriptor(
+            public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
                 description: "???",
@@ -181,7 +181,7 @@ public struct CKDescriptors {
             
             //MARK: Not
             /// Descriptor for the Not card
-            public static let And = HandCardDescriptor(
+            public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
                 description: "???",
@@ -190,7 +190,7 @@ public struct CKDescriptors {
             
             //MARK: Not
             /// Descriptor for the Not card
-            public static let Or = HandCardDescriptor(
+            public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
                 description: "???",
@@ -198,8 +198,8 @@ public struct CKDescriptors {
                 version: 0)
             
             //MARK: Xor
-            /// Descriptor for the Xor card
-            public static let Xor = HandCardDescriptor(
+            /// Descriptor for the LogicalXor card
+            public static let LogicalXor = HandCardDescriptor(
                 name: "Xor",
                 subpath: "Logic",
                 description: "???",
