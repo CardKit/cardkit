@@ -15,7 +15,7 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public let isConsumable: Bool
+    public let isConsumed: Bool
     
     public let cardType: CardType = .Token
     
@@ -55,7 +55,7 @@ extension TokenCardDescriptor: JSONEncodable {
             "identifier": identifier.toJSON(),
             "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
-            "isConsumable": isConsumable.toJSON()
+            "isConsumed": isConsumable.toJSON()
             ])
     }
 }
@@ -67,6 +67,6 @@ extension TokenCardDescriptor: JSONDecodable {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.isConsumable = try json.bool("isConsumable")
+        self.isConsumed = try json.bool("isConsumed")
     }
 }

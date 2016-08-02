@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Applied to card descriptors that are consumable
+/// Applied to card descriptors that are consumed
 protocol Consumable {
-    var isConsumable: Bool { get }
+    var isConsumed: Bool { get }
 }
