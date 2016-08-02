@@ -45,18 +45,32 @@ public struct CKDescriptors {
             public struct Time {
                 private init() {}
                 
-                //MARK: Trigger/Time
-                /// Descriptor for Timer card
+                //MARK: Trigger/Time/Timer
+                /// Descriptor for the Timer card
                 public static let Timer = ActionCardDescriptor(
                     name: "Timer",
                     subpath: "Trigger/Time",
                     description: "Set a timer",
                     assetCatalog: CardAssetCatalog(),
                     inputs: [
-                        InputSlot(
-                            identifier: "Duration",
-                            type: InputType.SwiftDouble,
-                            isOptional: false)
+                        InputSlot(identifier: "Duration", type: InputType.SwiftDouble, isOptional: false)
+                    ],
+                    tokens: nil,
+                    yields: nil,
+                    yieldDescription: nil,
+                    ends: true,
+                    endsDescription: "Ends after the specified duration",
+                    version: 0)
+                
+                //MARK: Trigger/Time/SetATimer
+                /// Descriptor for the SetATimer card
+                public static let SetATimer = ActionCardDescriptor(
+                    name: "Set A Timer",
+                    subpath: "Trigger/Time",
+                    description: "Set a timer (seconds)",
+                    assetCatalog: CardAssetCatalog(),
+                    inputs: [
+                        InputSlot(identifier: "Duration", type: .SwiftInt, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
@@ -66,17 +80,14 @@ public struct CKDescriptors {
                     version: 0)
                 
                 //MARK: Triger/WaitUntilTime
-                /// Descriptor for WaitUntilTime card
+                /// Descriptor for the WaitUntilTime card
                 public static let WaitUntilTime = ActionCardDescriptor(
                     name: "Wait Until Time",
                     subpath: "Trigger/Time",
                     description: "Wait until the specified time",
                     assetCatalog: CardAssetCatalog(),
                     inputs: [
-                        InputSlot(
-                            identifier: "ClockTime",
-                            type: InputType.SwiftDouble,
-                            isOptional: false)
+                        InputSlot(identifier: "ClockTime", type: InputType.SwiftDouble, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
@@ -219,16 +230,82 @@ public struct CKDescriptors {
         /// Contains descriptors for Input/Media cards
         public struct Media {
             private init() {}
+            
+            //MARK: Media/Audio
+            /// Descriptor for the Audio card
+            public static let Audio = InputCardDescriptor(
+                name: "Audio",
+                subpath: "Media/Audio",
+                description: "Audio",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .SwiftData,
+                inputDescription: "Audio (data)",
+                version: 0)
+            
+            //MARK: Media/Image
+            /// Descriptor for the Image card
+            public static let Image = InputCardDescriptor(
+                name: "Image",
+                subpath: "Media/Image",
+                description: "Image",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .SwiftData,
+                inputDescription: "Audio (data)",
+                version: 0)
         }
         
         /// Contains descriptors for Input/Numeric cards
         public struct Numeric {
             private init() {}
+            
+            //MARK: Numeric/Integer
+            /// Descriptor for the Integer card
+            public static let Integer = InputCardDescriptor(
+                name: "Integer",
+                subpath: "Numeric",
+                description: "Integer number",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .SwiftInt,
+                inputDescription: "Integer",
+                version: 0)
+            
+            //MARK: Numeric/Real
+            /// Descriptor for the Real card
+            public static let Real = InputCardDescriptor(
+                name: "Real",
+                subpath: "Numeric",
+                description: "Real number",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .SwiftDouble,
+                inputDescription: "Real",
+                version: 0)
         }
         
         /// Contains descriptors for Input/Relative cards
         public struct Relative {
             private init() {}
+            
+            //MARK: Relative/RelativeToLocation
+            /// Descriptor for the RelativeToLocation card
+            public static let RelativeToLocation = InputCardDescriptor(
+                name: "Relative To Location",
+                subpath: "Relative",
+                description: "A coordinate used to offset another coordinate",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .Coordinate2D,
+                inputDescription: "Coordinate offset",
+                version: 0)
+            
+            //MARK: Relative/RelativeToObject
+            /// Descriptor for the RelativeToObject card
+            public static let RelativeToObject = InputCardDescriptor(
+                name: "Relative To Object",
+                subpath: "Relative",
+                description: "A coordinate used to offset from an object's location",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .Coordinate2D,
+                inputDescription: "Coordinate offset",
+                version: 0)
         }
         
         /// Contains descriptors for Input/Time cards
@@ -255,6 +332,17 @@ public struct CKDescriptors {
                 assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftInt,
                 inputDescription: "Duration (seconds)",
+                version: 0)
+            
+            //MARK: Time/Periodicity
+            /// Descriptor for the Periodicity card
+            public static let Periodicity = InputCardDescriptor(
+                name: "Periodicity",
+                subpath: "Time",
+                description: "Periodic frequency (seconds)",
+                assetCatalog: CardAssetCatalog(),
+                inputType: .Coordinate2D,
+                inputDescription: "Periodic frequency (seconds)",
                 version: 0)
         }
     }

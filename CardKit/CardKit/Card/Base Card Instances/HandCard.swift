@@ -8,6 +8,8 @@
 
 import Foundation
 
+import Freddy
+
 public struct HandCard: Card {
     public let descriptor: HandCardDescriptor
     
@@ -19,5 +21,23 @@ public struct HandCard: Card {
     
     init(with descriptor: HandCardDescriptor) {
         self.descriptor = descriptor
+    }
+}
+
+//MARK: JSONDecodable
+
+extension HandCard: JSONDecodable {
+    public init(json: JSON) throws {
+        self.descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+    }
+}
+
+//MARK: JSONEncodable
+
+extension HandCard: JSONEncodable {
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "descriptor": self.descriptor.toJSON()
+            ])
     }
 }
