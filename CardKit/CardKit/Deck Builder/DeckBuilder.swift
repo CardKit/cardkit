@@ -29,35 +29,7 @@ public func <- (lhs: ActionCard, rhs: InputCard) throws -> ActionCard {
     return try lhs.bound(with: rhs)
 }
 
-
-
-// ActionCard <- InputCard
-// ActionCard <- TokenCard
-// ActionCard <-
-/*
-public func <- (lhs: InputSpec, rhs: TokenSpec) -> (InputSpec, TokenSpec) {
-    return (lhs, rhs)
+/// Bind a TokenCard to an ActionCard in the specified slot
+public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
+    return try lhs.bound(with: rhs.1, toSlotWithIdentifier: rhs.0)
 }
-
-public func <- (lhs: TokenSpec, rhs: InputSpec) -> (InputSpec, TokenSpec) {
-    return (rhs, lhs)
-}
-
-public func <- (lhs: ActionCardDesc, rhs: InputSpec) -> ActionSpec {
-    return ActionSpec(card: lhs, inputs: rhs)
-}
-
-public func <- (lhs: ActionCardDesc, rhs: TokenSpec) -> ActionSpec {
-    return ActionSpec(card: lhs, tokens: rhs)
-}
-
-public func <- (lhs: ActionCardDesc, rhs: (InputSpec, TokenSpec)) -> ActionSpec {
-    let (inputs, tokens) = rhs
-    return ActionSpec(card: lhs, inputs: inputs, tokens: tokens)
-}
-
-public func <- (lhs: ActionCardDesc, rhs: (TokenSpec, InputSpec)) -> ActionSpec {
-    let (tokens, inputs) = rhs
-    return ActionSpec(card: lhs, inputs: inputs, tokens: tokens)
-}
-*/
