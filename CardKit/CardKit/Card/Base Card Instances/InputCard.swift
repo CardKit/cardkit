@@ -30,6 +30,55 @@ public struct InputCard: Card {
     
     // input data
     public var inputData: InputBinding?
+    
+    public func inputDataValue<T>() -> T? {
+        if let inputData = self.inputData {
+            switch inputData {
+            case .SwiftInt(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .SwiftDouble(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .SwiftString(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .SwiftData(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .SwiftDate(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .Coordinate2D(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .Coordinate2DPath(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .Coordinate3D(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .Coordinate3DPath(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            case .CardinalDirection(let val):
+                if let ret = val as? T {
+                    return ret
+                }
+            }
+        }
+        
+        return nil
+    }
 }
 
 //MARK: Equatable

@@ -16,6 +16,10 @@ infix operator <- { associativity right precedence 130 }
 
 //MARK: Binding Data to an InputCard
 
+public func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard {
+    return try lhs.instance() <- rhs
+}
+
 /// Bind data to an InputCard
 public func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard {
     return try lhs.bound(withValue: rhs)

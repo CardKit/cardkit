@@ -23,11 +23,20 @@ class DeckBuilderTests: XCTestCase {
     func testSimpleDeck() {
         let noAction = CKDescriptors.Action.NoAction
         
-        let deck =
-            (noAction ==>
-            noAction)%
+        let deck = (
+            noAction ==>
+            noAction
+        )%
         
         print("deck: \(deck)")
     }
-
+    
+    func testInputBinding() {
+        do {
+            let duration = try CKDescriptors.Input.Time.Duration <- 5
+            XCTAssertTrue(duration.inputDataValue() == 5)
+        } catch let error {
+            XCTFail("\(error)")
+        }
+    }
 }
