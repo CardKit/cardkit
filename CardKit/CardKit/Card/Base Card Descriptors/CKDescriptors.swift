@@ -91,6 +91,13 @@ public struct CKDescriptors {
             subpath: nil,
             assetCatalog: CardAssetCatalog(description: "Repeat the deck"),
             version: 0)
+        
+        //MARK: Terminate
+        public static let Terminate = DeckCardDescriptor(
+            name: "Terminate",
+            subpath: nil,
+            assetCatalog: CardAssetCatalog(description: "Terminate the deck"),
+            version: 0)
     }
     
     //MARK:- Hand Cards
@@ -174,15 +181,6 @@ public struct CKDescriptors {
                 subpath: "Logic",
                 logicType: .SatisfactionLogic,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"),
-                version: 0)
-            
-            //MARK: LogicalXor
-            /// Descriptor for the LogicalXor card
-            public static let LogicalXor = HandCardDescriptor(
-                name: "Xor",
-                subpath: "Logic",
-                logicType: .SatisfactionLogic,
-                assetCatalog: CardAssetCatalog(description: "Satisfied when only one of the two target cards has been satisfied (NOTE: functionally this is probably the same as OR)"),
                 version: 0)
         }
     }

@@ -52,6 +52,11 @@ public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> Ac
 prefix operator ! {}
 
 /// Return a new hand with the given ActionCard and a Not card played with it
+public prefix func ! (operand: ActionCardDescriptor) -> Hand {
+    return !operand.instance()
+}
+
+/// Return a new hand with the given ActionCard and a Not card played with it
 public prefix func ! (operand: ActionCard) -> Hand {
     // create a NOT card bound to the operand
     var not = CKDescriptors.Hand.Logic.LogicalNot.instance()
@@ -67,6 +72,18 @@ public prefix func ! (operand: ActionCard) -> Hand {
 
 //MARK: And Operations
 
+public func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
+    return lhs.instance() && rhs.instance()
+}
+
+public func && (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
+    return lhs.instance() && rhs
+}
+
+public func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
+    return lhs && rhs.instance()
+}
+
 /// Return a new hand with the given ActionCards ANDed together
 public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     // create an AND card bound to the operands
@@ -79,6 +96,10 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     hand.add(andCard)
     return hand
+}
+
+public func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
+    return lhs && rhs.instance()
 }
 
 /// Return a new hand with the given ActionCard ANDed with the other cards in the hand. Note that the
@@ -127,6 +148,10 @@ public func && (lhs: Hand, rhs: ActionCard) -> Hand {
         // shouldn't happen
         return lhs
     }
+}
+
+public func && (lhs: Hand, rhs: HandCardDescriptor) -> Hand {
+    return lhs && rhs.instance()
 }
 
 /// Return a new hand with the given HandCard appended to the Hand.
@@ -193,6 +218,18 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
 
 //MARK: Or Operations
 
+public func || (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
+    return lhs.instance() || rhs.instance()
+}
+
+public func || (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
+    return lhs.instance() || rhs
+}
+
+public func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
+    return lhs || rhs.instance()
+}
+
 /// Return a new hand with the given ActionCards ORed together
 public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     // create an OR card bound to the operands
@@ -205,6 +242,10 @@ public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     hand.add(orCard)
     return hand
+}
+
+public func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
+    return lhs || rhs.instance()
 }
 
 /// Return a new hand with the given ActionCard ORed with the other cards in the hand. Note that the
@@ -314,6 +355,18 @@ public func || (lhs: Hand, rhs: Hand) -> Hand {
 
 infix operator ==> { associativity left precedence 80 }
 
+public func ==> (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> [Hand] {
+    return lhs.instance() ==> rhs.instance()
+}
+
+public func ==> (lhs: ActionCardDescriptor, rhs: ActionCard) -> [Hand] {
+    return lhs.instance() ==> rhs
+}
+
+public func ==> (lhs: ActionCard, rhs: ActionCardDescriptor) -> [Hand] {
+    return lhs ==> rhs.instance()
+}
+
 /// Return a new deck with lhs and rhs as separate hands
 public func ==> (lhs: ActionCard, rhs: ActionCard) -> [Hand] {
     var lhsHand = Hand()
@@ -323,10 +376,18 @@ public func ==> (lhs: ActionCard, rhs: ActionCard) -> [Hand] {
     return [lhsHand, rhsHand]
 }
 
+public func ==> (lhs: ActionCardDescriptor, rhs: Hand) -> [Hand] {
+    return lhs.instance() ==> rhs
+}
+
 public func ==> (lhs: ActionCard, rhs: Hand) -> [Hand] {
     var lhsHand = Hand()
     lhsHand.add(lhs)
     return [lhsHand, rhs]
+}
+
+public func ==> (lhs: Hand, rhs: ActionCardDescriptor) -> [Hand] {
+    return lhs ==> rhs.instance()
 }
 
 public func ==> (lhs: Hand, rhs: ActionCard) -> [Hand] {
@@ -342,9 +403,9 @@ public func ==> (lhs: Hand, rhs: Hand) -> [Hand] {
 
 //MARK: Deckification
 
-postfix operator |!| {}
+postfix operator % {}
 
-public postfix func |!| (operand: [Hand]) -> Deck {
+public postfix func % (operand: [Hand]) -> Deck {
     var deck = Deck()
     deck.hands = operand
     return deck

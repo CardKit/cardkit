@@ -103,6 +103,22 @@ public struct Hand {
     }
 }
 
+//MARK: Equatable
+
+extension Hand: Equatable {}
+
+public func == (lhs: Hand, rhs: Hand) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension Hand: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
+    }
+}
+
 //MARK: JSONDecodable
 
 extension Hand: JSONDecodable {

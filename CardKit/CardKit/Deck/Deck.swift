@@ -10,24 +10,62 @@ import Foundation
 
 import Freddy
 
+public typealias DeckIdentifier = CardIdentifier
+
 public struct Deck {
     public var hands: [Hand]
+    public var deckCards: [DeckCard]
     
-    /// Specifies whether execution should loop back to the first hand
-    /// or terminate once all the hands have executed
-    public var conclusionAction: DeckConclusionAction
+    let identifier: DeckIdentifier
     
     init() {
-        self.init(hands: [], onConclusion: .Terminate)
+        self.init(hands: [])
     }
     
     init(hands: [Hand]) {
-        self.init(hands: hands, onConclusion: .Terminate)
+        self.hands = hands
+        self.deckCards = []
+        self.identifier = DeckIdentifier()
     }
     
-    init(hands: [Hand], onConclusion conclusionAction: DeckConclusionAction) {
-        self.hands = hands
-        self.conclusionAction = conclusionAction
+    var handCount: Int {
+        return hands.count
+    }
+    
+    var firstHand: Hand? {
+        return hands.first
+    }
+    
+    mutating func add(hand: Hand) {
+        self.hands.append(hand)
+    }
+    
+    mutating func add(card: DeckCard) {
+        self.deckCards.append(card)
+    }
+    
+    mutating func remove(hand: Hand) {
+        self.hands.removeObject(hand)
+    }
+    
+    mutating func remove(card: DeckCard) {
+        self.deckCards.removeObject(card)
+    }
+}
+
+//MARK: Equatable
+
+extension Deck: Equatable {}
+
+public func == (lhs: Deck, rhs: Deck) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension Deck: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
     }
 }
 
@@ -36,7 +74,8 @@ public struct Deck {
 extension Deck: JSONDecodable {
     public init(json: JSON) throws {
         self.hands = try json.arrayOf("hands", type: Hand.self)
-        self.conclusionAction = try json.decode("conclusionAction", type: DeckConclusionAction.self)
+        self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
+        self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
     }
 }
 
@@ -46,7 +85,8 @@ extension Deck: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
             "hands": self.hands.toJSON(),
-            "conclusionAction": self.conclusionAction.toJSON(),
+            "deckCards": self.deckCards.toJSON(),
+            "identifier": self.identifier.toJSON()
             ])
     }
 }
