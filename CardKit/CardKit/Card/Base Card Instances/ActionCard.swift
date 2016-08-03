@@ -30,7 +30,7 @@ public struct ActionCard: Card {
     }
 }
 
-//MARK:- BindsWithActionCard
+//MARK: BindsWithActionCard
 
 extension ActionCard: BindsWithActionCard {
     mutating func bind(card: ActionCard, to slot: InputSlot) {
@@ -55,7 +55,7 @@ extension ActionCard: BindsWithActionCard {
     }
 }
 
-//MARK:- BindsWithInputCard
+//MARK: BindsWithInputCard
 
 extension ActionCard: BindsWithInputCard {
     mutating func bind(card: InputCard, to slot: InputSlot) {
@@ -77,7 +77,7 @@ extension ActionCard: BindsWithInputCard {
     }
 }
 
-//MARK:- BindsWithTokenCard
+//MARK: BindsWithTokenCard
 
 extension ActionCard: BindsWithTokenCard {
     mutating func bind(card: TokenCard, to slot: TokenSlot) {
