@@ -15,7 +15,7 @@ public struct TokenCard: Card {
     
     // Card protocol
     public var identifier: CardIdentifier = CardIdentifier()
-    public var type: CardType { return descriptor.type }
+    public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     

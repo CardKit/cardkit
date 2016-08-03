@@ -67,7 +67,7 @@ extension Hand: JSONEncodable {
         var jsonCards: [JSON] = []
         
         for card in self.cards {
-            switch card.type {
+            switch card.cardType {
             case .Action:
                 if let c = card as? ActionCard {
                     jsonCards.append(c.toJSON())

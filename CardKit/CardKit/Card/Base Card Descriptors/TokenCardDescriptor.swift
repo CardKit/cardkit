@@ -11,7 +11,7 @@ import Foundation
 import Freddy
 
 public struct TokenCardDescriptor: CardDescriptor, Consumable {
-    public let type: CardType = .Token
+    public let cardType: CardType = .Token
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -26,6 +26,11 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
         self.assetCatalog = assetCatalog
         
         self.isConsumed = isConsumed
+    }
+    
+    /// Return a new TokenCard instance using our descriptor
+    func instance() -> TokenCard {
+        return TokenCard(with: self)
     }
 }
 
@@ -55,7 +60,7 @@ extension TokenCardDescriptor: Hashable {
 extension TokenCardDescriptor: CustomStringConvertible {
     public var description: String {
         let consumed = self.isConsumed ? "CONSUMED" : "NOT CONSUMED"
-        return "\(name) [\(self.type), \(consumed), version \(self.version)]"
+        return "\(name) [\(self.cardType), \(consumed), version \(self.version)]"
     }
 }
 
@@ -64,7 +69,7 @@ extension TokenCardDescriptor: CustomStringConvertible {
 extension TokenCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "type": type.toJSON(),
+            "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),

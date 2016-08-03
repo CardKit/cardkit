@@ -11,7 +11,7 @@ import Foundation
 import Freddy
 
 public struct HandCardDescriptor: CardDescriptor {
-    public let type: CardType = .Hand
+    public let cardType: CardType = .Hand
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -26,6 +26,11 @@ public struct HandCardDescriptor: CardDescriptor {
         self.assetCatalog = assetCatalog
         
         self.logicType = logicType
+    }
+    
+    /// Return a new HandCard instance using our descriptor
+    func instance() -> HandCard {
+        return HandCard(with: self)
     }
 }
 
@@ -54,7 +59,7 @@ extension HandCardDescriptor: Hashable {
 
 extension HandCardDescriptor: CustomStringConvertible {
     public var description: String {
-        return "\(name) [\(self.type), logicType: \(self.logicType), version \(self.version)]"
+        return "\(name) [\(self.cardType), logicType: \(self.logicType), version \(self.version)]"
     }
 }
 
@@ -63,7 +68,7 @@ extension HandCardDescriptor: CustomStringConvertible {
 extension HandCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "type": type.toJSON(),
+            "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),

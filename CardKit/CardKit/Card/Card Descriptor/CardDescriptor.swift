@@ -11,7 +11,7 @@ import Foundation
 /// Defines all the metadata for a card.
 public protocol CardDescriptor {
     /// The type of the card (Action, Deck, Hand, Input, Token)
-    var type: CardType { get }
+    var cardType: CardType { get }
     
     /// The name of the card (e.g. "Location", "Turn On", "Fly To")
     var name: String { get }

@@ -4,6 +4,7 @@ disabled_rules: # rule identifiers to exclude from running
   - cyclomatic_complexity
   - force_try # disabling force_try for realm - 'try! Realm()'
   - file_length
+  - valid_docs
 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage

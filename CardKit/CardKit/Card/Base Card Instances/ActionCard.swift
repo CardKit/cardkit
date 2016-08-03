@@ -15,7 +15,7 @@ public struct ActionCard: Card {
     
     // Card protocol
     public var identifier: CardIdentifier = CardIdentifier()
-    public var type: CardType { return descriptor.cardType }
+    public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
@@ -28,27 +28,42 @@ public struct ActionCard: Card {
     init(with descriptor: ActionCardDescriptor) {
         self.descriptor = descriptor
     }
+    
+    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : Card], tokenBindings: [TokenSlot : TokenCard]) {
+        self.descriptor = descriptor
+        self.inputBindings = inputBindings
+        self.tokenBindings = tokenBindings
+    }
 }
 
 //MARK: BindsWithActionCard
 
 extension ActionCard: BindsWithActionCard {
-    mutating func bind(card: ActionCard, to slot: InputSlot) {
-        // it's not truly necessary to call unbind before doing the
-        // re-assignment, but i'm leaving this here just in case
-        // bind() / unbind() become more complicated in the future
-        // and it becomes necessary.
-        if self.isBound(slot) {
-            self.unbind(slot)
-        }
-        
+    /// Binds the given ActionCard to the specified InputSlot
+    mutating func bind(with card: ActionCard, in slot: InputSlot) {
         self.inputBindings[slot] = card
     }
     
+    /// Unbinds the card that was bound to the specified InputSlot
     mutating func unbind(slot: InputSlot) {
         self.inputBindings.removeValueForKey(slot)
     }
     
+    /// Returns a new ActionCard with the given ActionCard bound to the specified InputSlot
+    func bound(with card: ActionCard, in slot: InputSlot) -> ActionCard {
+        var newInputBindings = inputBindings
+        newInputBindings[slot] = card
+        return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+    }
+    
+    /// Returns a new ActionCard with the given InputSlot unbound
+    func unbound(slot: InputSlot) -> ActionCard {
+        var newInputBindings = inputBindings
+        newInputBindings.removeValueForKey(slot)
+        return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+    }
+    
+    /// Determines if the specified InputSlot has been bound
     func isBound(slot: InputSlot) -> Bool {
         guard let _ = self.inputBindings[slot] else { return false }
         return true
@@ -58,15 +73,51 @@ extension ActionCard: BindsWithActionCard {
 //MARK: BindsWithInputCard
 
 extension ActionCard: BindsWithInputCard {
-    mutating func bind(card: InputCard, to slot: InputSlot) {
-        if self.isBound(slot) {
-            self.unbind(slot)
+    /// Errors that may occur when binding InputCards
+    public enum BindingError: ErrorType {
+        /// No free slot of the matching InputType was found
+        case NoFreeSlotMatchingInputTypeFound
+    }
+    
+    /// Binds the given InputCard to the first available InputSlot with matching InputType.
+    mutating func bind(with card: InputCard) throws {
+        for slot in self.descriptor.inputSlots {
+            if card.descriptor.inputType == slot.inputType && !self.isBound(slot) {
+                self.bind(with: card, in: slot)
+                return
+            }
         }
         
+        throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
+    }
+    
+    /// Returns a new ActionCard with the given InputCard bound to the first free InputSlot with matching InputType.
+    func bound(with card: InputCard) throws -> ActionCard {
+        for slot in self.descriptor.inputSlots {
+            if card.descriptor.inputType == slot.inputType && !self.isBound(slot) {
+                var newInputBindings = inputBindings
+                newInputBindings[slot] = card
+                return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+            }
+        }
+        
+        throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
+    }
+    
+    /// Binds the given InputCard to the specified InputSlot
+    mutating func bind(with card: InputCard, in slot: InputSlot) {
         self.inputBindings[slot] = card
     }
     
-    func inputValue(of slot: InputSlot) -> InputBinding? {
+    /// Returns a new ActionCard with the given InputCard bound to the specified InputSlot
+    func bound(with card: InputCard, in slot: InputSlot) -> ActionCard {
+        var newInputBindings = inputBindings
+        newInputBindings[slot] = card
+        return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+    }
+    
+    /// Returns the value held in the specified InputSlot
+    func value(of slot: InputSlot) -> InputBinding? {
         // if this slot is bound to an Input card, then we will might have a value
         if let card = self.inputBindings[slot] as? InputCard {
             return card.inputData
@@ -80,18 +131,31 @@ extension ActionCard: BindsWithInputCard {
 //MARK: BindsWithTokenCard
 
 extension ActionCard: BindsWithTokenCard {
-    mutating func bind(card: TokenCard, to slot: TokenSlot) {
-        if self.isBound(slot) {
-            self.unbind(slot)
-        }
-        
+    /// Binds the given TokenCard to the specified TokenSlot
+    mutating func bind(with card: TokenCard, in slot: TokenSlot) {
         self.tokenBindings[slot] = card
     }
     
+    /// Unbinds the card that was bound to the specified TokenSlot
     mutating func unbind(slot: TokenSlot) {
         self.tokenBindings.removeValueForKey(slot)
     }
     
+    /// Returns a new ActionCard with the given TokenCard bound to the specified TokenSlot
+    func bound(with card: TokenCard, in slot: TokenSlot) -> ActionCard {
+        var newTokenBindings = tokenBindings
+        newTokenBindings[slot] = card
+        return ActionCard(with: self.descriptor, inputBindings: self.inputBindings, tokenBindings: newTokenBindings)
+    }
+    
+    /// Returns a new ActionCard with the given TokenSlot unbound
+    func unbound(slot: TokenSlot) -> ActionCard {
+        var newTokenBindings = tokenBindings
+        newTokenBindings.removeValueForKey(slot)
+        return ActionCard(with: self.descriptor, inputBindings: self.inputBindings, tokenBindings: newTokenBindings)
+    }
+    
+    /// Determines if the specified TokenSlot has been bound
     func isBound(slot: TokenSlot) -> Bool {
         guard let _ = self.tokenBindings[slot] else { return false }
         return true
@@ -113,10 +177,10 @@ extension ActionCard: JSONDecodable {
         // from the JSON, the Action binding will take precedence.
         self.inputBindings = [:]
         for (slot, card) in boundInputCards {
-            self.bind(card, to: slot)
+            self.bind(with: card, in: slot)
         }
         for (slot, card) in boundActionCards {
-            self.bind(card, to: slot)
+            self.bind(with: card, in: slot)
         }
     }
 }

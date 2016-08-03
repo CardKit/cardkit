@@ -70,7 +70,7 @@ extension CardIdentifier: JSONEncodable {
 
 public protocol Card {
     var identifier: CardIdentifier { get }
-    var type: CardType { get }
+    var cardType: CardType { get }
     var description: String { get }
     var assetCatalog: CardAssetCatalog { get }
 }

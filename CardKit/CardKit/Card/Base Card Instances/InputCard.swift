@@ -15,7 +15,7 @@ public struct InputCard: Card {
     
     // Card protocol
     public var identifier: CardIdentifier = CardIdentifier()
-    public var type: CardType { return descriptor.type }
+    public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
@@ -23,9 +23,16 @@ public struct InputCard: Card {
         self.descriptor = descriptor
     }
     
+    init(with descriptor: InputCardDescriptor, inputData: InputBinding) {
+        self.descriptor = descriptor
+        self.inputData = inputData
+    }
+    
     // input data
     public var inputData: InputBinding?
-    
+}
+
+extension InputCard {
     /// Errors that may occur when binding Input values
     public enum BindingError: ErrorType {
         /// The value is of a data type not currently supported for an Input (see Input.swift)
@@ -33,33 +40,42 @@ public struct InputCard: Card {
     }
     
     /// Bind the input data
-    mutating func bindInputData<T>(value: T) throws {
-        // this is a little silly, but we can't just use Any.Type for our 
+    private static func boundValue<T>(value: T) throws -> InputBinding {
+        // this is a little silly, but we can't just use Any.Type for our
         // Inputs because we can't deserialize the type from a string
         switch value {
         case let v as Int:
-            self.inputData = .SwiftInt(v)
+            return .SwiftInt(v)
         case let v as Double:
-            self.inputData = .SwiftDouble(v)
+            return .SwiftDouble(v)
         case let v as String:
-            self.inputData = .SwiftString(v)
+            return .SwiftString(v)
         case let v as NSData:
-            self.inputData = .SwiftData(v)
+            return .SwiftData(v)
         case let v as NSDate:
-            self.inputData = .SwiftDate(v)
+            return .SwiftDate(v)
         case let v as InputCoordinate2D:
-            self.inputData = .Coordinate2D(v)
+            return .Coordinate2D(v)
         case let v as [InputCoordinate2D]:
-            self.inputData = .Coordinate2DPath(v)
+            return .Coordinate2DPath(v)
         case let v as InputCoordinate3D:
-            self.inputData = .Coordinate3D(v)
+            return .Coordinate3D(v)
         case let v as [InputCoordinate3D]:
-            self.inputData = .Coordinate3DPath(v)
+            return .Coordinate3DPath(v)
         case let v as InputCardinalDirection:
-            self.inputData = .CardinalDirection(v)
+            return .CardinalDirection(v)
         default:
             throw InputCard.BindingError.UnsupportedDataType(type: value.dynamicType)
         }
+    }
+    
+    mutating func bind<T>(withValue value: T) throws {
+        self.inputData = try InputCard.boundValue(value)
+    }
+    
+    public func bound<T>(withValue value: T) throws -> InputCard {
+        let inputData = try InputCard.boundValue(value)
+        return InputCard(with: self.descriptor, inputData: inputData)
     }
 }
 

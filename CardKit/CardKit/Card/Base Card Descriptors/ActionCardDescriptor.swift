@@ -11,7 +11,7 @@ import Foundation
 import Freddy
 
 public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens, ProducesYields, Satisfiable {
-    public let type: CardType = .Action
+    public let cardType: CardType = .Action
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -31,8 +31,6 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let ends: Bool
     public let endDescription: String
     
-    public let cardType: CardType = .Action
-    
     //swiftlint:disable:next function_parameter_count
     public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
@@ -46,6 +44,11 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
         self.yieldDescription = yieldDescription ?? ""
         self.ends = ends
         self.endDescription = endsDescription
+    }
+    
+    /// Return a new ActionCard instance using our descriptor
+    func instance() -> ActionCard {
+        return ActionCard(with: self)
     }
 }
 
@@ -75,7 +78,7 @@ extension ActionCardDescriptor: Hashable {
 extension ActionCardDescriptor: CustomStringConvertible {
     public var description: String {
         let ends = self.ends ? "ENDS" : "DOES NOT END"
-        return "\(name) [\(self.type), \(self.inputSlots.count) input slots, \(self.tokenSlots.count) tokens slots, \(self.yields.count) yields, \(ends), version \(self.version)]"
+        return "\(name) [\(self.cardType), \(self.inputSlots.count) input slots, \(self.tokenSlots.count) tokens slots, \(self.yields.count) yields, \(ends), version \(self.version)]"
     }
 }
 
@@ -84,7 +87,7 @@ extension ActionCardDescriptor: CustomStringConvertible {
 extension ActionCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "type": type.toJSON(),
+            "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),

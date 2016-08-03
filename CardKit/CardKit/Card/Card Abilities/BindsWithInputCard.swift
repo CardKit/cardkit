@@ -12,8 +12,14 @@ import Foundation
 
 /// Applied to card instances that bind with Input cards
 protocol BindsWithInputCard {
-    mutating func bind(card: InputCard, to slot: InputSlot)
+    mutating func bind(with card: InputCard, in slot: InputSlot)
+    mutating func bind(with card: InputCard) throws
     mutating func unbind(slot: InputSlot)
+    
+    func bound(with card: InputCard, in slot: InputSlot) -> ActionCard
+    func bound(with card: InputCard) throws -> ActionCard
+    func unbound(slot: InputSlot) -> ActionCard
     func isBound(slot: InputSlot) -> Bool
-    func inputValue(of slot: InputSlot) -> InputBinding?
+    
+    func value(of slot: InputSlot) -> InputBinding?
 }
