@@ -29,6 +29,22 @@ public struct HandCard: Card {
     }
 }
 
+//MARK: Equatable
+
+extension HandCard: Equatable {}
+
+public func == (lhs: HandCard, rhs: HandCard) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension HandCard: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
+    }
+}
+
 //MARK: JSONDecodable
 
 extension HandCard: JSONDecodable {

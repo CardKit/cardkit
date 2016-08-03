@@ -24,6 +24,22 @@ public struct DeckCard: Card {
     }
 }
 
+//MARK: Equatable
+
+extension DeckCard: Equatable {}
+
+public func == (lhs: DeckCard, rhs: DeckCard) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension DeckCard: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
+    }
+}
+
 //MARK: JSONDecodable
 
 extension DeckCard: JSONDecodable {

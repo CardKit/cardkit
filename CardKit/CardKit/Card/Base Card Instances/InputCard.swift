@@ -32,6 +32,24 @@ public struct InputCard: Card {
     public var inputData: InputBinding?
 }
 
+//MARK: Equatable
+
+extension InputCard: Equatable {}
+
+public func == (lhs: InputCard, rhs: InputCard) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension InputCard: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
+    }
+}
+
+//MARK: Binding
+
 extension InputCard {
     /// Errors that may occur when binding Input values
     public enum BindingError: ErrorType {

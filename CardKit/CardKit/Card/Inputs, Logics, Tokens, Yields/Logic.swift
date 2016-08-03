@@ -217,7 +217,7 @@ extension HandRepeatSpec: JSONDecodable {
 //MARK:- HandSatisfactionSpec
 
 public indirect enum HandSatisfactionSpec {
-    case End(ActionCard)
+    case Card(ActionCard)
     case All([HandSatisfactionSpec])
     case Any([HandSatisfactionSpec])
     case LogicalAnd(HandSatisfactionSpec, HandSatisfactionSpec)
@@ -232,8 +232,8 @@ public indirect enum HandSatisfactionSpec {
 extension HandSatisfactionSpec: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .End(let card):
-            return "<Action Card \(card.identifier)>"
+        case .Card(let card):
+            return "<ActionCard \(card.identifier)>"
         case .All(let specs):
             return "<Satisfy ALL: [\(specs)]>"
         case .Any(let specs):
@@ -255,8 +255,8 @@ extension HandSatisfactionSpec: CustomStringConvertible {
 extension HandSatisfactionSpec: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .End(let action):
-            return .Dictionary(["logic": "End", "action": action.toJSON()])
+        case .Card(let card):
+            return .Dictionary(["logic": "Card", "card": card.toJSON()])
         case .All(let specs):
             return .Dictionary(["logic": "All", "specs": specs.toJSON()])
         case .Any(let specs):
@@ -284,9 +284,9 @@ extension HandSatisfactionSpec: JSONDecodable {
         let logic = try logicJson.string()
         
         switch logic {
-        case "End":
-            let action = try json.decode("action", type: ActionCard.self)
-            self = .End(action)
+        case "Card":
+            let card = try json.decode("card", type: ActionCard.self)
+            self = .Card(card)
         case "All":
             let specs = try json.arrayOf("specs", type: HandSatisfactionSpec.self)
             self = .All(specs)

@@ -36,6 +36,22 @@ public struct ActionCard: Card {
     }
 }
 
+//MARK: Equatable
+
+extension ActionCard: Equatable {}
+
+public func == (lhs: ActionCard, rhs: ActionCard) -> Bool {
+    return lhs.identifier == rhs.identifier
+}
+
+//MARK: Hashable
+
+extension ActionCard: Hashable {
+    public var hashValue: Int {
+        return self.identifier.hashValue
+    }
+}
+
 //MARK: BindingError
 
 extension ActionCard {

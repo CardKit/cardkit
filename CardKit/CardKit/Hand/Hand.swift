@@ -13,17 +13,93 @@ import Freddy
 public typealias HandIdentifier = CardIdentifier
 
 public struct Hand {
-    public var cards: [Card]
+    public var actionCards: [ActionCard]
+    public var handCards: [HandCard]
     
     let identifier: HandIdentifier
     
-    init() {
-        self.init(cards: [])
+    var cards: [Card] {
+        var c: [Card] = []
+        c.appendContentsOf(actionCards.map({ $0 as Card }))
+        c.appendContentsOf(handCards.map({ $0 as Card }))
+        return c
     }
     
-    init(cards: [Card]) {
-        self.cards = cards
-        self.identifier = HandIdentifier()
+    var count: Int {
+        return actionCards.count + handCards.count
+    }
+    
+    var lastActionCard: ActionCard? {
+        return actionCards.last
+    }
+    
+    var lastHandCard: HandCard? {
+        return handCards.last
+    }
+    
+    /// Returns the HandSatisfactionSpec from the most recently added HandCard, or nil
+    /// if there are no HandCards in the hand with a LogicBinding of .SatisfactionLogic
+    var lastHandSatisfactionSpec: HandSatisfactionSpec? {
+        for card in self.handCards.reverse() {
+            if let cardLogic = card.logic {
+                switch cardLogic {
+                case .SatisfactionLogic(let spec):
+                    return spec
+                default:
+                    continue
+                }
+            }
+        }
+        return nil
+    }
+    
+    init() {
+        self.init()
+    }
+    
+    mutating func add(card: ActionCard) {
+        self.actionCards.append(card)
+    }
+    
+    mutating func add(cards: [ActionCard]) {
+        self.actionCards.appendContentsOf(cards)
+    }
+    
+    mutating func add(card: HandCard) {
+        self.handCards.append(card)
+    }
+    
+    mutating func add(cards: [HandCard]) {
+        self.handCards.appendContentsOf(cards)
+    }
+    
+    mutating func addCards(from hand: Hand) {
+        for card in hand.actionCards {
+            self.add(card)
+        }
+        for card in hand.handCards {
+            self.add(card)
+        }
+    }
+    
+    mutating func remove(card: ActionCard) {
+        self.actionCards.removeObject(card)
+    }
+    
+    mutating func remove(cards: [ActionCard]) {
+        for card in cards {
+            self.actionCards.removeObject(card)
+        }
+    }
+    
+    mutating func remove(card: HandCard) {
+        self.handCards.removeObject(card)
+    }
+    
+    mutating func remove(cards: [HandCard]) {
+        for card in cards {
+            self.handCards.removeObject(card)
+        }
     }
 }
 
@@ -31,31 +107,8 @@ public struct Hand {
 
 extension Hand: JSONDecodable {
     public init(json: JSON) throws {
-        self.cards = []
-        
-        let cards: [JSON] = try json.array("cards")
-        for card in cards {
-            guard let descriptor: JSON = card["descriptor"] else { continue }
-            let cardType: CardType = try descriptor.decode("cardType", type: CardType.self)
-            switch cardType {
-            case .Action:
-                let actionCard = try ActionCard(json: card)
-                self.cards.append(actionCard)
-            case .Deck:
-                let deckCard = try DeckCard(json: card)
-                self.cards.append(deckCard)
-            case .Hand:
-                let handCard = try HandCard(json: card)
-                self.cards.append(handCard)
-            case .Input:
-                let inputCard = try ActionCard(json: card)
-                self.cards.append(inputCard)
-            case .Token:
-                let tokenCard = try TokenCard(json: card)
-                self.cards.append(tokenCard)
-            }
-        }
-        
+        self.actionCards = try json.arrayOf("actionCards", type: ActionCard.self)
+        self.handCards = try json.arrayOf("handCards", type: HandCard.self)
         self.identifier = try json.decode("identifier", type: HandIdentifier.self)
     }
 }
@@ -64,35 +117,9 @@ extension Hand: JSONDecodable {
 
 extension Hand: JSONEncodable {
     public func toJSON() -> JSON {
-        var jsonCards: [JSON] = []
-        
-        for card in self.cards {
-            switch card.cardType {
-            case .Action:
-                if let c = card as? ActionCard {
-                    jsonCards.append(c.toJSON())
-                }
-            case .Deck:
-                if let c = card as? DeckCard {
-                    jsonCards.append(c.toJSON())
-                }
-            case .Hand:
-                if let c = card as? HandCard {
-                    jsonCards.append(c.toJSON())
-                }
-            case .Input:
-                if let c = card as? InputCard {
-                    jsonCards.append(c.toJSON())
-                }
-            case .Token:
-                if let c = card as? TokenCard {
-                    jsonCards.append(c.toJSON())
-                }
-            }
-        }
-        
         return .Dictionary([
-            "cards": .Array(jsonCards),
+            "actionCards": self.actionCards.toJSON(),
+            "handCards": self.handCards.toJSON(),
             "identifier": self.identifier.toJSON(),
             ])
     }
