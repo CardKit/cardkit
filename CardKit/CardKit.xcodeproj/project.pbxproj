@@ -214,6 +214,9 @@
 		CC9E763B1D5238AC00B7C738 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76191D5238AC00B7C738 /* Yield.swift */; };
 		CC9E763C1D5238AC00B7C738 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76191D5238AC00B7C738 /* Yield.swift */; };
 		CC9E763D1D5238AC00B7C738 /* Yield.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76191D5238AC00B7C738 /* Yield.swift */; };
+		CC9E763F1D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */; };
+		CC9E76401D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */; };
+		CC9E76411D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */; };
 		CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
@@ -352,6 +355,7 @@
 		CC9E76171D5238AC00B7C738 /* InputTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTypes.swift; sourceTree = "<group>"; };
 		CC9E76181D5238AC00B7C738 /* TokenSlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenSlot.swift; sourceTree = "<group>"; };
 		CC9E76191D5238AC00B7C738 /* Yield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yield.swift; sourceTree = "<group>"; };
+		CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptorTests.swift; sourceTree = "<group>"; };
 		CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		CCCAD6BB1D50E07500864D34 /* BindsWithTokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindsWithTokenCard.swift; sourceTree = "<group>"; };
 		CCCAD6E61D50E85100864D34 /* BindsWithActionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindsWithActionCard.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9317C01D479278001B71B1 /* CardKitTests.swift */,
+				CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */,
 				CC9317C21D479278001B71B1 /* Info.plist */,
 			);
 			path = CardKitTests;
@@ -921,6 +926,7 @@
 				CCCAD6BD1D50E07500864D34 /* BindsWithTokenCard.swift in Sources */,
 				CC931ABE1D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A761D49622A001B71B1 /* DeckCard.swift in Sources */,
+				CC9E763F1D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A7D1D496231001B71B1 /* HandCard.swift in Sources */,
 				CCCAD6E81D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
 				CC931A4C1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
@@ -1008,6 +1014,7 @@
 				CCCAD6BF1D50E07500864D34 /* BindsWithTokenCard.swift in Sources */,
 				CC931AC01D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A781D49622A001B71B1 /* DeckCard.swift in Sources */,
+				CC9E76401D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A7F1D496231001B71B1 /* HandCard.swift in Sources */,
 				CCCAD6EA1D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
 				CC931A4E1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
@@ -1095,6 +1102,7 @@
 				CCCAD6C11D50E07500864D34 /* BindsWithTokenCard.swift in Sources */,
 				CC931AC21D4A8557001B71B1 /* Deck.swift in Sources */,
 				CC931A7A1D49622A001B71B1 /* DeckCard.swift in Sources */,
+				CC9E76411D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A811D496231001B71B1 /* HandCard.swift in Sources */,
 				CCCAD6EC1D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
 				CC931A501D495457001B71B1 /* InputCardDescriptor.swift in Sources */,

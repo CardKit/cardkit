@@ -11,14 +11,24 @@ import Foundation
 import Freddy
 
 public struct CardAssetCatalog {
-    //TODO need to fill this in
+    public var textualDescription: String
+    
+    init() {
+        self.textualDescription = ""
+    }
+    
+    init(description: String) {
+        self.textualDescription = description
+    }
 }
 
 //MARK: JSONEncodable
 
 extension CardAssetCatalog: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([:])
+        return .Dictionary([
+            "textualDescription": self.textualDescription.toJSON()
+            ])
     }
 }
 
@@ -26,6 +36,6 @@ extension CardAssetCatalog: JSONEncodable {
 
 extension CardAssetCatalog: JSONDecodable {
     public init(json: JSON) throws {
-        
+        self.textualDescription = try json.string("textualDescription")
     }
 }

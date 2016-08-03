@@ -15,7 +15,6 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let name: String
     public let path: CardPath
     public let version: Int
-    public let description: String
     public let assetCatalog: CardAssetCatalog
     
     public let inputSlots: [InputSlot]
@@ -35,11 +34,10 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let cardType: CardType = .Action
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, version: Int = 0) {
+    public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         self.path = CardPath(withPath: "Action/\(subpath)" ?? "Action")
         self.version = version
-        self.description = description
         self.assetCatalog = assetCatalog
         
         self.inputSlots = inputs ?? []
@@ -72,6 +70,15 @@ extension ActionCardDescriptor: Hashable {
     }
 }
 
+//MARK: CustomStringConvertable
+
+extension ActionCardDescriptor: CustomStringConvertible {
+    public var description: String {
+        let ends = self.ends ? "ENDS" : "DOES NOT END"
+        return "\(name) [\(self.type), \(self.inputSlots.count) input slots, \(self.tokenSlots.count) tokens slots, \(self.yields.count) yields, \(ends), version \(self.version)]"
+    }
+}
+
 //MARK: JSONEncodable
 
 extension ActionCardDescriptor: JSONEncodable {
@@ -81,7 +88,6 @@ extension ActionCardDescriptor: JSONEncodable {
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),
-            "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "inputSlots": inputSlots.toJSON(),
             "tokenSlots": tokenSlots.toJSON(),
@@ -100,7 +106,6 @@ extension ActionCardDescriptor: JSONDecodable {
         self.name = try json.string("name")
         self.path = try json.decode("path", type: CardPath.self)
         self.version = try json.int("version")
-        self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
         self.inputSlots = try json.arrayOf("inputSlots", type: InputSlot.self)
         self.tokenSlots = try json.arrayOf("tokenSlots", type: TokenSlot.self)

@@ -15,18 +15,16 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     public let name: String
     public let path: CardPath
     public let version: Int
-    public let description: String
     public let assetCatalog: CardAssetCatalog
     
     public let inputType: InputType
     public let inputDescription: String
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, inputType: InputType, inputDescription: String, version: Int = 0) {
+    public init(name: String, subpath: String?, inputType: InputType, inputDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         self.path = CardPath(withPath: "Input/\(subpath)" ?? "Input")
         self.version = version
-        self.description = description
         self.assetCatalog = assetCatalog
         
         self.inputType = inputType
@@ -55,6 +53,14 @@ extension InputCardDescriptor: Hashable {
     }
 }
 
+//MARK: CustomStringConvertable
+
+extension InputCardDescriptor: CustomStringConvertible {
+    public var description: String {
+        return "\(name) [\(self.type), inputType: \(self.inputType), version \(self.version)]"
+    }
+}
+
 //MARK: JSONEncodable
 
 extension InputCardDescriptor: JSONEncodable {
@@ -64,7 +70,6 @@ extension InputCardDescriptor: JSONEncodable {
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),
-            "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "inputType": inputType.toJSON(),
             "inputDescription": inputDescription.toJSON()
@@ -79,7 +84,6 @@ extension InputCardDescriptor: JSONDecodable {
         self.name = try json.string("name")
         self.path = try json.decode("path", type: CardPath.self)
         self.version = try json.int("version")
-        self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
         self.inputType = try json.decode("inputType", type: InputType.self)
         self.inputDescription = try json.string("inputDescription")

@@ -15,14 +15,12 @@ public struct DeckCardDescriptor: CardDescriptor {
     public let name: String
     public let path: CardPath
     public let version: Int
-    public let description: String
     public let assetCatalog: CardAssetCatalog
     
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         self.path = CardPath(withPath: "Deck/\(subpath)" ?? "Deck")
         self.version = version
-        self.description = description
         self.assetCatalog = assetCatalog
     }
 }
@@ -49,6 +47,14 @@ extension DeckCardDescriptor: Hashable {
     }
 }
 
+//MARK: CustomStringConvertable
+
+extension DeckCardDescriptor: CustomStringConvertible {
+    public var description: String {
+        return "\(name) [\(self.type), version \(self.version)]"
+    }
+}
+
 //MARK: JSONEncodable
 
 extension DeckCardDescriptor: JSONEncodable {
@@ -58,7 +64,6 @@ extension DeckCardDescriptor: JSONEncodable {
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),
-            "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON()
             ])
     }
@@ -71,7 +76,6 @@ extension DeckCardDescriptor: JSONDecodable {
         self.name = try json.string("name")
         self.path = try json.decode("path", type: CardPath.self)
         self.version = try json.int("version")
-        self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
     }
 }

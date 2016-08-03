@@ -15,16 +15,14 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     public let name: String
     public let path: CardPath
     public let version: Int
-    public let description: String
     public let assetCatalog: CardAssetCatalog
     
     public let isConsumed: Bool
     
-    public init(name: String, subpath: String?, description: String, assetCatalog: CardAssetCatalog, isConsumed: Bool, version: Int = 0) {
+    public init(name: String, subpath: String?, isConsumed: Bool, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         self.path = CardPath(withPath: "Token/\(subpath)" ?? "Token")
         self.version = version
-        self.description = description
         self.assetCatalog = assetCatalog
         
         self.isConsumed = isConsumed
@@ -52,6 +50,15 @@ extension TokenCardDescriptor: Hashable {
     }
 }
 
+//MARK: CustomStringConvertable
+
+extension TokenCardDescriptor: CustomStringConvertible {
+    public var description: String {
+        let consumed = self.isConsumed ? "CONSUMED" : "NOT CONSUMED"
+        return "\(name) [\(self.type), \(consumed), version \(self.version)]"
+    }
+}
+
 //MARK: JSONEncodable
 
 extension TokenCardDescriptor: JSONEncodable {
@@ -61,7 +68,6 @@ extension TokenCardDescriptor: JSONEncodable {
             "name": name.toJSON(),
             "path": path.toJSON(),
             "version": version.toJSON(),
-            "description": description.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "isConsumed": isConsumed.toJSON()
             ])
@@ -75,7 +81,6 @@ extension TokenCardDescriptor: JSONDecodable {
         self.name = try json.string("name")
         self.path = try json.decode("path", type: CardPath.self)
         self.version = try json.int("version")
-        self.description = try json.string("description")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
         self.isConsumed = try json.bool("isConsumed")
     }

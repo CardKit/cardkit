@@ -27,14 +27,13 @@ public struct CKDescriptors {
         public static let NoAction = ActionCardDescriptor(
             name: "No Action",
             subpath: nil,
-            description: "No action performed.",
-            assetCatalog: CardAssetCatalog(),
             inputs: nil,
             tokens: nil,
             yields: nil,
             yieldDescription: nil,
             ends: true,
             endsDescription: "Ends instantly.",
+            assetCatalog: CardAssetCatalog(description: "No action performed."),
             version: 0)
         
         /// Contains descriptors for Action/Trigger cards
@@ -50,8 +49,6 @@ public struct CKDescriptors {
                 public static let Timer = ActionCardDescriptor(
                     name: "Timer",
                     subpath: "Trigger/Time",
-                    description: "Set a timer",
-                    assetCatalog: CardAssetCatalog(),
                     inputs: [
                         InputSlot(identifier: "Duration", type: InputType.SwiftDouble, isOptional: false)
                     ],
@@ -60,23 +57,7 @@ public struct CKDescriptors {
                     yieldDescription: nil,
                     ends: true,
                     endsDescription: "Ends after the specified duration",
-                    version: 0)
-                
-                //MARK: Trigger/Time/SetATimer
-                /// Descriptor for the SetATimer card
-                public static let SetATimer = ActionCardDescriptor(
-                    name: "Set A Timer",
-                    subpath: "Trigger/Time",
-                    description: "Set a timer (seconds)",
-                    assetCatalog: CardAssetCatalog(),
-                    inputs: [
-                        InputSlot(identifier: "Duration", type: .SwiftInt, isOptional: false)
-                    ],
-                    tokens: nil,
-                    yields: nil,
-                    yieldDescription: nil,
-                    ends: true,
-                    endsDescription: "Ends after the specified duration",
+                    assetCatalog: CardAssetCatalog(description: "Set a timer"),
                     version: 0)
                 
                 //MARK: Triger/WaitUntilTime
@@ -84,8 +65,6 @@ public struct CKDescriptors {
                 public static let WaitUntilTime = ActionCardDescriptor(
                     name: "Wait Until Time",
                     subpath: "Trigger/Time",
-                    description: "Wait until the specified time",
-                    assetCatalog: CardAssetCatalog(),
                     inputs: [
                         InputSlot(identifier: "ClockTime", type: InputType.SwiftDouble, isOptional: false)
                     ],
@@ -94,6 +73,7 @@ public struct CKDescriptors {
                     yieldDescription: nil,
                     ends: true,
                     endsDescription: "Ends when the specified time is reached",
+                    assetCatalog: CardAssetCatalog(description: "Wait until the specified time"),
                     version: 0)
             }
         }
@@ -109,8 +89,7 @@ public struct CKDescriptors {
         public static let Repeat = DeckCardDescriptor(
             name: "Repeat",
             subpath: nil,
-            description: "Repeat the deck",
-            assetCatalog: CardAssetCatalog(),
+            assetCatalog: CardAssetCatalog(description: "Repeat the deck"),
             version: 0)
     }
     
@@ -129,9 +108,8 @@ public struct CKDescriptors {
             public static let Branch = HandCardDescriptor(
                 name: "Branch",
                 subpath: "Next",
-                description: "Branch to the specified hand",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .Branch,
+                assetCatalog: CardAssetCatalog(description: "Branch to the specified hand"),
                 version: 0)
             
             //MARK: Repeat
@@ -139,9 +117,8 @@ public struct CKDescriptors {
             public static let Repeat = HandCardDescriptor(
                 name: "Repeat",
                 subpath: "Next",
-                description: "Repeat the hand",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .Repeat,
+                assetCatalog: CardAssetCatalog(description: "Repeat the hand"),
                 version: 0)
         }
         
@@ -154,9 +131,8 @@ public struct CKDescriptors {
             public static let All = HandCardDescriptor(
                 name: "All",
                 subpath: "End",
-                description: "Move to the next hand when all End conditions have been satisfied",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied"),
                 version: 0)
             
             //MARK: Any
@@ -164,9 +140,8 @@ public struct CKDescriptors {
             public static let Any = HandCardDescriptor(
                 name: "Any",
                 subpath: "End",
-                description: "Move to the next hand when any End condition has been satisfied",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied"),
                 version: 0)
         }
         
@@ -179,9 +154,8 @@ public struct CKDescriptors {
             public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
-                description: "Satisfied when the target card has NOT been satisfied",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied"),
                 version: 0)
             
             //MARK: LogicalAnd
@@ -189,9 +163,8 @@ public struct CKDescriptors {
             public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
-                description: "Satisfied when the target cards have both been satisfied",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied"),
                 version: 0)
             
             //MARK: LogicalOr
@@ -199,9 +172,8 @@ public struct CKDescriptors {
             public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
-                description: "Satisfied when one of the two target cards have both been satisfied",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"),
                 version: 0)
             
             //MARK: LogicalXor
@@ -209,9 +181,8 @@ public struct CKDescriptors {
             public static let LogicalXor = HandCardDescriptor(
                 name: "Xor",
                 subpath: "Logic",
-                description: "Satisfied when only one of the two target cards has been satisfied (NOTE: functionally this is probably the same as OR)",
-                assetCatalog: CardAssetCatalog(),
                 logicType: .SatisfactionLogic,
+                assetCatalog: CardAssetCatalog(description: "Satisfied when only one of the two target cards has been satisfied (NOTE: functionally this is probably the same as OR)"),
                 version: 0)
         }
     }
@@ -231,10 +202,9 @@ public struct CKDescriptors {
             public static let Angle = InputCardDescriptor(
                 name: "Angle",
                 subpath: "Location",
-                description: "Angle (in degrees)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftDouble,
                 inputDescription: "Angle (in degrees)",
+                assetCatalog: CardAssetCatalog(description: "Angle (in degrees)"),
                 version: 0)
             
             //MARK: Location/BoundingBox
@@ -242,10 +212,9 @@ public struct CKDescriptors {
             public static let BoundingBox = InputCardDescriptor(
                 name: "Bounding Box",
                 subpath: "Location",
-                description: "Bounding Box (2D)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate2DPath,
                 inputDescription: "Set of 2D coordinates",
+                assetCatalog: CardAssetCatalog(description: "Bounding Box (2D)"),
                 version: 0)
             
             //MARK: Location/BoundingBox3D
@@ -253,10 +222,9 @@ public struct CKDescriptors {
             public static let BoundingBox3D = InputCardDescriptor(
                 name: "Bounding Box 3D",
                 subpath: "Location",
-                description: "Bounding Box (3D)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate3DPath,
                 inputDescription: "Set of 3D coordinates",
+                assetCatalog: CardAssetCatalog(description: "Bounding Box (3D)"),
                 version: 0)
             
             //MARK: Location/CardinalDirection
@@ -264,10 +232,9 @@ public struct CKDescriptors {
             public static let CardinalDirection = InputCardDescriptor(
                 name: "Cardinal Direction",
                 subpath: "Location",
-                description: "Cardinal Direction (N, S, E, W)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .CardinalDirection,
                 inputDescription: "Cardinal Direction",
+                assetCatalog: CardAssetCatalog(description: "Cardinal Direction (N, S, E, W)"),
                 version: 0)
             
             //MARK: Location/Distance
@@ -275,10 +242,9 @@ public struct CKDescriptors {
             public static let Distance = InputCardDescriptor(
                 name: "Distance",
                 subpath: "Location",
-                description: "Distance (meters)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftDouble,
                 inputDescription: "Distance (meters)",
+                assetCatalog: CardAssetCatalog(description: "Distance (meters)"),
                 version: 0)
             
             //MARK: Location/Location
@@ -286,10 +252,9 @@ public struct CKDescriptors {
             public static let Location = InputCardDescriptor(
                 name: "Location",
                 subpath: "Location",
-                description: "Location (3D coordinate)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate3D,
                 inputDescription: "Coordinate (3D)",
+                assetCatalog: CardAssetCatalog(description: "Location (3D coordinate)"),
                 version: 0)
             
             //MARK: Location/Path
@@ -297,10 +262,9 @@ public struct CKDescriptors {
             public static let Path = InputCardDescriptor(
                 name: "Path",
                 subpath: "Location",
-                description: "Path (2D)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate2DPath,
                 inputDescription: "2D coordinate path",
+                assetCatalog: CardAssetCatalog(description: "Path (2D)"),
                 version: 0)
             
             //MARK: Location/Path3D
@@ -308,10 +272,9 @@ public struct CKDescriptors {
             public static let Path3D = InputCardDescriptor(
                 name: "Path 3D",
                 subpath: "Location",
-                description: "Path (3D)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate3DPath,
                 inputDescription: "3D coordinate path",
+                assetCatalog: CardAssetCatalog(description: "Path (3D)"),
                 version: 0)
         }
         
@@ -324,10 +287,9 @@ public struct CKDescriptors {
             public static let Audio = InputCardDescriptor(
                 name: "Audio",
                 subpath: "Media/Audio",
-                description: "Audio",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftData,
                 inputDescription: "Audio (data)",
+                assetCatalog: CardAssetCatalog(description: "Audio"),
                 version: 0)
             
             //MARK: Media/Image
@@ -335,10 +297,9 @@ public struct CKDescriptors {
             public static let Image = InputCardDescriptor(
                 name: "Image",
                 subpath: "Media/Image",
-                description: "Image",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftData,
                 inputDescription: "Audio (data)",
+                assetCatalog: CardAssetCatalog(description: "Image"),
                 version: 0)
         }
         
@@ -351,10 +312,9 @@ public struct CKDescriptors {
             public static let Integer = InputCardDescriptor(
                 name: "Integer",
                 subpath: "Numeric",
-                description: "Integer number",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftInt,
                 inputDescription: "Integer",
+                assetCatalog: CardAssetCatalog(description: "Integer number"),
                 version: 0)
             
             //MARK: Numeric/Real
@@ -362,10 +322,9 @@ public struct CKDescriptors {
             public static let Real = InputCardDescriptor(
                 name: "Real",
                 subpath: "Numeric",
-                description: "Real number",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftDouble,
                 inputDescription: "Real",
+                assetCatalog: CardAssetCatalog(description: "Real number"),
                 version: 0)
         }
         
@@ -378,10 +337,9 @@ public struct CKDescriptors {
             public static let RelativeToLocation = InputCardDescriptor(
                 name: "Relative To Location",
                 subpath: "Relative",
-                description: "A coordinate used to offset another coordinate",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate2D,
                 inputDescription: "Coordinate offset",
+                assetCatalog: CardAssetCatalog(description: "A coordinate used to offset another coordinate"),
                 version: 0)
             
             //MARK: Relative/RelativeToObject
@@ -389,10 +347,9 @@ public struct CKDescriptors {
             public static let RelativeToObject = InputCardDescriptor(
                 name: "Relative To Object",
                 subpath: "Relative",
-                description: "A coordinate used to offset from an object's location",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate2D,
                 inputDescription: "Coordinate offset",
+                assetCatalog: CardAssetCatalog(description: "A coordinate used to offset from an object's location"),
                 version: 0)
         }
         
@@ -405,10 +362,9 @@ public struct CKDescriptors {
             public static let ClockTime = InputCardDescriptor(
                 name: "Clock Time",
                 subpath: "Time",
-                description: "Time (date & time)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftDate,
                 inputDescription: "Date & time string",
+                assetCatalog: CardAssetCatalog(description: "Time (date & time)"),
                 version: 0)
             
             //MARK: Time/Duration
@@ -416,10 +372,9 @@ public struct CKDescriptors {
             public static let Duration = InputCardDescriptor(
                 name: "Duration",
                 subpath: "Time",
-                description: "Duration (seconds)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .SwiftInt,
                 inputDescription: "Duration (seconds)",
+                assetCatalog: CardAssetCatalog(description: "Duration (seconds)"),
                 version: 0)
             
             //MARK: Time/Periodicity
@@ -427,10 +382,9 @@ public struct CKDescriptors {
             public static let Periodicity = InputCardDescriptor(
                 name: "Periodicity",
                 subpath: "Time",
-                description: "Periodic frequency (seconds)",
-                assetCatalog: CardAssetCatalog(),
                 inputType: .Coordinate2D,
                 inputDescription: "Periodic frequency (seconds)",
+                assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"),
                 version: 0)
         }
     }
