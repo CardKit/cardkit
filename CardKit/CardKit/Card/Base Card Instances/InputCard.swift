@@ -14,10 +14,10 @@ public struct InputCard: Card {
     public let descriptor: InputCardDescriptor
     
     // Card protocol
-    public var identifier: CardIdentifier { return descriptor.identifier }
+    public var identifier: CardIdentifier = CardIdentifier()
+    public var type: CardType { return descriptor.type }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
-    public var cardType: CardType { return descriptor.cardType }
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
@@ -67,6 +67,7 @@ public struct InputCard: Card {
 
 extension InputCard: JSONDecodable {
     public init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
         
         do {
@@ -83,11 +84,14 @@ extension InputCard: JSONEncodable {
     public func toJSON() -> JSON {
         if let inputData = self.inputData {
             return .Dictionary([
+                "identifier": self.identifier.toJSON(),
                 "descriptor": self.descriptor.toJSON(),
                 "inputData": inputData.toJSON()
                 ])
         } else {
-            return .Dictionary(["descriptor": self.descriptor.toJSON()])
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON()])
         }
     }
 }

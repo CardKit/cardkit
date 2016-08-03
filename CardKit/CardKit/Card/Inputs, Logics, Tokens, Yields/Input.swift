@@ -35,9 +35,7 @@ public enum InputType: String {
 
 extension InputType: CustomStringConvertible {
     public var description: String {
-        get {
-            return "\(self)"
-        }
+        return "\(self)"
     }
 }
 

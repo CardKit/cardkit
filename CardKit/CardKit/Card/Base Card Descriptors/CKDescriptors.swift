@@ -131,6 +131,7 @@ public struct CKDescriptors {
                 subpath: "Next",
                 description: "Branch to the specified hand",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .Branch,
                 version: 0)
             
             //MARK: Repeat
@@ -140,6 +141,7 @@ public struct CKDescriptors {
                 subpath: "Next",
                 description: "Repeat the hand",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .Repeat,
                 version: 0)
         }
         
@@ -154,6 +156,7 @@ public struct CKDescriptors {
                 subpath: "End",
                 description: "Move to the next hand when all End conditions have been satisfied",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
             
             //MARK: Any
@@ -163,6 +166,7 @@ public struct CKDescriptors {
                 subpath: "End",
                 description: "Move to the next hand when any End condition has been satisfied",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
         }
         
@@ -170,40 +174,44 @@ public struct CKDescriptors {
         public struct Logic {
             private init() {}
             
-            //MARK: Not
-            /// Descriptor for the Not card
+            //MARK: LogicalNot
+            /// Descriptor for the LogicalNot card
             public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
-                description: "???",
+                description: "Satisfied when the target card has NOT been satisfied",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
             
-            //MARK: Not
-            /// Descriptor for the Not card
+            //MARK: LogicalAnd
+            /// Descriptor for the LogicalAnd card
             public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
-                description: "???",
+                description: "Satisfied when the target cards have both been satisfied",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
             
-            //MARK: Not
-            /// Descriptor for the Not card
+            //MARK: LogicalOr
+            /// Descriptor for the LogicalOr card
             public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
-                description: "???",
+                description: "Satisfied when one of the two target cards have both been satisfied",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
             
-            //MARK: Xor
+            //MARK: LogicalXor
             /// Descriptor for the LogicalXor card
             public static let LogicalXor = HandCardDescriptor(
                 name: "Xor",
                 subpath: "Logic",
-                description: "???",
+                description: "Satisfied when only one of the two target cards has been satisfied (NOTE: functionally this is probably the same as OR)",
                 assetCatalog: CardAssetCatalog(),
+                logicType: .SatisfactionLogic,
                 version: 0)
         }
     }

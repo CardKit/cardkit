@@ -10,10 +10,12 @@ import Foundation
 
 import Freddy
 
+public typealias HandIdentifier = CardIdentifier
+
 public struct Hand {
     public var cards: [Card]
     
-    public let identifier: HandIdentifier
+    let identifier: HandIdentifier
     
     init() {
         self.init(cards: [])
@@ -65,7 +67,7 @@ extension Hand: JSONEncodable {
         var jsonCards: [JSON] = []
         
         for card in self.cards {
-            switch card.cardType {
+            switch card.type {
             case .Action:
                 if let c = card as? ActionCard {
                     jsonCards.append(c.toJSON())

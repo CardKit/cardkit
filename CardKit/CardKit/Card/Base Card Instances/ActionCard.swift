@@ -14,20 +14,20 @@ public struct ActionCard: Card {
     public let descriptor: ActionCardDescriptor
     
     // Card protocol
-    public var identifier: CardIdentifier { return descriptor.identifier }
+    public var identifier: CardIdentifier = CardIdentifier()
+    public var type: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
-    public var cardType: CardType { return descriptor.cardType }
-    
-    init(with descriptor: ActionCardDescriptor) {
-        self.descriptor = descriptor
-    }
     
     // input bindings
     var inputBindings: [InputSlot : Card] = [:]
     
     // token bindings
     var tokenBindings: [TokenSlot : TokenCard] = [:]
+    
+    init(with descriptor: ActionCardDescriptor) {
+        self.descriptor = descriptor
+    }
 }
 
 //MARK:- BindsWithActionCard
@@ -102,6 +102,7 @@ extension ActionCard: BindsWithTokenCard {
 
 extension ActionCard: JSONDecodable {
     public init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: ActionCardDescriptor.self)
         self.tokenBindings = try json.dictionary("tokenBindings").withDecodedKeysAndValues()
         
@@ -136,6 +137,7 @@ extension ActionCard: JSONEncodable {
         }
         
         return .Dictionary([
+            "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
             "boundInputCards": boundInputCards.toJSON(),
             "boundActionCards": boundActionCards.toJSON(),
