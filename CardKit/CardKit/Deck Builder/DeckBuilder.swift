@@ -119,6 +119,16 @@ public func && (lhs: Hand, rhs: ActionCard) -> Hand {
     return lhs && hand
 }
 
+public func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
+    return lhs.instance() && rhs
+}
+
+public func && (lhs: ActionCard, rhs: Hand) -> Hand {
+    var hand = Hand()
+    hand.add(lhs)
+    return hand && rhs
+}
+
 /// Return a new hand with the given hands ANDed together. This works by creating a new
 /// AND card with an AND condition that includes all of the _logic_ cards and 
 /// _unbound action cards_ from each hand. Thus, if the logic of hand A is
@@ -230,6 +240,16 @@ public func || (lhs: Hand, rhs: ActionCard) -> Hand {
     var hand = Hand()
     hand.add(rhs)
     return lhs || hand
+}
+
+public func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
+    return lhs.instance() && rhs
+}
+
+public func || (lhs: ActionCard, rhs: Hand) -> Hand {
+    var hand = Hand()
+    hand.add(lhs)
+    return hand && rhs
 }
 
 /// Return a new hand with the given hands ORed together. This works by creating a new
