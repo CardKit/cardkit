@@ -56,50 +56,106 @@ public struct Hand {
     init() {
         self.init()
     }
-    
+}
+
+//MARK: Card Addition
+
+extension Hand {
+    /// Add the card to the hand if it isn't in the hand already.
     mutating func add(card: ActionCard) {
-        self.actionCards.append(card)
+        if !self.contains(card) {
+            self.actionCards.append(card)
+        }
     }
     
+    /// Add the given cards to the hand, ignoring cards that have already
+    /// been added to the hand.
     mutating func add(cards: [ActionCard]) {
-        self.actionCards.appendContentsOf(cards)
+        // only add cards that aren't currently in our hand
+        let uniques = cards.filter({ (card) -> Bool in !self.contains(card) })
+        self.actionCards.appendContentsOf(uniques)
     }
     
+    /// Add the card to the hand if it isn't in the hand already.
     mutating func add(card: HandCard) {
-        self.handCards.append(card)
+        if !self.contains(card) {
+            self.handCards.append(card)
+        }
     }
     
+    /// Add the given cards to the hand, ignoring cards that have already
+    /// been added to the hand.
     mutating func add(cards: [HandCard]) {
-        self.handCards.appendContentsOf(cards)
+        // only add cards that aren't currently in our hand
+        let uniques = cards.filter({ (card) -> Bool in !self.contains(card) })
+        self.handCards.appendContentsOf(uniques)
     }
     
+    /// Add the cards from the given hand to this hand. Ignores cards that are
+    /// already in this hand.
     mutating func addCards(from hand: Hand) {
-        for card in hand.actionCards {
-            self.add(card)
-        }
-        for card in hand.handCards {
-            self.add(card)
-        }
+        hand.actionCards.forEach({ (card) in self.add(card) })
+        hand.handCards.forEach({ (card) in self.add(card) })
     }
-    
+}
+
+//MARK: Card Removal
+
+extension Hand {
+    /// Remove the given card from the hand.
     mutating func remove(card: ActionCard) {
         self.actionCards.removeObject(card)
     }
     
+    /// Remove the given cards from the hand.
     mutating func remove(cards: [ActionCard]) {
-        for card in cards {
-            self.actionCards.removeObject(card)
-        }
+        cards.forEach({ (card) in self.actionCards.removeObject(card) })
     }
     
+    /// Remove the given card from the hand.
     mutating func remove(card: HandCard) {
         self.handCards.removeObject(card)
     }
     
+    /// Remove the given cards from the hand.
     mutating func remove(cards: [HandCard]) {
-        for card in cards {
-            self.handCards.removeObject(card)
-        }
+        cards.forEach({ (card) in self.handCards.removeObject(card) })
+    }
+    
+    /// Remove all cards from the hand.
+    mutating func removeAll() {
+        self.actionCards.removeAll()
+        self.handCards.removeAll()
+    }
+}
+
+//MARK: Card Query
+
+extension Hand {
+    /// Returns true if the hand contains the given card.
+    func contains(card: ActionCard) -> Bool {
+        return self.actionCards.indexOf(card) != nil
+    }
+    
+    /// Returns true if the hand contains the given card.
+    func contains(card: HandCard) -> Bool {
+        return self.handCards.indexOf(card) != nil
+    }
+    
+    /// Returns the set of ActionCards with the given descriptor.
+    func actionCards(matching: ActionCardDescriptor) -> [ActionCard] {
+        return self.actionCards.filter({
+            (card) -> Bool in
+            card.descriptor == matching
+        })
+    }
+    
+    /// Returns the set of HandCards with the given descriptor.
+    func handCards(matching: HandCardDescriptor) -> [HandCard] {
+        return self.handCards.filter({
+            (card) -> Bool in
+            card.descriptor == matching
+        })
     }
 }
 
@@ -107,6 +163,8 @@ public struct Hand {
 
 extension Hand: Equatable {}
 
+/// Hands are considered equal when they have the same identifier (even if their
+/// contents are different.)
 public func == (lhs: Hand, rhs: Hand) -> Bool {
     return lhs.identifier == rhs.identifier
 }

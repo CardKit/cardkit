@@ -63,7 +63,7 @@ public prefix func ! (operand: ActionCardDescriptor) -> Hand {
 /// Return a new hand with the given ActionCard and a Not card played with it
 public prefix func ! (operand: ActionCard) -> Hand {
     // create a NOT card bound to the operand
-    var not = CKDescriptors.Hand.Logic.LogicalNot.instance()
+    var not = CardKit.Hand.Logic.LogicalNot.instance()
     not.logic = .SatisfactionLogic(.LogicalNot(.Card(operand)))
     
     // create a new Hand
@@ -91,7 +91,7 @@ public func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 /// Return a new hand with the given ActionCards ANDed together
 public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     // create an AND card bound to the operands
-    var andCard = CKDescriptors.Hand.Logic.LogicalAnd.instance()
+    var andCard = CardKit.Hand.Logic.LogicalAnd.instance()
     andCard.logic = .SatisfactionLogic(.LogicalAnd(.Card(lhs), .Card(rhs)))
     
     // create a new Hand
@@ -140,7 +140,7 @@ public func && (lhs: Hand, rhs: ActionCard) -> Hand {
     }
     
     if let newLogic = newLogic {
-        var andCard = CKDescriptors.Hand.Logic.LogicalAnd.instance()
+        var andCard = CardKit.Hand.Logic.LogicalAnd.instance()
         andCard.logic = .SatisfactionLogic(newLogic)
         
         var hand = Hand()
@@ -212,7 +212,7 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
     
     // create the AND card
     if let newLogic = newLogic {
-        var andCard = CKDescriptors.Hand.Logic.LogicalAnd.instance()
+        var andCard = CardKit.Hand.Logic.LogicalAnd.instance()
         andCard.logic = .SatisfactionLogic(newLogic)
         hand.add(andCard)
     }
@@ -237,7 +237,7 @@ public func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 /// Return a new hand with the given ActionCards ORed together
 public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     // create an OR card bound to the operands
-    var orCard = CKDescriptors.Hand.Logic.LogicalOr.instance()
+    var orCard = CardKit.Hand.Logic.LogicalOr.instance()
     orCard.logic = .SatisfactionLogic(.LogicalOr(.Card(lhs), .Card(rhs)))
     
     // create a new Hand
@@ -286,7 +286,7 @@ public func || (lhs: Hand, rhs: ActionCard) -> Hand {
     }
     
     if let newLogic = newLogic {
-        var orCard = CKDescriptors.Hand.Logic.LogicalOr.instance()
+        var orCard = CardKit.Hand.Logic.LogicalOr.instance()
         orCard.logic = .SatisfactionLogic(newLogic)
         
         var hand = Hand()
@@ -346,7 +346,7 @@ public func || (lhs: Hand, rhs: Hand) -> Hand {
     
     // create the OR card
     if let newLogic = newLogic {
-        var orCard = CKDescriptors.Hand.Logic.LogicalAnd.instance()
+        var orCard = CardKit.Hand.Logic.LogicalAnd.instance()
         orCard.logic = .SatisfactionLogic(newLogic)
         hand.add(orCard)
     }

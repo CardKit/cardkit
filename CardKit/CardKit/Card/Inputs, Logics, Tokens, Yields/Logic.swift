@@ -20,7 +20,7 @@ public enum LogicType: String {
     case Repeat
     
     /// Conclude execution of this hand based on a satisfaction specification.
-    case SatisfactionLogic
+    case Logic
 }
 
 //MARK: CustomStringConvertable
@@ -40,8 +40,8 @@ extension LogicType: JSONEncodable {
             return .String("Branch")
         case .Repeat:
             return .String("Repeat")
-        case .SatisfactionLogic:
-            return .String("SatisfactionLogic")
+        case .Logic:
+            return .String("Logic")
         }
     }
 }
@@ -69,7 +69,7 @@ public enum LogicBinding {
     case Repeat(HandRepeatSpec)
     
     /// Conclude execution of this hand based on the given satisfaction specification.
-    case SatisfactionLogic(HandSatisfactionSpec)
+    case Logic(HandSatisfactionSpec)
 }
 
 //MARK: CustomStringConvertable
@@ -82,8 +82,8 @@ extension LogicBinding: CustomStringConvertible {
                 return "Branch [\(spec)]"
             case .Repeat(let spec):
                 return "Repeat [\(spec)]"
-            case .SatisfactionLogic(let spec):
-                return "SatisfactionLogic [\(spec)]"
+            case .Logic(let spec):
+                return "Logic [\(spec)]"
             }
         }
     }
@@ -102,9 +102,9 @@ extension LogicBinding: JSONEncodable {
             return .Dictionary([
                 "type": "Repeat",
                 "spec": spec.toJSON()])
-        case .SatisfactionLogic(let spec):
+        case .Logic(let spec):
             return .Dictionary([
-                "type": "SatisfactionLogic",
+                "type": "Logic",
                 "spec": spec.toJSON()])
         }
     }
@@ -126,9 +126,9 @@ extension LogicBinding: JSONDecodable {
         case .Repeat:
             let spec = try json.decode("spec", type: HandRepeatSpec.self)
             self = .Repeat(spec)
-        case .SatisfactionLogic:
+        case .Logic:
             let spec = try json.decode("spec", type: HandSatisfactionSpec.self)
-            self = .SatisfactionLogic(spec)
+            self = .Logic(spec)
         }
     }
 }
