@@ -138,7 +138,7 @@ public struct CardKit {
             public static let All = HandCardDescriptor(
                 name: "All",
                 subpath: "End",
-                logicType: .SatisfactionLogic,
+                logicType: .BooleanLogicAnd,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied"),
                 version: 0)
             
@@ -147,7 +147,7 @@ public struct CardKit {
             public static let Any = HandCardDescriptor(
                 name: "Any",
                 subpath: "End",
-                logicType: .SatisfactionLogic,
+                logicType: .BooleanLogicOr,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied"),
                 version: 0)
         }
@@ -161,7 +161,7 @@ public struct CardKit {
             public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
-                logicType: .SatisfactionLogic,
+                logicType: .BooleanLogicNot,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied"),
                 version: 0)
             
@@ -170,7 +170,7 @@ public struct CardKit {
             public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
-                logicType: .SatisfactionLogic,
+                logicType: .BooleanLogicAnd,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied"),
                 version: 0)
             
@@ -179,7 +179,7 @@ public struct CardKit {
             public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
-                logicType: .SatisfactionLogic,
+                logicType: .BooleanLogicOr,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"),
                 version: 0)
         }

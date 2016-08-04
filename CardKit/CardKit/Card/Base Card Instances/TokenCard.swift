@@ -10,7 +10,7 @@ import Foundation
 
 import Freddy
 
-public struct TokenCard: Card {
+public class TokenCard: Card, JSONEncodable, JSONDecodable {
     public let descriptor: TokenCardDescriptor
     
     // Card protocol
@@ -21,6 +21,20 @@ public struct TokenCard: Card {
     
     init(with descriptor: TokenCardDescriptor) {
         self.descriptor = descriptor
+    }
+    
+    //MARK: JSONEncodable & JSONDecodable
+    
+    public required init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
+        self.descriptor = try json.decode("descriptor", type: TokenCardDescriptor.self)
+    }
+    
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "descriptor": self.descriptor.toJSON()
+            ])
     }
 }
 
@@ -37,25 +51,5 @@ public func == (lhs: TokenCard, rhs: TokenCard) -> Bool {
 extension TokenCard: Hashable {
     public var hashValue: Int {
         return self.identifier.hashValue
-    }
-}
-
-//MARK: JSONDecodable
-
-extension TokenCard: JSONDecodable {
-    public init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode("descriptor", type: TokenCardDescriptor.self)
-    }
-}
-
-//MARK: JSONEncodable
-
-extension TokenCard: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .Dictionary([
-            "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON()
-            ])
     }
 }

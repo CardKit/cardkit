@@ -19,24 +19,42 @@ class DeckBuilderTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-    func testSimpleDeck() {
-        let noAction = CKDescriptors.Action.NoAction
-        
-        let deck = (
-            noAction ==>
-            noAction
-        )%
-        
-        print("deck: \(deck)")
-    }
     
     func testInputBinding() {
         do {
-            let duration = try CKDescriptors.Input.Time.Duration <- 5
+            let duration = try CardKit.Input.Time.Duration <- 5
             XCTAssertTrue(duration.inputDataValue() == 5)
         } catch let error {
             XCTFail("\(error)")
         }
     }
+    
+    func testHandBuilding() {
+        let noActionA = CardKit.Action.NoAction
+        let noActionB = CardKit.Action.NoAction
+        let hand = noActionA + noActionB
+        XCTAssertTrue(hand.count == 2)
+    }
+    
+    func testHandLogicBuilding() {
+        let noActionA = CardKit.Action.NoAction
+        let noActionB = CardKit.Action.NoAction
+        let handA = noActionA && noActionB
+        let handB = noActionA || noActionB
+        let handC = noActionA || !noActionB
+        let handD = !noActionA || noActionB
+    }
+    
+    func testSimpleDeck() {
+        let noAction = CardKit.Action.NoAction
+        
+        let deck = (
+            noAction ==>
+            noAction
+            )%
+        
+        print("deck: \(deck)")
+    }
+    
+    
 }

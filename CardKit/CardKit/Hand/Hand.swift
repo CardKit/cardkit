@@ -28,18 +28,18 @@ public struct Hand {
     var count: Int {
         return actionCards.count + handCards.count
     }
-    
+    /*
     var lastActionCard: ActionCard? {
         return actionCards.last
     }
     
     var lastHandCard: HandCard? {
         return handCards.last
-    }
+    }*/
     
     /// Returns the HandSatisfactionSpec from the most recently added HandCard, or nil
     /// if there are no HandCards in the hand with a LogicBinding of .SatisfactionLogic
-    var lastHandSatisfactionSpec: HandSatisfactionSpec? {
+    /*var lastHandSatisfactionSpec: HandSatisfactionSpec? {
         for card in self.handCards.reverse() {
             if let cardLogic = card.logic {
                 switch cardLogic {
@@ -51,7 +51,7 @@ public struct Hand {
             }
         }
         return nil
-    }
+    }*/
     
     init() {
         self.init()
@@ -143,18 +143,18 @@ extension Hand {
     }
     
     /// Returns the set of ActionCards with the given descriptor.
-    func actionCards(matching: ActionCardDescriptor) -> [ActionCard] {
+    func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
         return self.actionCards.filter({
             (card) -> Bool in
-            card.descriptor == matching
+            card.descriptor == descriptor
         })
     }
     
     /// Returns the set of HandCards with the given descriptor.
-    func handCards(matching: HandCardDescriptor) -> [HandCard] {
+    func cards(matching descriptor: HandCardDescriptor) -> [HandCard] {
         return self.handCards.filter({
             (card) -> Bool in
-            card.descriptor == matching
+            card.descriptor == descriptor
         })
     }
 }

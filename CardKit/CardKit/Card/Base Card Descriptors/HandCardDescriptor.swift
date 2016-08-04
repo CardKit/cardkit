@@ -30,7 +30,18 @@ public struct HandCardDescriptor: CardDescriptor {
     
     /// Return a new HandCard instance using our descriptor
     func instance() -> HandCard {
-        return HandCard(with: self)
+        switch self.logicType {
+        case .Branch:
+            return BranchHandCard(with: self)
+        case .Repeat:
+            return RepeatHandCard(with: self)
+        case .BooleanLogicAnd:
+            return LogicHandCard(with: self, operation: .LogicalAnd)
+        case .BooleanLogicOr:
+            return LogicHandCard(with: self, operation: .LogicalOr)
+        case .BooleanLogicNot:
+            return LogicHandCard(with: self, operation: .LogicalNot)
+        }
     }
 }
 

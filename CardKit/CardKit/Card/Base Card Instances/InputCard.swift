@@ -10,7 +10,7 @@ import Foundation
 
 import Freddy
 
-public struct InputCard: Card {
+public class InputCard: Card, JSONEncodable, JSONDecodable {
     public let descriptor: InputCardDescriptor
     
     // Card protocol
@@ -18,6 +18,9 @@ public struct InputCard: Card {
     public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
+    
+    // input data
+    public var inputData: InputBinding?
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
@@ -28,8 +31,32 @@ public struct InputCard: Card {
         self.inputData = inputData
     }
     
-    // input data
-    public var inputData: InputBinding?
+    //MARK: JSONEncodable & JSONDecodable
+    
+    public required init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
+        self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
+        
+        do {
+            self.inputData = try json.decode("inputData", type: InputBinding.self)
+        } catch {
+            self.inputData = nil
+        }
+    }
+    
+    public func toJSON() -> JSON {
+        if let inputData = self.inputData {
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON(),
+                "inputData": inputData.toJSON()
+                ])
+        } else {
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON()])
+        }
+    }
 }
 
 //MARK: Equatable
@@ -108,7 +135,7 @@ extension InputCard {
         }
     }
     
-    mutating func bind<T>(withValue value: T) throws {
+    func bind<T>(withValue value: T) throws {
         self.inputData = try self.boundValue(value)
     }
     
@@ -150,38 +177,5 @@ extension InputCard {
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
         return self.inputData != nil
-    }
-}
-
-//MARK: JSONDecodable
-
-extension InputCard: JSONDecodable {
-    public init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
-        
-        do {
-            self.inputData = try json.decode("inputData", type: InputBinding.self)
-        } catch {
-            self.inputData = nil
-        }
-    }
-}
-
-//MARK: JSONEncodable
-
-extension InputCard: JSONEncodable {
-    public func toJSON() -> JSON {
-        if let inputData = self.inputData {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON(),
-                "inputData": inputData.toJSON()
-                ])
-        } else {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON()])
-        }
     }
 }
