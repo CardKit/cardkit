@@ -30,55 +30,6 @@ public struct InputCard: Card {
     
     // input data
     public var inputData: InputBinding?
-    
-    public func inputDataValue<T>() -> T? {
-        if let inputData = self.inputData {
-            switch inputData {
-            case .SwiftInt(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .SwiftDouble(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .SwiftString(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .SwiftData(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .SwiftDate(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .Coordinate2D(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .Coordinate2DPath(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .Coordinate3D(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .Coordinate3DPath(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            case .CardinalDirection(let val):
-                if let ret = val as? T {
-                    return ret
-                }
-            }
-        }
-        
-        return nil
-    }
 }
 
 //MARK: Equatable
@@ -104,32 +55,53 @@ extension InputCard {
     public enum BindingError: ErrorType {
         /// The value is of a data type not currently supported for an Input (see Input.swift)
         case UnsupportedDataType(type: Any.Type)
+        
+        /// The value given for a binding does not match the expected type for the InputCard
+        case BindingTypeMismatch(given: InputType, expected: InputType)
     }
     
     /// Bind the input data
-    private static func boundValue<T>(value: T) throws -> InputBinding {
+    private func boundValue<T>(value: T) throws -> InputBinding {
+        
+        // make sure the type of the value matches the type expected by the descriptor
+        func throwIfTypesDisagree(given: InputType, _ expected: InputType) throws {
+            if given != expected {
+                throw InputCard.BindingError.BindingTypeMismatch(given: given, expected: expected)
+            }
+        }
+        
         // this is a little silly, but we can't just use Any.Type for our
         // Inputs because we can't deserialize the type from a string
         switch value {
         case let v as Int:
+            try throwIfTypesDisagree(.SwiftInt, self.descriptor.inputType)
             return .SwiftInt(v)
         case let v as Double:
+            try throwIfTypesDisagree(.SwiftDouble, self.descriptor.inputType)
             return .SwiftDouble(v)
         case let v as String:
+            try throwIfTypesDisagree(.SwiftString, self.descriptor.inputType)
             return .SwiftString(v)
         case let v as NSData:
+            try throwIfTypesDisagree(.SwiftData, self.descriptor.inputType)
             return .SwiftData(v)
         case let v as NSDate:
+            try throwIfTypesDisagree(.SwiftDate, self.descriptor.inputType)
             return .SwiftDate(v)
         case let v as InputCoordinate2D:
+            try throwIfTypesDisagree(.Coordinate2D, self.descriptor.inputType)
             return .Coordinate2D(v)
         case let v as [InputCoordinate2D]:
+            try throwIfTypesDisagree(.Coordinate2DPath, self.descriptor.inputType)
             return .Coordinate2DPath(v)
         case let v as InputCoordinate3D:
+            try throwIfTypesDisagree(.Coordinate3D, self.descriptor.inputType)
             return .Coordinate3D(v)
         case let v as [InputCoordinate3D]:
+            try throwIfTypesDisagree(.Coordinate3DPath, self.descriptor.inputType)
             return .Coordinate3DPath(v)
         case let v as InputCardinalDirection:
+            try throwIfTypesDisagree(.CardinalDirection, self.descriptor.inputType)
             return .CardinalDirection(v)
         default:
             throw InputCard.BindingError.UnsupportedDataType(type: value.dynamicType)
@@ -137,12 +109,47 @@ extension InputCard {
     }
     
     mutating func bind<T>(withValue value: T) throws {
-        self.inputData = try InputCard.boundValue(value)
+        self.inputData = try self.boundValue(value)
     }
     
     public func bound<T>(withValue value: T) throws -> InputCard {
-        let inputData = try InputCard.boundValue(value)
+        let inputData = try self.boundValue(value)
         return InputCard(with: self.descriptor, inputData: inputData)
+    }
+    
+    /// Return the data value bound to the input. Returns nil if no data has yet been bound.
+    public func inputDataValue<T>() -> T? {
+        if let inputData = self.inputData {
+            switch inputData {
+            case .SwiftInt(let val):
+                if let ret = val as? T { return ret }
+            case .SwiftDouble(let val):
+                if let ret = val as? T { return ret }
+            case .SwiftString(let val):
+                if let ret = val as? T { return ret }
+            case .SwiftData(let val):
+                if let ret = val as? T { return ret }
+            case .SwiftDate(let val):
+                if let ret = val as? T { return ret }
+            case .Coordinate2D(let val):
+                if let ret = val as? T { return ret }
+            case .Coordinate2DPath(let val):
+                if let ret = val as? T { return ret }
+            case .Coordinate3D(let val):
+                if let ret = val as? T { return ret }
+            case .Coordinate3DPath(let val):
+                if let ret = val as? T { return ret }
+            case .CardinalDirection(let val):
+                if let ret = val as? T { return ret }
+            }
+        }
+        
+        return nil
+    }
+    
+    /// Returns true if data has been bound to this InputCard.
+    public func isBound() -> Bool {
+        return self.inputData != nil
     }
 }
 

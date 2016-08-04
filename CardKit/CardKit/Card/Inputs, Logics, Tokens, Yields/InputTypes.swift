@@ -23,6 +23,13 @@ public struct InputCoordinate2D {
     }
 }
 
+extension InputCoordinate2D: Equatable {}
+
+public func == (lhs: InputCoordinate2D, rhs: InputCoordinate2D) -> Bool {
+    return lhs.latitude == rhs.latitude
+        && lhs.longitude == rhs.longitude
+}
+
 extension InputCoordinate2D: JSONDecodable {
     public init(json: JSON) throws {
         self.latitude = try json.double("latitude")
@@ -51,6 +58,14 @@ public struct InputCoordinate3D {
         self.longitude = longitude
         self.altitudeMeters = altitudeMeters
     }
+}
+
+extension InputCoordinate3D: Equatable {}
+
+public func == (lhs: InputCoordinate3D, rhs: InputCoordinate3D) -> Bool {
+    return lhs.latitude == rhs.latitude
+        && lhs.longitude == rhs.longitude
+        && lhs.altitudeMeters == rhs.altitudeMeters
 }
 
 extension InputCoordinate3D: JSONDecodable {
