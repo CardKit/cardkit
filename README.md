@@ -28,16 +28,6 @@ Card instances use reference semantics (they are classes, not structs). Usually,
 
 With the separation of card descriptors and card instances, all *logical* cards require two things to be defined: (1) a `CardDescriptor` (in `CardKit.swift`) and (2) a `Card` instance class that inherits from one of `ActionCard`, `DeckCard`, `HandCard`, `InputCard`, or `TokenCard`.
 
-## Execution
-
-Card execution works as shown below.
-
-![Card execution diagram](images/deck-hand-execution.png)
-
-Cards are placed in Hands, and execution flows from the first hand to the last hand.  Cards in a hand are executed in parallel. Hands are executed sequentially. Cards may produce outputs (called Yields) which may be used by cards in subsequent hands. A Deck encapsulates a sequence of Hands, and is considered a single, standalone CardKit program.
-
-Note that `CardKit` only provides facilities for defining the structure of a CardKit program. The `CardKit Runtime` provides support for validation and execution of CardKit programs.
-
 ## Card Types
 
 There are five different types of cards in `CardKit`.
@@ -77,6 +67,16 @@ Token cards represent the physical IoT hardware. Token card implementations (der
 Tokens adhere to the `Consumable` protocol to specify whether their use is consumed by an `ActionCard`. If a token is consumed, it's use by one `ActionCard` prevents its use by another `ActionCard` (e.g. a camera that can only respond to one command at a time). Tokens that are not consumed may be bound to multiple `ActionCard`s in the same hand. Token consumability applies only within the current Hand; a Token that was consumed in a previous hand may be used by a new `ActionCard` in the current hand.
 
 ![Camera card image](images/camera.png)
+
+## Execution
+
+Card execution works as shown below.
+
+![Card execution diagram](images/deck-hand-execution.png)
+
+Cards are placed in Hands, and execution flows from the first hand to the last hand.  Cards in a hand are executed in parallel. Hands are executed sequentially. Cards may produce outputs (called Yields) which may be used by cards in subsequent hands. A Deck encapsulates a sequence of Hands, and is considered a single, standalone CardKit program.
+
+Note that `CardKit` only provides facilities for defining the structure of a CardKit program. The `CardKit Runtime` provides support for validation and execution of CardKit programs.
 
 ## Card Concepts
 
