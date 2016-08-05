@@ -232,6 +232,9 @@
 		CC9E765A1D53C1BC00B7C738 /* HandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76591D53C1BC00B7C738 /* HandTests.swift */; };
 		CC9E765B1D53C1BC00B7C738 /* HandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76591D53C1BC00B7C738 /* HandTests.swift */; };
 		CC9E765C1D53C1BC00B7C738 /* HandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76591D53C1BC00B7C738 /* HandTests.swift */; };
+		CC9E765E1D54C31C00B7C738 /* SetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */; };
+		CC9E765F1D54C31C00B7C738 /* SetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */; };
+		CC9E76601D54C31C00B7C738 /* SetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */; };
 		CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
@@ -375,6 +378,7 @@
 		CC9E76511D52822300B7C738 /* DeckBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckBuilderTests.swift; sourceTree = "<group>"; };
 		CC9E76551D5370B300B7C738 /* InputBindingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputBindingTests.swift; sourceTree = "<group>"; };
 		CC9E76591D53C1BC00B7C738 /* HandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandTests.swift; sourceTree = "<group>"; };
+		CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetExtensions.swift; sourceTree = "<group>"; };
 		CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		CCCAD6BB1D50E07500864D34 /* BindsWithTokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindsWithTokenCard.swift; sourceTree = "<group>"; };
 		CCCAD6E61D50E85100864D34 /* BindsWithActionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindsWithActionCard.swift; sourceTree = "<group>"; };
@@ -572,6 +576,7 @@
 				CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */,
 				CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */,
 				CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */,
+				CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 				CC9319AF1D4937C9001B71B1 /* CardType.swift in Sources */,
 				CC931A671D4961D9001B71B1 /* Card.swift in Sources */,
 				CC931C791D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
+				CC9E765E1D54C31C00B7C738 /* SetExtensions.swift in Sources */,
 				CCCAD6F51D50EA8C00864D34 /* ProducesInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1033,6 +1039,7 @@
 				CC931A691D4961D9001B71B1 /* Card.swift in Sources */,
 				CC931C7B1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
 				CC000D861D4E96A900132B0A /* Hand.swift in Sources */,
+				CC9E765F1D54C31C00B7C738 /* SetExtensions.swift in Sources */,
 				CCCAD6F71D50EA8C00864D34 /* ProducesInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1126,6 +1133,7 @@
 				CC9319B31D4937C9001B71B1 /* CardType.swift in Sources */,
 				CC931A6B1D4961D9001B71B1 /* Card.swift in Sources */,
 				CC931C7D1D4E57D1001B71B1 /* ProducesYields.swift in Sources */,
+				CC9E76601D54C31C00B7C738 /* SetExtensions.swift in Sources */,
 				CCCAD6F91D50EA8C00864D34 /* ProducesInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

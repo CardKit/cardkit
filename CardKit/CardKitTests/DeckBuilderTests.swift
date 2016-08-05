@@ -29,20 +29,31 @@ class DeckBuilderTests: XCTestCase {
         }
     }
     
+    func testInputBindingOverwrite() {
+        var duration = CardKit.Input.Time.Duration.instance()
+        do {
+            duration = try duration <- 5
+            duration = try duration <- 2
+        } catch let error {
+            XCTFail("\(error)")
+        }
+        
+        XCTAssertTrue(duration.inputDataValue() == 2)
+    }
+    
     func testHandBuilding() {
         let noActionA = CardKit.Action.NoAction
         let noActionB = CardKit.Action.NoAction
         let hand = noActionA + noActionB
-        XCTAssertTrue(hand.count == 2)
+        XCTAssertTrue(hand.cardCount == 2)
     }
     
-    func testHandLogicBuilding() {
-        let noActionA = CardKit.Action.NoAction
-        let noActionB = CardKit.Action.NoAction
-        let handA = noActionA && noActionB
-        let handB = noActionA || noActionB
-        let handC = noActionA || !noActionB
-        let handD = !noActionA || noActionB
+    func testTransitiveBinding() {
+        do {
+            let _ = try (CardKit.Action.Trigger.Time.Timer <- CardKit.Input.Time.Duration <- 5)
+        } catch let error {
+            XCTFail("\(error)")
+        }
     }
     
     func testSimpleDeck() {
@@ -56,5 +67,28 @@ class DeckBuilderTests: XCTestCase {
         print("deck: \(deck)")
     }
     
-    
+    func testDeckWithBindings() {
+        let noAction = CardKit.Action.NoAction
+        let timer = CardKit.Action.Trigger.Time.Timer
+        let wait = CardKit.Action.Trigger.Time.WaitUntilTime
+        
+        do {
+            let deck = try (
+                // do nothing
+                noAction ==>
+                
+                // wait 5 seconds
+                timer <- CardKit.Input.Time.Duration <- 5  ==>
+                
+                // wait 10 seconds and until the clock time is reached
+                timer <- CardKit.Input.Time.Duration <- 10
+                    && wait <- CardKit.Input.Time.ClockTime <- NSDate()
+            )%
+            
+            XCTAssertTrue(deck.handCount == 3)
+            XCTAssertTrue(deck.cardCount == 8)
+        } catch let error {
+            XCTFail("\(error)")
+        }
+    }
 }

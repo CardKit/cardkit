@@ -21,8 +21,8 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorIdentity() {
-        let noActionA = CKDescriptors.Action.NoAction
-        let noActionB = CKDescriptors.Action.NoAction
+        let noActionA = CardKit.Action.NoAction
+        let noActionB = CardKit.Action.NoAction
         XCTAssertTrue(noActionA == noActionB)
         XCTAssertFalse(noActionA != noActionB)
     }
@@ -97,7 +97,7 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorToAndFromJSON() {
-        let noAction = CKDescriptors.Action.NoAction
+        let noAction = CardKit.Action.NoAction
         let jsonNoAction = noAction.toJSON()
         
         do {

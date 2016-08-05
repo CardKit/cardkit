@@ -13,10 +13,12 @@ import Freddy
 public typealias HandIdentifier = CardIdentifier
 
 public struct Hand {
-    public var actionCards: [ActionCard]
-    public var handCards: [HandCard]
+    // implementing these as arrays rather than sets because the order 
+    // in which a card is added might matter
+    public var actionCards: [ActionCard] = []
+    public var handCards: [HandCard] = []
     
-    let identifier: HandIdentifier
+    public var identifier: HandIdentifier = HandIdentifier()
     
     var cards: [Card] {
         var c: [Card] = []
@@ -25,36 +27,17 @@ public struct Hand {
         return c
     }
     
-    var count: Int {
-        return actionCards.count + handCards.count
-    }
-    /*
-    var lastActionCard: ActionCard? {
-        return actionCards.last
-    }
-    
-    var lastHandCard: HandCard? {
-        return handCards.last
-    }*/
-    
-    /// Returns the HandSatisfactionSpec from the most recently added HandCard, or nil
-    /// if there are no HandCards in the hand with a LogicBinding of .SatisfactionLogic
-    /*var lastHandSatisfactionSpec: HandSatisfactionSpec? {
-        for card in self.handCards.reverse() {
-            if let cardLogic = card.logic {
-                switch cardLogic {
-                case .SatisfactionLogic(let spec):
-                    return spec
-                default:
-                    continue
-                }
-            }
+    /// The number of cards in a hand includes all Action and Hand
+    /// cards added to the hand, plus any Input or Token cards that
+    /// are bound to the Action cards.
+    var cardCount: Int {
+        // find all cards bound to the action cards
+        let boundCount = actionCards.reduce(0) {
+            (count, card: ActionCard) in
+            count + card.inputBindings.count + card.tokenBindings.count
         }
-        return nil
-    }*/
-    
-    init() {
-        self.init()
+        
+        return actionCards.count + handCards.count + boundCount
     }
 }
 

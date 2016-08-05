@@ -32,6 +32,10 @@ public struct Deck {
         return hands.count
     }
     
+    var cardCount: Int {
+        return hands.reduce(0, combine: {(count, hand) in count + hand.cardCount}) + self.deckCards.count
+    }
+    
     var firstHand: Hand? {
         return hands.first
     }

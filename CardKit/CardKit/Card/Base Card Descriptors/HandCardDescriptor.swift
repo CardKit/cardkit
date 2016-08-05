@@ -35,12 +35,8 @@ public struct HandCardDescriptor: CardDescriptor {
             return BranchHandCard(with: self)
         case .Repeat:
             return RepeatHandCard(with: self)
-        case .BooleanLogicAnd:
-            return LogicHandCard(with: self, operation: .LogicalAnd)
-        case .BooleanLogicOr:
-            return LogicHandCard(with: self, operation: .LogicalOr)
-        case .BooleanLogicNot:
-            return LogicHandCard(with: self, operation: .LogicalNot)
+        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+            return LogicHandCard(with: self)
         }
     }
 }

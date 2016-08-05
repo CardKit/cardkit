@@ -20,13 +20,13 @@ public enum LogicType: String {
     /// Repeat executing the hand.
     case Repeat
     
-    /// Perform a boolean operation to determine whether this card is satisfied.
+    /// Perform a boolean AND to determine whether this card is satisfied.
     case BooleanLogicAnd
     
-    /// Perform a boolean operation to determine whether this card is satisfied.
+    /// Perform a boolean OR to determine whether this card is satisfied.
     case BooleanLogicOr
     
-    /// Perform a boolean operation to determine whether this card is satisfied.
+    /// Perform a boolean NOT to determine whether this card is satisfied.
     case BooleanLogicNot
 }
 
@@ -64,50 +64,6 @@ extension LogicType: JSONDecodable {
         let type = try json.string()
         guard let typeEnum = LogicType(rawValue: type) else {
             throw JSON.Error.ValueNotConvertible(value: json, to: LogicType.self)
-        }
-        self = typeEnum
-    }
-}
-
-
-//MARK: BooleanOperation
-
-public enum BooleanOperation: String {
-    case LogicalAnd
-    case LogicalOr
-    case LogicalNot
-}
-
-//MARK: CustomStringConvertable
-
-extension BooleanOperation: CustomStringConvertible {
-    public var description: String {
-        return "\(self)"
-    }
-}
-
-//MARK: JSONEncodable
-
-extension BooleanOperation: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .LogicalAnd:
-            return .String("LogicalAnd")
-        case .LogicalOr:
-            return .String("LogicalOr")
-        case .LogicalNot:
-            return .String("LogicalNot")
-        }
-    }
-}
-
-//MARK: JSONDecodable
-
-extension BooleanOperation: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.string()
-        guard let typeEnum = BooleanOperation(rawValue: type) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: BooleanOperation.self)
         }
         self = typeEnum
     }

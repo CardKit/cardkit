@@ -59,7 +59,7 @@ extension HandCard: Hashable {
 //MARK: BranchHandCard
 
 public class BranchHandCard: HandCard {
-    public var children: [CardIdentifier] = []
+    public var children: Set<CardIdentifier> = Set()
     public var targetHand: HandIdentifier? = nil
     
     public override init(with descriptor: HandCardDescriptor) {
@@ -82,14 +82,34 @@ public class BranchHandCard: HandCard {
                 "identifier": self.identifier.toJSON(),
                 "descriptor": self.descriptor.toJSON(),
                 "targetHand": targetHand.toJSON(),
-                "children": self.children.toJSON()
+                "children": Array(self.children).toJSON()
                 ])
         } else {
             return .Dictionary([
                 "identifier": self.identifier.toJSON(),
                 "descriptor": self.descriptor.toJSON(),
-                "children": self.children.toJSON()
+                "children": Array(self.children).toJSON()
                 ])
+        }
+    }
+    
+    public func addChild(identifier: CardIdentifier) {
+        self.children.insert(identifier)
+    }
+    
+    public func addChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
+        for identifier in identifiers {
+            self.children.insert(identifier)
+        }
+    }
+    
+    public func removeChild(identifier: CardIdentifier) {
+        self.children.remove(identifier)
+    }
+    
+    public func removeChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
+        for identifier in identifiers {
+            self.children.remove(identifier)
         }
     }
 }
@@ -120,16 +140,13 @@ public class RepeatHandCard: HandCard {
 //MARK: LogicHandCard
 
 public class LogicHandCard: HandCard {
-    public var children: [CardIdentifier] = []
-    public let operation: BooleanOperation
+    public var children: Set<CardIdentifier> = Set()
     
-    public init(with descriptor: HandCardDescriptor, operation: BooleanOperation) {
-        self.operation = operation
+    public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)
     }
     
     public required init(json: JSON) throws {
-        self.operation = try json.decode("operation", type: BooleanOperation.self)
         try super.init(json: json)
     }
     
@@ -137,8 +154,27 @@ public class LogicHandCard: HandCard {
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
-            "operation": self.operation.toJSON(),
-            "children": self.children.toJSON()
+            "children": Array(self.children).toJSON()
             ])
+    }
+    
+    public func addChild(identifier: CardIdentifier) {
+        self.children.insert(identifier)
+    }
+    
+    public func addChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
+        for identifier in identifiers {
+            self.children.insert(identifier)
+        }
+    }
+    
+    public func removeChild(identifier: CardIdentifier) {
+        self.children.remove(identifier)
+    }
+    
+    public func removeChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
+        for identifier in identifiers {
+            self.children.remove(identifier)
+        }
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 
 //MARK: Binding Operator
 
-infix operator <- { associativity right precedence 130 }
+infix operator <- { associativity right precedence 160 }
 
 
 //MARK: Binding Data to an InputCard
@@ -53,8 +53,6 @@ public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> Ac
 
 //MARK: Not Operation
 
-prefix operator ! {}
-
 /// Return a new hand with the given ActionCard and a Not card played with it
 public prefix func ! (operand: ActionCardDescriptor) -> Hand {
     return !operand.instance()
@@ -68,7 +66,7 @@ public prefix func ! (operand: ActionCard) -> Hand {
     
     // create a NOT card bound to the operand
     if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? LogicHandCard {
-        notCard.children.append(operand.identifier)
+        notCard.addChild(operand.identifier)
         hand.add(notCard)
     }
     
@@ -78,7 +76,7 @@ public prefix func ! (operand: ActionCard) -> Hand {
 
 //MARK: And Operations
 
-infix operator && { associativity right precedence 120 }
+infix operator && { associativity left precedence 150 }
 
 public func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
     return lhs.instance() && rhs.instance()
@@ -94,6 +92,7 @@ public func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 
 /// Return a new hand with the given ActionCards ANDed together
 public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    print("AND(A,A): \(lhs.identifier) && \(rhs.identifier)")
     // create a new Hand
     var hand = Hand()
     hand.add(lhs)
@@ -101,8 +100,8 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     
     // create an AND card bound to the operands
     if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
-        andCard.children.append(lhs.identifier)
-        andCard.children.append(rhs.identifier)
+        andCard.addChild(lhs.identifier)
+        andCard.addChild(rhs.identifier)
         hand.add(andCard)
     }
     
@@ -114,6 +113,7 @@ public func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func && (lhs: Hand, rhs: ActionCard) -> Hand {
+    print("AND(H,A): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(rhs)
     return lhs && hand
@@ -124,6 +124,7 @@ public func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
 }
 
 public func && (lhs: ActionCard, rhs: Hand) -> Hand {
+    print("AND(A,H): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(lhs)
     return hand && rhs
@@ -135,6 +136,7 @@ public func && (lhs: ActionCard, rhs: Hand) -> Hand {
 /// [(A v B) ^ !D, E] and the logic of hand B is [!C], the new hand will have a logic
 /// of [((A v B) ^ !D) ^ E ^ !C].
 public func && (lhs: Hand, rhs: Hand) -> Hand {
+    print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
     var lhsBound: Set<CardIdentifier> = Set()
     var lhsWillBind: Set<CardIdentifier> = Set()
     
@@ -191,8 +193,9 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
     
     // bind them all together
     if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
-        andCard.children.appendContentsOf(lhsWillBind)
-        andCard.children.appendContentsOf(rhsWillBind)
+        andCard.addChildren(lhsWillBind)
+        andCard.addChildren(lhsWillBind)
+        andCard.addChildren(rhsWillBind)
         hand.add(andCard)
     }
     
@@ -200,8 +203,6 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
 }
 
 //MARK: Or Operations
-
-infix operator || { associativity right precedence 120 }
 
 public func || (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
     return lhs.instance() || rhs.instance()
@@ -217,15 +218,16 @@ public func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 
 /// Return a new hand with the given ActionCards ORed together
 public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    print("OR(A,A): \(lhs.identifier) && \(rhs.identifier)")
     // create a new Hand
     var hand = Hand()
     hand.add(lhs)
     hand.add(rhs)
     
     // create an OR card bound to the operands
-    if let orCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
-        orCard.children.append(lhs.identifier)
-        orCard.children.append(rhs.identifier)
+    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
+        orCard.addChild(lhs.identifier)
+        orCard.addChild(rhs.identifier)
         hand.add(orCard)
     }
     
@@ -237,6 +239,7 @@ public func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func || (lhs: Hand, rhs: ActionCard) -> Hand {
+    print("OR(H,A): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(rhs)
     return lhs || hand
@@ -247,6 +250,7 @@ public func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
 }
 
 public func || (lhs: ActionCard, rhs: Hand) -> Hand {
+    print("OR(A,H): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(lhs)
     return hand && rhs
@@ -258,6 +262,7 @@ public func || (lhs: ActionCard, rhs: Hand) -> Hand {
 /// [(A v B) ^ !D, E] and the logic of hand B is [!C], the new hand will have a logic
 /// of [((A v B) ^ !D) || E || !C].
 public func || (lhs: Hand, rhs: Hand) -> Hand {
+    print("OR(H,H): \(lhs.identifier) && \(rhs.identifier)")
     var lhsBound: Set<CardIdentifier> = Set()
     var lhsWillBind: Set<CardIdentifier> = Set()
     
@@ -314,8 +319,8 @@ public func || (lhs: Hand, rhs: Hand) -> Hand {
     
     // bind them all together
     if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
-        orCard.children.appendContentsOf(lhsWillBind)
-        orCard.children.appendContentsOf(rhsWillBind)
+        orCard.addChildren(lhsWillBind)
+        orCard.addChildren(rhsWillBind)
         hand.add(orCard)
     }
     
@@ -324,8 +329,6 @@ public func || (lhs: Hand, rhs: Hand) -> Hand {
 
 
 //MARK: Adding Cards to a Hand
-
-infix operator + { associativity left precedence 110 }
 
 public func + (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
     return lhs.instance() + rhs.instance()
@@ -340,6 +343,7 @@ public func + (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func + (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    print("ADD(A,A): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(lhs)
     hand.add(rhs)
@@ -351,6 +355,7 @@ public func + (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func + (lhs: Hand, rhs: ActionCard) -> Hand {
+    print("ADD(H,A): \(lhs.identifier) && \(rhs.identifier)")
     var hand = lhs
     hand.add(rhs)
     return hand
@@ -386,9 +391,20 @@ public func + (lhs: Hand, rhs: HandCard) -> Hand {
 }
 
 
+//MARK: Merging Hands Together
+
+public func + (lhs: Hand, rhs: Hand) -> Hand {
+    print("ADD(H,H): \(lhs.identifier) && \(rhs.identifier)")
+    var hand = Hand()
+    hand.addCards(from: lhs)
+    hand.addCards(from: rhs)
+    return hand
+}
+
+
 //MARK: Sequencing Hands
 
-infix operator ==> { associativity left precedence 80 }
+infix operator ==> { associativity right precedence 80 }
 
 public func ==> (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> [Hand] {
     return lhs.instance() ==> rhs.instance()
@@ -433,6 +449,34 @@ public func ==> (lhs: Hand, rhs: ActionCard) -> [Hand] {
 
 public func ==> (lhs: Hand, rhs: Hand) -> [Hand] {
     return [lhs, rhs]
+}
+
+public func ==> (lhs: ActionCardDescriptor, rhs: [Hand]) -> [Hand] {
+    return lhs.instance() ==> rhs
+}
+
+public func ==> (lhs: ActionCard, rhs: [Hand]) -> [Hand] {
+    var hand = Hand()
+    hand.add(lhs)
+    
+    var hands: [Hand] = []
+    hands.append(hand)
+    hands.appendContentsOf(rhs)
+    return hands
+}
+
+public func ==> (lhs: HandCardDescriptor, rhs: [Hand]) -> [Hand] {
+    return lhs.instance() ==> rhs
+}
+
+public func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
+    var hand = Hand()
+    hand.add(lhs)
+    
+    var hands: [Hand] = []
+    hands.append(hand)
+    hands.appendContentsOf(rhs)
+    return hands
 }
 
 

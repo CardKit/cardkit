@@ -50,7 +50,7 @@ public struct CardKit {
                     name: "Timer",
                     subpath: "Trigger/Time",
                     inputs: [
-                        InputSlot(identifier: "Duration", type: InputType.SwiftDouble, isOptional: false)
+                        InputSlot(identifier: "Duration", type: InputType.SwiftInt, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
@@ -66,7 +66,7 @@ public struct CardKit {
                     name: "Wait Until Time",
                     subpath: "Trigger/Time",
                     inputs: [
-                        InputSlot(identifier: "ClockTime", type: InputType.SwiftDouble, isOptional: false)
+                        InputSlot(identifier: "ClockTime", type: InputType.SwiftDate, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
