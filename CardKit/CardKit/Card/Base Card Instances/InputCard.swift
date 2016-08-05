@@ -115,19 +115,19 @@ extension InputCard {
         case let v as NSDate:
             try throwIfTypesDisagree(.SwiftDate, self.descriptor.inputType)
             return .SwiftDate(v)
-        case let v as InputCoordinate2D:
+        case let v as CKCoordinate2D:
             try throwIfTypesDisagree(.Coordinate2D, self.descriptor.inputType)
             return .Coordinate2D(v)
-        case let v as [InputCoordinate2D]:
+        case let v as [CKCoordinate2D]:
             try throwIfTypesDisagree(.Coordinate2DPath, self.descriptor.inputType)
             return .Coordinate2DPath(v)
-        case let v as InputCoordinate3D:
+        case let v as CKCoordinate3D:
             try throwIfTypesDisagree(.Coordinate3D, self.descriptor.inputType)
             return .Coordinate3D(v)
-        case let v as [InputCoordinate3D]:
+        case let v as [CKCoordinate3D]:
             try throwIfTypesDisagree(.Coordinate3DPath, self.descriptor.inputType)
             return .Coordinate3DPath(v)
-        case let v as InputCardinalDirection:
+        case let v as CKCardinalDirection:
             try throwIfTypesDisagree(.CardinalDirection, self.descriptor.inputType)
             return .CardinalDirection(v)
         default:

@@ -484,6 +484,12 @@ public func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
 
 postfix operator % {}
 
+/// Seals a deck with a given Hand
+public postfix func % (operand: Hand) -> Deck {
+    return [operand]%
+}
+
+/// Seals a deck with the given set of hands
 public postfix func % (operand: [Hand]) -> Deck {
     var deck = Deck()
     deck.hands = operand

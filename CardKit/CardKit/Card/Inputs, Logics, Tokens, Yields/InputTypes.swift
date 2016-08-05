@@ -11,9 +11,9 @@ import Foundation
 import Freddy
 
 
-//MARK: InputCoordinate2D
+//MARK: CKCoordinate2D
 
-public struct InputCoordinate2D {
+public struct CKCoordinate2D {
     public let latitude: Double
     public let longitude: Double
     
@@ -23,21 +23,21 @@ public struct InputCoordinate2D {
     }
 }
 
-extension InputCoordinate2D: Equatable {}
+extension CKCoordinate2D: Equatable {}
 
-public func == (lhs: InputCoordinate2D, rhs: InputCoordinate2D) -> Bool {
+public func == (lhs: CKCoordinate2D, rhs: CKCoordinate2D) -> Bool {
     return lhs.latitude == rhs.latitude
         && lhs.longitude == rhs.longitude
 }
 
-extension InputCoordinate2D: JSONDecodable {
+extension CKCoordinate2D: JSONDecodable {
     public init(json: JSON) throws {
         self.latitude = try json.double("latitude")
         self.longitude = try json.double("longitude")
     }
 }
 
-extension InputCoordinate2D: JSONEncodable {
+extension CKCoordinate2D: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
             "latitude": self.latitude.toJSON(),
@@ -46,9 +46,9 @@ extension InputCoordinate2D: JSONEncodable {
     }
 }
 
-//MARK: InputCoordinate3D
+//MARK: CKCoordinate3D
 
-public struct InputCoordinate3D {
+public struct CKCoordinate3D {
     public let latitude: Double
     public let longitude: Double
     public let altitudeMeters: Double
@@ -60,15 +60,15 @@ public struct InputCoordinate3D {
     }
 }
 
-extension InputCoordinate3D: Equatable {}
+extension CKCoordinate3D: Equatable {}
 
-public func == (lhs: InputCoordinate3D, rhs: InputCoordinate3D) -> Bool {
+public func == (lhs: CKCoordinate3D, rhs: CKCoordinate3D) -> Bool {
     return lhs.latitude == rhs.latitude
         && lhs.longitude == rhs.longitude
         && lhs.altitudeMeters == rhs.altitudeMeters
 }
 
-extension InputCoordinate3D: JSONDecodable {
+extension CKCoordinate3D: JSONDecodable {
     public init(json: JSON) throws {
         self.latitude = try json.double("latitude")
         self.longitude = try json.double("longitude")
@@ -76,7 +76,7 @@ extension InputCoordinate3D: JSONDecodable {
     }
 }
 
-extension InputCoordinate3D: JSONEncodable {
+extension CKCoordinate3D: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
             "latitude": self.latitude.toJSON(),
@@ -86,16 +86,16 @@ extension InputCoordinate3D: JSONEncodable {
     }
 }
 
-//MARK: InputCardinalDirection
+//MARK: CardinalDirection
 
-public enum InputCardinalDirection: String {
+public enum CKCardinalDirection: String {
     case North
     case South
     case East
     case West
 }
 
-extension InputCardinalDirection: CustomStringConvertible {
+extension CKCardinalDirection: CustomStringConvertible {
     public var description: String {
         get {
             switch self {
@@ -112,18 +112,18 @@ extension InputCardinalDirection: CustomStringConvertible {
     }
 }
 
-extension InputCardinalDirection: JSONDecodable {
+extension CKCardinalDirection: JSONDecodable {
     public init(json: JSON) throws {
         let direction = try json.string()
-        if let directionEnum = InputCardinalDirection(rawValue: direction) {
+        if let directionEnum = CKCardinalDirection(rawValue: direction) {
             self = directionEnum
         } else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: InputCardinalDirection.self)
+            throw JSON.Error.ValueNotConvertible(value: json, to: CKCardinalDirection.self)
         }
     }
 }
 
-extension InputCardinalDirection: JSONEncodable {
+extension CKCardinalDirection: JSONEncodable {
     public func toJSON() -> JSON {
         return .String(self.description)
     }

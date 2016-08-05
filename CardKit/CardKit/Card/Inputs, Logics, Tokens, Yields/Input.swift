@@ -90,11 +90,11 @@ public enum InputBinding {
     case SwiftString(String)
     case SwiftData(NSData)
     case SwiftDate(NSDate)
-    case Coordinate2D(InputCoordinate2D)
-    case Coordinate2DPath([InputCoordinate2D])
-    case Coordinate3D(InputCoordinate3D)
-    case Coordinate3DPath([InputCoordinate3D])
-    case CardinalDirection(InputCardinalDirection)
+    case Coordinate2D(CKCoordinate2D)
+    case Coordinate2DPath([CKCoordinate2D])
+    case Coordinate3D(CKCoordinate3D)
+    case Coordinate3DPath([CKCoordinate3D])
+    case CardinalDirection(CKCardinalDirection)
 }
 
 //MARK: CustomStringConvertable
@@ -158,23 +158,23 @@ extension InputBinding: JSONEncodable {
                 "value": val.gmtTimeString.toJSON()])
         case .Coordinate2D(let val):
             return .Dictionary([
-                "type": "InputCoordinate2D",
+                "type": "CKCoordinate2D",
                 "value": val.toJSON()])
         case .Coordinate2DPath(let val):
             return .Dictionary([
-                "type": "InputCoordinate2DPath",
+                "type": "CKCoordinate2DPath",
                 "value": val.toJSON()])
         case .Coordinate3D(let val):
             return .Dictionary([
-                "type": "InputCoordinate3D",
+                "type": "CKCoordinate3D",
                 "value": val.toJSON()])
         case .Coordinate3DPath(let val):
             return .Dictionary([
-                "type": "InputCoordinate3DPath",
+                "type": "CKCoordinate3DPath",
                 "value": val.toJSON()])
         case .CardinalDirection(let val):
             return .Dictionary([
-                "type": "InputCardinalDirection",
+                "type": "CKCardinalDirection",
                 "value": val.toJSON()])
         }
     }
@@ -214,19 +214,19 @@ extension InputBinding: JSONDecodable {
                 throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
             }
         case .Coordinate2D:
-            let value = try json.decode("value", type: InputCoordinate2D.self)
+            let value = try json.decode("value", type: CKCoordinate2D.self)
             self = .Coordinate2D(value)
         case .Coordinate2DPath:
-            let value = try json.arrayOf("value", type: InputCoordinate2D.self)
+            let value = try json.arrayOf("value", type: CKCoordinate2D.self)
             self = .Coordinate2DPath(value)
         case .Coordinate3D:
-            let value = try json.decode("value", type: InputCoordinate3D.self)
+            let value = try json.decode("value", type: CKCoordinate3D.self)
             self = .Coordinate3D(value)
         case .Coordinate3DPath:
-            let value = try json.arrayOf("value", type: InputCoordinate3D.self)
+            let value = try json.arrayOf("value", type: CKCoordinate3D.self)
             self = .Coordinate3DPath(value)
         case .CardinalDirection:
-            let value = try json.decode("value", type: InputCardinalDirection.self)
+            let value = try json.decode("value", type: CKCardinalDirection.self)
             self = .CardinalDirection(value)
         }
     }
