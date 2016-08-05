@@ -489,3 +489,20 @@ public postfix func % (operand: [Hand]) -> Deck {
     deck.hands = operand
     return deck
 }
+
+
+//MARK: Adding DeckCards to a Deck
+
+/// Adds an instance of DeckCardDescriptor to a Deck
+public func + (lhs: Deck, rhs: DeckCardDescriptor) -> Deck {
+    var deck = Deck(copying: lhs)
+    deck.add(rhs.instance())
+    return deck
+}
+
+/// Adds a DeckCard to a Deck
+public func + (lhs: Deck, rhs: DeckCard) -> Deck {
+    var deck = Deck(copying: lhs)
+    deck.add(rhs)
+    return deck
+}

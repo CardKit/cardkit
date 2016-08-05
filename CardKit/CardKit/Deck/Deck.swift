@@ -16,16 +16,20 @@ public struct Deck {
     public var hands: [Hand]
     public var deckCards: [DeckCard]
     
-    let identifier: DeckIdentifier
+    public var identifier: DeckIdentifier = DeckIdentifier()
     
     init() {
-        self.init(hands: [])
+        self.init(with: [])
     }
     
-    init(hands: [Hand]) {
+    init(with hands: [Hand]) {
         self.hands = hands
         self.deckCards = []
-        self.identifier = DeckIdentifier()
+    }
+    
+    init(copying deck: Deck) {
+        self.hands = deck.hands
+        self.deckCards = deck.deckCards
     }
     
     var handCount: Int {

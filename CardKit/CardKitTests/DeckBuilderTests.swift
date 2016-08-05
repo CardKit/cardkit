@@ -64,7 +64,7 @@ class DeckBuilderTests: XCTestCase {
             noAction
             )%
         
-        print("deck: \(deck)")
+        XCTAssertTrue(deck.cardCount == 2)
     }
     
     func testDeckWithBindings() {
