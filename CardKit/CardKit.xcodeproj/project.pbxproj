@@ -129,12 +129,12 @@
 		CC931B391D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
 		CC931B3A1D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
 		CC931B3B1D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
-		CC931BCD1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
-		CC931BCE1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
-		CC931BCF1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
-		CC931BD01D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
-		CC931BD11D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
-		CC931BD21D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BCD1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BCE1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BCF1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BD01D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BD11D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BD21D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
 		CC931C4F1D4E57D1001B71B1 /* AcceptsInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */; };
 		CC931C501D4E57D1001B71B1 /* AcceptsInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */; };
 		CC931C511D4E57D1001B71B1 /* AcceptsInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */; };
@@ -359,7 +359,7 @@
 		CC931A891D49623E001B71B1 /* TokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCard.swift; sourceTree = "<group>"; };
 		CC931ABC1D4A8557001B71B1 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		CC931B221D4A8ED2001B71B1 /* CardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardKit.swift; sourceTree = "<group>"; };
-		CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		CC931C461D4E57D1001B71B1 /* AcceptsInputs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptsInputs.swift; sourceTree = "<group>"; };
 		CC931C471D4E57D1001B71B1 /* AcceptsTokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptsTokens.swift; sourceTree = "<group>"; };
 		CC931C491D4E57D1001B71B1 /* Consumable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
@@ -579,7 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */,
-				CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */,
+				CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */,
 				CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */,
 				CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */,
 			);
@@ -923,7 +923,7 @@
 				CC9E76321D5238AC00B7C738 /* TokenSlot.swift in Sources */,
 				CC931C611D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CCCAD6E71D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
-				CC931BCD1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BCD1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CC931A511D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931C551D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
 				CC931A3F1D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
@@ -987,7 +987,7 @@
 				CC9E76621D54F33500B7C738 /* DeckTests.swift in Sources */,
 				CC93199E1D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC9319981D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BCE1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BCE1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CC9E76211D5238AC00B7C738 /* Input.swift in Sources */,
 				CCE7D5601D50DB3A008FC492 /* BindsWithInputCard.swift in Sources */,
 				CC9E761B1D5238AC00B7C738 /* Logic.swift in Sources */,
@@ -1016,7 +1016,7 @@
 				CC9E763A1D5238AC00B7C738 /* Yield.swift in Sources */,
 				CC931C631D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CC9E76341D5238AC00B7C738 /* TokenSlot.swift in Sources */,
-				CC931BCF1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BCF1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CCCAD6E91D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
 				CC931A531D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931C571D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
@@ -1082,7 +1082,7 @@
 				CC9E76631D54F33500B7C738 /* DeckTests.swift in Sources */,
 				CC9319A01D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC93199A1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BD01D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BD01D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CC9E76231D5238AC00B7C738 /* Input.swift in Sources */,
 				CCE7D5621D50DB3A008FC492 /* BindsWithInputCard.swift in Sources */,
 				CC9E761D1D5238AC00B7C738 /* Logic.swift in Sources */,
@@ -1113,7 +1113,7 @@
 				CC9E76361D5238AC00B7C738 /* TokenSlot.swift in Sources */,
 				CC931C651D4E57D1001B71B1 /* Consumable.swift in Sources */,
 				CCCAD6EB1D50E85100864D34 /* BindsWithActionCard.swift in Sources */,
-				CC931BD11D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BD11D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CC931A551D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931C591D4E57D1001B71B1 /* AcceptsTokens.swift in Sources */,
 				CC931A431D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
@@ -1177,7 +1177,7 @@
 				CC9E76641D54F33500B7C738 /* DeckTests.swift in Sources */,
 				CC9319A21D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC93199C1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BD21D4BB350001B71B1 /* DateExtensions.swift in Sources */,
+				CC931BD21D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
 				CC9E76251D5238AC00B7C738 /* Input.swift in Sources */,
 				CCE7D5641D50DB3A008FC492 /* BindsWithInputCard.swift in Sources */,
 				CC9E761F1D5238AC00B7C738 /* Logic.swift in Sources */,
