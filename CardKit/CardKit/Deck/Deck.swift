@@ -15,6 +15,7 @@ public typealias DeckIdentifier = CardIdentifier
 public struct Deck {
     public var hands: [Hand]
     public var deckCards: [DeckCard]
+    public var tokenCards: [TokenCard]
     
     public var identifier: DeckIdentifier = DeckIdentifier()
     
@@ -25,11 +26,13 @@ public struct Deck {
     init(with hands: [Hand]) {
         self.hands = hands
         self.deckCards = []
+        self.tokenCards = []
     }
     
     init(copying deck: Deck) {
         self.hands = deck.hands
         self.deckCards = deck.deckCards
+        self.tokenCards = []
     }
     
     var handCount: Int {
@@ -37,7 +40,7 @@ public struct Deck {
     }
     
     var cardCount: Int {
-        return hands.reduce(0, combine: {(count, hand) in count + hand.cardCount}) + self.deckCards.count
+        return hands.reduce(0, combine: {(count, hand) in count + hand.cardCount}) + self.deckCards.count + self.tokenCards.count
     }
     
     var firstHand: Hand? {
@@ -52,12 +55,20 @@ public struct Deck {
         self.deckCards.append(card)
     }
     
+    mutating func add(card: TokenCard) {
+        self.tokenCards.append(card)
+    }
+    
     mutating func remove(hand: Hand) {
         self.hands.removeObject(hand)
     }
     
     mutating func remove(card: DeckCard) {
         self.deckCards.removeObject(card)
+    }
+    
+    mutating func remove(card: TokenCard) {
+        self.tokenCards.removeObject(card)
     }
 }
 
@@ -83,6 +94,7 @@ extension Deck: JSONDecodable {
     public init(json: JSON) throws {
         self.hands = try json.arrayOf("hands", type: Hand.self)
         self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
+        self.tokenCards = try json.arrayOf("tokenCards", type: TokenCard.self)
         self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
     }
 }
@@ -94,6 +106,7 @@ extension Deck: JSONEncodable {
         return .Dictionary([
             "hands": self.hands.toJSON(),
             "deckCards": self.deckCards.toJSON(),
+            "tokenCards": self.tokenCards.toJSON(),
             "identifier": self.identifier.toJSON()
             ])
     }

@@ -31,10 +31,12 @@ public struct Hand {
     /// cards added to the hand, plus any Input or Token cards that
     /// are bound to the Action cards.
     var cardCount: Int {
-        // find all cards bound to the action cards
+        // find all Input cards bound to the action cards
+        // note that we do not count Token card bindings, as Token cards
+        // are kept at the Deck level
         let boundCount = actionCards.reduce(0) {
             (count, card: ActionCard) in
-            count + card.inputBindings.count + card.tokenBindings.count
+            count + card.inputBindings.count
         }
         
         return actionCards.count + handCards.count + boundCount
