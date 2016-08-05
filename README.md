@@ -54,9 +54,13 @@ Action cards are used to perform an action with a physical device. For example, 
 
 Deck cards are used to modify the execution logic of the Deck, such as ending execution (the default) or repeating the deck.
 
+![Repeat Deck card image](images/repeat-deck.png)
+
 ### Hand
 
 Hand cards are used to modify the execution logic of a Hand. Arbitrary Boolean logics are supported with Hand cards, such that a Hand card's own satisfaction is be triggered using a Boolean operation across a subset of `Satisfiable` cards in the hand (note: currently, `CardKit` does not enforce that the logic is applied only to `Satisfiable` cards). Branching and Repetition logic are also handled by Hand cards.
+
+![Repeat Hand card image](images/repeat-hand.png)
 
 ### Input
 
@@ -66,13 +70,15 @@ Input cards are used to provide concrete, user-specified inputs to an Action car
 
 Input cards are similar to Action cards in that both produce some piece of data that is used by a card (called a Yield). In the case of Input cards, that data will always be user-specified. In the case of Action cards, that data will be computed based on the side-effects of executing the Action card.
 
-## Card Concepts
-
-### Tokens
+### Token
 
 Token cards represent the physical IoT hardware. Token card implementations (deriving from `TokenCard`) are designed to communicate with IoT hardware to perform the requisite actions as specified by the CardKit program. For example, a `DroneTokenCard` might be created to control a drone. It is the responsibility for the Token card's implementation to perform any actual communication with the drone (or other IoT hardware).
 
 Tokens adhere to the `Consumable` protocol to specify whether their use is consumed by an `ActionCard`. If a token is consumed, it's use by one `ActionCard` prevents its use by another `ActionCard` (e.g. a camera that can only respond to one command at a time). Tokens that are not consumed may be bound to multiple `ActionCard`s in the same hand. Token consumability applies only within the current Hand; a Token that was consumed in a previous hand may be used by a new `ActionCard` in the current hand.
+
+![Camera card image](images/camera.png)
+
+## Card Concepts
 
 ### Yields
 
@@ -110,10 +116,10 @@ Token slots are defined in a similar fashion.
 
 Cards are bound to each other when the yields from one card are used as inputs to another. The following bindings are valid:
 
-* ActionCard to ActionCard -- this is a Yield relationship
-* InputCard to ActionCard -- this is an Input relationship
-* TokenCard to ActionCard -- this is a Token relationship
-* Data to InputCard -- this binds a specific data value (wrapped in an `InputBinding`) to an Input card
+* `ActionCard` to `ActionCard` – this is a Yield relationship
+* `InputCard` to `ActionCard` – this is an Input relationship
+* `TokenCard` to `ActionCard` – this is a Token relationship
+* Value to `InputCard` – this binds a specific data value (wrapped in an `InputBinding`) to an Input card
 
 The `bind()` methods are implemented generically, enabling any kind of data to be bound to a card. However, there are a few caveats:
 
