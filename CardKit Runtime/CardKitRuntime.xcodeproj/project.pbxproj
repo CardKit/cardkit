@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC9E767B1D58B4BC00B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E766F1D58B4AE00B7C738 /* CardKit.framework */; };
+		CC9E767C1D58B4C400B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76731D58B4AE00B7C738 /* CardKit.framework */; };
+		CC9E767D1D58B4C900B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76771D58B4AE00B7C738 /* CardKit.framework */; };
 		CCE7D46D1D50D191008FC492 /* CardKitRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CCE7D4741D50D191008FC492 /* CardKitRuntime iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */; };
 		CCE7D4791D50D191008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
@@ -139,6 +142,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CC9E766E1D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317B11D479278001B71B1;
+			remoteInfo = "CardKit iOS";
+		};
+		CC9E76701D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317BB1D479278001B71B1;
+			remoteInfo = "CardKitTests iOS";
+		};
+		CC9E76721D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317D01D47929F001B71B1;
+			remoteInfo = "CardKit macOS";
+		};
+		CC9E76741D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317D91D47929F001B71B1;
+			remoteInfo = "CardKitTests macOS";
+		};
+		CC9E76761D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317EC1D4792B7001B71B1;
+			remoteInfo = "CardKit tvOS";
+		};
+		CC9E76781D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC9317F51D4792B7001B71B1;
+			remoteInfo = "CardKitTests tvOS";
+		};
 		CCE7D4751D50D191008FC492 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CCE7D4601D50D191008FC492 /* Project object */;
@@ -163,6 +208,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CardKit.xcodeproj; path = ../CardKit/CardKit.xcodeproj; sourceTree = "<group>"; };
 		CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CardKitRuntime iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKitRuntime.h; sourceTree = "<group>"; };
 		CCE7D46E1D50D191008FC492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -200,6 +246,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9E767B1D58B4BC00B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9E767C1D58B4C400B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9E767D1D58B4C900B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,11 +293,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC9E76661D58B4AE00B7C738 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC9E766F1D58B4AE00B7C738 /* CardKit.framework */,
+				CC9E76711D58B4AE00B7C738 /* CardKitTests iOS.xctest */,
+				CC9E76731D58B4AE00B7C738 /* CardKit.framework */,
+				CC9E76751D58B4AE00B7C738 /* CardKitTests macOS.xctest */,
+				CC9E76771D58B4AE00B7C738 /* CardKit.framework */,
+				CC9E76791D58B4AE00B7C738 /* CardKitTests tvOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC9E767A1D58B4B200B7C738 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		CC9E767E1D58B51400B7C738 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
 		CCE7D45F1D50D191008FC492 = {
 			isa = PBXGroup;
 			children = (
 				CCE7D46B1D50D191008FC492 /* CardKitRuntime */,
 				CCE7D4771D50D191008FC492 /* CardKitRuntimeTests */,
+				CC9E767A1D58B4B200B7C738 /* Dependencies */,
 				CCE7D46A1D50D191008FC492 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -272,6 +350,7 @@
 				CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */,
 				CCE7D46E1D50D191008FC492 /* Info.plist */,
 				CCE7D4BF1D50D264008FC492 /* Cards */,
+				CC9E767E1D58B51400B7C738 /* Validation */,
 				CCE7D4C01D50D2EC008FC492 /* Execution */,
 			);
 			path = CardKitRuntime;
@@ -581,6 +660,12 @@
 			mainGroup = CCE7D45F1D50D191008FC492;
 			productRefGroup = CCE7D46A1D50D191008FC492 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC9E76661D58B4AE00B7C738 /* Products */;
+					ProjectRef = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				CCE7D4681D50D191008FC492 /* CardKitRuntime iOS */,
@@ -592,6 +677,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC9E766F1D58B4AE00B7C738 /* CardKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CardKit.framework;
+			remoteRef = CC9E766E1D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9E76711D58B4AE00B7C738 /* CardKitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CardKitTests iOS.xctest";
+			remoteRef = CC9E76701D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9E76731D58B4AE00B7C738 /* CardKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CardKit.framework;
+			remoteRef = CC9E76721D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9E76751D58B4AE00B7C738 /* CardKitTests macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CardKitTests macOS.xctest";
+			remoteRef = CC9E76741D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9E76771D58B4AE00B7C738 /* CardKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CardKit.framework;
+			remoteRef = CC9E76761D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9E76791D58B4AE00B7C738 /* CardKitTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CardKitTests tvOS.xctest";
+			remoteRef = CC9E76781D58B4AE00B7C738 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CCE7D4671D50D191008FC492 /* Resources */ = {
