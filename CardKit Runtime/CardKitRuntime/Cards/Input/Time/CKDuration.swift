@@ -8,24 +8,11 @@
 
 import Foundation
 
-//MARK: CKDuration Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Time {
-    
-}
 
-//MARK: CKDuration Implementation
+//MARK: CKDuration
 
-/// Implementation of the Duration card
 public class CKDuration: InputCard {
-    init() {
-        super.init(with: CKDescriptors.Input.Time.Duration)
-    }
-    
-    func setDuration(duration: NSTimeInterval) {
-        do {
-            try super.bindYieldData(duration)
-        } catch {
-        }
-    }
+
 }

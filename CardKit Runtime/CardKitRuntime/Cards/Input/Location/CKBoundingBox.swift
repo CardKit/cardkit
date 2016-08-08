@@ -8,13 +8,10 @@
 
 import Foundation
 
-//MARK: CKBoundingBox Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKBoundingBox Implementation
+//MARK: CKBoundingBox
 
 /// Implementation of the Bounding Box card
 public class CKBoundingBox: InputCard {

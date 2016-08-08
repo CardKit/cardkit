@@ -8,33 +8,11 @@
 
 import Foundation
 
-//MARK: CKAngle Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKAngle Implementation
+//MARK: CKAngle
 
-/// Implementation of the Angle card
 public class CKAngle: InputCard {
-    init() {
-        super.init(with: CKDescriptors.Input.Location.Angle)
-    }
-    
-    func setAngle(inDegrees degrees: Double) {
-        do {
-            try self.bindYieldData(degrees)
-        } catch {
-        }
-    }
-    
-    func setAngle(inRadians radians: Double) {
-        let degrees = radians * (180.0 / M_PI)
-        
-        do {
-            try self.bindYieldData(degrees)
-        } catch {
-        }
-    }
+
 }

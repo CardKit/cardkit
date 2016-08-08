@@ -8,24 +8,11 @@
 
 import Foundation
 
-//MARK: CKClockTime Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Time {
-    
-}
 
-//MARK: CKClockTime Implementation
+//MARK: CKClockTime
 
-/// Implementation of the ClockTime card
 public class CKClockTime: InputCard {
-    init() {
-        super.init(with: CKDescriptors.Input.Time.ClockTime)
-    }
     
-    func setClockTime(date: NSDate) {
-        do {
-            try super.bindYieldData(date)
-        } catch {
-        }
-    }
 }

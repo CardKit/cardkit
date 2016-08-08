@@ -8,15 +8,11 @@
 
 import Foundation
 
-//MARK: CKPath Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKPath Implementation
+//MARK: CKPath
 
-/// Implementation of the CKPath card
 public class CKPath: InputCard {
     
 }

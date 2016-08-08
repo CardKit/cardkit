@@ -10,11 +10,29 @@
 		CC9E767B1D58B4BC00B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E766F1D58B4AE00B7C738 /* CardKit.framework */; };
 		CC9E767C1D58B4C400B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76731D58B4AE00B7C738 /* CardKit.framework */; };
 		CC9E767D1D58B4C900B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76771D58B4AE00B7C738 /* CardKit.framework */; };
+		CC9E76801D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76811D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76821D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76831D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76841D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76851D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
+		CC9E76871D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E76881D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E76891D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E768A1D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E768B1D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E768C1D58B83400B7C738 /* HandValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76861D58B83400B7C738 /* HandValidator.swift */; };
+		CC9E768E1D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E768F1D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E76901D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E76911D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E76921D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E76931D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
 		CCE7D46D1D50D191008FC492 /* CardKitRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CCE7D4741D50D191008FC492 /* CardKitRuntime iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */; };
+		CCE7D4741D50D191008FC492 /* CardKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */; };
 		CCE7D4791D50D191008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
-		CCE7D4921D50D1AB008FC492 /* CardKitRuntime macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4881D50D1AA008FC492 /* CardKitRuntime macOS.framework */; };
-		CCE7D4AE1D50D1BB008FC492 /* CardKitRuntime tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4A41D50D1BB008FC492 /* CardKitRuntime tvOS.framework */; };
+		CCE7D4921D50D1AB008FC492 /* CardKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4881D50D1AA008FC492 /* CardKitRuntime.framework */; };
+		CCE7D4AE1D50D1BB008FC492 /* CardKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4A41D50D1BB008FC492 /* CardKitRuntime.framework */; };
 		CCE7D4BB1D50D1D0008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
 		CCE7D4BC1D50D1D0008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
 		CCE7D4BD1D50D1D5008FC492 /* CardKitRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */; };
@@ -209,15 +227,18 @@
 
 /* Begin PBXFileReference section */
 		CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CardKit.xcodeproj; path = ../CardKit/CardKit.xcodeproj; sourceTree = "<group>"; };
-		CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CardKitRuntime iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckValidator.swift; sourceTree = "<group>"; };
+		CC9E76861D58B83400B7C738 /* HandValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandValidator.swift; sourceTree = "<group>"; };
+		CC9E768D1D58B83C00B7C738 /* CardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidator.swift; sourceTree = "<group>"; };
+		CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKitRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKitRuntime.h; sourceTree = "<group>"; };
 		CCE7D46E1D50D191008FC492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCE7D4731D50D191008FC492 /* CardKitRuntimeTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitRuntimeTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardKitRuntimeTests.swift; sourceTree = "<group>"; };
 		CCE7D47A1D50D191008FC492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCE7D4881D50D1AA008FC492 /* CardKitRuntime macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CardKitRuntime macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCE7D4881D50D1AA008FC492 /* CardKitRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKitRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D4911D50D1AA008FC492 /* CardKitRuntimeTests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitRuntimeTests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCE7D4A41D50D1BB008FC492 /* CardKitRuntime tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CardKitRuntime tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCE7D4A41D50D1BB008FC492 /* CardKitRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKitRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D4AD1D50D1BB008FC492 /* CardKitRuntimeTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CardKitRuntimeTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D4C21D50D309008FC492 /* CKNoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKNoAction.swift; sourceTree = "<group>"; };
 		CCE7D4C31D50D309008FC492 /* CKTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKTimer.swift; sourceTree = "<group>"; };
@@ -254,7 +275,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE7D4741D50D191008FC492 /* CardKitRuntime iOS.framework in Frameworks */,
+				CCE7D4741D50D191008FC492 /* CardKitRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +291,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE7D4921D50D1AB008FC492 /* CardKitRuntime macOS.framework in Frameworks */,
+				CCE7D4921D50D1AB008FC492 /* CardKitRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +307,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE7D4AE1D50D1BB008FC492 /* CardKitRuntime tvOS.framework in Frameworks */,
+				CCE7D4AE1D50D1BB008FC492 /* CardKitRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +338,9 @@
 		CC9E767E1D58B51400B7C738 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
+				CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */,
+				CC9E76861D58B83400B7C738 /* HandValidator.swift */,
+				CC9E768D1D58B83C00B7C738 /* CardValidator.swift */,
 			);
 			path = Validation;
 			sourceTree = "<group>";
@@ -334,11 +358,11 @@
 		CCE7D46A1D50D191008FC492 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */,
+				CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */,
 				CCE7D4731D50D191008FC492 /* CardKitRuntimeTests iOS.xctest */,
-				CCE7D4881D50D1AA008FC492 /* CardKitRuntime macOS.framework */,
+				CCE7D4881D50D1AA008FC492 /* CardKitRuntime.framework */,
 				CCE7D4911D50D1AA008FC492 /* CardKitRuntimeTests macOS.xctest */,
-				CCE7D4A41D50D1BB008FC492 /* CardKitRuntime tvOS.framework */,
+				CCE7D4A41D50D1BB008FC492 /* CardKitRuntime.framework */,
 				CCE7D4AD1D50D1BB008FC492 /* CardKitRuntimeTests tvOS.xctest */,
 			);
 			name = Products;
@@ -525,7 +549,7 @@
 			);
 			name = "CardKitRuntime iOS";
 			productName = CardKitRuntime;
-			productReference = CCE7D4691D50D191008FC492 /* CardKitRuntime iOS.framework */;
+			productReference = CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		CCE7D4721D50D191008FC492 /* CardKitRuntimeTests iOS */ = {
@@ -562,7 +586,7 @@
 			);
 			name = "CardKitRuntime macOS";
 			productName = CardKitRuntime;
-			productReference = CCE7D4881D50D1AA008FC492 /* CardKitRuntime macOS.framework */;
+			productReference = CCE7D4881D50D1AA008FC492 /* CardKitRuntime.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		CCE7D4901D50D1AA008FC492 /* CardKitRuntimeTests macOS */ = {
@@ -599,7 +623,7 @@
 			);
 			name = "CardKitRuntime tvOS";
 			productName = CardKitRuntime;
-			productReference = CCE7D4A41D50D1BB008FC492 /* CardKitRuntime tvOS.framework */;
+			productReference = CCE7D4A41D50D1BB008FC492 /* CardKitRuntime.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		CCE7D4AC1D50D1BB008FC492 /* CardKitRuntimeTests tvOS */ = {
@@ -825,8 +849,10 @@
 				CCE7D5271D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D4DF1D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D53F1D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
+				CC9E76801D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D5331D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D54B1D50D309008FC492 /* CKDuration.swift in Sources */,
+				CC9E768E1D58B83C00B7C738 /* CardValidator.swift in Sources */,
 				CCE7D50F1D50D309008FC492 /* CKLocation.swift in Sources */,
 				CCE7D5091D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D5391D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
@@ -835,6 +861,7 @@
 				CCE7D5511D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E51D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5031D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
+				CC9E76871D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -843,6 +870,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE7D5101D50D309008FC492 /* CKLocation.swift in Sources */,
+				CC9E76811D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D5281D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D52E1D50D309008FC492 /* CKInteger.swift in Sources */,
 				CCE7D5401D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
@@ -855,6 +883,8 @@
 				CCE7D4E01D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50A1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4EC1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
+				CC9E768F1D58B83C00B7C738 /* CardValidator.swift in Sources */,
+				CC9E76881D58B83400B7C738 /* HandValidator.swift in Sources */,
 				CCE7D5341D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D4FE1D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
 				CCE7D5221D50D309008FC492 /* CKAudio.swift in Sources */,
@@ -880,8 +910,10 @@
 				CCE7D5291D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D4E11D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D5411D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
+				CC9E76821D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D5351D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D54D1D50D309008FC492 /* CKDuration.swift in Sources */,
+				CC9E76901D58B83C00B7C738 /* CardValidator.swift in Sources */,
 				CCE7D5111D50D309008FC492 /* CKLocation.swift in Sources */,
 				CCE7D50B1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D53B1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
@@ -890,6 +922,7 @@
 				CCE7D5531D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E71D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5051D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
+				CC9E76891D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,6 +931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE7D5121D50D309008FC492 /* CKLocation.swift in Sources */,
+				CC9E76831D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D52A1D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D5301D50D309008FC492 /* CKInteger.swift in Sources */,
 				CCE7D5421D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
@@ -910,6 +944,8 @@
 				CCE7D4E21D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50C1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4EE1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
+				CC9E76911D58B83C00B7C738 /* CardValidator.swift in Sources */,
+				CC9E768A1D58B83400B7C738 /* HandValidator.swift in Sources */,
 				CCE7D5361D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D5001D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
 				CCE7D5241D50D309008FC492 /* CKAudio.swift in Sources */,
@@ -935,8 +971,10 @@
 				CCE7D52B1D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D4E31D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D5431D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
+				CC9E76841D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D5371D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D54F1D50D309008FC492 /* CKDuration.swift in Sources */,
+				CC9E76921D58B83C00B7C738 /* CardValidator.swift in Sources */,
 				CCE7D5131D50D309008FC492 /* CKLocation.swift in Sources */,
 				CCE7D50D1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D53D1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
@@ -945,6 +983,7 @@
 				CCE7D5551D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E91D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5071D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
+				CC9E768B1D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -953,6 +992,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE7D5141D50D309008FC492 /* CKLocation.swift in Sources */,
+				CC9E76851D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D52C1D50D309008FC492 /* CKImage.swift in Sources */,
 				CCE7D5321D50D309008FC492 /* CKInteger.swift in Sources */,
 				CCE7D5441D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
@@ -965,6 +1005,8 @@
 				CCE7D4E41D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50E1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4F01D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
+				CC9E76931D58B83C00B7C738 /* CardValidator.swift in Sources */,
+				CC9E768C1D58B83400B7C738 /* HandValidator.swift in Sources */,
 				CCE7D5381D50D309008FC492 /* CKReal.swift in Sources */,
 				CCE7D5021D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
 				CCE7D5261D50D309008FC492 /* CKAudio.swift in Sources */,
@@ -1099,7 +1141,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1115,7 +1157,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1155,7 +1197,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -1176,7 +1218,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -1221,7 +1263,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1240,7 +1282,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.research.CardKitRuntime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CardKitRuntime;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;

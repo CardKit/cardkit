@@ -8,15 +8,11 @@
 
 import Foundation
 
-//MARK: CKCardinalDirection Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKCardinalDirection Implementation
+//MARK: CKCardinalDirection
 
-/// Implementation of the CKCardinalDirection card
 public class CKCardinalDirection: InputCard {
     
 }

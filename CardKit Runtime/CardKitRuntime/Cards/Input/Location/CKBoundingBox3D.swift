@@ -8,15 +8,11 @@
 
 import Foundation
 
-//MARK: CKBoundingBox3D Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKBoundingBox3D Implementation
+//MARK: CKBoundingBox3D
 
-/// Implementation of the Bounding Box 3D card
 public class CKBoundingBox3D: InputCard {
     
 }

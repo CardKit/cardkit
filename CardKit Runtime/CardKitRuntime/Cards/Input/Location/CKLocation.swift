@@ -8,15 +8,11 @@
 
 import Foundation
 
-//MARK: CKLocation Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKLocation Implementation
+//MARK: CKLocation
 
-/// Implementation of the CKLocation card
 public class CKLocation: InputCard {
     
 }

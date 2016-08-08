@@ -8,15 +8,11 @@
 
 import Foundation
 
-//MARK: CKDistance Descriptor
+import CardKit
 
-extension CKDescriptors.Input.Location {
-    
-}
 
-//MARK: CKDistance Implementation
+//MARK: CKDistance
 
-/// Implementation of the CKDistance card
 public class CKDistance: InputCard {
     
 }
