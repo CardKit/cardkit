@@ -19,7 +19,9 @@ protocol BindsWithInputCard {
     func bound(with card: InputCard, in slot: InputSlot) -> ActionCard
     func bound(with card: InputCard) throws -> ActionCard
     func unbound(slot: InputSlot) -> ActionCard
-    func isBound(slot: InputSlot) -> Bool
+    
+    func isSlotBound(slot: InputSlot) -> Bool
+    func cardBound(to slot: InputSlot) -> Card?
     
     func value(of slot: InputSlot) -> InputBinding?
 }

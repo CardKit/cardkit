@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+import CardKit
+
+class DeckValidator: Validator {
+    func validationActions() -> [ValidationAction] {
+        var actions: [ValidationAction] = []
+        
+        return actions
+    }
+}

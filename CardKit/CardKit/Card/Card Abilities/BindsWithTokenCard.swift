@@ -19,5 +19,7 @@ protocol BindsWithTokenCard {
     func bound(with card: TokenCard, in slot: TokenSlot) -> ActionCard
     func bound(with card: TokenCard, toSlotWithIdentifier identifier: TokenIdentifier) throws -> ActionCard
     func unbound(slot: TokenSlot) -> ActionCard
-    func isBound(slot: TokenSlot) -> Bool
+    
+    func isSlotBound(slot: TokenSlot) -> Bool
+    func cardBound(to slot: TokenSlot) -> TokenCard?
 }

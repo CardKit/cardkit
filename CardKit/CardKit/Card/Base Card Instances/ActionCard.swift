@@ -22,8 +22,16 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     // input bindings
     var inputBindings: [InputSlot : Card] = [:]
     
+    public var inputSlots: [InputSlot] {
+        return Array(self.inputBindings.keys)
+    }
+    
     // token bindings
     var tokenBindings: [TokenSlot : TokenCard] = [:]
+    
+    public var tokenSlots: [TokenSlot] {
+        return Array(self.tokenBindings.keys)
+    }
     
     init(with descriptor: ActionCardDescriptor) {
         self.descriptor = descriptor
@@ -135,9 +143,14 @@ extension ActionCard: BindsWithActionCard {
     }
     
     /// Determines if the specified InputSlot has been bound
-    func isBound(slot: InputSlot) -> Bool {
+    func isSlotBound(slot: InputSlot) -> Bool {
         guard let _ = self.inputBindings[slot] else { return false }
         return true
+    }
+    
+    /// Retrieve the card bound to the given InputSlot
+    func cardBound(to slot: InputSlot) -> Card? {
+        return self.inputBindings[slot]
     }
 }
 
@@ -147,7 +160,7 @@ extension ActionCard: BindsWithInputCard {
     /// Binds the given InputCard to the first available InputSlot with matching InputType.
     func bind(with card: InputCard) throws {
         for slot in self.descriptor.inputSlots {
-            if card.descriptor.inputType == slot.inputType && !self.isBound(slot) {
+            if card.descriptor.inputType == slot.inputType && !self.isSlotBound(slot) {
                 self.bind(with: card, in: slot)
                 return
             }
@@ -159,7 +172,7 @@ extension ActionCard: BindsWithInputCard {
     /// Returns a new ActionCard with the given InputCard bound to the first free InputSlot with matching InputType.
     func bound(with card: InputCard) throws -> ActionCard {
         for slot in self.descriptor.inputSlots {
-            if card.descriptor.inputType == slot.inputType && !self.isBound(slot) {
+            if card.descriptor.inputType == slot.inputType && !self.isSlotBound(slot) {
                 var newInputBindings = inputBindings
                 newInputBindings[slot] = card
                 return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
@@ -244,8 +257,13 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Determines if the specified TokenSlot has been bound
-    func isBound(slot: TokenSlot) -> Bool {
+    public func isSlotBound(slot: TokenSlot) -> Bool {
         guard let _ = self.tokenBindings[slot] else { return false }
         return true
+    }
+    
+    /// Retrieve the card bound to the given TokenSlot
+    public func cardBound(to slot: TokenSlot) -> TokenCard? {
+        return self.tokenBindings[slot]
     }
 }

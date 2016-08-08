@@ -20,7 +20,7 @@ public struct Hand {
     
     public var identifier: HandIdentifier = HandIdentifier()
     
-    var cards: [Card] {
+    public var cards: [Card] {
         var c: [Card] = []
         c.appendContentsOf(actionCards.map({ $0 as Card }))
         c.appendContentsOf(handCards.map({ $0 as Card }))

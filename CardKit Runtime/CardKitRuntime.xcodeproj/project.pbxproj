@@ -28,6 +28,24 @@
 		CC9E76911D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
 		CC9E76921D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
 		CC9E76931D58B83C00B7C738 /* CardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E768D1D58B83C00B7C738 /* CardValidator.swift */; };
+		CC9E76951D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E76961D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E76971D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E76981D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E76991D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E769A1D58C32E00B7C738 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76941D58C32E00B7C738 /* ValidationError.swift */; };
+		CC9E769C1D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E769D1D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E769E1D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E769F1D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E76A01D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E76A11D58C38800B7C738 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E769B1D58C38800B7C738 /* Validator.swift */; };
+		CC9E76A31D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76A41D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76A51D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76A61D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76A71D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76A81D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
 		CCE7D46D1D50D191008FC492 /* CardKitRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CCE7D4741D50D191008FC492 /* CardKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */; };
 		CCE7D4791D50D191008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
@@ -230,6 +248,9 @@
 		CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckValidator.swift; sourceTree = "<group>"; };
 		CC9E76861D58B83400B7C738 /* HandValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandValidator.swift; sourceTree = "<group>"; };
 		CC9E768D1D58B83C00B7C738 /* CardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidator.swift; sourceTree = "<group>"; };
+		CC9E76941D58C32E00B7C738 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
+		CC9E769B1D58C38800B7C738 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationEngine.swift; sourceTree = "<group>"; };
 		CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKitRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKitRuntime.h; sourceTree = "<group>"; };
 		CCE7D46E1D50D191008FC492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -338,9 +359,12 @@
 		CC9E767E1D58B51400B7C738 /* Validation */ = {
 			isa = PBXGroup;
 			children = (
+				CC9E769B1D58C38800B7C738 /* Validator.swift */,
+				CC9E76941D58C32E00B7C738 /* ValidationError.swift */,
 				CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */,
 				CC9E76861D58B83400B7C738 /* HandValidator.swift */,
 				CC9E768D1D58B83C00B7C738 /* CardValidator.swift */,
+				CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */,
 			);
 			path = Validation;
 			sourceTree = "<group>";
@@ -844,6 +868,7 @@
 				CCE7D4EB1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
 				CCE7D5151D50D309008FC492 /* CKPath.swift in Sources */,
 				CCE7D52D1D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E76951D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D5451D50D309008FC492 /* CKClockTime.swift in Sources */,
 				CCE7D4F11D50D309008FC492 /* CKAngle.swift in Sources */,
 				CCE7D5271D50D309008FC492 /* CKImage.swift in Sources */,
@@ -858,8 +883,10 @@
 				CCE7D5391D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
 				CCE7D5211D50D309008FC492 /* CKAudio.swift in Sources */,
 				CCE7D4FD1D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
+				CC9E76A31D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D5511D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E51D50D309008FC492 /* CKTimer.swift in Sources */,
+				CC9E769C1D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5031D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
 				CC9E76871D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
@@ -872,7 +899,9 @@
 				CCE7D5101D50D309008FC492 /* CKLocation.swift in Sources */,
 				CC9E76811D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D5281D50D309008FC492 /* CKImage.swift in Sources */,
+				CC9E76A41D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D52E1D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E769D1D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5401D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
 				CCE7D4E61D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5041D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
@@ -880,6 +909,7 @@
 				CCE7D5521D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D54C1D50D309008FC492 /* CKDuration.swift in Sources */,
 				CCE7D53A1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
+				CC9E76961D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D4E01D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50A1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4EC1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
@@ -905,6 +935,7 @@
 				CCE7D4ED1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
 				CCE7D5171D50D309008FC492 /* CKPath.swift in Sources */,
 				CCE7D52F1D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E76971D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D5471D50D309008FC492 /* CKClockTime.swift in Sources */,
 				CCE7D4F31D50D309008FC492 /* CKAngle.swift in Sources */,
 				CCE7D5291D50D309008FC492 /* CKImage.swift in Sources */,
@@ -919,8 +950,10 @@
 				CCE7D53B1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
 				CCE7D5231D50D309008FC492 /* CKAudio.swift in Sources */,
 				CCE7D4FF1D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
+				CC9E76A51D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D5531D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E71D50D309008FC492 /* CKTimer.swift in Sources */,
+				CC9E769E1D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5051D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
 				CC9E76891D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
@@ -933,7 +966,9 @@
 				CCE7D5121D50D309008FC492 /* CKLocation.swift in Sources */,
 				CC9E76831D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D52A1D50D309008FC492 /* CKImage.swift in Sources */,
+				CC9E76A61D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D5301D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E769F1D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5421D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
 				CCE7D4E81D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5061D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
@@ -941,6 +976,7 @@
 				CCE7D5541D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D54E1D50D309008FC492 /* CKDuration.swift in Sources */,
 				CCE7D53C1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
+				CC9E76981D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D4E21D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50C1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4EE1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
@@ -966,6 +1002,7 @@
 				CCE7D4EF1D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
 				CCE7D5191D50D309008FC492 /* CKPath.swift in Sources */,
 				CCE7D5311D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E76991D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D5491D50D309008FC492 /* CKClockTime.swift in Sources */,
 				CCE7D4F51D50D309008FC492 /* CKAngle.swift in Sources */,
 				CCE7D52B1D50D309008FC492 /* CKImage.swift in Sources */,
@@ -980,8 +1017,10 @@
 				CCE7D53D1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
 				CCE7D5251D50D309008FC492 /* CKAudio.swift in Sources */,
 				CCE7D5011D50D309008FC492 /* CKBoundingBox3D.swift in Sources */,
+				CC9E76A71D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D5551D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D4E91D50D309008FC492 /* CKTimer.swift in Sources */,
+				CC9E76A01D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5071D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
 				CC9E768B1D58B83400B7C738 /* HandValidator.swift in Sources */,
 			);
@@ -994,7 +1033,9 @@
 				CCE7D5141D50D309008FC492 /* CKLocation.swift in Sources */,
 				CC9E76851D58B82C00B7C738 /* DeckValidator.swift in Sources */,
 				CCE7D52C1D50D309008FC492 /* CKImage.swift in Sources */,
+				CC9E76A81D58E2E700B7C738 /* ValidationEngine.swift in Sources */,
 				CCE7D5321D50D309008FC492 /* CKInteger.swift in Sources */,
+				CC9E76A11D58C38800B7C738 /* Validator.swift in Sources */,
 				CCE7D5441D50D309008FC492 /* CKRelativeToObject.swift in Sources */,
 				CCE7D4EA1D50D309008FC492 /* CKTimer.swift in Sources */,
 				CCE7D5081D50D309008FC492 /* CKCardinalDirection.swift in Sources */,
@@ -1002,6 +1043,7 @@
 				CCE7D5561D50D309008FC492 /* CKPeriodicity.swift in Sources */,
 				CCE7D5501D50D309008FC492 /* CKDuration.swift in Sources */,
 				CCE7D53E1D50D309008FC492 /* CKRelativeToLocation.swift in Sources */,
+				CC9E769A1D58C32E00B7C738 /* ValidationError.swift in Sources */,
 				CCE7D4E41D50D309008FC492 /* CKNoAction.swift in Sources */,
 				CCE7D50E1D50D309008FC492 /* CKDistance.swift in Sources */,
 				CCE7D4F01D50D309008FC492 /* CKWaitUntilTime.swift in Sources */,
