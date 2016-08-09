@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CC9E767B1D58B4BC00B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E766F1D58B4AE00B7C738 /* CardKit.framework */; };
-		CC9E767C1D58B4C400B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76731D58B4AE00B7C738 /* CardKit.framework */; };
-		CC9E767D1D58B4C900B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76771D58B4AE00B7C738 /* CardKit.framework */; };
 		CC9E76801D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
 		CC9E76811D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
 		CC9E76821D58B82C00B7C738 /* DeckValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */; };
@@ -46,6 +43,9 @@
 		CC9E76A61D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
 		CC9E76A71D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
 		CC9E76A81D58E2E700B7C738 /* ValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */; };
+		CC9E76BF1D59F3EA00B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76BE1D59F3EA00B7C738 /* CardKit.framework */; };
+		CC9E76C11D59F3F500B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76C01D59F3F500B7C738 /* CardKit.framework */; };
+		CC9E76C31D59F3FB00B7C738 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E76C21D59F3FB00B7C738 /* CardKit.framework */; };
 		CCE7D46D1D50D191008FC492 /* CardKitRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CCE7D4741D50D191008FC492 /* CardKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */; };
 		CCE7D4791D50D191008FC492 /* CardKitRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE7D4781D50D191008FC492 /* CardKitRuntimeTests.swift */; };
@@ -178,48 +178,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CC9E766E1D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317B11D479278001B71B1;
-			remoteInfo = "CardKit iOS";
-		};
-		CC9E76701D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317BB1D479278001B71B1;
-			remoteInfo = "CardKitTests iOS";
-		};
-		CC9E76721D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317D01D47929F001B71B1;
-			remoteInfo = "CardKit macOS";
-		};
-		CC9E76741D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317D91D47929F001B71B1;
-			remoteInfo = "CardKitTests macOS";
-		};
-		CC9E76761D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317EC1D4792B7001B71B1;
-			remoteInfo = "CardKit tvOS";
-		};
-		CC9E76781D58B4AE00B7C738 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC9317F51D4792B7001B71B1;
-			remoteInfo = "CardKitTests tvOS";
-		};
 		CCE7D4751D50D191008FC492 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CCE7D4601D50D191008FC492 /* Project object */;
@@ -244,13 +202,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CardKit.xcodeproj; path = ../CardKit/CardKit.xcodeproj; sourceTree = "<group>"; };
 		CC9E767F1D58B82C00B7C738 /* DeckValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckValidator.swift; sourceTree = "<group>"; };
 		CC9E76861D58B83400B7C738 /* HandValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandValidator.swift; sourceTree = "<group>"; };
 		CC9E768D1D58B83C00B7C738 /* CardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardValidator.swift; sourceTree = "<group>"; };
 		CC9E76941D58C32E00B7C738 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		CC9E769B1D58C38800B7C738 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		CC9E76A21D58E2E700B7C738 /* ValidationEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationEngine.swift; sourceTree = "<group>"; };
+		CC9E76BE1D59F3EA00B7C738 /* CardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardKit.framework; path = "../CardKit/build/Debug-iphoneos/CardKit.framework"; sourceTree = "<group>"; };
+		CC9E76C01D59F3F500B7C738 /* CardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardKit.framework; path = ../CardKit/build/Debug/CardKit.framework; sourceTree = "<group>"; };
+		CC9E76C21D59F3FB00B7C738 /* CardKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardKit.framework; path = "../CardKit/build/Debug-appletvos/CardKit.framework"; sourceTree = "<group>"; };
 		CCE7D4691D50D191008FC492 /* CardKitRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardKitRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCE7D46C1D50D191008FC492 /* CardKitRuntime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKitRuntime.h; sourceTree = "<group>"; };
 		CCE7D46E1D50D191008FC492 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -288,7 +248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC9E767B1D58B4BC00B7C738 /* CardKit.framework in Frameworks */,
+				CC9E76BF1D59F3EA00B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC9E767C1D58B4C400B7C738 /* CardKit.framework in Frameworks */,
+				CC9E76C11D59F3F500B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC9E767D1D58B4C900B7C738 /* CardKit.framework in Frameworks */,
+				CC9E76C31D59F3FB00B7C738 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,25 +295,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CC9E76661D58B4AE00B7C738 /* Products */ = {
+		CC9E767A1D58B4B200B7C738 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CC9E766F1D58B4AE00B7C738 /* CardKit.framework */,
-				CC9E76711D58B4AE00B7C738 /* CardKitTests iOS.xctest */,
-				CC9E76731D58B4AE00B7C738 /* CardKit.framework */,
-				CC9E76751D58B4AE00B7C738 /* CardKitTests macOS.xctest */,
-				CC9E76771D58B4AE00B7C738 /* CardKit.framework */,
-				CC9E76791D58B4AE00B7C738 /* CardKitTests tvOS.xctest */,
+				CC9E76C21D59F3FB00B7C738 /* CardKit.framework */,
+				CC9E76C01D59F3F500B7C738 /* CardKit.framework */,
+				CC9E76BE1D59F3EA00B7C738 /* CardKit.framework */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		CC9E767A1D58B4B200B7C738 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */,
-			);
-			name = Dependencies;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CC9E767E1D58B51400B7C738 /* Validation */ = {
@@ -374,7 +323,7 @@
 			children = (
 				CCE7D46B1D50D191008FC492 /* CardKitRuntime */,
 				CCE7D4771D50D191008FC492 /* CardKitRuntimeTests */,
-				CC9E767A1D58B4B200B7C738 /* Dependencies */,
+				CC9E767A1D58B4B200B7C738 /* Frameworks */,
 				CCE7D46A1D50D191008FC492 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -708,12 +657,6 @@
 			mainGroup = CCE7D45F1D50D191008FC492;
 			productRefGroup = CCE7D46A1D50D191008FC492 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = CC9E76661D58B4AE00B7C738 /* Products */;
-					ProjectRef = CC9E76651D58B4AE00B7C738 /* CardKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				CCE7D4681D50D191008FC492 /* CardKitRuntime iOS */,
@@ -725,51 +668,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		CC9E766F1D58B4AE00B7C738 /* CardKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CardKit.framework;
-			remoteRef = CC9E766E1D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC9E76711D58B4AE00B7C738 /* CardKitTests iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CardKitTests iOS.xctest";
-			remoteRef = CC9E76701D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC9E76731D58B4AE00B7C738 /* CardKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CardKit.framework;
-			remoteRef = CC9E76721D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC9E76751D58B4AE00B7C738 /* CardKitTests macOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CardKitTests macOS.xctest";
-			remoteRef = CC9E76741D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC9E76771D58B4AE00B7C738 /* CardKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CardKit.framework;
-			remoteRef = CC9E76761D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC9E76791D58B4AE00B7C738 /* CardKitTests tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CardKitTests tvOS.xctest";
-			remoteRef = CC9E76781D58B4AE00B7C738 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CCE7D4671D50D191008FC492 /* Resources */ = {

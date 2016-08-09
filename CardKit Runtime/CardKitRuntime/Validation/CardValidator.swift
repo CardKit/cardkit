@@ -56,6 +56,7 @@ class CardValidator: Validator {
         })
         
         // InputSlotBoundToUnexpectedType
+        // InputSlotBoundToInvalidCardType
         actions.append({
             (deck, hand, card) in
             guard let hand = hand else { return [] }
@@ -63,7 +64,7 @@ class CardValidator: Validator {
             
             // only applies to ActionCards
             guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkInputSlotBoundToUnexpectedType(deck, hand, actionCard)
+            return self.checkInputSlotBindings(deck, hand, actionCard)
         })
         
         // BranchTargetNotFound
@@ -154,11 +155,43 @@ class CardValidator: Validator {
     func checkMandatoryInputSlotNotBound(deck: Deck, _ hand: Hand, _ card: ActionCard) -> [ValidationError] {
         var errors: [ValidationError] = []
         
+        for slot in card.inputSlots {
+            // !slot.isOptional && !card.isSlotBound(slot) is causing the swift compiler to freak out because of the &&. which makes no sense, because both sides of that are Bool.
+            if !slot.isOptional {
+                if !card.isSlotBound(slot) {
+                    errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .MandatoryInputSlotNotBound(slot)))
+                }
+            }
+        }
+    
         return errors
     }
     
-    func checkInputSlotBoundToUnexpectedType(deck: Deck, _ hand: Hand, _ card: ActionCard) -> [ValidationError] {
+    func checkInputSlotBindings(deck: Deck, _ hand: Hand, _ card: ActionCard) -> [ValidationError] {
         var errors: [ValidationError] = []
+        
+        for slot in card.inputSlots {
+            guard let boundCard = card.cardBound(to: slot) else { continue }
+            let expectedType = slot.inputType
+            
+            if let actionCard = boundCard as? ActionCard {
+                // TODO
+                
+            } else if let inputCard = boundCard as? InputCard {
+                let actualType = inputCard.descriptor.inputType
+                
+                if expectedType != actualType {
+                    errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .InputSlotBoundToUnexpectedType(slot, expectedType, inputCard.identifier, actualType)))
+                }
+            
+            } else if let deckCard = boundCard as? DeckCard {
+                errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .InputSlotBoundToInvalidCardType(slot, expectedType, deckCard.identifier, .Hand)))
+            } else if let handCard = boundCard as? HandCard {
+                errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .InputSlotBoundToInvalidCardType(slot, expectedType, handCard.identifier, .Hand)))
+            } else if let tokenCard = boundCard as? TokenCard {
+                errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .InputSlotBoundToInvalidCardType(slot, expectedType, tokenCard.identifier, .Hand)))
+            }
+        }
         
         return errors
     }

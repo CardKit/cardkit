@@ -84,6 +84,15 @@ public enum CardValidationError {
     /// The InputSlot expected a different type of input than that provided by the InputCard (args: slot, expected type, bound InputCard identifier, provided type)
     case InputSlotBoundToUnexpectedType(InputSlot, InputType, CardIdentifier, InputType)
     
+    /// The InputSlot was bound to an invalid Card type (Deck, Hand, or Token)
+    case InputSlotBoundToInvalidCardType(InputSlot, InputType, CardIdentifier, CardType)
+    
+    /// The card uses a yield produced by a card in the same hand
+    case CardUsesYieldFromPeerCard(Yield, CardIdentifier)
+    
+    // The card uses a yield produced by a card in a later hand
+    case CardUsesYieldFromDownstreamCard(Yield, CardIdentifier)
+    
     /// The target of the branch was not found in the Deck (args: branch target HandIdentifier)
     case BranchTargetNotFound(HandIdentifier)
     

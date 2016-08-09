@@ -143,13 +143,13 @@ extension ActionCard: BindsWithActionCard {
     }
     
     /// Determines if the specified InputSlot has been bound
-    func isSlotBound(slot: InputSlot) -> Bool {
+    public func isSlotBound(slot: InputSlot) -> Bool {
         guard let _ = self.inputBindings[slot] else { return false }
         return true
     }
     
     /// Retrieve the card bound to the given InputSlot
-    func cardBound(to slot: InputSlot) -> Card? {
+    public func cardBound(to slot: InputSlot) -> Card? {
         return self.inputBindings[slot]
     }
 }
@@ -195,7 +195,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Returns the value held in the specified InputSlot
-    func value(of slot: InputSlot) -> InputBinding? {
+    public func value(of slot: InputSlot) -> InputBinding? {
         // if this slot is bound to an Input card, then we will might have a value
         if let card = self.inputBindings[slot] as? InputCard {
             return card.inputData
