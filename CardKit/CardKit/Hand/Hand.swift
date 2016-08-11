@@ -300,40 +300,65 @@ extension Hand {
 //MARK: CardTree Manipulation
 
 extension Hand {
-    /// Moves an ActionCard to nest under a LogicHandCard. Fails if the destination
+    /// Attaches an ActionCard to nest under a LogicHandCard. Fails if the destination
     /// already has its child slots filled.
-    public func move(card: ActionCard, to destination: LogicHandCard) {
+    public mutating func attach(card: ActionCard, to destination: LogicHandCard) {
         // get the root of the tree containing destination
-        guard var root = self.cardTrees.cardTree(containing: destination) else { return }
+        guard let root = self.cardTrees.cardTree(containing: destination) else { return }
         
-        // detach the ActionCard
+        // remove the old tree
+        self.cardTrees.removeObject(root)
+        
+        // create a new tree with the card attached in the right place
+        var newTree: CardTree? = nil
+        
+        // card is already present in the tree?
         if let orphanTree = self.detach(card) {
-            // create a new tree with the card attached
-            let newTree = root.attached(with: orphanTree, asChildOf: destination)
-            self.cardTrees.removeObject(root)
+            newTree = root.attached(with: orphanTree, asChildOf: destination)
+        } else {
+            newTree = root.attached(with: .Action(card), asChildOf: destination)
+        }
+        
+        if let newTree = newTree {
             self.cardTrees.append(newTree)
         }
     }
     
-    /// Moves a LogicHandCard to nest under another LogicHandCard. Fails if the destination
+    /// Attaches a LogicHandCard to nest under another LogicHandCard. Fails if the destination
     /// already has its child slots filled.
-    public func move(card: LogicHandCard, to destination: LogicHandCard) {
+    public mutating func attach(card: LogicHandCard, to destination: LogicHandCard) {
         // get the root of the tree containing destination
-        guard var root = self.cardTrees.cardTree(containing: destination) else { return }
+        guard let root = self.cardTrees.cardTree(containing: destination) else { return }
         
-        // detach the LogicHandCard
+        // remove the old tree
+        self.cardTrees.removeObject(root)
+        
+        // create a new tree with the card attached in the right place
+        var newTree: CardTree? = nil
+        
+        // card is already present in the tree?
         if let orphanTree = self.detach(card) {
-            // create a new tree with the card attached
-            let newTree = root.attached(with: orphanTree, asChildOf: destination)
-            self.cardTrees.removeObject(root)
+            newTree = root.attached(with: orphanTree, asChildOf: destination)
+        } else {
+            switch card.operation {
+            case .BooleanAnd, .BooleanOr:
+                newTree = .BinaryLogic(card, nil, nil)
+            case .BooleanNot:
+                newTree = .UnaryLogic(card, nil)
+            case .Indeterminate:
+                newTree = nil
+            }
+        }
+        
+        if let newTree = newTree {
             self.cardTrees.append(newTree)
         }
     }
     
     /// Detaches an ActionCard from its parent. Returns the detached CardTree node.
-    public func detach(card: ActionCard) -> CardTree? {
+    public mutating func detach(card: ActionCard) -> CardTree? {
         // get the root of the tree containing the card
-        guard var root = self.cardTrees.cardTree(containing: card) else { return nil }
+        guard let root = self.cardTrees.cardTree(containing: card) else { return nil }
         
         // remove the old root from the forest
         self.cardTrees.removeObject(root)
@@ -348,7 +373,7 @@ extension Hand {
     }
     
     /// Detaches a LogicHandCard from its parent. Returns the detached CardTree node.
-    public func detach(card: LogicHandCard) -> CardTree? {
+    public mutating func detach(card: LogicHandCard) -> CardTree? {
         // get the root of the tree containing the card
         guard let root = self.cardTrees.cardTree(containing: card) else { return nil }
         
@@ -357,28 +382,27 @@ extension Hand {
         
         // get the new tree without the card and add it to the forest
         var detached: CardTree? = nil
-        if let (newRoot, orphans) = root.cardTree(removing: card) {
-            if let reallyANewRoot = newRoot {
-                self.cardTrees.append(reallyANewRoot)
-            }
+        let (newRoot, orphans) = root.cardTree(removing: card)
+        if let reallyANewRoot = newRoot {
+            self.cardTrees.append(reallyANewRoot)
+        }
+        
+        // (re-)create the node that was detached
+        switch card.operation {
+        case .BooleanAnd, .BooleanOr:
+            // expecting up to 2 children
+            let left: CardTree? = orphans.count > 0 ? orphans[0] : nil
+            let right: CardTree? = orphans.count > 1 ? orphans[1] : nil
+            detached = .BinaryLogic(card, left, right)
             
-            // (re-)create the node that was detached
-            switch card.operation {
-            case .BooleanAnd, .BooleanOr:
-                // expecting up to 2 children
-                let left = orphans.count > 0 ? orphans[0] : nil
-                let right = orphans.count > 1 ? orphans[1] : nil
-                detached = .BinaryLogic(card, left, right)
-                
-            case .BooleanNot:
-                // expecting up to 1 child
-                let subtree = orphans.count > 0 ? orphans[0] : nil
-                detached = .UnaryLogic(card, subtree)
-                
-            case .Indeterminate:
-                // not sure how we got an Indeterminate
-                detached = nil
-            }
+        case .BooleanNot:
+            // expecting up to 1 child
+            let subtree: CardTree? = orphans.count > 0 ? orphans[0] : nil
+            detached = .UnaryLogic(card, subtree)
+            
+        case .Indeterminate:
+            // not sure how we got an Indeterminate
+            detached = nil
         }
         
         return detached

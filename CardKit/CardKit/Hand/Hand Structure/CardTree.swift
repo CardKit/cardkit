@@ -40,6 +40,136 @@ public indirect enum CardTree {
     }
 }
 
+//MARK: Equitable
+
+extension CardTree: Equatable {}
+
+/// CardTrees are equal when they are structually equivalent.
+public func == (lhs: CardTree, rhs: CardTree) -> Bool {
+    if case .Action(let lhsActionCard) = lhs,
+        case .Action(let rhsActionCard) = rhs {
+        return lhsActionCard == rhsActionCard
+    }
+    
+    if case .UnaryLogic(let lhsLogicCard, let lhsSubtree) = lhs,
+        case .UnaryLogic(let rhsLogicCard, let rhsSubtree) = rhs {
+        if lhsLogicCard == rhsLogicCard {
+            return lhsSubtree == rhsSubtree
+        } else {
+            return false
+        }
+    }
+    
+    if case .BinaryLogic(let lhsLogicCard, let lhsLeft, let lhsRight) = lhs,
+        case .BinaryLogic(let rhsLogicCard, let rhsLeft, let rhsRight) = rhs {
+        if lhsLogicCard == rhsLogicCard {
+            return lhsLeft == rhsLeft && lhsRight == rhsRight
+        } else {
+            return false
+        }
+    }
+    
+    return false
+}
+
+//MARK: Hashable
+
+extension CardTree: Hashable {
+    public var hashValue: Int {
+        switch self {
+        case .Action(let actionCard):
+            return actionCard.hashValue
+        case .UnaryLogic(let logicCard, let subtree):
+            if let subtree = subtree {
+                return logicCard.hashValue &+ subtree.hashValue
+            } else {
+                return logicCard.hashValue
+            }
+        case .BinaryLogic(let logicCard, let left, let right):
+            var hash: Int = logicCard.hashValue
+            if let left = left {
+                hash = hash &+ left.hashValue
+            }
+            if let right = right {
+                hash = hash &+ right.hashValue
+            }
+            return hash
+        }
+    }
+}
+
+//MARK: JSONEncodable
+
+extension CardTree: JSONEncodable {
+    public func toJSON() -> JSON {
+        switch self {
+        case .Action(let actionCard):
+            return .Dictionary([
+                "type": "Action",
+                "card": actionCard.toJSON()
+                ])
+        case .UnaryLogic(let logicCard, let subtree):
+            return .Dictionary([
+                "type": "UnaryLogic",
+                "logicCard": logicCard.toJSON(),
+                "subtree": subtree?.toJSON() ?? .String("nil")
+                ])
+        case .BinaryLogic(let logicCard, let left, let right):
+            return .Dictionary([
+                "type": "BinaryLogic",
+                "logicCard": logicCard.toJSON(),
+                "leftSubtree": left?.toJSON() ?? .String("nil"),
+                "rightSubtree": right?.toJSON() ?? .String("nil")
+                ])
+        }
+    }
+}
+
+//MARK: JSONDecodable
+
+extension CardTree: JSONDecodable {
+    public init(json: JSON) throws {
+        let type = try json.string("type")
+        
+        switch type {
+        case "Action":
+            let actionCard = try json.decode("actionCard", type: ActionCard.self)
+            self = .Action(actionCard)
+        case "UnaryLogic":
+            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
+            
+            let subtreeStr = try json.string("subtree")
+            if subtreeStr == "nil" {
+                self = .UnaryLogic(logicCard, nil)
+            } else {
+                let subtree = try json.decode("subtree", type: CardTree.self)
+                self = .UnaryLogic(logicCard, subtree)
+            }
+        case "BinaryLogic":
+            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
+            
+            let leftStr = try json.string("leftSubtree")
+            let rightStr = try json.string("rightSubtree")
+            
+            var left: CardTree? = nil
+            var right: CardTree? = nil
+            
+            if leftStr != "nil" {
+                left = try json.decode("leftSubtree", type: CardTree.self)
+            }
+            
+            if rightStr != "nil" {
+                right = try json.decode("rightSubtree", type: CardTree.self)
+            }
+            
+            self = .BinaryLogic(logicCard, left, right)
+            
+        default:
+            throw JSON.Error.ValueNotConvertible(value: json, to: CardTree.self)
+        }
+    }
+}
+
 //MARK: CardTree Attachment
 
 extension CardTree {
@@ -189,45 +319,9 @@ extension CardTree {
         }
     }
     
-    /// Returns the parent CardTree node for the given ActionCard, or nil
-    /// if no such node was found.
-    /*func parentCardTreeNode(of card: ActionCard) -> CardTree? {
-        
-        /// Helper method to keep track of the parent node as we recurse down the tree.
-        func parentNode(of card: ActionCard, fromTree tree: CardTree?, havingParent parent: CardTree?) -> CardTree? {
-            switch self {
-            case .Action(let actionCard):
-                if actionCard == card {
-                    return parent
-                } else {
-                    return nil
-                }
-            case .UnaryLogic(_, let subtree):
-                if let subtree = subtree {
-                    return parentNode(of: card, fromTree: subtree, havingParent: self)
-                } else {
-                    return nil
-                }
-            case .BinaryLogic(_, let left, let right):
-                var parent: CardTree? = nil
-                if let left = left {
-                    parent = parentNode(of: card, fromTree: left, havingParent: self)
-                }
-                if parent == nil {
-                    if let right = right {
-                        parent = parentNode(of: card, fromTree: right, havingParent: self)
-                    }
-                }
-                return parent
-            }
-        }
-        
-        return parentNode(of: card, fromTree: self, havingParent: nil)
-    }*/
-    
     /// Returns the CardTree node for the given LogicHandCard, or nil
     /// if no such node was found.
-    /*func cardTreeNode(of card: LogicHandCard) -> CardTree? {
+    func cardTreeNode(of card: LogicHandCard) -> CardTree? {
         switch self {
         case .Action(_):
             return nil
@@ -257,7 +351,7 @@ extension CardTree {
             
             return node
         }
-    }*/
+    }
     
     /// Returns all ActionCards with the given descriptor.
     func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
@@ -354,7 +448,7 @@ extension CardTree {
 
 //MARK: [CardTree] Query
 
-extension Array where Element : CardTree {
+extension SequenceType where Generator.Element == CardTree {
     /// Returns CardTree containing the given ActionCard.
     func cardTree(containing card: ActionCard) -> CardTree? {
         for tree in self {
@@ -379,8 +473,8 @@ extension Array where Element : CardTree {
     /// or nil if the LogicHandCard isn't contained in any CardTree.
     func cardTreeNode(of card: LogicHandCard) -> CardTree? {
         for tree in self {
-            if let root = tree.cardTreeNode(of: card) {
-                return root
+            if let node = tree.cardTreeNode(of: card) {
+                return node
             }
         }
         return nil
@@ -394,77 +488,5 @@ extension Array where Element : CardTree {
             }
         }
         return nil
-    }
-}
-
-//MARK: JSONEncodable
-
-extension CardTree: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .Action(let actionCard):
-            return .Dictionary([
-                "type": "Action",
-                "card": actionCard.toJSON()
-                ])
-        case .UnaryLogic(let logicCard, let subtree):
-            return .Dictionary([
-                "type": "UnaryLogic",
-                "logicCard": logicCard.toJSON(),
-                "subtree": subtree?.toJSON() ?? .String("nil")
-                ])
-        case .BinaryLogic(let logicCard, let left, let right):
-            return .Dictionary([
-                "type": "BinaryLogic",
-                "logicCard": logicCard.toJSON(),
-                "leftSubtree": left?.toJSON() ?? .String("nil"),
-                "rightSubtree": right?.toJSON() ?? .String("nil")
-                ])
-        }
-    }
-}
-
-//MARK: JSONDecodable
-
-extension CardTree: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.string("type")
-        
-        switch type {
-        case "Action":
-            let actionCard = try json.decode("actionCard", type: ActionCard.self)
-            self = .Action(actionCard)
-        case "UnaryLogic":
-            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
-            
-            let subtreeStr = try json.string("subtree")
-            if subtreeStr == "nil" {
-                self = .UnaryLogic(logicCard, nil)
-            } else {
-                let subtree = try json.decode("subtree", type: CardTree.self)
-                self = .UnaryLogic(logicCard, subtree)
-            }
-        case "BinaryLogic":
-            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
-            
-            let leftStr = try json.string("leftSubtree")
-            let rightStr = try json.string("rightSubtree")
-            
-            var left: CardTree? = nil
-            var right: CardTree? = nil
-            
-            if leftStr != "nil" {
-                left = try json.decode("leftSubtree", type: CardTree.self)
-            }
-            
-            if rightStr != "nil" {
-                right = try json.decode("rightSubtree", type: CardTree.self)
-            }
-            
-            self = .BinaryLogic(logicCard, left, right)
-            
-        default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: CardTree.self)
-        }
     }
 }
