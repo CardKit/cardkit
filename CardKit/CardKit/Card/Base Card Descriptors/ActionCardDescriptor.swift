@@ -10,6 +10,8 @@ import Foundation
 
 import Freddy
 
+//MARK: ActionCardDescriptor
+
 public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens, ProducesYields, Satisfiable {
     public let cardType: CardType = .Action
     public let name: String

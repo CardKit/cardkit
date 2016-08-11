@@ -115,7 +115,7 @@ public struct CardKit {
             public static let Branch = HandCardDescriptor(
                 name: "Branch",
                 subpath: "Next",
-                logicType: .Branch,
+                handCardType: .Branch,
                 assetCatalog: CardAssetCatalog(description: "Branch to the specified hand"),
                 version: 0)
             
@@ -124,7 +124,7 @@ public struct CardKit {
             public static let Repeat = HandCardDescriptor(
                 name: "Repeat",
                 subpath: "Next",
-                logicType: .Repeat,
+                handCardType: .Repeat,
                 assetCatalog: CardAssetCatalog(description: "Repeat the hand"),
                 version: 0)
         }
@@ -138,7 +138,7 @@ public struct CardKit {
             public static let All = HandCardDescriptor(
                 name: "All",
                 subpath: "End",
-                logicType: .BooleanLogicAnd,
+                handCardType: .EndWhenAllSatisfied,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied"),
                 version: 0)
             
@@ -147,7 +147,7 @@ public struct CardKit {
             public static let Any = HandCardDescriptor(
                 name: "Any",
                 subpath: "End",
-                logicType: .BooleanLogicOr,
+                handCardType: .EndWhenAnySatisfied,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied"),
                 version: 0)
         }
@@ -161,7 +161,7 @@ public struct CardKit {
             public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
-                logicType: .BooleanLogicNot,
+                handCardType: .BooleanLogicNot,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied"),
                 version: 0)
             
@@ -170,7 +170,7 @@ public struct CardKit {
             public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
-                logicType: .BooleanLogicAnd,
+                handCardType: .BooleanLogicAnd,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied"),
                 version: 0)
             
@@ -179,7 +179,7 @@ public struct CardKit {
             public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
-                logicType: .BooleanLogicOr,
+                handCardType: .BooleanLogicOr,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"),
                 version: 0)
         }

@@ -20,24 +20,54 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input bindings
-    var inputBindings: [InputSlot : Card] = [:]
+    var inputBindings: [InputSlot : InputSlotBinding] = [:]
     
     public var inputSlots: [InputSlot] {
         return Array(self.inputBindings.keys)
     }
     
+    public var boundInputCards: [InputCard] {
+        var cards: [InputCard] = []
+        for binding in self.inputBindings.values {
+            switch binding {
+            case .BoundToInputCard(let card):
+                cards.append(card)
+            default:
+                break
+            }
+        }
+        return cards
+    }
+    
+    public var boundActionCardIdentifiers: [CardIdentifier] {
+        var identifiers: [CardIdentifier] = []
+        for binding in self.inputBindings.values {
+            switch binding {
+            case .BoundToYieldingActionCard(let identifier):
+                identifiers.append(identifier)
+            default:
+                break
+            }
+        }
+        return identifiers
+    }
+    
     // token bindings
-    var tokenBindings: [TokenSlot : TokenCard] = [:]
+    var tokenBindings: [TokenSlot : CardIdentifier] = [:]
     
     public var tokenSlots: [TokenSlot] {
         return Array(self.tokenBindings.keys)
+    }
+    
+    public var boundTokenCardIdentifiers: [CardIdentifier] {
+        return Array(tokenBindings.values)
     }
     
     init(with descriptor: ActionCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : Card], tokenBindings: [TokenSlot : TokenCard]) {
+    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : InputSlotBinding], tokenBindings: [TokenSlot : CardIdentifier]) {
         self.descriptor = descriptor
         self.inputBindings = inputBindings
         self.tokenBindings = tokenBindings
@@ -48,39 +78,15 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public required init(json: JSON) throws {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: ActionCardDescriptor.self)
+        self.inputBindings = try json.dictionary("inputBindings").withDecodedKeysAndValues()
         self.tokenBindings = try json.dictionary("tokenBindings").withDecodedKeysAndValues()
-        
-        let boundInputCards: [InputSlot : InputCard] = try json.dictionary("boundInputCards").withDecodedKeysAndValues()
-        let boundActionCards: [InputSlot : ActionCard] = try json.dictionary("boundActionCards").withDecodedKeysAndValues()
-        
-        // note: if there is a slot that is multiply-bound to an Input and Action card
-        // from the JSON, the Action binding will take precedence.
-        self.inputBindings = [:]
-        for (slot, card) in boundInputCards {
-            self.bind(with: card, in: slot)
-        }
-        for (slot, card) in boundActionCards {
-            self.bind(with: card, in: slot)
-        }
     }
     
     public func toJSON() -> JSON {
-        var boundInputCards: [InputSlot : InputCard] = [:]
-        var boundActionCards: [InputSlot : ActionCard] = [:]
-        
-        for (k, v) in self.inputBindings {
-            if let inputCard = v as? InputCard {
-                boundInputCards[k] = inputCard
-            } else if let actionCard = v as? ActionCard {
-                boundActionCards[k] = actionCard
-            }
-        }
-        
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
-            "boundInputCards": boundInputCards.toJSON(),
-            "boundActionCards": boundActionCards.toJSON(),
+            "inputBindings": self.inputBindings.toJSON(),
             "tokenBindings": self.tokenBindings.toJSON()
             ])
     }
@@ -120,7 +126,7 @@ extension ActionCard {
 extension ActionCard: BindsWithActionCard {
     /// Binds the given ActionCard to the specified InputSlot
     func bind(with card: ActionCard, in slot: InputSlot) {
-        self.inputBindings[slot] = card
+        self.inputBindings[slot] = .BoundToYieldingActionCard(card.identifier)
     }
     
     /// Unbinds the card that was bound to the specified InputSlot
@@ -131,7 +137,7 @@ extension ActionCard: BindsWithActionCard {
     /// Returns a new ActionCard with the given ActionCard bound to the specified InputSlot
     func bound(with card: ActionCard, in slot: InputSlot) -> ActionCard {
         var newInputBindings = inputBindings
-        newInputBindings[slot] = card
+        newInputBindings[slot] = .BoundToYieldingActionCard(card.identifier)
         return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
     }
     
@@ -149,8 +155,9 @@ extension ActionCard: BindsWithActionCard {
     }
     
     /// Retrieve the card bound to the given InputSlot
-    public func cardBound(to slot: InputSlot) -> Card? {
-        return self.inputBindings[slot]
+    public func binding(of slot: InputSlot) -> InputSlotBinding? {
+        guard let binding = self.inputBindings[slot] else { return nil }
+        return binding
     }
 }
 
@@ -174,7 +181,7 @@ extension ActionCard: BindsWithInputCard {
         for slot in self.descriptor.inputSlots {
             if card.descriptor.inputType == slot.inputType && !self.isSlotBound(slot) {
                 var newInputBindings = inputBindings
-                newInputBindings[slot] = card
+                newInputBindings[slot] = .BoundToInputCard(card)
                 return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
             }
         }
@@ -184,24 +191,27 @@ extension ActionCard: BindsWithInputCard {
     
     /// Binds the given InputCard to the specified InputSlot
     func bind(with card: InputCard, in slot: InputSlot) {
-        self.inputBindings[slot] = card
+        self.inputBindings[slot] = .BoundToInputCard(card)
     }
     
     /// Returns a new ActionCard with the given InputCard bound to the specified InputSlot
     func bound(with card: InputCard, in slot: InputSlot) -> ActionCard {
         var newInputBindings = inputBindings
-        newInputBindings[slot] = card
+        newInputBindings[slot] = .BoundToInputCard(card)
         return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
     }
     
     /// Returns the value held in the specified InputSlot
-    public func value(of slot: InputSlot) -> InputBinding? {
-        // if this slot is bound to an Input card, then we will might have a value
-        if let card = self.inputBindings[slot] as? InputCard {
-            return card.inputData
-        } else {
-            // slot may either be bound to an ActionCard or may be unbound
-            return nil
+    public func value(of slot: InputSlot) -> InputBinding {
+        guard let binding = self.inputBindings[slot] else { return .Unbound }
+        
+        switch binding {
+        case .Unbound:
+            return .Unbound
+        case .BoundToInputCard(let card):
+            return card.boundData
+        case .BoundToYieldingActionCard(_):
+            return .Unbound
         }
     }
 }
@@ -211,7 +221,7 @@ extension ActionCard: BindsWithInputCard {
 extension ActionCard: BindsWithTokenCard {
     /// Binds the given TokenCard to the specified TokenSlot
     func bind(with card: TokenCard, in slot: TokenSlot) {
-        self.tokenBindings[slot] = card
+        self.tokenBindings[slot] = card.identifier
     }
     
     /// Binds the given TokenCard to slot with the given TokenIdentifier
@@ -234,7 +244,7 @@ extension ActionCard: BindsWithTokenCard {
     /// Returns a new ActionCard with the given TokenCard bound to the specified TokenSlot
     func bound(with card: TokenCard, in slot: TokenSlot) -> ActionCard {
         var newTokenBindings = tokenBindings
-        newTokenBindings[slot] = card
+        newTokenBindings[slot] = card.identifier
         return ActionCard(with: self.descriptor, inputBindings: self.inputBindings, tokenBindings: newTokenBindings)
     }
     
@@ -263,7 +273,7 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Retrieve the card bound to the given TokenSlot
-    public func cardBound(to slot: TokenSlot) -> TokenCard? {
+    public func cardIdentifierBound(to slot: TokenSlot) -> CardIdentifier? {
         return self.tokenBindings[slot]
     }
 }

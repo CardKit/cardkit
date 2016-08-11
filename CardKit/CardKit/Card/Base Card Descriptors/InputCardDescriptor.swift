@@ -10,6 +10,8 @@ import Foundation
 
 import Freddy
 
+//MARK: InputCardDescriptor
+
 public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     public let cardType: CardType = .Input
     public let name: String

@@ -10,6 +10,8 @@ import Foundation
 
 import Freddy
 
+//MARK: DeckCardDescriptor
+
 public struct DeckCardDescriptor: CardDescriptor {
     public let cardType: CardType = .Deck
     public let name: String

@@ -65,8 +65,8 @@ public prefix func ! (operand: ActionCard) -> Hand {
     hand.add(operand)
     
     // create a NOT card bound to the operand
-    if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? LogicHandCard {
-        notCard.addChild(operand.identifier)
+    if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? UnaryLogicHandCard {
+        notCard.operand = operand.identifier
         hand.add(notCard)
     }
     
@@ -99,9 +99,9 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     
     // create an AND card bound to the operands
-    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
-        andCard.addChild(lhs.identifier)
-        andCard.addChild(rhs.identifier)
+    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? BinaryLogicHandCard {
+        andCard.lhs = lhs.identifier
+        andCard.rhs = rhs.identifier
         hand.add(andCard)
     }
     
@@ -127,75 +127,59 @@ public func && (lhs: ActionCard, rhs: Hand) -> Hand {
     print("AND(A,H): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(lhs)
-    return hand && rhs
+    return rhs && hand
 }
 
 /// Return a new hand with the given hands ANDed together. This works by creating a new
-/// AND card with an AND condition that includes all of the _logic_ cards and 
-/// _unbound action cards_ from each hand. Thus, if the logic of hand A is
-/// [(A v B) ^ !D, E] and the logic of hand B is [!C], the new hand will have a logic
-/// of [((A v B) ^ !D) ^ E ^ !C].
+/// AND card. The AND card will have lhs and rhs set to either: 
+/// (1) the most recently-added Logic Hand card (AND, OR, NOT), or 
+/// (2) the most recently-added ActionCard.
+/// Thus, if the last logic card of hand A is X = (A v B) ^ !D and the last logic card 
+/// of hand B is Y = !C, the new hand will have a logic of X ^ Y.
 public func && (lhs: Hand, rhs: Hand) -> Hand {
     print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    var lhsBound: Set<CardIdentifier> = Set()
-    var lhsWillBind: Set<CardIdentifier> = Set()
     
-    // build the set of cards that are bound by logic in lhs
-    lhs.cards.forEach({
-        (card) in
-        
-        if let logicCard = card as? LogicHandCard {
-            lhsWillBind.insert(logicCard.identifier)
-            logicCard.children.forEach({ (child) in lhsBound.insert(child) })
+    var lhsTarget: CardIdentifier? = nil
+    var rhsTarget: CardIdentifier? = nil
+    
+    for card in lhs.handCards.reverse() {
+        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
+            lhsTarget = card.identifier
+            break
         }
-    })
+    }
     
-    // find all unbound action cards
-    lhs.cards.forEach({
-        (card) in
-        
-        if let actionCard = card as? ActionCard {
-            if !lhsBound.contains(actionCard.identifier) {
-                lhsWillBind.insert(actionCard.identifier)
-            }
+    for card in rhs.handCards.reverse() {
+        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
+            rhsTarget = card.identifier
+            break
         }
-    })
+    }
     
-    // do the same for rhs
-    var rhsBound: Set<CardIdentifier> = Set()
-    var rhsWillBind: Set<CardIdentifier> = Set()
+    if lhsTarget == nil {
+        lhsTarget = lhs.actionCards.last?.identifier
+    }
     
-    // build the set of cards that are bound by logic in rhs
-    rhs.cards.forEach({
-        (card) in
-        
-        if let logicCard = card as? LogicHandCard {
-            rhsWillBind.insert(logicCard.identifier)
-            logicCard.children.forEach({ (child) in rhsBound.insert(child) })
-        }
-    })
+    if rhsTarget == nil {
+        rhsTarget = rhs.actionCards.last?.identifier
+    }
     
-    // find all unbound action cards
-    rhs.cards.forEach({
-        (card) in
-        
-        if let actionCard = card as? ActionCard {
-            if !rhsBound.contains(actionCard.identifier) {
-                rhsWillBind.insert(actionCard.identifier)
-            }
-        }
-    })
-    
+    // create the AND card -- note if lhs or rhs are still nil, then
+    // we might be ANDing an empty hand, which is okay, since later on
+    // the AND targets could be bound
     // make a new hand
     var hand = Hand()
     hand.addCards(from: lhs)
     hand.addCards(from: rhs)
     
     // bind them all together
-    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
-        andCard.addChildren(lhsWillBind)
-        andCard.addChildren(lhsWillBind)
-        andCard.addChildren(rhsWillBind)
+    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? BinaryLogicHandCard {
+        if let lhs = lhsTarget {
+            andCard.lhs = lhs
+        }
+        if let rhs = rhsTarget {
+            andCard.rhs = rhs
+        }
         hand.add(andCard)
     }
     
@@ -225,9 +209,9 @@ public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     
     // create an OR card bound to the operands
-    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
-        orCard.addChild(lhs.identifier)
-        orCard.addChild(rhs.identifier)
+    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? BinaryLogicHandCard {
+        orCard.lhs = lhs.identifier
+        orCard.rhs = rhs.identifier
         hand.add(orCard)
     }
     
@@ -246,81 +230,66 @@ public func || (lhs: Hand, rhs: ActionCard) -> Hand {
 }
 
 public func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
-    return lhs.instance() && rhs
+    return lhs.instance() || rhs
 }
 
 public func || (lhs: ActionCard, rhs: Hand) -> Hand {
     print("OR(A,H): \(lhs.identifier) && \(rhs.identifier)")
     var hand = Hand()
     hand.add(lhs)
-    return hand && rhs
+    return rhs || hand
 }
 
 /// Return a new hand with the given hands ORed together. This works by creating a new
-/// OR card with an OR condition that includes all of the _logic_ cards and
-/// _unbound action cards_ from each hand. Thus, if the logic of hand A is
-/// [(A v B) ^ !D, E] and the logic of hand B is [!C], the new hand will have a logic
-/// of [((A v B) ^ !D) || E || !C].
+/// OR card. The OR card will have lhs and rhs set to either:
+/// (1) the most recently-added Logic Hand card (AND, OR, NOT), or
+/// (2) the most recently-added ActionCard.
+/// Thus, if the last logic card of hand A is X = (A v B) ^ !D and the last logic card
+/// of hand B is Y = !C, the new hand will have a logic of X v Y.
 public func || (lhs: Hand, rhs: Hand) -> Hand {
     print("OR(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    var lhsBound: Set<CardIdentifier> = Set()
-    var lhsWillBind: Set<CardIdentifier> = Set()
     
-    // build the set of cards that are bound by logic in lhs
-    lhs.cards.forEach({
-        (card) in
-        
-        if let logicCard = card as? LogicHandCard {
-            lhsWillBind.insert(logicCard.identifier)
-            logicCard.children.forEach({ (child) in lhsBound.insert(child) })
+    var lhsTarget: CardIdentifier? = nil
+    var rhsTarget: CardIdentifier? = nil
+    
+    for card in lhs.handCards.reverse() {
+        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
+            lhsTarget = card.identifier
+            break
         }
-    })
+    }
     
-    // find all unbound action cards
-    lhs.cards.forEach({
-        (card) in
-        
-        if let actionCard = card as? ActionCard {
-            if !lhsBound.contains(actionCard.identifier) {
-                lhsWillBind.insert(actionCard.identifier)
-            }
+    for card in rhs.handCards.reverse() {
+        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
+            rhsTarget = card.identifier
+            break
         }
-    })
+    }
     
-    // do the same for rhs
-    var rhsBound: Set<CardIdentifier> = Set()
-    var rhsWillBind: Set<CardIdentifier> = Set()
+    if lhsTarget == nil {
+        lhsTarget = lhs.actionCards.last?.identifier
+    }
     
-    // build the set of cards that are bound by logic in rhs
-    rhs.cards.forEach({
-        (card) in
-        
-        if let logicCard = card as? LogicHandCard {
-            rhsWillBind.insert(logicCard.identifier)
-            logicCard.children.forEach({ (child) in rhsBound.insert(child) })
-        }
-    })
+    if rhsTarget == nil {
+        rhsTarget = rhs.actionCards.last?.identifier
+    }
     
-    // find all unbound action cards
-    rhs.cards.forEach({
-        (card) in
-        
-        if let actionCard = card as? ActionCard {
-            if !rhsBound.contains(actionCard.identifier) {
-                rhsWillBind.insert(actionCard.identifier)
-            }
-        }
-    })
-    
+    // create the OR card -- note if lhs or rhs are still nil, then
+    // we might be ORing an empty hand, which is okay, since later on
+    // the OR targets could be bound
     // make a new hand
     var hand = Hand()
     hand.addCards(from: lhs)
     hand.addCards(from: rhs)
     
     // bind them all together
-    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
-        orCard.addChildren(lhsWillBind)
-        orCard.addChildren(rhsWillBind)
+    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? BinaryLogicHandCard {
+        if let lhs = lhsTarget {
+            orCard.lhs = lhs
+        }
+        if let rhs = rhsTarget {
+            orCard.rhs = rhs
+        }
         hand.add(orCard)
     }
     

@@ -53,12 +53,12 @@ class InputBindingTests: XCTestCase {
     func testValidStructBinding() {
         let bb = CardKit.Input.Location.BoundingBox.instance()
         
-        let topLeft = InputCoordinate2D(latitude: 0.0, longitude: 0.0)
-        let topRight = InputCoordinate2D(latitude: 0.0, longitude: 1.0)
-        let botLeft = InputCoordinate2D(latitude: 1.0, longitude: 0.0)
-        let botRight = InputCoordinate2D(latitude: 1.0, longitude: 1.0)
+        let topLeft = CKCoordinate2D(latitude: 0.0, longitude: 0.0)
+        let topRight = CKCoordinate2D(latitude: 0.0, longitude: 1.0)
+        let botLeft = CKCoordinate2D(latitude: 1.0, longitude: 0.0)
+        let botRight = CKCoordinate2D(latitude: 1.0, longitude: 1.0)
         
-        let box: [InputCoordinate2D] = [topLeft, topRight, botLeft, botRight]
+        let box: [CKCoordinate2D] = [topLeft, topRight, botLeft, botRight]
         
         do {
             try bb.bind(withValue: box)
@@ -66,7 +66,7 @@ class InputBindingTests: XCTestCase {
             XCTFail("error binding double value to Angle card: \(error)")
         }
         
-        let bbBox: [InputCoordinate2D] = bb.inputDataValue()!
+        let bbBox: [CKCoordinate2D] = bb.inputDataValue()!
         XCTAssertTrue(bbBox == box)
     }
     

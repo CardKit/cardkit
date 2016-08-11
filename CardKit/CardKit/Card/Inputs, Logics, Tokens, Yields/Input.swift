@@ -85,6 +85,7 @@ extension InputType: JSONDecodable {
 
 /// Represents a binding of a value to an Input
 public enum InputBinding {
+    case Unbound
     case SwiftInt(Int)
     case SwiftDouble(Double)
     case SwiftString(String)
@@ -103,6 +104,8 @@ extension InputBinding: CustomStringConvertible {
     public var description: String {
         get {
             switch self {
+            case .Unbound:
+                return "unbound"
             case .SwiftInt(let val):
                 return "\(val) [int]"
             case .SwiftDouble(let val):
@@ -134,6 +137,9 @@ extension InputBinding: JSONEncodable {
     // swiftlint:disable:next function_body_length
     public func toJSON() -> JSON {
         switch self {
+        case .Unbound:
+            return .Dictionary([
+            "type": "Unbound"])
         case .SwiftInt(let val):
             return .Dictionary([
                 "type": "SwiftInt",
@@ -185,6 +191,12 @@ extension InputBinding: JSONEncodable {
 extension InputBinding: JSONDecodable {
     public init(json: JSON) throws {
         let type = try json.string("type")
+        
+        if type == "Unbound" {
+            self = .Unbound
+            return
+        }
+        
         guard let typeEnum = InputType(rawValue: type) else {
             throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
         }

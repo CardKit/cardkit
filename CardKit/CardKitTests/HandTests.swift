@@ -100,14 +100,13 @@ class HandTests: XCTestCase {
         let noActionA = CardKit.Action.NoAction.instance()
         let noActionB = CardKit.Action.NoAction.instance()
         
-        guard let and = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard else {
+        guard let and = CardKit.Hand.Logic.LogicalAnd.instance() as? BinaryLogicHandCard else {
             XCTFail("LogicalAnd.instance() did not return a LogicHandCard")
             return
         }
         
-        and.addChild(noActionA.identifier)
-        and.addChild(noActionB.identifier)
-        XCTAssertTrue(and.children.count == 2)
+        and.lhs = noActionA.identifier
+        and.rhs = noActionB.identifier
         
         // test that the deck builder is adding an AND card
         let hand = noActionA && noActionB
@@ -115,14 +114,14 @@ class HandTests: XCTestCase {
         let andCards = hand.cards(matching: CardKit.Hand.Logic.LogicalAnd)
         XCTAssertTrue(andCards.count == 1)
         
-        guard let first = andCards.first as? LogicHandCard else {
-            XCTFail("should have a LogicHandCard in the hand")
+        guard let first = andCards.first as? BinaryLogicHandCard else {
+            XCTFail("should have a BinaryLogicHandCard in the hand")
             return
         }
         
-        XCTAssertTrue(first.descriptor.logicType == .BooleanLogicAnd)
-        XCTAssertTrue(first.children.contains(noActionA.identifier))
-        XCTAssertTrue(first.children.contains(noActionB.identifier))
+        XCTAssertTrue(first.descriptor.operation == .BooleanLogicAnd)
+        XCTAssertTrue(first.lhs == noActionA.identifier)
+        XCTAssertTrue(first.rhs == noActionB.identifier)
     }
     
     func testHandLogicOr() {
@@ -130,14 +129,13 @@ class HandTests: XCTestCase {
         let noActionA = CardKit.Action.NoAction.instance()
         let noActionB = CardKit.Action.NoAction.instance()
         
-        guard let or = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard else {
-            XCTFail("LogicalOr.instance() did not return a LogicHandCard")
+        guard let or = CardKit.Hand.Logic.LogicalOr.instance() as? BinaryLogicHandCard else {
+            XCTFail("LogicalOr.instance() did not return a BinaryLogicHandCard")
             return
         }
         
-        or.addChild(noActionA.identifier)
-        or.addChild(noActionB.identifier)
-        XCTAssertTrue(or.children.count == 2)
+        or.lhs = noActionA.identifier
+        or.rhs = noActionB.identifier
         
         // test that the deck builder is adding an OR card
         let hand = noActionA || noActionB
@@ -145,20 +143,20 @@ class HandTests: XCTestCase {
         let orCards = hand.cards(matching: CardKit.Hand.Logic.LogicalOr)
         XCTAssertTrue(orCards.count == 1)
         
-        guard let first = orCards.first as? LogicHandCard else {
+        guard let first = orCards.first as? BinaryLogicHandCard else {
             XCTFail("should have a LogicHandCard in the hand")
             return
         }
-        XCTAssertTrue(first.descriptor.logicType == .BooleanLogicOr)
-        XCTAssertTrue(first.children.contains(noActionA.identifier))
-        XCTAssertTrue(first.children.contains(noActionB.identifier))
+        XCTAssertTrue(first.descriptor.operation == .BooleanLogicOr)
+        XCTAssertTrue(first.lhs == noActionA.identifier)
+        XCTAssertTrue(first.rhs == noActionB.identifier)
     }
     
     func testHandLogicNot() {
         // test that NOT is functioning correctly
         let noAction = CardKit.Action.NoAction.instance()
         
-        guard let not = CardKit.Hand.Logic.LogicalNot.instance() as? LogicHandCard else {
+        guard let not = CardKit.Hand.Logic.LogicalNot.instance() as? UnaryLogicHandCard else {
             XCTFail("LogicalNot.instance() did not return a LogicHandCard")
             return
         }
@@ -172,7 +170,7 @@ class HandTests: XCTestCase {
         let notCards = hand.cards(matching: CardKit.Hand.Logic.LogicalNot)
         XCTAssertTrue(notCards.count == 1)
         
-        guard let first = notCards.first as? LogicHandCard else {
+        guard let first = notCards.first as? UnaryLogicHandCard else {
             XCTFail("should have a LogicHandCard in the hand")
             return
         }
@@ -190,11 +188,11 @@ class HandTests: XCTestCase {
         let handB = noActionC && noActionD
         
         // get the added AND cards
-        guard let handAAnd = handA.cards(matching: CardKit.Hand.Logic.LogicalAnd).first as? LogicHandCard else {
+        guard let handAAnd = handA.cards(matching: CardKit.Hand.Logic.LogicalAnd).first as? BinaryLogicHandCard else {
             XCTFail("could not find AND card added to handA")
             return
         }
-        guard let handBAnd = handB.cards(matching: CardKit.Hand.Logic.LogicalAnd).first as? LogicHandCard else {
+        guard let handBAnd = handB.cards(matching: CardKit.Hand.Logic.LogicalAnd).first as? BinaryLogicHandCard else {
             XCTFail("could not find AND card added to handB")
             return
         }
@@ -211,7 +209,7 @@ class HandTests: XCTestCase {
         
         // make sure they have the right targets
         for card in andCards {
-            if let andCard = card as? LogicHandCard {
+            if let andCard = card as? BinaryLogicHandCard {
                 
                 if andCard.identifier == handAAnd.identifier {
                     XCTAssertTrue(andCard.children.count == 2)
@@ -246,11 +244,11 @@ class HandTests: XCTestCase {
         let handB = noActionC || noActionD
         
         // get the added OR cards
-        guard let handAOr = handA.cards(matching: CardKit.Hand.Logic.LogicalOr).first as? LogicHandCard else {
+        guard let handAOr = handA.cards(matching: CardKit.Hand.Logic.LogicalOr).first as? BinaryLogicHandCard else {
             XCTFail("could not find OR card added to handA")
             return
         }
-        guard let handBOr = handB.cards(matching: CardKit.Hand.Logic.LogicalOr).first as? LogicHandCard else {
+        guard let handBOr = handB.cards(matching: CardKit.Hand.Logic.LogicalOr).first as? BinaryLogicHandCard else {
             XCTFail("could not find OR card added to handB")
             return
         }

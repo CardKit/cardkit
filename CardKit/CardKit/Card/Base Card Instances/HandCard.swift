@@ -12,7 +12,7 @@ import Freddy
 
 //MARK: HandCard
 
-public class HandCard: Card, JSONEncodable, JSONDecodable {
+public class HandCard: Card {
     public let descriptor: HandCardDescriptor
     
     // Card protocol
@@ -21,22 +21,8 @@ public class HandCard: Card, JSONEncodable, JSONDecodable {
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
-    init(with descriptor: HandCardDescriptor) {
+    private init(with descriptor: HandCardDescriptor) {
         self.descriptor = descriptor
-    }
-    
-    //MARK: JSONEncodable & JSONDecodable
-    
-    public required init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
-    }
-    
-    public func toJSON() -> JSON {
-        return .Dictionary([
-            "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON()
-            ])
     }
 }
 
@@ -56,67 +42,44 @@ extension HandCard: Hashable {
     }
 }
 
-//MARK: BranchHandCard
 
-public class BranchHandCard: HandCard {
-    public var children: Set<CardIdentifier> = Set()
-    public var targetHand: HandIdentifier? = nil
+//MARK:- BranchHandCard
+
+public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
+    public var targetHand: Hand? = nil
     
     public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)
     }
     
     public required init(json: JSON) throws {
-        if let _ = json["tagetHand"] {
-            self.targetHand = try json.decode("targetHand", type: HandIdentifier.self)
-        } else {
+        let targetHandStr = try json.string("targetHand")
+        if targetHandStr == "nil" {
             self.targetHand = nil
+        } else {
+            self.targetHand = try json.decode("targetHand", type: Hand.self)
         }
         
-        try super.init(json: json)
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+        
+        // overwrite self.identifier because it was generated in super.init()
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
     }
     
-    public override func toJSON() -> JSON {
-        if let targetHand = self.targetHand {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON(),
-                "targetHand": targetHand.toJSON(),
-                "children": Array(self.children).toJSON()
-                ])
-        } else {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON(),
-                "children": Array(self.children).toJSON()
-                ])
-        }
-    }
-    
-    public func addChild(identifier: CardIdentifier) {
-        self.children.insert(identifier)
-    }
-    
-    public func addChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
-        for identifier in identifiers {
-            self.children.insert(identifier)
-        }
-    }
-    
-    public func removeChild(identifier: CardIdentifier) {
-        self.children.remove(identifier)
-    }
-    
-    public func removeChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
-        for identifier in identifiers {
-            self.children.remove(identifier)
-        }
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "descriptor": self.descriptor.toJSON(),
+            "targetHand": targetHand?.toJSON() ?? .String("nil")
+            ])
     }
 }
 
-//MARK: RepeatHandCard
 
-public class RepeatHandCard: HandCard {
+//MARK:- RepeatHandCard
+
+public class RepeatHandCard: HandCard, JSONEncodable, JSONDecodable {
     public var repeatCount: Int = 0
     
     public override init(with descriptor: HandCardDescriptor) {
@@ -125,10 +88,15 @@ public class RepeatHandCard: HandCard {
     
     public required init(json: JSON) throws {
         self.repeatCount = try json.int("repeatCount")
-        try super.init(json: json)
+        
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+        
+        // overwrite self.identifier because it was generated in super.init()
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
     }
     
-    public override func toJSON() -> JSON {
+    public func toJSON() -> JSON {
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
@@ -137,44 +105,238 @@ public class RepeatHandCard: HandCard {
     }
 }
 
-//MARK: LogicHandCard
+//MARK:- EndRuleHandCard
 
-public class LogicHandCard: HandCard {
-    public var children: Set<CardIdentifier> = Set()
+public class EndRuleHandCard: HandCard, JSONEncodable, JSONDecodable {
+    public var endRule: HandEndRule {
+        switch self.descriptor.handCardType {
+        case .EndWhenAnySatisfied:
+            return .EndWhenAnySatisfied
+        case .EndWhenAllSatisfied:
+            return .EndWhenAllSatisfied
+        default:
+            return .Indeterminate
+        }
+    }
     
     public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)
     }
     
     public required init(json: JSON) throws {
-        try super.init(json: json)
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+        
+        // overwrite self.identifier because it was generated in super.init()
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
     }
     
-    public override func toJSON() -> JSON {
+    public func toJSON() -> JSON {
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON(),
-            "children": Array(self.children).toJSON()
+            "descriptor": self.descriptor.toJSON()
             ])
     }
-    
-    public func addChild(identifier: CardIdentifier) {
-        self.children.insert(identifier)
-    }
-    
-    public func addChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
-        for identifier in identifiers {
-            self.children.insert(identifier)
+}
+
+//MARK:- LogicHandCard
+
+public class LogicHandCard: HandCard, JSONEncodable, JSONDecodable {
+    public var operation: HandLogicOperation {
+        switch self.descriptor.handCardType {
+        case .BooleanLogicAnd:
+            return .BooleanAnd
+        case .BooleanLogicOr:
+            return .BooleanOr
+        case .BooleanLogicNot:
+            return .BooleanNot
+        default:
+            return .Indeterminate
         }
     }
     
-    public func removeChild(identifier: CardIdentifier) {
-        self.children.remove(identifier)
+    public override init(with descriptor: HandCardDescriptor) {
+        super.init(with: descriptor)
     }
     
-    public func removeChildren<T where T: CollectionType, T.Generator.Element == CardIdentifier>(identifiers: T) {
-        for identifier in identifiers {
-            self.children.remove(identifier)
+    public required init(json: JSON) throws {
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+        
+        // overwrite self.identifier because it was generated in super.init()
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
+    }
+    
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "descriptor": self.descriptor.toJSON()
+            ])
+    }
+}
+
+/*public class LogicHandCard: HandCard, JSONEncodable, JSONDecodable {
+    public var operation: HandLogicOperation {
+        
+    }
+    
+    public override init(with descriptor: HandCardDescriptor) {
+        super.init(with: descriptor)
+    }
+    
+    public required init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
+        self.operand = try UnaryLogicHandCard.decodeOperandFrom(json, named: "operand")
+        
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+    }
+    
+    public func toJSON() -> JSON {
+        if let operand = self.operand {
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON(),
+                "operand": operand.toJSON()
+                ])
+        } else {
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON()
+                ])
+        }
+    }
+    
+    /// Helper method for decoding HandCards that are operands of other HandCards
+    private class func decodeOperandFrom(json: JSON, named operandName: String) throws -> SatisfiableCard? {
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        
+        // need to figure out what card type we have as an operand to deserialize to the
+        // correct class instance
+        if let operandJSON = json[operandName] {
+            let cardType = try operandJSON.decode("cardType", type: CardType.self)
+            
+            switch cardType {
+            case .Action:
+                return try json.decode("operand", type: ActionCard.self)
+                
+            case .Hand:
+                switch descriptor.operation {
+                case .BooleanLogicAnd:
+                    return try json.decode("operand", type: BinaryLogicHandCard.self)
+                case .BooleanLogicOr:
+                    return try json.decode("operand", type: BinaryLogicHandCard.self)
+                case .BooleanLogicNot:
+                    return try json.decode("operand", type: UnaryLogicHandCard.self)
+                default:
+                    throw JSON.Error.ValueNotConvertible(value: json, to: UnaryLogicHandCard.self)
+                }
+                
+            default:
+                throw JSON.Error.ValueNotConvertible(value: json, to: UnaryLogicHandCard.self)
+            }
+        } else {
+            return nil
         }
     }
 }
+
+extension UnaryLogicHandCard: SatisfiableCard {
+    public var satisfactionLogic: SatisfactionLogic {
+        if let operand = self.operand {
+            // the unary logical operator is always NOT
+            return .LogicalNot(.End(operand))
+        } else {
+            return .Indeterminate
+        }
+    }
+}
+
+extension UnaryLogicHandCard: HasChildren {
+    public var children: [SatisfiableCard] {
+        if let operand = self.operand {
+            return [operand]
+        } else {
+            return []
+        }
+    }
+}
+
+//MARK: BinaryLogicHandCard
+
+public class BinaryLogicHandCard: HandCard, JSONEncodable, JSONDecodable {
+    public var lhs: SatisfiableCard? = nil
+    public var rhs: SatisfiableCard? = nil
+    
+    public override init(with descriptor: HandCardDescriptor) {
+        super.init(with: descriptor)
+    }
+    
+    public required init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
+        self.lhs = try UnaryLogicHandCard.decodeOperandFrom(json, named: "lhs")
+        self.rhs = try UnaryLogicHandCard.decodeOperandFrom(json, named: "rhs")
+        
+        let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
+        super.init(with: descriptor)
+    }
+    
+    public func toJSON() -> JSON {
+        switch (self.lhs, self.rhs) {
+        case (.None, .None):
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON()
+                ])
+        case (.Some(let lhs), .None):
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON(),
+                "lhs": lhs.toJSON()
+                ])
+        case (.None, .Some(let rhs)):
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON(),
+                "rhs": rhs.toJSON()
+                ])
+        case (.Some(let lhs), .Some(let rhs)):
+            return .Dictionary([
+                "identifier": self.identifier.toJSON(),
+                "descriptor": self.descriptor.toJSON(),
+                "lhs": lhs.toJSON(),
+                "rhs": rhs.toJSON()
+                ])
+        }
+    }
+}
+
+extension BinaryLogicHandCard: SatisfiableCard {
+    public var satisfactionLogic: SatisfactionLogic {
+        if let lhs = self.lhs, let rhs = self.rhs {
+            if self.descriptor.operation == .BooleanLogicAnd {
+                return .LogicalAnd(lhs.satisfactionLogic, rhs.satisfactionLogic)
+            } else if self.descriptor.operation == .BooleanLogicOr {
+                return .LogicalOr(lhs.satisfactionLogic, rhs.satisfactionLogic)
+            }
+        }
+        
+        return .Indeterminate
+    }
+}
+
+extension BinaryLogicHandCard: HasChildren {
+    public var children: [SatisfiableCard] {
+        switch (self.lhs, self.rhs) {
+        case (.None, .None):
+            return []
+        case (.Some(let lhs), .None):
+            return [lhs]
+        case (.None, .Some(let rhs)):
+            return [rhs]
+        case (.Some(let lhs), .Some(let rhs)):
+            return [lhs, rhs]
+        }
+    }
+}
+*/

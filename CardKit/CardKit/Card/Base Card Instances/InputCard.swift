@@ -20,15 +20,15 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input data
-    public var inputData: InputBinding?
+    public var boundData: InputBinding = .Unbound
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: InputCardDescriptor, inputData: InputBinding) {
+    init(with descriptor: InputCardDescriptor, boundData: InputBinding) {
         self.descriptor = descriptor
-        self.inputData = inputData
+        self.boundData = boundData
     }
     
     //MARK: JSONEncodable & JSONDecodable
@@ -36,26 +36,15 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public required init(json: JSON) throws {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
-        
-        do {
-            self.inputData = try json.decode("inputData", type: InputBinding.self)
-        } catch {
-            self.inputData = nil
-        }
+        self.boundData = try json.decode("boundData", type: InputBinding.self)
     }
     
     public func toJSON() -> JSON {
-        if let inputData = self.inputData {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON(),
-                "inputData": inputData.toJSON()
-                ])
-        } else {
-            return .Dictionary([
-                "identifier": self.identifier.toJSON(),
-                "descriptor": self.descriptor.toJSON()])
-        }
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "descriptor": self.descriptor.toJSON(),
+            "boundData": boundData.toJSON()
+            ])
     }
 }
 
@@ -136,39 +125,39 @@ extension InputCard {
     }
     
     func bind<T>(withValue value: T) throws {
-        self.inputData = try self.boundValue(value)
+        self.boundData = try self.boundValue(value)
     }
     
     public func bound<T>(withValue value: T) throws -> InputCard {
-        let inputData = try self.boundValue(value)
-        return InputCard(with: self.descriptor, inputData: inputData)
+        let data = try self.boundValue(value)
+        return InputCard(with: self.descriptor, boundData: data)
     }
     
     /// Return the data value bound to the input. Returns nil if no data has yet been bound.
     public func inputDataValue<T>() -> T? {
-        if let inputData = self.inputData {
-            switch inputData {
-            case .SwiftInt(let val):
-                if let ret = val as? T { return ret }
-            case .SwiftDouble(let val):
-                if let ret = val as? T { return ret }
-            case .SwiftString(let val):
-                if let ret = val as? T { return ret }
-            case .SwiftData(let val):
-                if let ret = val as? T { return ret }
-            case .SwiftDate(let val):
-                if let ret = val as? T { return ret }
-            case .Coordinate2D(let val):
-                if let ret = val as? T { return ret }
-            case .Coordinate2DPath(let val):
-                if let ret = val as? T { return ret }
-            case .Coordinate3D(let val):
-                if let ret = val as? T { return ret }
-            case .Coordinate3DPath(let val):
-                if let ret = val as? T { return ret }
-            case .CardinalDirection(let val):
-                if let ret = val as? T { return ret }
-            }
+        switch self.boundData {
+        case .Unbound:
+            return nil
+        case .SwiftInt(let val):
+            if let ret = val as? T { return ret }
+        case .SwiftDouble(let val):
+            if let ret = val as? T { return ret }
+        case .SwiftString(let val):
+            if let ret = val as? T { return ret }
+        case .SwiftData(let val):
+            if let ret = val as? T { return ret }
+        case .SwiftDate(let val):
+            if let ret = val as? T { return ret }
+        case .Coordinate2D(let val):
+            if let ret = val as? T { return ret }
+        case .Coordinate2DPath(let val):
+            if let ret = val as? T { return ret }
+        case .Coordinate3D(let val):
+            if let ret = val as? T { return ret }
+        case .Coordinate3DPath(let val):
+            if let ret = val as? T { return ret }
+        case .CardinalDirection(let val):
+            if let ret = val as? T { return ret }
         }
         
         return nil
@@ -176,6 +165,11 @@ extension InputCard {
     
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
-        return self.inputData != nil
+        switch self.boundData {
+        case .Unbound:
+            return false
+        default:
+            return true
+        }
     }
 }

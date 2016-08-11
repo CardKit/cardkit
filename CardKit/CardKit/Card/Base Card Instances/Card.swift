@@ -65,7 +65,6 @@ extension CardIdentifier: JSONEncodable {
     }
 }
 
-
 //MARK:- Card
 
 public protocol Card {

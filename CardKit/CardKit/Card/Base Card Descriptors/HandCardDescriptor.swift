@@ -10,6 +10,8 @@ import Foundation
 
 import Freddy
 
+//MARK: HandCardDescriptor
+
 public struct HandCardDescriptor: CardDescriptor {
     public let cardType: CardType = .Hand
     public let name: String
@@ -17,24 +19,28 @@ public struct HandCardDescriptor: CardDescriptor {
     public let version: Int
     public let assetCatalog: CardAssetCatalog
     
-    public let logicType: LogicType
+    public let handCardType: HandCardType
     
-    public init(name: String, subpath: String?, logicType: LogicType, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, handCardType: HandCardType, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         self.path = CardPath(withPath: "Hand/\(subpath)" ?? "Hand")
         self.version = version
         self.assetCatalog = assetCatalog
         
-        self.logicType = logicType
+        self.handCardType = handCardType
     }
     
     /// Return a new HandCard instance using our descriptor
     func instance() -> HandCard {
-        switch self.logicType {
+        switch self.handCardType {
         case .Branch:
             return BranchHandCard(with: self)
         case .Repeat:
             return RepeatHandCard(with: self)
+        case .EndWhenAnySatisfied:
+            return EndRuleHandCard(with: self)
+        case .EndWhenAllSatisfied:
+            return EndRuleHandCard(with: self)
         case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
             return LogicHandCard(with: self)
         }
@@ -66,7 +72,7 @@ extension HandCardDescriptor: Hashable {
 
 extension HandCardDescriptor: CustomStringConvertible {
     public var description: String {
-        return "\(name) [\(self.cardType), logicType: \(self.logicType), version \(self.version)]"
+        return "\(name) [\(self.cardType), handCardType: \(self.handCardType), version \(self.version)]"
     }
 }
 
@@ -80,7 +86,7 @@ extension HandCardDescriptor: JSONEncodable {
             "path": path.toJSON(),
             "version": version.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
-            "logicType": logicType.toJSON()
+            "handCardType": handCardType.toJSON()
             ])
     }
 }
@@ -93,6 +99,6 @@ extension HandCardDescriptor: JSONDecodable {
         self.path = try json.decode("path", type: CardPath.self)
         self.version = try json.int("version")
         self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.logicType = try json.decode("logicType", type: LogicType.self)
+        self.handCardType = try json.decode("handCardType", type: HandCardType.self)
     }
 }

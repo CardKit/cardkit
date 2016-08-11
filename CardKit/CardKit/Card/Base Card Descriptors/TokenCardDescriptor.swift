@@ -10,6 +10,8 @@ import Foundation
 
 import Freddy
 
+//MARK: TokenCardDescriptor
+
 public struct TokenCardDescriptor: CardDescriptor, Consumable {
     public let cardType: CardType = .Token
     public let name: String
