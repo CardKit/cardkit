@@ -46,18 +46,26 @@ extension HandCard: Hashable {
 //MARK:- BranchHandCard
 
 public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
-    public var targetHand: Hand? = nil
+    public var cardTreeIdentifier: CardTreeIdentifier? = nil
+    public var targetHand: HandIdentifier? = nil
     
     public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)
     }
     
     public required init(json: JSON) throws {
+        let cardTreeIdentifierStr = try json.string("cardTreeIdentifier")
+        if cardTreeIdentifierStr == "nil" {
+            self.cardTreeIdentifier = nil
+        } else {
+            self.cardTreeIdentifier = try json.decode("cardTreeIdentifier", type: CardTreeIdentifier.self)
+        }
+        
         let targetHandStr = try json.string("targetHand")
         if targetHandStr == "nil" {
             self.targetHand = nil
         } else {
-            self.targetHand = try json.decode("targetHand", type: Hand.self)
+            self.targetHand = try json.decode("targetHand", type: HandIdentifier.self)
         }
         
         let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
@@ -71,7 +79,8 @@ public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
-            "targetHand": targetHand?.toJSON() ?? .String("nil")
+            "cardTreeIdentifier": self.cardTreeIdentifier?.toJSON() ?? .String("nil"),
+            "targetHand": self.targetHand?.toJSON() ?? .String("nil")
             ])
     }
 }
@@ -172,6 +181,23 @@ public class LogicHandCard: HandCard, JSONEncodable, JSONDecodable {
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON()
             ])
+    }
+    
+    func asCardTreeNode() -> CardTreeNode? {
+        switch self.operation {
+        case .BooleanAnd, .BooleanOr:
+            return .BinaryLogic(self, nil, nil)
+        case .BooleanNot:
+            return .UnaryLogic(self, nil)
+        default:
+            return nil
+        }
+    }
+    
+    func asCardTree() -> CardTree? {
+        var tree = CardTree()
+        tree.root = self.asCardTreeNode()
+        return tree
     }
 }
 

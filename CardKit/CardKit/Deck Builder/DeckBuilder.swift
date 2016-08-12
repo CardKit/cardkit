@@ -62,12 +62,10 @@ public prefix func ! (operand: ActionCardDescriptor) -> Hand {
 public prefix func ! (operand: ActionCard) -> Hand {
     // create a new Hand
     var hand = Hand()
-    hand.add(operand)
     
     // create a NOT card bound to the operand
-    if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? UnaryLogicHandCard {
-        notCard.operand = operand.identifier
-        hand.add(notCard)
+    if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? LogicHandCard {
+        hand.attach(operand, to: notCard)
     }
     
     return hand
@@ -95,14 +93,11 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     print("AND(A,A): \(lhs.identifier) && \(rhs.identifier)")
     // create a new Hand
     var hand = Hand()
-    hand.add(lhs)
-    hand.add(rhs)
     
     // create an AND card bound to the operands
-    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? BinaryLogicHandCard {
-        andCard.lhs = lhs.identifier
-        andCard.rhs = rhs.identifier
-        hand.add(andCard)
+    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
+        hand.attach(lhs, to: andCard)
+        hand.attach(rhs, to: andCard)
     }
     
     return hand
@@ -136,7 +131,7 @@ public func && (lhs: ActionCard, rhs: Hand) -> Hand {
 /// (2) the most recently-added ActionCard.
 /// Thus, if the last logic card of hand A is X = (A v B) ^ !D and the last logic card 
 /// of hand B is Y = !C, the new hand will have a logic of X ^ Y.
-public func && (lhs: Hand, rhs: Hand) -> Hand {
+/*public func && (lhs: Hand, rhs: Hand) -> Hand {
     print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
     
     var lhsTarget: CardIdentifier? = nil
@@ -184,6 +179,18 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
     }
     
     return hand
+}*/
+
+/// Returns a new hand with the given hands combined together using AND logic. This works by
+/// collapsing all CardTrees in each hand using the logical operator specified by the End Rule
+/// (AND for EndWhenAllSatisfied and OR for EndWhenAnySatisfied), and then ANDing the singular-
+/// trees in lhs and rhs. Branch cards are removed in this operation because the CardTrees are no
+/// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
+/// new Hand, with rhs having precedence when there are conflicts.
+public func && (lhs: Hand, rhs: Hand) -> Hand {
+    print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
+    
+    
 }
 
 //MARK: Or Operations
