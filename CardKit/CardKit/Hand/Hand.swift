@@ -94,7 +94,7 @@ extension Hand {
     mutating func add(card: ActionCard) {
         if !self.contains(card) {
             // make a new CardTree with the card
-            var tree = CardTree()
+            let tree = CardTree()
             tree.root = .Action(card)
             self.cardTrees.append(tree)
         }
@@ -113,12 +113,12 @@ extension Hand {
             switch card.descriptor.handCardType {
             case .BooleanLogicAnd, .BooleanLogicOr:
                 guard let logicCard = card as? LogicHandCard else { return }
-                var tree = CardTree()
+                let tree = CardTree()
                 tree.root = .BinaryLogic(logicCard, nil, nil)
                 self.cardTrees.append(tree)
             case .BooleanLogicNot:
                 guard let logicCard = card as? LogicHandCard else { return }
-                var tree = CardTree()
+                let tree = CardTree()
                 tree.root = .UnaryLogic(logicCard, nil)
                 self.cardTrees.append(tree)
             case .Branch:
@@ -147,7 +147,7 @@ extension Hand {
     /// Remove the given card from the hand.
     mutating func remove(card: ActionCard) {
         // remove the card from the CardTree in which it lives
-        if var tree = self.cardTrees.cardTree(containing: card) {
+        if let tree = self.cardTrees.cardTree(containing: card) {
             tree.remove(card)
         }
     }
@@ -166,7 +166,7 @@ extension Hand {
             guard let logicCard = card as? LogicHandCard else { return }
             
             // remove the card from the CardTree in which it lives
-            if var tree = self.cardTrees.cardTree(containing: logicCard) {
+            if let tree = self.cardTrees.cardTree(containing: logicCard) {
                 let orphans = tree.remove(logicCard)
                 
                 // add in any orphaned CardTrees
@@ -357,7 +357,7 @@ extension Hand {
     /// already has its child slots filled.
     public mutating func attach(card: ActionCard, to destination: LogicHandCard) {
         // get the tree containing destination, or create a new tree if the logic card isn't in the hand yet
-        guard var destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
+        guard let destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
         
         // detach the ActionCard from the tree it is in,
         if let orphan = self.detach(card) {
@@ -372,7 +372,7 @@ extension Hand {
     /// already has its child slots filled.
     public mutating func attach(card: LogicHandCard, to destination: LogicHandCard) {
         // get the tree containing destination, or create a new tree if the logic card isn't in the hand yet
-        guard var destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
+        guard let destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
         
         // detach the LogicHandCard from the tree it is in
         if let orphan = self.detach(card) {
@@ -386,7 +386,7 @@ extension Hand {
     /// Detaches an ActionCard from its parent. Returns the detached CardTreeNode, or nil if the 
     /// ActionCard wasn't found in the Hand.
     public mutating func detach(card: ActionCard) -> CardTreeNode? {
-        guard var tree = self.cardTrees.cardTree(containing: card) else { return nil }
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return nil }
         tree.remove(card)
         return .Action(card)
     }
@@ -394,7 +394,7 @@ extension Hand {
     /// Detaches a LogicHandCard from its parent. Returns the detached CardTreeNode, or nil
     /// if the LogicHandCard wasn't found in the Hand.
     public mutating func detach(card: LogicHandCard) -> CardTreeNode? {
-        guard var tree = self.cardTrees.cardTree(containing: card) else { return nil }
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return nil }
         let orphans = tree.remove(card)
         
         // (re-)create the node that was removed with the orphans attached
@@ -629,7 +629,7 @@ extension Hand {
         }
         
         // make a new CardTree and add it to the new hand
-        var tree = CardTree()
+        let tree = CardTree()
         tree.root = newRoot
         hand.cardTrees.append(tree)
         
@@ -666,7 +666,7 @@ extension Hand {
         // add it in
         if let newCard = newCard {
             merged.removeAll()
-            var tree = CardTree()
+            let tree = CardTree()
             tree.root = .BinaryLogic(newCard, lhsRoot, rhsRoot)
             merged.cardTrees.append(tree)
             

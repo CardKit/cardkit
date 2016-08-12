@@ -195,7 +195,7 @@ public class LogicHandCard: HandCard, JSONEncodable, JSONDecodable {
     }
     
     func asCardTree() -> CardTree? {
-        var tree = CardTree()
+        let tree = CardTree()
         tree.root = self.asCardTreeNode()
         return tree
     }

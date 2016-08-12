@@ -21,7 +21,7 @@ public typealias CardTreeIdentifier = CardIdentifier
 /// determine when a Hand is satisfied (the set of CardTrees in a Hand must be 
 /// satisfied according to the End Rule specified in the Hand). CardTrees are also
 /// used to specify which groups of cards are part of a Branch.
-public struct CardTree {
+public class CardTree: JSONEncodable, JSONDecodable {
     var identifier: CardTreeIdentifier = CardTreeIdentifier()
     var root: CardTreeNode? = nil
     
@@ -32,6 +32,28 @@ public struct CardTree {
     
     public var cardCount: Int {
         return self.cards.count
+    }
+    
+    public init() {
+    }
+    
+    //MARK: JSONDecodable & JSONEncodable
+    public required init(json: JSON) throws {
+        self.identifier = try json.decode("identifier", type: CardTreeIdentifier.self)
+        
+        let rootStr = try json.string("root")
+        if rootStr == "nil" {
+            self.root = nil
+        } else {
+            self.root = try json.decode("root", type: CardTreeNode.self)
+        }
+    }
+    
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "root": self.root?.toJSON() ?? .String("nil")
+            ])
     }
 }
 
@@ -51,55 +73,29 @@ extension CardTree: Hashable {
     }
 }
 
-//MARK: JSONEncodable
-
-extension CardTree: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .Dictionary([
-            "identifier": self.identifier.toJSON(),
-            "root": self.root?.toJSON() ?? .String("nil")
-            ])
-    }
-}
-
-//MARK: JSONDecodable
-
-extension CardTree: JSONDecodable {
-    public init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardTreeIdentifier.self)
-        
-        let rootStr = try json.string("root")
-        if rootStr == "nil" {
-            self.root = nil
-        } else {
-            self.root = try json.decode("root", type: CardTreeNode.self)
-        }
-    }
-}
-
 //MARK: CardTree Attachment
 
 extension CardTree {
     /// Attach the given CardTree as a child of the given LogicHandCard.
-    mutating func attach(with cardTree: CardTree, asChildOf logicCard: LogicHandCard) {
+    func attach(with cardTree: CardTree, asChildOf logicCard: LogicHandCard) {
         guard let root = cardTree.root else { return }
         self.attach(with: root, asChildOf: logicCard)
     }
     
     /// Attach the given CardTreeNode as a child of the given LogicHandCard.
-    mutating func attach(with node: CardTreeNode, asChildOf logicCard: LogicHandCard) {
+    func attach(with node: CardTreeNode, asChildOf logicCard: LogicHandCard) {
         guard let root = self.root else { return }
         self.root = root.attached(with: node, asChildOf: logicCard)
     }
     
     /// Attach the given ActionCard as a child of the given LogicHandCard.
-    mutating func attach(with card: ActionCard, asChildOf logicCard: LogicHandCard) {
+    func attach(with card: ActionCard, asChildOf logicCard: LogicHandCard) {
         let node: CardTreeNode = .Action(card)
         self.attach(with: node, asChildOf: logicCard)
     }
     
     /// Attach the given LogicHandCard as a child of the given LogicHandCard.
-    mutating func attach(with card: LogicHandCard, asChildOf logicCard: LogicHandCard) {
+    func attach(with card: LogicHandCard, asChildOf logicCard: LogicHandCard) {
         guard let node: CardTreeNode = card.asCardTreeNode() else { return }
         self.attach(with: node, asChildOf: logicCard)
     }
@@ -109,14 +105,14 @@ extension CardTree {
 
 extension CardTree {
     /// Remove the given ActionCard from the CardTree.
-    mutating func remove(card: ActionCard) {
+    func remove(card: ActionCard) {
         guard let root = self.root else { return }
         self.root = root.removing(card)
     }
     
     /// Remove the given LogicHandCard from the CardTree. Returns any orphaned subtrees
     /// created by removing the LogicHandCard.
-    mutating func remove(card: LogicHandCard) -> [CardTree] {
+    func remove(card: LogicHandCard) -> [CardTree] {
         guard let root = self.root else { return [] }
         let (newRoot, orphans) = root.removing(card)
         self.root = newRoot
@@ -124,7 +120,7 @@ extension CardTree {
         // create new CardTrees for the orphans
         var orphanTrees: [CardTree] = []
         for orphan in orphans {
-            var orphanTree = CardTree()
+            let orphanTree = CardTree()
             orphanTree.root = orphan
             orphanTrees.append(orphanTree)
         }

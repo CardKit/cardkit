@@ -41,7 +41,8 @@ class HandTests: XCTestCase {
         let rep = CardKit.Hand.Next.Repeat.instance()
         hand.add(rep)
         
-        XCTAssertTrue(hand.cardCount == 2)
+        // this should be 3: NoAction, Repeat, End Rule
+        XCTAssertTrue(hand.cardCount == 3)
         XCTAssertTrue(hand.cards(matching: CardKit.Hand.Next.Repeat).count == 1)
     }
     
@@ -89,7 +90,9 @@ class HandTests: XCTestCase {
         hand.add(noAction)
         
         XCTAssertTrue(hand.cards(matching: CardKit.Action.NoAction).count == 1)
-        XCTAssertTrue(hand.cardCount == 1)
+        
+        // two cards: NoAction and End Rule
+        XCTAssertTrue(hand.cardCount == 2)
     }
     
     func testHandLogicAnd() {
@@ -99,7 +102,9 @@ class HandTests: XCTestCase {
         
         // test that the deck builder is adding an AND card
         let hand = noActionA && noActionB
-        XCTAssertTrue(hand.cardCount == 3)
+        
+        // four cards: NoActionA, NoActionB, AND, End Rule
+        XCTAssertTrue(hand.cardCount == 4)
         
         let andCards = hand.cards(matching: CardKit.Hand.Logic.LogicalAnd)
         XCTAssertTrue(andCards.count == 1)
