@@ -64,7 +64,7 @@ public prefix func ! (operand: ActionCard) -> Hand {
     var hand = Hand()
     
     // create a NOT card bound to the operand
-    if let notCard = CardKit.Hand.Logic.LogicalNot.instance() as? LogicHandCard {
+    if let notCard: LogicHandCard = CardKit.Hand.Logic.LogicalNot.typedInstance() {
         hand.attach(operand, to: notCard)
     }
     
@@ -93,7 +93,7 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
     var hand = Hand()
     
     // create an AND card bound to the operands
-    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard {
+    if let andCard: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() {
         hand.attach(lhs, to: andCard)
         hand.attach(rhs, to: andCard)
     }
@@ -157,7 +157,7 @@ public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     
     // create an OR card bound to the operands
-    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
+    if let orCard: LogicHandCard = CardKit.Hand.Logic.LogicalOr.typedInstance() {
         hand.attach(lhs, to: orCard)
         hand.attach(rhs, to: orCard)
     }

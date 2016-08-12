@@ -30,7 +30,7 @@ public struct HandCardDescriptor: CardDescriptor {
         self.handCardType = handCardType
     }
     
-    /// Return a new HandCard instance using our descriptor
+    /// Return a new instance of the HandCard.
     func instance() -> HandCard {
         switch self.handCardType {
         case .Branch:
@@ -43,6 +43,34 @@ public struct HandCardDescriptor: CardDescriptor {
             return EndRuleHandCard(with: self)
         case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
             return LogicHandCard(with: self)
+        }
+    }
+    
+    /// Return a new, subtyped HandCard instance. This method is generic to enable callers to obtain the 
+    /// correctly-typed subclass of HandCard based on the cardType of this descriptor. For example, this 
+    /// is how one would obtain a RepeatHandCard instance from the Repeat card descriptor.
+    ///
+    /// `guard let card: RepeatHandCard = CardKit.Hand.Next.Repeat.instance() else { // should not fail }`
+    ///
+    /// In case of a type mismatch, nil will be returned. For example, trying to obtain a RepeatHandCard
+    /// from a descriptor of type End Rule:
+    ///
+    /// `guard let card: RepeatHandCard = CardKit.Hand.End.All.instance() else { // will always fail }`
+    ///
+    /// Also, when using this method, the type of the variable being assigned must always be specified, otherwise
+    /// the compiler will not be able to infer the type.
+    func typedInstance<T>() -> T? {
+        switch self.handCardType {
+        case .Branch:
+            return BranchHandCard(with: self) as? T
+        case .Repeat:
+            return RepeatHandCard(with: self) as? T
+        case .EndWhenAnySatisfied:
+            return EndRuleHandCard(with: self) as? T
+        case .EndWhenAllSatisfied:
+            return EndRuleHandCard(with: self) as? T
+        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+            return LogicHandCard(with: self) as? T
         }
     }
 }

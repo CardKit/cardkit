@@ -37,8 +37,8 @@ class CardDescriptorTests: XCTestCase {
         let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, operation: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: nil, operation: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
         
         let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
         let t2 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
@@ -60,8 +60,8 @@ class CardDescriptorTests: XCTestCase {
         let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         let h2 = InputCardDescriptor(name: "A", subpath: "A", inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, operation: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: "A", operation: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i2 = HandCardDescriptor(name: "A", subpath: "A", handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
         
         let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
         let t2 = TokenCardDescriptor(name: "A", subpath: "A", isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
@@ -83,8 +83,8 @@ class CardDescriptorTests: XCTestCase {
         let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: .SwiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 1)
         
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, operation: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: nil, operation: .Branch, assetCatalog: CardAssetCatalog(), version: 1)
+        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .Branch, assetCatalog: CardAssetCatalog(), version: 1)
         
         let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
         let t2 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 1)

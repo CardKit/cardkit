@@ -17,21 +17,21 @@ public struct Hand {
     /// LogicHandCards and ActionCards. A CardTree may be associated with a BranchHandCard
     /// in the case that upon satisfaction of the CardTree's logic, execution branches
     /// to the target of the BranchHandCard.
-    private var cardTrees: [CardTree] = []
+    private (set) var cardTrees: [CardTree] = []
     
     /// The set of Hands to which this Hand may branch.
-    public var subhands: [Hand] = []
+    private (set) var subhands: [Hand] = []
     
     /// These cards specify which CardTree branches to which child Hand.
-    private var branchCards: [BranchHandCard] = []
+    private (set) var branchCards: [BranchHandCard] = []
+    
+    /// Specifies whether the hand should repeat a number of times
+    private (set) var repeatCard: RepeatHandCard? = nil
     
     /// Specifies the End Rule that governs the logic of this Hand. The default
     /// is that ALL cards in the hand must End before moving to the next Hand.
     /// There may only be one EndRuleCard in a Hand.
-    private var endRuleCard: EndRuleHandCard = EndRuleHandCard(with: CardKit.Hand.End.All)
-    
-    /// Specifies whether the hand should repeat a number of times
-    private var repeatCard: RepeatHandCard? = nil
+    private (set) var endRuleCard: EndRuleHandCard = EndRuleHandCard(with: CardKit.Hand.End.All)
     
     /// Unique identifier for the Hand
     public var identifier: HandIdentifier = HandIdentifier()
@@ -47,6 +47,11 @@ public struct Hand {
         // append all branch cards
         self.branchCards.forEach { cards.append($0) }
         
+        // appeand the repeat card
+        if let repeatCard = self.repeatCard {
+            cards.append(repeatCard)
+        }
+        
         // append the end rule card
         cards.append(self.endRuleCard)
         
@@ -55,7 +60,9 @@ public struct Hand {
     
     /// The number of cards in a hand includes all Action and Hand
     /// cards added to the hand, plus any Input or Token cards that
-    /// are bound to the Action cards.
+    /// are bound to the Action cards. Note that cardCount will be 1 
+    /// for "empty" hands because the End Rule card is always present in
+    /// a hand.
     public var cardCount: Int {
         return self.cards.count
     }
@@ -65,6 +72,18 @@ public struct Hand {
     /// been satisfied.
     public var endRule: HandEndRule {
         return self.endRuleCard.endRule
+    }
+    
+    /// The number of times to repeat execution of the hand, based on the presence of a Repeat card.
+    /// Hands not containing a Repeat card will execute only once.
+    public var repeatCount: Int {
+        return self.repeatCard?.repeatCount ?? 0
+    }
+    
+    /// The number of times the hand will be executed. This is always one greater than the
+    /// repeatCount of any Repeat cards present in the hand. The default execution count is 1.
+    public var executionCount: Int {
+        return self.repeatCount + 1
     }
 }
 
@@ -292,6 +311,43 @@ extension Hand {
         // not found
         return nil
     }
+    
+    /// Returns the CardIdentifiers of the child cards of the given LogicHandCard.
+    func children(of card: LogicHandCard) -> [CardIdentifier] {
+        
+        func cardIdentifierFromNode(node: CardTreeNode) -> CardIdentifier {
+            switch node {
+            case .Action(let child):
+                return child.identifier
+            case .UnaryLogic(let child, _):
+                return child.identifier
+            case .BinaryLogic(let child, _, _):
+                return child.identifier
+            }
+        }
+        
+        guard let node = self.cardTrees.cardTreeNode(of: card) else { return [] }
+        
+        var children: [CardIdentifier] = []
+        
+        if case .UnaryLogic(_, let subtree) = node {
+            // pull out the child CardIdentifier from the subtree node
+            if let subtree = subtree {
+                children.append(cardIdentifierFromNode(subtree))
+            }
+            
+        } else if case .BinaryLogic(_, let left, let right) = node {
+            // pull out the child CardIdentifier from each subtree
+            if let left = left {
+                children.append(cardIdentifierFromNode(left))
+            }
+            if let right = right {
+                children.append(cardIdentifierFromNode(right))
+            }
+        }
+        
+        return children
+    }
 }
 
 //MARK: CardTree Manipulation
@@ -362,6 +418,115 @@ extension Hand {
         }
         
         return detached
+    }
+}
+
+//MARK: Branching
+
+extension Hand {
+    /// Add a branch to the given Hand to the given Hand. Since no CardTree is specified yet,
+    /// returns the BranchHandCard that was created so it can be updated later with a CardTreeIdentifier.
+    mutating func addBranch(to hand: Hand) -> BranchHandCard {
+        guard let branchCard: BranchHandCard = CardKit.Hand.Next.Branch.typedInstance() else {
+            // should never happen
+            return BranchHandCard(with: CardKit.Hand.Next.Branch)
+        }
+        
+        // set up the branch card
+        branchCard.targetHandIdentifier = hand.identifier
+        
+        // add the hand as a subhand only if it isn't there already
+        if !self.subhands.contains(hand) {
+            self.subhands.append(hand)
+        }
+        
+        // add the branch card to the hand
+        self.add(branchCard)
+        
+        return branchCard
+    }
+    
+    /// Add a branch to the given hand from the given CardTree. If the CardTree already has a branch
+    /// to another hand, this method will update the the target to the given Hand. Returns the 
+    /// BranchHandCard that was created or found.
+    mutating func addBranch(from cardTree: CardTree, to hand: Hand) -> BranchHandCard {
+        var branchCard: BranchHandCard? = nil
+        
+        // existing branch card?
+        for card in self.branchCards {
+            if card.cardTreeIdentifier == cardTree.identifier {
+                branchCard = card
+                break
+            }
+        }
+        
+        // create a new branch card if one doesn't exist
+        if branchCard == nil {
+            branchCard = CardKit.Hand.Next.Branch.typedInstance()
+        }
+        
+        guard let branch = branchCard else {
+            // should never happen
+            return BranchHandCard(with: CardKit.Hand.Next.Branch)
+        }
+        
+        // set up the branch card
+        branch.cardTreeIdentifier = cardTree.identifier
+        branch.targetHandIdentifier = hand.identifier
+        
+        // add the hand as a subhand only if it isn't there already
+        if !self.subhands.contains(hand) {
+            self.subhands.append(hand)
+        }
+        
+        // add the branch card to the hand
+        self.add(branch)
+        
+        return branch
+    }
+    
+    /// Remove the branch from the given CardTree. Does not remove the subhand the branch targeted.
+    /// Returns the Branch card's target HandIdentifier, or nil if no hand was specified.
+    mutating func removeBranch(from cardTree: CardTree) -> HandIdentifier? {
+        var candidate: BranchHandCard? = nil
+        for card in self.branchCards {
+            if card.cardTreeIdentifier == cardTree.identifier {
+                candidate = card
+                break
+            }
+        }
+        
+        if let branchCard = candidate {
+            self.branchCards.removeObject(branchCard)
+            return branchCard.targetHandIdentifier
+        }
+        
+        return nil
+    }
+    
+    /// Removes the subhand with the given HandIdentifier.
+    mutating func removeSubhand(with identifier: HandIdentifier) {
+        var candidate: Hand? = nil
+        for hand in self.subhands {
+            if hand.identifier == identifier {
+                candidate = hand
+            }
+        }
+        
+        if let hand = candidate {
+            self.subhands.removeObject(hand)
+        }
+    }
+    
+    /// Retrieves the branch target for the given CardTree. Returns nil if there is no
+    /// Branch target specified, or no Branch card for the given CardTree.
+    func branchTarget(of cardTree: CardTree) -> HandIdentifier? {
+        for card in self.branchCards {
+            if card.cardTreeIdentifier == cardTree.identifier {
+                return card.targetHandIdentifier
+            }
+        }
+        return nil
     }
 }
 
@@ -448,7 +613,7 @@ extension Hand {
                 ? CardKit.Hand.Logic.LogicalAnd
                 : CardKit.Hand.Logic.LogicalOr else { return hand }
         
-        guard let initial = combine.instance() as? LogicHandCard else { return hand }
+        guard let initial: LogicHandCard = combine.typedInstance() else { return hand }
         let initialNode: CardTreeNode = .BinaryLogic(initial, first, second)
         
         // merge
@@ -457,7 +622,7 @@ extension Hand {
             (partialTreeRoot, nextTree) -> CardTreeNode in
             
             // add nextTree to partialTree
-            guard let logicCard = combine.instance() as? LogicHandCard else { return partialTreeRoot }
+            guard let logicCard: LogicHandCard = combine.typedInstance() else { return partialTreeRoot }
             guard let nextTreeRoot = nextTree.root else { return partialTreeRoot }
             return .BinaryLogic(logicCard, partialTreeRoot, nextTreeRoot)
             
@@ -490,9 +655,9 @@ extension Hand {
         
         switch operation {
         case .BooleanAnd:
-            newCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard
+            newCard = CardKit.Hand.Logic.LogicalAnd.typedInstance()
         case .BooleanOr:
-            newCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard
+            newCard = CardKit.Hand.Logic.LogicalOr.typedInstance()
         case .BooleanNot, .Indeterminate:
             newCard = nil
         }

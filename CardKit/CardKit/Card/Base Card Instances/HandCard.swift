@@ -47,7 +47,7 @@ extension HandCard: Hashable {
 
 public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
     public var cardTreeIdentifier: CardTreeIdentifier? = nil
-    public var targetHand: HandIdentifier? = nil
+    public var targetHandIdentifier: HandIdentifier? = nil
     
     public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)
@@ -61,11 +61,11 @@ public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
             self.cardTreeIdentifier = try json.decode("cardTreeIdentifier", type: CardTreeIdentifier.self)
         }
         
-        let targetHandStr = try json.string("targetHand")
+        let targetHandStr = try json.string("targetHandIdentifier")
         if targetHandStr == "nil" {
-            self.targetHand = nil
+            self.targetHandIdentifier = nil
         } else {
-            self.targetHand = try json.decode("targetHand", type: HandIdentifier.self)
+            self.targetHandIdentifier = try json.decode("targetHandIdentifier", type: HandIdentifier.self)
         }
         
         let descriptor = try json.decode("descriptor", type: HandCardDescriptor.self)
@@ -80,7 +80,7 @@ public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
             "cardTreeIdentifier": self.cardTreeIdentifier?.toJSON() ?? .String("nil"),
-            "targetHand": self.targetHand?.toJSON() ?? .String("nil")
+            "targetHandIdentifier": self.targetHandIdentifier?.toJSON() ?? .String("nil")
             ])
     }
 }
