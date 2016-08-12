@@ -189,6 +189,7 @@ extension InputBinding: JSONEncodable {
 //MARK: JSONDecodable
 
 extension InputBinding: JSONDecodable {
+    //swiftlint:disable:next function_body_length
     public init(json: JSON) throws {
         let type = try json.string("type")
         

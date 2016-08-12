@@ -412,38 +412,43 @@ extension Hand {
         return merged
     }
     
-    /// Collapses the forest of CardTrees into a single CardTree using the logic prescribed
-    /// by the End Rule (EndWhenAllSatisfied --> BooleanAnd, EndWhenAnySatisfied --> BooleanOr).
-    /// This method is used for ANDing and ORing two Hands together; first we collapse the forest
-    /// into a single tree, and then AND or OR that tree with the other Hand. Empty CardTrees
-    /// are removed by this operation.
-    mutating func collapseTrees() {
+    /// Returns a new Hand, collapsing the forest of CardTrees into a single CardTree using
+    /// the logic prescribed by the End Rule (EndWhenAllSatisfied --> BooleanAnd, 
+    /// EndWhenAnySatisfied --> BooleanOr). This method is used for ANDing and ORing two 
+    /// Hands together; first we collapse the forest into a single tree, and then AND or 
+    /// OR that tree with the other Hand. Empty CardTrees are not included in the new Hand.
+    /// Branch cards are also removed in the returned Hand.
+    func collapsed() -> Hand {
+        var hand = Hand()
+        hand.subhands = self.subhands
+        hand.endRuleCard = self.endRuleCard
+        hand.repeatCard = self.repeatCard
+        
         // do we have any non-empty trees?
         let nonEmptyTrees = self.cardTrees.filter { $0.cardCount > 0 }
         
         if nonEmptyTrees.count == 0 {
             // we have no non-empty trees, just return
-            self.cardTrees.removeAll()
-            return
+            return hand
             
         } else if nonEmptyTrees.count == 1 {
             // we have 1 non-empty tree, so just remove any empty trees and return
-            self.cardTrees = nonEmptyTrees
-            return
+            hand.cardTrees = nonEmptyTrees
+            return hand
         }
         
         // we have two or more non-empty trees -- merge!
         
         // build the initial node
-        guard let first: CardTreeNode = nonEmptyTrees[0].root else { return }
-        guard let second: CardTreeNode = nonEmptyTrees[1].root else { return }
+        guard let first: CardTreeNode = nonEmptyTrees[0].root else { return hand }
+        guard let second: CardTreeNode = nonEmptyTrees[1].root else { return hand }
         
         guard let combine: HandCardDescriptor =
             (self.endRule == .EndWhenAllSatisfied)
                 ? CardKit.Hand.Logic.LogicalAnd
-                : CardKit.Hand.Logic.LogicalOr else { return }
+                : CardKit.Hand.Logic.LogicalOr else { return hand }
         
-        guard let initial = combine.instance() as? LogicHandCard else { return }
+        guard let initial = combine.instance() as? LogicHandCard else { return hand }
         let initialNode: CardTreeNode = .BinaryLogic(initial, first, second)
         
         // merge
@@ -458,13 +463,51 @@ extension Hand {
             
         }
         
-        // remove all old CardTrees
-        self.cardTrees.removeAll()
-        
-        // make a new CardTree and add it to the forest
+        // make a new CardTree and add it to the new hand
         var tree = CardTree()
         tree.root = newRoot
-        self.cardTrees.append(tree)
+        hand.cardTrees.append(tree)
+        
+        return hand
+    }
+    
+    /// Returns a new hand by collapsing our own hand and the given hand, and combining the two 
+    /// resulting CardTrees using the given HandLogicOperation. This is used by DeckBuilder for ANDing
+    /// and ORing Hands together. If the HandLogicOperation is .Not or .Indeterminate, then additional
+    /// logic will not be added and this method will behave just like merged().
+    func collapsed(combiningWith hand: Hand, usingLogicalOperation operation: HandLogicOperation) -> Hand {
+        let lhs = self.collapsed()
+        let rhs = hand.collapsed()
+        
+        // merge into a single hand
+        var merged = lhs.merged(with: rhs)
+        
+        guard let lhsRoot = lhs.cardTrees[0].root else { return merged }
+        guard let rhsRoot = rhs.cardTrees[0].root else { return merged }
+        
+        // add the logical operation
+        var newCard: LogicHandCard? = nil
+        
+        switch operation {
+        case .BooleanAnd:
+            newCard = CardKit.Hand.Logic.LogicalAnd.instance() as? LogicHandCard
+        case .BooleanOr:
+            newCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard
+        case .BooleanNot, .Indeterminate:
+            newCard = nil
+        }
+        
+        // if we created a new logic card, merge the two existing trees and 
+        // add it in
+        if let newCard = newCard {
+            merged.removeAll()
+            var tree = CardTree()
+            tree.root = .BinaryLogic(newCard, lhsRoot, rhsRoot)
+            merged.cardTrees.append(tree)
+            
+        }
+        
+        return merged
     }
 }
 

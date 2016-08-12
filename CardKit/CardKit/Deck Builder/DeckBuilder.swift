@@ -74,8 +74,6 @@ public prefix func ! (operand: ActionCard) -> Hand {
 
 //MARK: And Operations
 
-infix operator && { associativity left precedence 150 }
-
 public func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
     return lhs.instance() && rhs.instance()
 }
@@ -125,72 +123,15 @@ public func && (lhs: ActionCard, rhs: Hand) -> Hand {
     return rhs && hand
 }
 
-/// Return a new hand with the given hands ANDed together. This works by creating a new
-/// AND card. The AND card will have lhs and rhs set to either: 
-/// (1) the most recently-added Logic Hand card (AND, OR, NOT), or 
-/// (2) the most recently-added ActionCard.
-/// Thus, if the last logic card of hand A is X = (A v B) ^ !D and the last logic card 
-/// of hand B is Y = !C, the new hand will have a logic of X ^ Y.
-/*public func && (lhs: Hand, rhs: Hand) -> Hand {
-    print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    
-    var lhsTarget: CardIdentifier? = nil
-    var rhsTarget: CardIdentifier? = nil
-    
-    for card in lhs.handCards.reverse() {
-        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
-            lhsTarget = card.identifier
-            break
-        }
-    }
-    
-    for card in rhs.handCards.reverse() {
-        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
-            rhsTarget = card.identifier
-            break
-        }
-    }
-    
-    if lhsTarget == nil {
-        lhsTarget = lhs.actionCards.last?.identifier
-    }
-    
-    if rhsTarget == nil {
-        rhsTarget = rhs.actionCards.last?.identifier
-    }
-    
-    // create the AND card -- note if lhs or rhs are still nil, then
-    // we might be ANDing an empty hand, which is okay, since later on
-    // the AND targets could be bound
-    // make a new hand
-    var hand = Hand()
-    hand.addCards(from: lhs)
-    hand.addCards(from: rhs)
-    
-    // bind them all together
-    if let andCard = CardKit.Hand.Logic.LogicalAnd.instance() as? BinaryLogicHandCard {
-        if let lhs = lhsTarget {
-            andCard.lhs = lhs
-        }
-        if let rhs = rhsTarget {
-            andCard.rhs = rhs
-        }
-        hand.add(andCard)
-    }
-    
-    return hand
-}*/
-
 /// Returns a new hand with the given hands combined together using AND logic. This works by
 /// collapsing all CardTrees in each hand using the logical operator specified by the End Rule
-/// (AND for EndWhenAllSatisfied and OR for EndWhenAnySatisfied), and then ANDing the singular-
+/// (AND for EndWhenAllSatisfied, OR for EndWhenAnySatisfied), and then ANDing the singular-
 /// trees in lhs and rhs. Branch cards are removed in this operation because the CardTrees are no
 /// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
 /// new Hand, with rhs having precedence when there are conflicts.
 public func && (lhs: Hand, rhs: Hand) -> Hand {
     print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    
-    
+    return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .BooleanAnd)
 }
 
 //MARK: Or Operations
@@ -216,10 +157,9 @@ public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
     hand.add(rhs)
     
     // create an OR card bound to the operands
-    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? BinaryLogicHandCard {
-        orCard.lhs = lhs.identifier
-        orCard.rhs = rhs.identifier
-        hand.add(orCard)
+    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? LogicHandCard {
+        hand.attach(lhs, to: orCard)
+        hand.attach(rhs, to: orCard)
     }
     
     return hand
@@ -247,60 +187,15 @@ public func || (lhs: ActionCard, rhs: Hand) -> Hand {
     return rhs || hand
 }
 
-/// Return a new hand with the given hands ORed together. This works by creating a new
-/// OR card. The OR card will have lhs and rhs set to either:
-/// (1) the most recently-added Logic Hand card (AND, OR, NOT), or
-/// (2) the most recently-added ActionCard.
-/// Thus, if the last logic card of hand A is X = (A v B) ^ !D and the last logic card
-/// of hand B is Y = !C, the new hand will have a logic of X v Y.
+/// Returns a new hand with the given hands combined together using OR logic. This works by
+/// collapsing all CardTrees in each hand using the logical operator specified by the End Rule
+/// (AND for EndWhenAllSatisfied, OR for EndWhenAnySatisfied), and then ORing the singular-
+/// trees in lhs and rhs. Branch cards are removed in this operation because the CardTrees are no
+/// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
+/// new Hand, with rhs having precedence when there are conflicts.
 public func || (lhs: Hand, rhs: Hand) -> Hand {
     print("OR(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    
-    var lhsTarget: CardIdentifier? = nil
-    var rhsTarget: CardIdentifier? = nil
-    
-    for card in lhs.handCards.reverse() {
-        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
-            lhsTarget = card.identifier
-            break
-        }
-    }
-    
-    for card in rhs.handCards.reverse() {
-        if card.descriptor.operation == .BooleanLogicAnd || card.descriptor.operation == .BooleanLogicOr || card.descriptor.operation == .BooleanLogicNot {
-            rhsTarget = card.identifier
-            break
-        }
-    }
-    
-    if lhsTarget == nil {
-        lhsTarget = lhs.actionCards.last?.identifier
-    }
-    
-    if rhsTarget == nil {
-        rhsTarget = rhs.actionCards.last?.identifier
-    }
-    
-    // create the OR card -- note if lhs or rhs are still nil, then
-    // we might be ORing an empty hand, which is okay, since later on
-    // the OR targets could be bound
-    // make a new hand
-    var hand = Hand()
-    hand.addCards(from: lhs)
-    hand.addCards(from: rhs)
-    
-    // bind them all together
-    if let orCard = CardKit.Hand.Logic.LogicalOr.instance() as? BinaryLogicHandCard {
-        if let lhs = lhsTarget {
-            orCard.lhs = lhs
-        }
-        if let rhs = rhsTarget {
-            orCard.rhs = rhs
-        }
-        hand.add(orCard)
-    }
-    
-    return hand
+    return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .BooleanOr)
 }
 
 
@@ -371,10 +266,7 @@ public func + (lhs: Hand, rhs: HandCard) -> Hand {
 
 public func + (lhs: Hand, rhs: Hand) -> Hand {
     print("ADD(H,H): \(lhs.identifier) && \(rhs.identifier)")
-    var hand = Hand()
-    hand.addCards(from: lhs)
-    hand.addCards(from: rhs)
-    return hand
+    return lhs.merged(with: rhs)
 }
 
 

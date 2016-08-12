@@ -212,5 +212,3 @@ extension SequenceType where Generator.Element == CardTree {
         return nil
     }
 }
-
-
