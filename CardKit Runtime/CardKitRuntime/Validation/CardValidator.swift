@@ -10,9 +10,42 @@ import Foundation
 
 import CardKit
 
+//MARK: CardValidationError
+
+public enum CardValidationError {
+    /// The type of the Card Descriptor does not match the type of the Card Instance (args: expected type, actual type)
+    // swiftlint:disable:next type_name
+    case CardDescriptorTypeDoesNotMatchInstanceType(CardType, Any.Type)
+    
+    /// The TokenSlot has not been bound with a Token card
+    case TokenSlotNotBound(TokenSlot)
+    
+    /// The Token card bound to this card was not found in the Deck
+    case BoundTokenCardNotPresentInDeck(CardIdentifier)
+    
+    /// The TokenSlot was bound to a card that is not a TokenCard (args: the token slot, the identifier of the non-Token card to which it was bound)
+    case TokenSlotNotBoundToTokenCard(TokenSlot, CardIdentifier)
+    
+    /// The TokenSlot is bound, but has an Unbound value.
+    case TokenSlotBoundToUnboundValue(TokenSlot)
+    
+    /// The InputSlot is non-optional but does not have an InputCard bound to it
+    case MandatoryInputSlotNotBound(InputSlot)
+    
+    /// The InputSlot is bound, but has an Unbound value.
+    case InputSlotBoundToUnboundValue(InputSlot)
+    
+    /// The InputSlot expected a different type of input than that provided by the InputCard (args: slot, expected type, bound InputCard identifier, provided type)
+    case InputSlotBoundToUnexpectedType(InputSlot, InputType, CardIdentifier, InputType)
+    
+    /// The InputSlot was bound to an invalid Card type (Deck, Hand, or Token)
+    case InputSlotBoundToInvalidCardType(InputSlot, InputType, CardIdentifier, CardType)
+}
+
+//MARK: CardValidator
+
 class CardValidator: Validator {
     
-    //swiftlint:disable:next function_body_length
     func validationActions() -> [ValidationAction] {
         var actions: [ValidationAction] = []
         
@@ -47,6 +80,7 @@ class CardValidator: Validator {
         })
         
         // TokenSlotNotBoundToTokenCard
+        // TokenSlotBoundToUnboundValue
         actions.append({
             (deck, hand, card) in
             guard let hand = hand else { return [] }
@@ -146,15 +180,13 @@ class CardValidator: Validator {
     func checkTokenSlotNotBoundToTokenCard(deck: Deck, _ hand: Hand, _ card: ActionCard) -> [ValidationError] {
         var errors: [ValidationError] = []
         
-        //case TokenSlotNotBoundToTokenCard(TokenSlot, CardIdentifier, CardType)
-        
         for slot in card.tokenSlots {
             // unbound inputs are caught by another validation function
             let binding = card.binding(of: slot)
             switch binding {
             case .Unbound:
                 // should never be the case
-                errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .TokenSlotNotBound(slot)))
+                errors.append(ValidationError.CardError(.Error, deck.identifier, hand.identifier, card.identifier, .TokenSlotBoundToUnboundValue(slot)))
             case .BoundToTokenCard(let identifier):
                 // find this card in the deck
                 let found = deck.tokenCards.reduce(false) {

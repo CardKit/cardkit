@@ -103,7 +103,6 @@ extension InputSlotBinding: CustomStringConvertible {
 //MARK: JSONEncodable
 
 extension InputSlotBinding: JSONEncodable {
-    // swiftlint:disable:next function_body_length
     public func toJSON() -> JSON {
         switch self {
         case .Unbound:
