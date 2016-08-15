@@ -18,14 +18,6 @@ public enum HandEndRule: String {
     case EndWhenAnySatisfied
 }
 
-//MARK: CustomStringConvertable
-
-extension HandEndRule: CustomStringConvertible {
-    public var description: String {
-        return "\(self)"
-    }
-}
-
 //MARK: JSONEncodable
 
 extension HandEndRule: JSONEncodable {

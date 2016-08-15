@@ -35,14 +35,6 @@ public enum HandCardType: String {
     case BooleanLogicNot
 }
 
-//MARK: CustomStringConvertable
-
-extension HandCardType: CustomStringConvertible {
-    public var description: String {
-        return "\(self)"
-    }
-}
-
 //MARK: JSONEncodable
 
 extension HandCardType: JSONEncodable {

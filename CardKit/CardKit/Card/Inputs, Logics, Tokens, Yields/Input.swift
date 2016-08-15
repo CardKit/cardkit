@@ -31,14 +31,6 @@ public enum InputType: String {
     case CardinalDirection
 }
 
-//MARK: CustomStringConvertable
-
-extension InputType: CustomStringConvertible {
-    public var description: String {
-        return "\(self)"
-    }
-}
-
 //MARK: JSONEncodable
 
 extension InputType: JSONEncodable {

@@ -129,7 +129,9 @@ class HandTests: XCTestCase {
         
         // test that the deck builder is adding an OR card
         let hand = noActionA || noActionB
-        XCTAssertTrue(hand.cardCount == 3)
+        
+        // four cards: NoActionA, NoActionB, OR, End Rule
+        XCTAssertTrue(hand.cardCount == 4)
         
         let orCards = hand.cards(matching: CardKit.Hand.Logic.LogicalOr)
         XCTAssertTrue(orCards.count == 1)
@@ -153,7 +155,9 @@ class HandTests: XCTestCase {
         
         // test that the deck builder is adding a NOT card
         let hand = !noAction
-        XCTAssertTrue(hand.cardCount == 2)
+        
+        // three cards: NoAction, NOT, End Rule
+        XCTAssertTrue(hand.cardCount == 3)
         
         let notCards = hand.cards(matching: CardKit.Hand.Logic.LogicalNot)
         XCTAssertTrue(notCards.count == 1)

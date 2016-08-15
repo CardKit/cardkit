@@ -208,3 +208,19 @@ extension SequenceType where Generator.Element == CardTree {
         return nil
     }
 }
+
+//MARK: Debugging
+
+extension CardTree {
+    func printToConsole(atLevel level: Int) {
+        func spacePrint(level: Int, _ msg: String) {
+            for _ in 0..<level {
+                print("    ", terminator: "")
+            }
+            print(msg)
+        }
+        
+        spacePrint(level, "CardTree \(self.identifier)")
+        self.root?.printToConsole(atLevel: level)
+    }
+}

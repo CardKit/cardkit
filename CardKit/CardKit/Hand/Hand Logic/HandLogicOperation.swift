@@ -19,14 +19,6 @@ public enum HandLogicOperation: String {
     case BooleanNot
 }
 
-//MARK: CustomStringConvertable
-
-extension HandLogicOperation: CustomStringConvertible {
-    public var description: String {
-        return "\(self)"
-    }
-}
-
 //MARK: JSONEncodable
 
 extension HandLogicOperation: JSONEncodable {

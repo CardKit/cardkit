@@ -356,10 +356,17 @@ extension Hand {
     /// Attaches an ActionCard to nest under a LogicHandCard. Fails if the destination
     /// already has its child slots filled.
     public mutating func attach(card: ActionCard, to destination: LogicHandCard) {
-        // get the tree containing destination, or create a new tree if the logic card isn't in the hand yet
-        guard let destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
+        // create a new CardTree for destination if it isn't in the Hand yet
+        if self.cardTrees.cardTree(containing: destination) == nil {
+            guard let newTree = destination.asCardTree() else { return }
+            self.cardTrees.append(newTree)
+        }
         
-        // detach the ActionCard from the tree it is in,
+        // get the CardTree containing destination -- should always work since we just created it
+        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
+        
+        // if the ActionCard has already been added to the Hand, detach it from the tree it is in
+        // and reattach it to destinationTree
         if let orphan = self.detach(card) {
             destinationTree.attach(with: orphan, asChildOf: destination)
         } else {
@@ -371,10 +378,17 @@ extension Hand {
     /// Attaches a LogicHandCard to nest under another LogicHandCard. Fails if the destination
     /// already has its child slots filled.
     public mutating func attach(card: LogicHandCard, to destination: LogicHandCard) {
-        // get the tree containing destination, or create a new tree if the logic card isn't in the hand yet
-        guard let destinationTree: CardTree = self.cardTrees.cardTree(containing: destination) ?? destination.asCardTree() else { return }
+        // create a new CardTree for destination if it isn't in the Hand yet
+        if self.cardTrees.cardTree(containing: destination) == nil {
+            guard let newTree = destination.asCardTree() else { return }
+            self.cardTrees.append(newTree)
+        }
         
-        // detach the LogicHandCard from the tree it is in
+        // get the CardTree containing destination -- should always work since we just created it
+        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
+        
+        // if the LogicHandCard has already been added to the Hand, detach it from the tree it is in
+        // and reattach it to destinationTree
         if let orphan = self.detach(card) {
             destinationTree.attach(with: orphan, asChildOf: destination)
         } else {
@@ -725,5 +739,34 @@ extension Hand: JSONDecodable {
         } else {
             self.repeatCard = try json.decode("repeatCard", type: RepeatHandCard.self)
         }
+    }
+}
+
+//MARK: Debugging
+
+extension Hand {
+    func printToConsole(atLevel level: Int) {
+        func spacePrint(level: Int, _ msg: String) {
+            for _ in 0..<level {
+                print("    ", terminator: "")
+            }
+            print(msg)
+        }
+        
+        spacePrint(level, "------")
+        spacePrint(level, "Hand \(self.identifier)")
+        spacePrint(level, "* cardTrees:")
+        self.cardTrees.forEach { $0.printToConsole(atLevel: level) }
+        spacePrint(level, "* branch cards:")
+        self.branchCards.forEach { spacePrint(level, "\($0.description)") }
+        spacePrint(level, "* repeat card:")
+        if let repeatCard = self.repeatCard {
+            spacePrint(level, "\(repeatCard.description)")
+        }
+        spacePrint(level, "* end rule:")
+        spacePrint(level, "\(self.endRuleCard.description)")
+        spacePrint(level, "* subhands:")
+        self.subhands.forEach { $0.printToConsole(atLevel: level + 1) }
+        spacePrint(level, "------")
     }
 }

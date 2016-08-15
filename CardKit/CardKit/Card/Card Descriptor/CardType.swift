@@ -18,27 +18,6 @@ public enum CardType: String {
     case Token
 }
 
-//MARK: CustomStringConvertable
-
-extension CardType: CustomStringConvertible {
-    public var description: String {
-        get {
-            switch self {
-            case .Action:
-                return "Action"
-            case .Deck:
-                return "Deck"
-            case .Hand:
-                return "Hand"
-            case .Input:
-                return "Input"
-            case .Token:
-                return "Token"
-            }
-        }
-    }
-}
-
 //MARK: JSONEncodable
 
 extension CardType: JSONEncodable {
