@@ -141,37 +141,129 @@ extension Hand {
     }
 }
 
+//MARK: Card Attachment
+
+extension Hand {
+    /// Attaches an ActionCard to nest under a LogicHandCard. Fails if the destination
+    /// already has its child slots filled.
+    public mutating func attach(card: ActionCard, to destination: LogicHandCard) {
+        // create a new CardTree for destination if it isn't in the Hand yet
+        if self.cardTrees.cardTree(containing: destination) == nil {
+            guard let newTree = destination.asCardTree() else { return }
+            self.cardTrees.append(newTree)
+        }
+        
+        // get the destination tree -- should always work because we just created it if it didn't exist
+        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
+        
+        // detach card from the CardTree it's in
+        if let detached = self.cardTrees.cardTree(containing: card)?.detach(card) {
+            // re-attach
+            destinationTree.attach(with: detached, asChildOf: destination)
+        } else {
+            // add the card and attach it
+            destinationTree.attach(with: card, asChildOf: destination)
+        }
+        
+        // remove any empty CardTrees that were created
+        self.removeEmptyCardTrees()
+    }
+    
+    /// Attaches a LogicHandCard to nest under another LogicHandCard. Fails if the destination
+    /// already has its child slots filled.
+    public mutating func attach(card: LogicHandCard, to destination: LogicHandCard) {
+        // create a new CardTree for destination if it isn't in the Hand yet
+        if self.cardTrees.cardTree(containing: destination) == nil {
+            guard let newTree = destination.asCardTree() else { return }
+            self.cardTrees.append(newTree)
+        }
+        
+        // get the destination tree -- should always work because we just created it if it didn't exist
+        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
+        
+        // detach card from the CardTree it's in
+        if let detached = self.cardTrees.cardTree(containing: card)?.detach(card) {
+            // re-attach
+            destinationTree.attach(with: detached, asChildOf: destination)
+        } else {
+            // add the card and attach it
+            destinationTree.attach(with: card, asChildOf: destination)
+        }
+        
+        // remove any empty CardTrees that were created
+        self.removeEmptyCardTrees()
+    }
+}
+
+//MARK: Card Detachment
+
+extension Hand {
+    /// Detaches an ActionCard from its parent. Detaching an ActionCard keeps it in the Hand, but 
+    /// detaches it from the LogicHandCard to which it was attached.
+    public mutating func detach(card: ActionCard) {
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return }
+        let detached = tree.detach(card)
+        
+        // add back as a new CardTree
+        let newTree = CardTree()
+        newTree.root = detached
+        self.cardTrees.append(newTree)
+        
+        // remove any empty CardTrees that were created
+        self.removeEmptyCardTrees()
+    }
+    
+    /// Detaches a LogicHandCard from its parent. Detaching a LogicHandCard keeps it in the Hand, but
+    /// detaches it from the LogicHandCard to which it was attached.
+    public mutating func detach(card: LogicHandCard) {
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return }
+        let detached = tree.detach(card)
+        
+        // add back as a new CardTree
+        let newTree = CardTree()
+        newTree.root = detached
+        self.cardTrees.append(newTree)
+        
+        // remove any empty CardTrees that were created
+        self.removeEmptyCardTrees()
+    }
+    
+    /// Removes empty CardTrees that may have been produced as a result of remove()
+    /// attach(), or detach() operations.
+    private mutating func removeEmptyCardTrees() {
+        self.cardTrees = self.cardTrees.filter { $0.cardCount > 0 }
+    }
+}
+
 //MARK: Card Removal
 
 extension Hand {
     /// Remove the given card from the hand.
-    mutating func remove(card: ActionCard) {
-        // remove the card from the CardTree in which it lives
-        if let tree = self.cardTrees.cardTree(containing: card) {
-            tree.remove(card)
-        }
+    public mutating func remove(card: ActionCard) {
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return }
+        tree.remove(card)
     }
     
     /// Remove the given cards from the hand.
-    mutating func remove(cards: [ActionCard]) {
+    public mutating func remove(cards: [ActionCard]) {
         cards.forEach { self.remove($0) }
     }
     
-    /// Remove the given card from the hand. Note that EndRule cards with the rule
-    /// EndWhenAllSatisfied cannot be removed as this is the default.
-    mutating func remove(card: HandCard) {
+    /// Remove the given card from the hand. LogicHandCards that are removed will have their orphaned children
+    /// added back to the Hand. EndRule cards with the rule EndWhenAllSatisfied cannot be removed as this 
+    /// is the default.
+    public mutating func remove(card: HandCard) {
         // figure out what this is to know how to remove it
         switch card.descriptor.handCardType {
         case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
             guard let logicCard = card as? LogicHandCard else { return }
+            guard let tree = self.cardTrees.cardTree(containing: logicCard) else { return }
             
-            // remove the card from the CardTree in which it lives
-            if let tree = self.cardTrees.cardTree(containing: logicCard) {
-                let orphans = tree.remove(logicCard)
-                
-                // add in any orphaned CardTrees
-                self.cardTrees.appendContentsOf(orphans)
-            }
+            // remove the card
+            let (_, orphans) = tree.remove(logicCard)
+            
+            // add the orphans back to the Hand
+            self.cardTrees.appendContentsOf(orphans)
             
         case .Branch:
             guard let branchCard = card as? BranchHandCard else { return }
@@ -197,13 +289,13 @@ extension Hand {
     }
     
     /// Remove the given cards from the hand.
-    mutating func remove(cards: [HandCard]) {
+    public mutating func remove(cards: [HandCard]) {
         cards.forEach { self.remove($0) }
     }
     
-    /// Remove all cards from the hand. Does not remove the End Rule card, or any 
+    /// Remove all cards from the hand. Does not remove the End Rule card, or any
     /// cards in child Hands.
-    mutating func removeAll() {
+    public mutating func removeAll() {
         self.cardTrees.removeAll()
         self.branchCards.removeAll()
         self.repeatCard = nil
@@ -347,91 +439,6 @@ extension Hand {
         }
         
         return children
-    }
-}
-
-//MARK: CardTree Manipulation
-
-extension Hand {
-    /// Attaches an ActionCard to nest under a LogicHandCard. Fails if the destination
-    /// already has its child slots filled.
-    public mutating func attach(card: ActionCard, to destination: LogicHandCard) {
-        // create a new CardTree for destination if it isn't in the Hand yet
-        if self.cardTrees.cardTree(containing: destination) == nil {
-            guard let newTree = destination.asCardTree() else { return }
-            self.cardTrees.append(newTree)
-        }
-        
-        // get the CardTree containing destination -- should always work since we just created it
-        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
-        
-        // if the ActionCard has already been added to the Hand, detach it from the tree it is in
-        // and reattach it to destinationTree
-        if let orphan = self.detach(card) {
-            destinationTree.attach(with: orphan, asChildOf: destination)
-        } else {
-            // card wasn't previously attached to anything, so just attach it
-            destinationTree.attach(with: card, asChildOf: destination)
-        }
-    }
-    
-    /// Attaches a LogicHandCard to nest under another LogicHandCard. Fails if the destination
-    /// already has its child slots filled.
-    public mutating func attach(card: LogicHandCard, to destination: LogicHandCard) {
-        // create a new CardTree for destination if it isn't in the Hand yet
-        if self.cardTrees.cardTree(containing: destination) == nil {
-            guard let newTree = destination.asCardTree() else { return }
-            self.cardTrees.append(newTree)
-        }
-        
-        // get the CardTree containing destination -- should always work since we just created it
-        guard let destinationTree = self.cardTrees.cardTree(containing: destination) else { return }
-        
-        // if the LogicHandCard has already been added to the Hand, detach it from the tree it is in
-        // and reattach it to destinationTree
-        if let orphan = self.detach(card) {
-            destinationTree.attach(with: orphan, asChildOf: destination)
-        } else {
-            // card wasn't previously attached to anything, so just attach it
-            destinationTree.attach(with: card, asChildOf: destination)
-        }
-    }
-    
-    /// Detaches an ActionCard from its parent. Returns the detached CardTreeNode, or nil if the 
-    /// ActionCard wasn't found in the Hand.
-    public mutating func detach(card: ActionCard) -> CardTreeNode? {
-        guard let tree = self.cardTrees.cardTree(containing: card) else { return nil }
-        tree.remove(card)
-        return .Action(card)
-    }
-    
-    /// Detaches a LogicHandCard from its parent. Returns the detached CardTreeNode, or nil
-    /// if the LogicHandCard wasn't found in the Hand.
-    public mutating func detach(card: LogicHandCard) -> CardTreeNode? {
-        guard let tree = self.cardTrees.cardTree(containing: card) else { return nil }
-        let orphans = tree.remove(card)
-        
-        // (re-)create the node that was removed with the orphans attached
-        var detached: CardTreeNode? = nil
-        
-        switch card.operation {
-        case .BooleanAnd, .BooleanOr:
-            // expecting up to 2 children
-            let left: CardTreeNode? = orphans.count > 0 ? orphans[0].root : nil
-            let right: CardTreeNode? = orphans.count > 1 ? orphans[1].root : nil
-            detached = .BinaryLogic(card, left, right)
-            
-        case .BooleanNot:
-            // expecting up to 1 child
-            let subtree: CardTreeNode? = orphans.count > 0 ? orphans[0].root : nil
-            detached = .UnaryLogic(card, subtree)
-            
-        case .Indeterminate:
-            // not sure how we got an Indeterminate
-            detached = nil
-        }
-        
-        return detached
     }
 }
 

@@ -101,19 +101,46 @@ extension CardTree {
     }
 }
 
+//MARK: CardTree Detachment
+
+extension CardTree {
+    /// Detach the given ActionCard from the CardTree. Returns the detached
+    /// CardTreeNode, or nil if the ActionCard was not found in the tree.
+    func detach(card: ActionCard) -> CardTreeNode? {
+        guard let root = self.root else { return nil }
+        self.root = root.removing(card)
+        return .Action(card)
+    }
+    
+    /// Detach the given LogicHandCard from the CardTree. Returns the detached
+    /// CardTreeNode, or nil if the LogicHandCard was not found in the tree.
+    func detach(card: LogicHandCard) -> CardTreeNode? {
+        guard let root = self.root else { return nil }
+        guard let detached = self.cardTreeNode(of: card) else { return nil }
+        let (newRoot, _) = root.removing(card)
+        self.root = newRoot
+        return detached
+    }
+}
+
 //MARK: CardTree Removal
 
 extension CardTree {
-    /// Remove the given ActionCard from the CardTree.
-    func remove(card: ActionCard) {
-        guard let root = self.root else { return }
-        self.root = root.removing(card)
+    /// Remove the given ActionCard from the CardTree. Returns the removed
+    /// CardTreeNode, or nil if the ActionCard was not found in the tree.
+    /// This method is equivalent to detach().
+    func remove(card: ActionCard) -> CardTreeNode? {
+        return self.detach(card)
     }
     
-    /// Remove the given LogicHandCard from the CardTree. Returns any orphaned subtrees
-    /// created by removing the LogicHandCard.
-    func remove(card: LogicHandCard) -> [CardTree] {
-        guard let root = self.root else { return [] }
+    /// Remove the given LogicHandCard from the CardTree. Returns the removed
+    /// CardTreeNode and any orphaned subtrees created by removing the LogicHandCard.
+    /// This method is structurally equivalent to detach(), except it also returns
+    /// the orphaned CardTrees as a separate array.
+    func remove(card: LogicHandCard) -> (CardTreeNode?, [CardTree]) {
+        guard let root = self.root else { return (nil, []) }
+        guard let detached = self.cardTreeNode(of: card) else { return (nil, []) }
+        
         let (newRoot, orphans) = root.removing(card)
         self.root = newRoot
         
@@ -125,7 +152,7 @@ extension CardTree {
             orphanTrees.append(orphanTree)
         }
         
-        return orphanTrees
+        return (detached, orphanTrees)
     }
 }
 

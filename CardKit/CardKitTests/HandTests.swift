@@ -184,9 +184,9 @@ class HandTests: XCTestCase {
         let handB = noActionC && noActionD
         let merged = handA + handB
         
-        // merged should have 6 cards:
-        // A, B, C, D, AND(A,B), AND(C,D)
-        XCTAssertTrue(merged.cardCount == 6)
+        // merged should have 7 cards:
+        // A, B, C, D, AND(A,B), AND(C,D), End Rule
+        XCTAssertTrue(merged.cardCount == 7)
         
         // two AND cards
         let andCards = merged.cards(matching: CardKit.Hand.Logic.LogicalAnd)
@@ -203,9 +203,9 @@ class HandTests: XCTestCase {
         let handB = noActionC && noActionD
         let merged = handA && handB
         
-        // merged should have 7 cards:
-        // A, B, C, D, AND(A,B), AND(C,D), AND(AND(A,B), AND(C,D))
-        XCTAssertTrue(merged.cardCount == 7)
+        // merged should have 8 cards:
+        // A, B, C, D, AND(A,B), AND(C,D), AND(AND(A,B), AND(C,D)), End Rule
+        XCTAssertTrue(merged.cardCount == 8)
         
         // three AND cards
         let andCards = merged.cards(matching: CardKit.Hand.Logic.LogicalAnd)
@@ -259,9 +259,9 @@ class HandTests: XCTestCase {
         let handB = noActionC || noActionD
         let merged = handA || handB
         
-        // merged should have 7 cards:
-        // A, B, C, D, OR(A,B), OR(C,D), OR(OR(A,B), OR(C,D))
-        XCTAssertTrue(merged.cardCount == 7)
+        // merged should have 8 cards:
+        // A, B, C, D, OR(A,B), OR(C,D), OR(OR(A,B), OR(C,D)), End Rule
+        XCTAssertTrue(merged.cardCount == 8)
         
         // three OR cards
         let orCards = merged.cards(matching: CardKit.Hand.Logic.LogicalOr)
@@ -315,12 +315,18 @@ class HandTests: XCTestCase {
         
         let hand = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
         
-        // should be 10 cards total:
+        // should be 11 cards total:
         // noActionA, noActionB, noActionC, noActionD, noActionE, noActionF (6)
         // AND(A,B), AND(C,D), NOT(F) (3)
         // OR(AND(A,B), AND(C,D)) (1)
+        // End Rule (1)
+        XCTAssertTrue(hand.cardCount == 11)
         
-        XCTAssertTrue(hand.cardCount == 10)
+        // there should be 3 CardTrees
+        // OR(AND(A,B), AND(C,D))
+        // E
+        // NOT(F)
+        XCTAssertTrue(hand.cardTrees.count == 3)
         
         let andCards = hand.cards(matching: CardKit.Hand.Logic.LogicalAnd)
         XCTAssertTrue(andCards.count == 2)
@@ -330,6 +336,184 @@ class HandTests: XCTestCase {
         
         let notCards = hand.cards(matching: CardKit.Hand.Logic.LogicalNot)
         XCTAssertTrue(notCards.count == 1)
+    }
+    
+    func testSimpleAddRemove() {
+        let noActionA = CardKit.Action.NoAction.instance()
+        let noActionB = CardKit.Action.NoAction.instance()
+        let noActionC = CardKit.Action.NoAction.instance()
+        let noActionD = CardKit.Action.NoAction.instance()
+        
+        var hand = Hand()
+        
+        // noActionA, End Rule
+        hand.add(noActionA)
+        XCTAssertTrue(hand.cardCount == 2)
+        
+        // noActionA, noActionB, End Rule
+        hand.add(noActionB)
+        XCTAssertTrue(hand.cardCount == 3)
+        
+        // noActionA, noActionB, noActionC, End Rule
+        hand.add(noActionC)
+        XCTAssertTrue(hand.cardCount == 4)
+        
+        // noActionA, noActionB, noActionC, noActionD, End Rule
+        hand.add(noActionD)
+        XCTAssertTrue(hand.cardCount == 5)
+        
+        // noActionB, noActionC, noActionD, End Rule
+        hand.remove(noActionA)
+        XCTAssertTrue(hand.cardCount == 4)
+        
+        // noActionC, noActionD, End Rule
+        hand.remove(noActionB)
+        XCTAssertTrue(hand.cardCount == 3)
+        
+        // noActionD, End Rule
+        hand.remove(noActionC)
+        XCTAssertTrue(hand.cardCount == 2)
+        
+        // End Rule
+        hand.remove(noActionD)
+        XCTAssertTrue(hand.cardCount == 1)
+    }
+    
+    func testComplicatedAddRemove() {
+        let noActionA = CardKit.Action.NoAction.instance()
+        let noActionB = CardKit.Action.NoAction.instance()
+        let noActionC = CardKit.Action.NoAction.instance()
+        let noActionD = CardKit.Action.NoAction.instance()
+        
+        guard let andA: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() else {
+            XCTFail("did not obtain a LogicHandCard from typedInstance()")
+            return
+        }
+        guard let andB: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() else {
+            XCTFail("did not obtain a LogicHandCard from typedInstance()")
+            return
+        }
+        guard let or: LogicHandCard = CardKit.Hand.Logic.LogicalOr.typedInstance() else {
+            XCTFail("did not obtain a LogicHandCard from typedInstance()")
+            return
+        }
+        
+        var hand = Hand()
+        
+        // AND(AND(A,OR(B,C)),D)
+        hand.attach(noActionB, to: or)
+        hand.attach(noActionC, to: or)
+        hand.attach(noActionA, to: andA)
+        hand.attach(or, to: andA)
+        hand.attach(noActionD, to: andB)
+        hand.attach(andA, to: andB)
+        
+        // noActionA, noActionB, noActionC, noActionD, OR, AND_A, AND_B, End Rule
+        XCTAssertTrue(hand.cardCount == 8)
+        
+        // remove AND_A
+        hand.remove(andA)
+        
+        // noActionA, noActionB, noActionC, noActionD, OR, AND_B, End Rule
+        XCTAssertTrue(hand.cardCount == 7)
+        do {
+            let andBchildren = hand.children(of: andB)
+            XCTAssertTrue(andBchildren.count == 1)
+            andBchildren.forEach { XCTAssertTrue($0 == noActionD.identifier) }
+        }
+    }
+    
+    //swiftlint:disable:next function_body_length
+    func testAttachDetach() {
+        let noActionA = CardKit.Action.NoAction.instance()
+        let noActionB = CardKit.Action.NoAction.instance()
+        let noActionC = CardKit.Action.NoAction.instance()
+        let noActionD = CardKit.Action.NoAction.instance()
+        
+        guard let and: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() else {
+            XCTFail("did not obtain a LogicHandCard from typedInstance()")
+            return
+        }
+        guard let or: LogicHandCard = CardKit.Hand.Logic.LogicalOr.typedInstance() else {
+            XCTFail("did not obtain a LogicHandCard from typedInstance()")
+            return
+        }
+        
+        var hand = Hand()
+        
+        // attach noActionA to the AND, this should implicity add both cards to the hand
+        // noActionA, AND(A,_), End Rule
+        hand.attach(noActionA, to: and)
+        XCTAssertTrue(hand.cardCount == 3)
+        
+        // re-attach noActionA to the AND, should have no effect
+        // noActionA, AND(A,_), End Rule
+        hand.attach(noActionA, to: and)
+        XCTAssertTrue(hand.cardCount == 3)
+        
+        // attach noActionB, should now have 4 cards
+        // noActionA, noActionB, AND(A,B), End Rule
+        hand.attach(noActionB, to: and)
+        XCTAssertTrue(hand.cardCount == 4)
+        
+        // lets add an OR, should now have 5 cards
+        // noActionA, noActionB, AND(A,B), OR(_,_), End Rule
+        hand.add(or)
+        XCTAssertTrue(hand.cardCount == 5)
+        
+        // move noActionA to the OR, should still have 5 cards
+        // noActionA, noActionB, AND(_,B), OR(A,_), End Rule
+        hand.attach(noActionA, to: or)
+        XCTAssertTrue(hand.cardCount == 5)
+        do {
+            let andChildren = hand.children(of: and)
+            let orChildren = hand.children(of: or)
+            
+            XCTAssertTrue(andChildren.count == 1)
+            XCTAssertTrue(orChildren.count == 1)
+            andChildren.forEach { XCTAssertTrue($0 == noActionB.identifier) }
+            orChildren.forEach { XCTAssertTrue($0 == noActionA.identifier) }
+        }
+        
+        // attach noActionC to the AND (since it has a free slot now), should have 6 cards
+        // noActionA, noActionB, noActionC, AND(C,B), OR(A,_), End Rule
+        hand.attach(noActionC, to: and)
+        XCTAssertTrue(hand.cardCount == 6)
+        do {
+            let andChildren = hand.children(of: and)
+            XCTAssertTrue(andChildren.count == 2)
+            andChildren.forEach { XCTAssertTrue($0 == noActionC.identifier || $0 == noActionB.identifier) }
+        }
+        
+        // attach noActionD to the AND should fail; children are already noActionA and noActionC
+        // noActionA, noActionB, noActionC, AND(C,B), OR(A,_), End Rule
+        hand.attach(noActionD, to: and)
+        XCTAssertTrue(hand.cardCount == 6)
+        do {
+            let andChildren = hand.children(of: and)
+            XCTAssertTrue(andChildren.count == 2)
+            andChildren.forEach { XCTAssertTrue($0 == noActionC.identifier || $0 == noActionB.identifier) }
+        }
+        
+        // attach AND(C,B) to OR(A,_)
+        // noActionA, noActionB, noActionC, AND(C,B), OR(A,AND(C,B)), End Rule
+        hand.attach(and, to: or)
+        XCTAssertTrue(hand.cardCount == 6)
+        do {
+            let orChildren = hand.children(of: or)
+            XCTAssertTrue(orChildren.count == 2)
+            orChildren.forEach { XCTAssertTrue($0 == noActionA.identifier || $0 == and.identifier) }
+        }
+        
+        // detach AND(C,B) from OR(A,AND(C,B))
+        // noActionA, noActionB, noActionC, AND(C,B), OR(A,_), End Rule
+        hand.detach(and)
+        XCTAssertTrue(hand.cardCount == 6)
+        do {
+            let orChildren = hand.children(of: or)
+            XCTAssertTrue(orChildren.count == 1)
+            orChildren.forEach { XCTAssertTrue($0 == noActionA.identifier) }
+        }
     }
     
     func testEndRule() {

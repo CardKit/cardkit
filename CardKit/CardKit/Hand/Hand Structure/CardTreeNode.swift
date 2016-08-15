@@ -483,24 +483,24 @@ extension CardTreeNode {
         case .UnaryLogic(let logicCard, let subtree):
             spacePrint(level, "UnaryLogic \(logicCard.descriptor.name) [\(logicCard.identifier)]")
             if let subtree = subtree {
-                spacePrint(level, "  subtree [\(logicCard.identifier)]:")
+                spacePrint(level, "  subtree:")
                 subtree.printToConsole(atLevel: level + 1)
             } else {
-                spacePrint(level, "  subtree [\(logicCard.identifier)]: nil")
+                spacePrint(level, "  subtree: nil")
             }
         case .BinaryLogic(let logicCard, let left, let right):
             spacePrint(level, "BinaryLogic \(logicCard.descriptor.name) [\(logicCard.identifier)]")
             if let left = left {
-                spacePrint(level, "  left [\(logicCard.identifier)]:")
+                spacePrint(level, "  left:")
                 left.printToConsole(atLevel: level + 1)
             } else {
-                spacePrint(level, "  left [\(logicCard.identifier)] : nil")
+                spacePrint(level, "  left: nil")
             }
             if let right = right {
-                spacePrint(level, "  right [\(logicCard.identifier)] :")
+                spacePrint(level, "  right:")
                 right.printToConsole(atLevel: level + 1)
             } else {
-                spacePrint(level, "  right [\(logicCard.identifier)] : nil")
+                spacePrint(level, "  right: nil")
             }
         }
     }
