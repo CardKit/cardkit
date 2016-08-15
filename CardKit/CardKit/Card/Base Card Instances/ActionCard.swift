@@ -202,7 +202,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Returns the value held in the specified InputSlot
-    public func value(of slot: InputSlot) -> InputBinding {
+    public func value(of slot: InputSlot) -> InputDataBinding {
         guard let binding = self.inputBindings[slot] else { return .Unbound }
         
         switch binding {

@@ -20,13 +20,13 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input data
-    public var boundData: InputBinding = .Unbound
+    public var boundData: InputDataBinding = .Unbound
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: InputCardDescriptor, boundData: InputBinding) {
+    init(with descriptor: InputCardDescriptor, boundData: InputDataBinding) {
         self.descriptor = descriptor
         self.boundData = boundData
     }
@@ -36,7 +36,7 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public required init(json: JSON) throws {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
-        self.boundData = try json.decode("boundData", type: InputBinding.self)
+        self.boundData = try json.decode("boundData", type: InputDataBinding.self)
     }
     
     public func toJSON() -> JSON {
@@ -77,7 +77,7 @@ extension InputCard {
     }
     
     /// Bind the input data
-    private func boundValue<T>(value: T) throws -> InputBinding {
+    private func boundValue<T>(value: T) throws -> InputDataBinding {
         
         // make sure the type of the value matches the type expected by the descriptor
         func throwIfTypesDisagree(given: InputType, _ expected: InputType) throws {

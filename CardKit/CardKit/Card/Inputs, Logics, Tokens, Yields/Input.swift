@@ -73,10 +73,10 @@ extension InputType: JSONDecodable {
 }
 
 
-//MARK:- InputBinding
+//MARK:- InputDataBinding
 
 /// Represents a binding of a value to an Input
-public enum InputBinding {
+public enum InputDataBinding {
     case Unbound
     case SwiftInt(Int)
     case SwiftDouble(Double)
@@ -92,7 +92,7 @@ public enum InputBinding {
 
 //MARK: CustomStringConvertable
 
-extension InputBinding: CustomStringConvertible {
+extension InputDataBinding: CustomStringConvertible {
     public var description: String {
         get {
             switch self {
@@ -125,7 +125,7 @@ extension InputBinding: CustomStringConvertible {
 
 //MARK: JSONEncodable
 
-extension InputBinding: JSONEncodable {
+extension InputDataBinding: JSONEncodable {
     // swiftlint:disable:next function_body_length
     public func toJSON() -> JSON {
         switch self {
@@ -180,7 +180,7 @@ extension InputBinding: JSONEncodable {
 
 //MARK: JSONDecodable
 
-extension InputBinding: JSONDecodable {
+extension InputDataBinding: JSONDecodable {
     //swiftlint:disable:next function_body_length
     public init(json: JSON) throws {
         let type = try json.string("type")
@@ -191,7 +191,7 @@ extension InputBinding: JSONDecodable {
         }
         
         guard let typeEnum = InputType(rawValue: type) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
+            throw JSON.Error.ValueNotConvertible(value: json, to: InputDataBinding.self)
         }
         
         switch typeEnum {
@@ -209,14 +209,14 @@ extension InputBinding: JSONDecodable {
             if let data = NSData(base64EncodedString: value, options: NSDataBase64DecodingOptions(rawValue: 0)) {
                 self = .SwiftData(data)
             } else {
-                throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
+                throw JSON.Error.ValueNotConvertible(value: json, to: InputDataBinding.self)
             }
         case .SwiftDate:
             let value = try json.string("value")
             if let date = NSDate.date(fromTimezoneFormattedString: value) {
                 self = .SwiftDate(date)
             } else {
-                throw JSON.Error.ValueNotConvertible(value: json, to: InputBinding.self)
+                throw JSON.Error.ValueNotConvertible(value: json, to: InputDataBinding.self)
             }
         case .Coordinate2D:
             let value = try json.decode("value", type: CKCoordinate2D.self)
