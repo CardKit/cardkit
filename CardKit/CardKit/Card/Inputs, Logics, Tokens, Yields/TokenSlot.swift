@@ -61,3 +61,60 @@ extension TokenSlot: JSONEncodable {
             ])
     }
 }
+
+//MARK:- TokenSlotBinding
+
+/// A TokenSlot may only be bound to a TokenCard.
+public enum TokenSlotBinding {
+    case Unbound
+    case BoundToTokenCard(CardIdentifier)
+}
+
+//MARK: CustomStringConvertable
+
+extension TokenSlotBinding: CustomStringConvertible {
+    public var description: String {
+        get {
+            switch self {
+            case .Unbound:
+                return "[unbound]"
+            case .BoundToTokenCard(let identifier):
+                return "[bound to TokenCard \(identifier)]"
+            }
+        }
+    }
+}
+
+//MARK: JSONEncodable
+
+extension TokenSlotBinding: JSONEncodable {
+    public func toJSON() -> JSON {
+        switch self {
+        case .Unbound:
+            return .Dictionary([
+                "type": "Unbound"])
+        case .BoundToTokenCard(let identifier):
+            return .Dictionary([
+                "type": "BoundToTokenCard",
+                "target": identifier.toJSON()])
+        }
+    }
+}
+
+//MARK: JSONDecodable
+
+extension TokenSlotBinding: JSONDecodable {
+    public init(json: JSON) throws {
+        let type = try json.string("type")
+        
+        switch type {
+        case "Unbound":
+            self = .Unbound
+        case "BoundToTokenCard":
+            let target = try json.decode("target", type: CardIdentifier.self)
+            self = .BoundToTokenCard(target)
+        default:
+            throw JSON.Error.ValueNotConvertible(value: json, to: TokenSlotBinding.self)
+        }
+    }
+}

@@ -12,14 +12,20 @@ import Foundation
 
 /// Applied to card instances that accept tokens
 protocol BindsWithTokenCard {
+    // mutating binds
     mutating func bind(with card: TokenCard, in slot: TokenSlot)
     mutating func bind(with card: TokenCard, toSlotWithIdentifier identifier: TokenIdentifier) throws
     mutating func unbind(slot: TokenSlot)
     
+    // non-mutating binds
     func bound(with card: TokenCard, in slot: TokenSlot) -> ActionCard
     func bound(with card: TokenCard, toSlotWithIdentifier identifier: TokenIdentifier) throws -> ActionCard
     func unbound(slot: TokenSlot) -> ActionCard
     
+    // test if a slot is bound
     func isSlotBound(slot: TokenSlot) -> Bool
+    
+    // retrieve the binding of a slot
+    func binding(of slot: TokenSlot) -> TokenSlotBinding
     func cardIdentifierBound(to slot: TokenSlot) -> CardIdentifier?
 }

@@ -46,7 +46,11 @@ public struct Deck {
     var firstHand: Hand? {
         return hands.first
     }
-    
+}
+
+//MARK: Deck Addition
+
+extension Deck {
     mutating func add(hand: Hand) {
         self.hands.append(hand)
     }
@@ -58,7 +62,11 @@ public struct Deck {
     mutating func add(card: TokenCard) {
         self.tokenCards.append(card)
     }
-    
+}
+
+//MARK: Deck Removal
+
+extension Deck {
     mutating func remove(hand: Hand) {
         self.hands.removeObject(hand)
     }

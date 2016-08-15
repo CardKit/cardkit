@@ -6,7 +6,7 @@
 //  Copyright © 2016 IBM. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for CardKitRuntime.
 FOUNDATION_EXPORT double CardKitRuntimeVersionNumber;

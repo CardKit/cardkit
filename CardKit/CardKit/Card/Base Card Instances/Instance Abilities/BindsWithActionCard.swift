@@ -13,11 +13,11 @@ import Foundation
 /// Applied to card instances that bind with Action cards (i.e. bind to their yield values)
 protocol BindsWithActionCard {
     // mutating binds
-    mutating func bind(with card: ActionCard, in slot: InputSlot)
+    mutating func bind(with card: ActionCard, yield: Yield, in slot: InputSlot)
     mutating func unbind(slot: InputSlot)
     
     // non-mutating binds
-    func bound(with card: ActionCard, in slot: InputSlot) -> ActionCard
+    func bound(with card: ActionCard, yield: Yield, in slot: InputSlot) -> ActionCard
     func unbound(slot: InputSlot) -> ActionCard
     
     // test if a slot is bound

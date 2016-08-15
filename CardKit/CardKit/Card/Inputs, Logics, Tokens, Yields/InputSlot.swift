@@ -80,7 +80,7 @@ extension InputSlot: JSONEncodable {
 public enum InputSlotBinding {
     case Unbound
     case BoundToInputCard(InputCard)
-    case BoundToYieldingActionCard(CardIdentifier)
+    case BoundToYieldingActionCard(CardIdentifier, Yield)
 }
 
 //MARK: CustomStringConvertable
@@ -93,8 +93,8 @@ extension InputSlotBinding: CustomStringConvertible {
                 return "[unbound]"
             case .BoundToInputCard(let card):
                 return "[bound to InputCard \(card.identifier)]"
-            case .BoundToYieldingActionCard(let identifier):
-                return "[bound to ActionCard \(identifier)]"
+            case .BoundToYieldingActionCard(let cardIdentifier, let yield):
+                return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
             }
         }
     }
@@ -113,10 +113,11 @@ extension InputSlotBinding: JSONEncodable {
             return .Dictionary([
                 "type": "BoundToInputCard",
                 "target": card.toJSON()])
-        case .BoundToYieldingActionCard(let identifier):
+        case .BoundToYieldingActionCard(let cardIdentifier, let yield):
             return .Dictionary([
                 "type": "BoundToYieldingActionCard",
-                "target": identifier.toJSON()])
+                "identifier": cardIdentifier.toJSON(),
+                "yield": yield.toJSON()])
         }
     }
 }
@@ -134,9 +135,10 @@ extension InputSlotBinding: JSONDecodable {
             let target = try json.decode("target", type: InputCard.self)
             self = .BoundToInputCard(target)
         case "BoundToYieldingActionCard":
-            let target = try json.string("target")
-            let identifier = CardIdentifier(with: target)
-            self = .BoundToYieldingActionCard(identifier)
+            let identifier = try json.string("identifier")
+            let cardIdentifier = CardIdentifier(with: identifier)
+            let yield = try json.decode("yield", type: Yield.self)
+            self = .BoundToYieldingActionCard(cardIdentifier, yield)
         default:
             throw JSON.Error.ValueNotConvertible(value: json, to: InputSlotBinding.self)
         }

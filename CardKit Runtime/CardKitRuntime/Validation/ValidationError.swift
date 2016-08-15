@@ -40,7 +40,7 @@ public enum ValidationError {
 
 public enum DeckValidationError {
     /// No cards were present in the deck
-    case NoDeckCardPresent
+    case NoCardsInDeck
     
     /// No hands were present in the deck
     case NoHandsInDeck
@@ -53,6 +53,9 @@ public enum DeckValidationError {
     
     /// A Card and a Hand were found sharing the same identifier (equivalent String values)
     case CardAndHandShareSameIdentifier(HandIdentifier, CardIdentifier)
+    
+    /// A Yield was used before it was produced (args: consuming Card identifier, consuming Hand identifier, producing Card identifier, Yield identifier, producing Hand identifier)
+    case YieldConsumedBeforeProduced(CardIdentifier, HandIdentifier, CardIdentifier, YieldIdentifier, HandIdentifier)
 }
 
 //MARK: HandValidationError
@@ -63,6 +66,12 @@ public enum HandValidationError {
     
     /// A consumed token was bound to multiple cards (args: TokenCard identifier, set of card identifiers to which the token was bound)
     case ConsumedTokenBoundToMultipleCards(CardIdentifier, [CardIdentifier])
+    
+    /// The target of the branch was not found in the Deck (args: branch target HandIdentifier)
+    case BranchTargetNotFound(HandIdentifier)
+    
+    /// The Repeat card specifies an invalid number of repetitions (e.g. negative).
+    case RepeatCardCountInvalid(CardIdentifier, Int)
 }
 
 //MARK: CardValidationError
@@ -78,8 +87,14 @@ public enum CardValidationError {
     /// The Token card bound to this card was not found in the Deck
     case BoundTokenCardNotPresentInDeck(CardIdentifier)
     
+    /// The TokenSlot was bound to a card that is not a TokenCard (args: the token slot, the identifier of the non-Token card to which it was bound)
+    case TokenSlotNotBoundToTokenCard(TokenSlot, CardIdentifier)
+    
     /// The InputSlot is non-optional but does not have an InputCard bound to it
     case MandatoryInputSlotNotBound(InputSlot)
+    
+    /// The InputSlot is bound, but has an Unbound value.
+    case InputSlotBoundToUnboundValue(InputSlot)
     
     /// The InputSlot expected a different type of input than that provided by the InputCard (args: slot, expected type, bound InputCard identifier, provided type)
     case InputSlotBoundToUnexpectedType(InputSlot, InputType, CardIdentifier, InputType)
@@ -87,15 +102,6 @@ public enum CardValidationError {
     /// The InputSlot was bound to an invalid Card type (Deck, Hand, or Token)
     case InputSlotBoundToInvalidCardType(InputSlot, InputType, CardIdentifier, CardType)
     
-    /// The card uses a yield produced by a card in the same hand
-    case CardUsesYieldFromPeerCard(Yield, CardIdentifier)
-    
-    // The card uses a yield produced by a card in a later hand
-    case CardUsesYieldFromDownstreamCard(Yield, CardIdentifier)
-    
-    /// The target of the branch was not found in the Deck (args: branch target HandIdentifier)
-    case BranchTargetNotFound(HandIdentifier)
-    
-    /// The HandCard logic has an incorrect number of children (args: expected number, actual number). AND and OR cards expect two or more children; NOT cards expect one child.
-    case LogicCardHasIncorrectNumberOfChildren(Int, Int)
+    /// The InputSlot was bound to an ActionCard that doesn't produce a Yield of the expected type (args: slot, expected type, yielding CardIdentifier)
+    case ExpectedInputTypeNotProducedByYield(InputSlot, InputType, CardIdentifier)
 }
