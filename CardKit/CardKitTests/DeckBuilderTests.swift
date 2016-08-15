@@ -45,7 +45,9 @@ class DeckBuilderTests: XCTestCase {
         let noActionA = CardKit.Action.NoAction
         let noActionB = CardKit.Action.NoAction
         let hand = noActionA + noActionB
-        XCTAssertTrue(hand.cardCount == 2)
+        
+        // NoActionA, NoActionB, End Rule
+        XCTAssertTrue(hand.cardCount == 3)
     }
     
     func testTransitiveBinding() {
@@ -64,7 +66,8 @@ class DeckBuilderTests: XCTestCase {
             noAction
             )%
         
-        XCTAssertTrue(deck.cardCount == 2)
+        // NoAction, End Rule, NoAction, End Rule
+        XCTAssertTrue(deck.cardCount == 4)
     }
     
     func testDeckWithBindings() {

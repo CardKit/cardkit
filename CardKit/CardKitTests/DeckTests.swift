@@ -28,7 +28,8 @@ class DeckTests: XCTestCase {
             noAction
             )% + CardKit.Deck.Repeat
         
-        XCTAssertTrue(deck.cardCount == 3)
+        // NoAction, End Rule, NoAction, End Rule, Repeat
+        XCTAssertTrue(deck.cardCount == 5)
         XCTAssertTrue(deck.deckCards.count == 1)
     }
     
@@ -40,7 +41,8 @@ class DeckTests: XCTestCase {
             noAction
             )% + CardKit.Deck.Repeat + CardKit.Deck.Terminate.instance()
         
-        XCTAssertTrue(deck.cardCount == 4)
+        // NoAction, End Rule, No Action, End Rule, Repeat, Terminate
+        XCTAssertTrue(deck.cardCount == 6)
         XCTAssertTrue(deck.deckCards.count == 2)
     }
 }
