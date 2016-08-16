@@ -44,56 +44,54 @@ public enum DeckValidationError {
 //MARK DeckValidator
 
 class DeckValidator: Validator {
-    func validationActions() -> [ValidationAction] {
+    private let deck: Deck
+    
+    init(_ deck: Deck) {
+        self.deck = deck
+    }
+    
+    var validationActions: [ValidationAction] {
         var actions: [ValidationAction] = []
         
         // NoCardsInDeck
         actions.append({
-            (deck, _, _) in
-            return self.checkNoCardsInDeck(deck)
+            return self.checkNoCardsInDeck(self.deck)
         })
         
         // NoHandsInDeck
         actions.append({
-            (deck, _, _) in
-            return self.checkNoHandsInDeck(deck)
+            return self.checkNoHandsInDeck(self.deck)
         })
         
         // MultipleHandsWithSameIdentifier
         actions.append({
-            (deck, _, _) in
-            return self.checkMultipleHandsWithSameIdentifier(deck)
+            return self.checkMultipleHandsWithSameIdentifier(self.deck)
         })
         
         // CardUsedInMultipleHands
         actions.append({
-            (deck, _, _) in
-            return self.checkCardUsedInMultipleHands(deck)
+            return self.checkCardUsedInMultipleHands(self.deck)
         })
         
         // CardAndHandShareSameIdentifier
         actions.append({
-            (deck, _, _) in
-            return self.checkCardAndHandShareSameIdentifier(deck)
+            return self.checkCardAndHandShareSameIdentifier(self.deck)
         })
         
         // CardAndDeckShareSameIdentifier
         actions.append({
-            (deck, _, _) in
-            return self.checkCardAndDeckShareSameIdentifier(deck)
+            return self.checkCardAndDeckShareSameIdentifier(self.deck)
         })
         
         // HandAndDeckShareSameIdentifier
         actions.append({
-            (deck, _, _) in
-            return self.checkHandAndDeckShareSameIdentifier(deck)
+            return self.checkHandAndDeckShareSameIdentifier(self.deck)
         })
         
         // YieldConsumedBeforeProduced
         // YieldProducerNotFoundInDeck
         actions.append({
-            (deck, _, _) in
-            return self.checkYields(deck)
+            return self.checkYields(self.deck)
         })
         
         return actions
@@ -231,7 +229,6 @@ class DeckValidator: Validator {
             for card in hand.actionCards {
                 for (_, binding) in card.inputBindings {
                     // if this card is bound to a yielding action card...
-                    //swiftlint:disable:next conditional_binding_cascade
                     if case .BoundToYieldingActionCard(let identifier, let yield) = binding {
                         // and that card hasn't yet produced its yields...
                         if !actionCardsWithProducedYields.contains(identifier) {

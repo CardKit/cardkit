@@ -45,74 +45,60 @@ public enum CardValidationError {
 //MARK: CardValidator
 
 class CardValidator: Validator {
+    private let deck: Deck
+    private let hand: Hand
+    private let card: Card
     
-    func validationActions() -> [ValidationAction] {
+    init(_ deck: Deck, _ hand: Hand, _ card: Card) {
+        self.deck = deck
+        self.hand = hand
+        self.card = card
+    }
+    
+    var validationActions: [ValidationAction] {
         var actions: [ValidationAction] = []
         
         // CardDescriptorTypeDoesNotMatchInstanceType
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            return self.checkCardDescriptorTypeDoesNotMatchInstanceType(deck, hand, card)
+            return self.checkCardDescriptorTypeDoesNotMatchInstanceType(self.deck, self.hand, self.card)
         })
         
         // TokenSlotNotBound
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            
             // only applies to ActionCards
-            guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkTokenSlotNotBound(deck, hand, actionCard)
+            guard let actionCard = self.card as? ActionCard else { return [] }
+            return self.checkTokenSlotNotBound(self.deck, self.hand, actionCard)
         })
         
         // BoundTokenCardNotPresentInDeck
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            
             // only applies to ActionCards
-            guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkBoundTokenCardNotPresentInDeck(deck, hand, actionCard)
+            guard let actionCard = self.card as? ActionCard else { return [] }
+            return self.checkBoundTokenCardNotPresentInDeck(self.deck, self.hand, actionCard)
         })
         
         // TokenSlotNotBoundToTokenCard
         // TokenSlotBoundToUnboundValue
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            
             // only applies to ActionCards
-            guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkTokenSlotNotBoundToTokenCard(deck, hand, actionCard)
+            guard let actionCard = self.card as? ActionCard else { return [] }
+            return self.checkTokenSlotNotBoundToTokenCard(self.deck, self.hand, actionCard)
         })
         
         // MandatoryInputSlotNotBound
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            
             // only applies to ActionCards
-            guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkMandatoryInputSlotNotBound(deck, hand, actionCard)
+            guard let actionCard = self.card as? ActionCard else { return [] }
+            return self.checkMandatoryInputSlotNotBound(self.deck, self.hand, actionCard)
         })
         
         // InputSlotBoundToUnboundValue
         // InputSlotBoundToUnexpectedType
         // InputSlotBoundToInvalidCardType
         actions.append({
-            (deck, hand, card) in
-            guard let hand = hand else { return [] }
-            guard let card = card else { return [] }
-            
             // only applies to ActionCards
-            guard let actionCard = card as? ActionCard else { return [] }
-            return self.checkInputSlotBindings(deck, hand, actionCard)
+            guard let actionCard = self.card as? ActionCard else { return [] }
+            return self.checkInputSlotBindings(self.deck, self.hand, actionCard)
         })
         
         return actions

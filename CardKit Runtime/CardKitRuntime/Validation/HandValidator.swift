@@ -48,71 +48,61 @@ public enum HandValidationError {
 //MARK: HandValidator
 
 class HandValidator: Validator {
-    func validationActions() -> [ValidationAction] {
+    private let deck: Deck
+    private let hand: Hand
+    
+    init(_ deck: Deck, _ hand: Hand) {
+        self.deck = deck
+        self.hand = hand
+    }
+    
+    var validationActions: [ValidationAction] {
         var actions: [ValidationAction] = []
         
         // NoCardsInHand
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkNoCardsInHand(deck, hand)
+            return self.checkNoCardsInHand(self.deck, self.hand)
         })
         
         // BoundTokenNotFoundInDeck
         // ConsumedTokenBoundToMultipleCards
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkTokenBindings(deck, hand)
+            return self.checkTokenBindings(self.deck, self.hand)
         })
         
         // BranchTargetNotSpecified
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkBranchTargetNotSpecified(deck, hand)
+            return self.checkBranchTargetNotSpecified(self.deck, self.hand)
         })
         
         // BranchTargetNotFound
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkBranchTargetNotFound(deck, hand)
+            return self.checkBranchTargetNotFound(self.deck, self.hand)
         })
         
         // MultipleHandLevelBranchesFound
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkMultipleHandLevelBranchesFound(deck, hand)
+            return self.checkMultipleHandLevelBranchesFound(self.deck, self.hand)
         })
         
         // CardTreeContainsMultipleBranches
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkCardTreeContainsMultipleBranches(deck, hand)
+            return self.checkCardTreeContainsMultipleBranches(self.deck, self.hand)
         })
         
         // SubhandUnreachable
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkSubhandUnreachable(deck, hand)
+            return self.checkSubhandUnreachable(self.deck, self.hand)
         })
         
         // HandContainsCircularReference
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkHandContainsCircularReference(deck, hand)
+            return self.checkHandContainsCircularReference(self.deck, self.hand)
         })
         
         // RepeatCardCountInvalid
         actions.append({
-            (deck, hand, _) in
-            guard let hand = hand else { return [] }
-            return self.checkRepeatCardCountInvalid(deck, hand)
+            return self.checkRepeatCardCountInvalid(self.deck, self.hand)
         })
         
         return actions

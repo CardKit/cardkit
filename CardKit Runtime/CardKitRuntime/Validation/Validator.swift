@@ -10,8 +10,8 @@ import Foundation
 
 import CardKit
 
-public typealias ValidationAction = (Deck, Hand?, Card?) -> [ValidationError]
+public typealias ValidationAction = () -> [ValidationError]
 
 public protocol Validator {
-    func validationActions() -> [ValidationAction]
+    var validationActions: [ValidationAction] { get }
 }
