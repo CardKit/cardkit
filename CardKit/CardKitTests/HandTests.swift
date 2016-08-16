@@ -29,7 +29,7 @@ class HandTests: XCTestCase {
     }
     
     func testHandAdd() {
-        var hand = Hand()
+        let hand = Hand()
         
         let noAction = CardKit.Action.NoAction.instance()
         hand.add(noAction)
@@ -47,7 +47,7 @@ class HandTests: XCTestCase {
     }
     
     func testHandRemove() {
-        var hand = Hand()
+        let hand = Hand()
         
         let noAction = CardKit.Action.NoAction.instance()
         hand.add(noAction)
@@ -66,7 +66,7 @@ class HandTests: XCTestCase {
     }
     
     func testCardMembership() {
-        var hand = Hand()
+        let hand = Hand()
         
         let noAction = CardKit.Action.NoAction.instance()
         
@@ -82,7 +82,7 @@ class HandTests: XCTestCase {
     }
     
     func testHandMultipleAdd() {
-        var hand = Hand()
+        let hand = Hand()
         
         let noAction = CardKit.Action.NoAction.instance()
         hand.add(noAction)
@@ -344,7 +344,7 @@ class HandTests: XCTestCase {
         let noActionC = CardKit.Action.NoAction.instance()
         let noActionD = CardKit.Action.NoAction.instance()
         
-        var hand = Hand()
+        let hand = Hand()
         
         // noActionA, End Rule
         hand.add(noActionA)
@@ -398,7 +398,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        var hand = Hand()
+        let hand = Hand()
         
         // AND(AND(A,OR(B,C)),D)
         hand.attach(noActionB, to: or)
@@ -439,7 +439,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        var hand = Hand()
+        let hand = Hand()
         
         // attach noActionA to the AND, this should implicity add both cards to the hand
         // noActionA, AND(A,_), End Rule
@@ -522,7 +522,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        var hand = Hand()
+        let hand = Hand()
         hand.add(endRuleAny)
         
         XCTAssertTrue(hand.endRule == .EndWhenAnySatisfied)
@@ -538,10 +538,10 @@ class HandTests: XCTestCase {
             return
         }
         
-        var handA = Hand()
+        let handA = Hand()
         handA.add(endRuleAll)
         
-        var handB = Hand()
+        let handB = Hand()
         handB.add(endRuleAny)
         
         // merge B into A: B's rule overwrites A's rule
@@ -563,7 +563,7 @@ class HandTests: XCTestCase {
         
         repeatCard.repeatCount = 5
         
-        var hand = Hand()
+        let hand = Hand()
         XCTAssertTrue(hand.repeatCount == 0)
         XCTAssertTrue(hand.executionCount == 1)
         
@@ -585,10 +585,10 @@ class HandTests: XCTestCase {
         repeatCardA.repeatCount = 3
         repeatCardB.repeatCount = 6
         
-        var handA = Hand()
+        let handA = Hand()
         handA.add(repeatCardA)
         
-        var handB = Hand()
+        let handB = Hand()
         handB.add(repeatCardB)
         
         // merge B into A: B's rule overwrites A's rule
@@ -601,7 +601,7 @@ class HandTests: XCTestCase {
     }
     
     func testSimpleBranchCard() {
-        var handA = Hand()
+        let handA = Hand()
         let handB = Hand()
         
         let branchCard = handA.addBranch(to: handB)
@@ -617,7 +617,7 @@ class HandTests: XCTestCase {
         let noActionF = CardKit.Action.NoAction.instance()
         
         // this is kind of cheating, we should never use action card instances across hands like this
-        var handA = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
+        let handA = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
         let handB = !noActionA + (noActionB && noActionC) + (noActionD || !noActionE) + noActionF
         
         for tree in handA.cardTrees {
@@ -631,7 +631,7 @@ class HandTests: XCTestCase {
     func testBranchOverwriting() {
         let noActionA = CardKit.Action.NoAction.instance()
         let noActionB = CardKit.Action.NoAction.instance()
-        var handA = noActionA && noActionB
+        let handA = noActionA && noActionB
         guard let tree = handA.cardTrees.first else {
             XCTFail("handA does not have any cardTrees")
             return
@@ -644,5 +644,43 @@ class HandTests: XCTestCase {
         handA.addBranch(from: tree, to: handC)
         
         XCTAssertTrue(handA.branchTarget(of: tree) == handC.identifier)
+    }
+    
+    func testSubhands() {
+        let handA = Hand()
+        let handB = Hand()
+        let handC = Hand()
+        let handD = Hand()
+        let handE = Hand()
+        
+        handA.addBranch(to: handB)
+        handB.addBranch(to: handC)
+        handC.addBranch(to: handD)
+        handD.addBranch(to: handE)
+        
+        // each hand has only one (direct) subhand
+        XCTAssertTrue(handA.subhands.count == 1)
+        XCTAssertTrue(handB.subhands.count == 1)
+        XCTAssertTrue(handC.subhands.count == 1)
+        XCTAssertTrue(handD.subhands.count == 1)
+        XCTAssertTrue(handE.subhands.count == 0)
+        
+        // but they have multiple nested subhands
+        XCTAssertTrue(handA.nestedSubhands.count == 4)
+        XCTAssertTrue(handB.nestedSubhands.count == 3)
+        XCTAssertTrue(handC.nestedSubhands.count == 2)
+        XCTAssertTrue(handD.nestedSubhands.count == 1)
+        XCTAssertTrue(handE.nestedSubhands.count == 0)
+        
+        // remove things
+        handC.removeBranches(to: handD)
+        handC.remove(handD)
+        
+        // but they have multiple nested subhands
+        XCTAssertTrue(handA.nestedSubhands.count == 2)
+        XCTAssertTrue(handB.nestedSubhands.count == 1)
+        XCTAssertTrue(handC.nestedSubhands.count == 0)
+        XCTAssertTrue(handD.nestedSubhands.count == 1)
+        XCTAssertTrue(handE.nestedSubhands.count == 0)
     }
 }
