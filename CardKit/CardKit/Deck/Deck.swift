@@ -46,6 +46,13 @@ public struct Deck {
         }
     }
     
+    /// Returns the complete set of Cards in the Deck.
+    public var cards: [Card] {
+        var cards: [Card] = []
+        self.hands.forEach { cards.appendContentsOf($0.cards) }
+        return cards
+    }
+    
     /// Returns the complete number of Cards in the Deck.
     public var cardCount: Int {
         return self.deckHands.reduce(0) {

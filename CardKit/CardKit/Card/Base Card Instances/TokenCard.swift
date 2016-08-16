@@ -14,7 +14,7 @@ public class TokenCard: Card, JSONEncodable, JSONDecodable {
     public let descriptor: TokenCardDescriptor
     
     // Card protocol
-    public var identifier: CardIdentifier = CardIdentifier()
+    public private (set) var identifier: CardIdentifier = CardIdentifier()
     public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }

@@ -366,15 +366,20 @@ extension Hand {
 //MARK: Card Query
 
 extension Hand {
+    /// Returns true if the ahnd contains a card with the given identifier.
+    public func contains(identfier: CardIdentifier) -> Bool {
+        return self.card(with: identifier) != nil
+    }
+    
     /// Returns true if the hand contains the given card.
-    func contains(card: ActionCard) -> Bool {
+    public func contains(card: ActionCard) -> Bool {
         return self.cardTrees.reduce(false) {
             return $0 || $1.contains(cardIdentifier: card.identifier)
         }
     }
     
     /// Returns true if the hand contains the given card.
-    func contains(card: HandCard) -> Bool {
+    public func contains(card: HandCard) -> Bool {
         // figure out what this is to know how to remove it
         switch card.descriptor.handCardType {
         case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
@@ -397,7 +402,7 @@ extension Hand {
     }
     
     /// Returns the set of ActionCards with the given descriptor.
-    func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
+    public func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
         var matching: [ActionCard] = []
         for tree in self.cardTrees {
             matching.appendContentsOf(tree.cards(matching: descriptor))
@@ -406,7 +411,7 @@ extension Hand {
     }
     
     /// Returns the set of HandCards with the given descriptor.
-    func cards(matching descriptor: HandCardDescriptor) -> [HandCard] {
+    public func cards(matching descriptor: HandCardDescriptor) -> [HandCard] {
         switch descriptor.handCardType {
         case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
             // find all LogicHandCards in the CardTrees
@@ -438,7 +443,7 @@ extension Hand {
     }
     
     /// Returns the Card matching the given CardIdentifier
-    func card(with identifier: CardIdentifier) -> Card? {
+    public func card(with identifier: CardIdentifier) -> Card? {
         // is this the End Rule card?
         if self.endRuleCard.identifier == identifier {
             return self.endRuleCard

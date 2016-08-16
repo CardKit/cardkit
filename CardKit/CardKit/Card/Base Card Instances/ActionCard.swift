@@ -14,18 +14,19 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public let descriptor: ActionCardDescriptor
     
     // Card protocol
-    public var identifier: CardIdentifier = CardIdentifier()
+    public private (set) var identifier: CardIdentifier = CardIdentifier()
     public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input bindings
-    var inputBindings: [InputSlot : InputSlotBinding] = [:]
+    public private (set) var inputBindings: [InputSlot : InputSlotBinding] = [:]
     
     public var inputSlots: [InputSlot] {
         return Array(self.inputBindings.keys)
     }
     
+    /// Returns the InputCards bound to us.
     public var boundInputCards: [InputCard] {
         var cards: [InputCard] = []
         for binding in self.inputBindings.values {
@@ -39,6 +40,7 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
         return cards
     }
     
+    /// Returns the CardIdentifiers of the ActionCards whose Yields we are using.
     public var boundActionCardIdentifiers: [CardIdentifier] {
         var identifiers: [CardIdentifier] = []
         for binding in self.inputBindings.values {
