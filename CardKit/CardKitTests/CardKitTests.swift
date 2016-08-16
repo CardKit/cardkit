@@ -27,8 +27,8 @@ class CardKitTests: XCTestCase {
         let h1: Hand = Hand()
         let h2: Hand = Hand()
         
-        d.hands.append(h1)
-        d.hands.append(h2)
+        d.deckHands.append(h1)
+        d.deckHands.append(h2)
         
         print("\(d.toJSON())")
         

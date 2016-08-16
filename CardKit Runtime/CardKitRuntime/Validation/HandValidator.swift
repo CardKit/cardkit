@@ -28,8 +28,18 @@ public enum HandValidationError {
     /// The target of the branch was not found in the Deck (args: branch target HandIdentifier)
     case BranchTargetNotFound(HandIdentifier)
     
+    /// Multiple Hand-level BranchHandCards were found. Hand-level means the CardTreeIdentifier is nil, signifying
+    /// that the branch will happen when the entire Hand is satisfied.
+    case MultipleHandLevelBranchesFound([CardIdentifier])
+    
+    /// Multiple BranchHandCards are attached to the same CardTree (args: CardTree identifier, list of BranchHandCards)
+    case CardTreeContainsMultipleBranches(CardTreeIdentifier, [CardIdentifier])
+    
     /// There is no BranchHandCard that branches to the specified subhand
     case SubhandUnreachable(HandIdentifier)
+    
+    /// A circular reference was found. The list of HandIdentifiers contains the reference cycle.
+    case HandContainsCircularReference([HandIdentifier])
     
     /// The Repeat card specifies an invalid number of repetitions (e.g. negative).
     case RepeatCardCountInvalid(CardIdentifier, Int)
@@ -70,11 +80,32 @@ class HandValidator: Validator {
             return self.checkBranchTargetNotFound(deck, hand)
         })
         
+        // MultipleHandLevelBranchesFound
+        actions.append({
+            (deck, hand, _) in
+            guard let hand = hand else { return [] }
+            return self.checkMultipleHandLevelBranchesFound(deck, hand)
+        })
+        
+        // CardTreeContainsMultipleBranches
+        actions.append({
+            (deck, hand, _) in
+            guard let hand = hand else { return [] }
+            return self.checkCardTreeContainsMultipleBranches(deck, hand)
+        })
+        
         // SubhandUnreachable
         actions.append({
             (deck, hand, _) in
             guard let hand = hand else { return [] }
             return self.checkSubhandUnreachable(deck, hand)
+        })
+        
+        // HandContainsCircularReference
+        actions.append({
+            (deck, hand, _) in
+            guard let hand = hand else { return [] }
+            return self.checkHandContainsCircularReference(deck, hand)
         })
         
         // RepeatCardCountInvalid
@@ -165,6 +196,47 @@ class HandValidator: Validator {
         return errors
     }
     
+    func checkMultipleHandLevelBranchesFound(deck: Deck, _ hand: Hand) -> [ValidationError] {
+        var errors: [ValidationError] = []
+        
+        var handLevelBranches: [CardIdentifier] = []
+        
+        for card in hand.branchCards {
+            if card.targetHandIdentifier == nil {
+                handLevelBranches.append(card.identifier)
+            }
+        }
+        
+        if handLevelBranches.count > 1 {
+            errors.append(ValidationError.HandError(.Error, deck.identifier, hand.identifier, .MultipleHandLevelBranchesFound(handLevelBranches)))
+        }
+        
+        return errors
+    }
+    
+    func checkCardTreeContainsMultipleBranches(deck: Deck, _ hand: Hand) -> [ValidationError] {
+        var errors: [ValidationError] = []
+        
+        var cardTreeBranches: [CardTreeIdentifier : [CardIdentifier]] = [:]
+        
+        for card in hand.branchCards {
+            guard let source = card.cardTreeIdentifier else { continue }
+            guard let target = card.targetHandIdentifier else { continue }
+            
+            var branches = cardTreeBranches[source] ?? []
+            branches.append(target)
+            cardTreeBranches[source] = branches
+        }
+        
+        for (cardTree, branchTargets) in cardTreeBranches {
+            if branchTargets.count > 1 {
+                errors.append(ValidationError.HandError(.Error, deck.identifier, hand.identifier, .CardTreeContainsMultipleBranches(cardTree, branchTargets)))
+            }
+        }
+        
+        return errors
+    }
+    
     func checkSubhandUnreachable(deck: Deck, _ hand: Hand) -> [ValidationError] {
         var errors: [ValidationError] = []
         
@@ -181,6 +253,37 @@ class HandValidator: Validator {
         // targeting it
         for subhand in unbranchedSubhands {
             errors.append(ValidationError.HandError(.Warning, deck.identifier, hand.identifier, .SubhandUnreachable(subhand.identifier)))
+        }
+        
+        return errors
+    }
+    
+    func checkHandContainsCircularReference(deck: Deck, _ hand: Hand) -> [ValidationError] {
+        var errors: [ValidationError] = []
+        
+        // do iterative DFS to find circular references
+        var handStack: [Hand] = []
+        handStack.append(hand)
+        
+        var dfsOrder: [HandIdentifier] = []
+        var discoveredHands: Set<HandIdentifier> = Set()
+        
+        while !handStack.isEmpty {
+            let h = handStack.removeLast()
+            if !discoveredHands.contains(h.identifier) {
+                discoveredHands.insert(h.identifier)
+                dfsOrder.append(h.identifier)
+                handStack.appendContentsOf(h.subhands)
+            } else {
+                // check for a cycle
+                if let index = dfsOrder.indexOf(h.identifier) {
+                    var cycle = Array(dfsOrder[index...dfsOrder.endIndex])
+                    cycle.append(h.identifier)
+                    
+                    // cycle found
+                    errors.append(ValidationError.HandError(.Error, deck.identifier, hand.identifier, .HandContainsCircularReference(cycle)))
+                }
+            }
         }
         
         return errors

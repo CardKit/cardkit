@@ -13,52 +13,83 @@ import Freddy
 public typealias DeckIdentifier = CardIdentifier
 
 public struct Deck {
-    public var hands: [Hand]
+    /// These are the Hands that are stored at the Deck level.
+    /// Hands may also be stored as subhands of a Hand, which means
+    /// that this is NOT the complete set of Hands in the deck.
+    /// Do not rely on this member providing complete information about all
+    /// Hands in the Deck; rather, use the computed properties `hands` and
+    /// `handCount`.
+    public var deckHands: [Hand]
+    
+    /// List of Deck cards in the Deck.
     public var deckCards: [DeckCard]
+    
+    /// List of Token cards in the Deck.
     public var tokenCards: [TokenCard]
     
     public var identifier: DeckIdentifier = DeckIdentifier()
+    
+    /// Returns the complete set of Hands in the Deck, including
+    /// all Hands that are nested in other Hands due to branching logic.
+    public var hands: [Hand] {
+        var hands: [Hand] = []
+        hands.appendContentsOf(self.deckHands)
+        self.deckHands.forEach { hands.appendContentsOf($0.nestedSubhands) }
+        return hands
+    }
+    
+    /// Returns the complete number of Hands in the Deck, including
+    /// Hands that are nested in other Hands due to branching logic.
+    public var handCount: Int {
+        return deckHands.count + deckHands.reduce(0) {
+            (count, hand) in count + hand.nestedSubhandCount
+        }
+    }
+    
+    /// Returns the complete number of Cards in the Deck.
+    public var cardCount: Int {
+        return self.deckHands.reduce(0) {
+            (count, hand) in count + hand.nestedCardCount
+        } + self.deckCards.count + self.tokenCards.count
+    }
+    
+    /// Returns the first Hand in the Deck, or nil if there are no
+    /// hands in the deck.
+    public var firstHand: Hand? {
+        return deckHands.first
+    }
     
     init() {
         self.init(with: [])
     }
     
     init(with hands: [Hand]) {
-        self.hands = hands
+        self.deckHands = hands
         self.deckCards = []
         self.tokenCards = []
     }
     
     init(copying deck: Deck) {
-        self.hands = deck.hands
+        self.deckHands = deck.deckHands
         self.deckCards = deck.deckCards
         self.tokenCards = []
-    }
-    
-    var handCount: Int {
-        return hands.count
-    }
-    
-    var cardCount: Int {
-        return hands.reduce(0, combine: {(count, hand) in count + hand.cardCount}) + self.deckCards.count + self.tokenCards.count
-    }
-    
-    var firstHand: Hand? {
-        return hands.first
     }
 }
 
 //MARK: Deck Addition
 
 extension Deck {
+    /// Add the Hand to the Deck as a top-level Hand (i.e. not nested within any Hands).
     mutating func add(hand: Hand) {
-        self.hands.append(hand)
+        self.deckHands.append(hand)
     }
     
+    /// Add the Deck card to the Deck.
     mutating func add(card: DeckCard) {
         self.deckCards.append(card)
     }
     
+    /// Add the Token card to the Deck.
     mutating func add(card: TokenCard) {
         self.tokenCards.append(card)
     }
@@ -67,14 +98,24 @@ extension Deck {
 //MARK: Deck Removal
 
 extension Deck {
+    /// Remove the Hand from the Deck. Removes the Hand even if it is nested within another Hand.
     mutating func remove(hand: Hand) {
-        self.hands.removeObject(hand)
+        if self.deckHands.contains(hand) {
+            self.deckHands.removeObject(hand)
+        } else {
+            // find this Hand in a subhand
+            for deckHand in self.deckHands {
+                deckHand.remove(hand)
+            }
+        }
     }
     
+    /// Remove the Deck card from the Deck.
     mutating func remove(card: DeckCard) {
         self.deckCards.removeObject(card)
     }
     
+    /// Remove the Token card from the Deck.
     mutating func remove(card: TokenCard) {
         self.tokenCards.removeObject(card)
     }
@@ -91,6 +132,18 @@ extension Deck {
                 return tokenCard
             }
         }
+        return nil
+    }
+    
+    /// Returns the Hand with the given CardIdentifier, or nil if no such Hand
+    /// exists in the Deck.
+    public func hand(with identifier: HandIdentifier) -> Hand? {
+        for hand in self.hands {
+            if hand.identifier == identifier {
+                return hand
+            }
+        }
+        
         return nil
     }
 }
@@ -115,7 +168,7 @@ extension Deck: Hashable {
 
 extension Deck: JSONDecodable {
     public init(json: JSON) throws {
-        self.hands = try json.arrayOf("hands", type: Hand.self)
+        self.deckHands = try json.arrayOf("deckHands", type: Hand.self)
         self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
         self.tokenCards = try json.arrayOf("tokenCards", type: TokenCard.self)
         self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
@@ -127,7 +180,7 @@ extension Deck: JSONDecodable {
 extension Deck: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "hands": self.hands.toJSON(),
+            "deckHands": self.deckHands.toJSON(),
             "deckCards": self.deckCards.toJSON(),
             "tokenCards": self.tokenCards.toJSON(),
             "identifier": self.identifier.toJSON()
