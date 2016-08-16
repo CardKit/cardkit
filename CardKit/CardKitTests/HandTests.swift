@@ -682,5 +682,15 @@ class HandTests: XCTestCase {
         XCTAssertTrue(handC.nestedSubhands.count == 0)
         XCTAssertTrue(handD.nestedSubhands.count == 1)
         XCTAssertTrue(handE.nestedSubhands.count == 0)
+        
+        // recursive removal -- handC isn't a subhand of handA,
+        // but it is of handB
+        handA.remove(handC)
+        
+        XCTAssertTrue(handA.nestedSubhands.count == 1)
+        XCTAssertTrue(handB.nestedSubhands.count == 0)
+        XCTAssertTrue(handC.nestedSubhands.count == 0)
+        XCTAssertTrue(handD.nestedSubhands.count == 1)
+        XCTAssertTrue(handE.nestedSubhands.count == 0)
     }
 }
