@@ -30,6 +30,11 @@ public class CardTree: JSONEncodable, JSONDecodable {
         return root.cards
     }
     
+    public var actionCards: [ActionCard] {
+        guard let root = self.root else { return [] }
+        return root.actionCards
+    }
+    
     public var cardCount: Int {
         return self.cards.count
     }

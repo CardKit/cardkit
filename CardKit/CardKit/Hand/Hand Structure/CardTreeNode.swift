@@ -40,6 +40,28 @@ public indirect enum CardTreeNode {
             return cards
         }
     }
+    
+    public var actionCards: [ActionCard] {
+        switch self {
+        case .Action(let actionCard):
+            return [actionCard]
+        case .UnaryLogic(_, let subtree):
+            var cards: [ActionCard] = []
+            if let subtree = subtree {
+                cards.appendContentsOf(subtree.actionCards)
+            }
+            return cards
+        case .BinaryLogic(_, let left, let right):
+            var cards: [ActionCard] = []
+            if let left = left {
+                cards.appendContentsOf(left.actionCards)
+            }
+            if let right = right {
+                cards.appendContentsOf(right.actionCards)
+            }
+            return cards
+        }
+    }
 }
 
 //MARK: Equatable

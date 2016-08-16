@@ -17,16 +17,16 @@ public struct Hand {
     /// LogicHandCards and ActionCards. A CardTree may be associated with a BranchHandCard
     /// in the case that upon satisfaction of the CardTree's logic, execution branches
     /// to the target of the BranchHandCard.
-    private (set) var cardTrees: [CardTree] = []
+    private var cardTrees: [CardTree] = []
     
     /// The set of Hands to which this Hand may branch.
-    private (set) var subhands: [Hand] = []
+    public private (set) var subhands: [Hand] = []
     
     /// These cards specify which CardTree branches to which child Hand.
-    private (set) var branchCards: [BranchHandCard] = []
+    public private (set) var branchCards: [BranchHandCard] = []
     
     /// Specifies whether the hand should repeat a number of times
-    private (set) var repeatCard: RepeatHandCard? = nil
+    public private (set) var repeatCard: RepeatHandCard? = nil
     
     /// Specifies the End Rule that governs the logic of this Hand. The default
     /// is that ALL cards in the hand must End before moving to the next Hand.
@@ -36,7 +36,7 @@ public struct Hand {
     /// Unique identifier for the Hand
     public var identifier: HandIdentifier = HandIdentifier()
     
-    /// Returns all of the Cards in the hand, including ActionCards (with their bound InputCards),
+    /// Returns all of the Cards in the Hand, including ActionCards (with their bound InputCards),
     /// BranchHandCards, LogicHandCards, and the EndRuleHandCard.
     public var cards: [Card] {
         var cards: [Card] = []
@@ -55,6 +55,13 @@ public struct Hand {
         // append the end rule card
         cards.append(self.endRuleCard)
         
+        return cards
+    }
+    
+    /// Returns all of the ActionCards in the Hand.
+    public var actionCards: [ActionCard] {
+        var cards: [ActionCard] = []
+        self.cardTrees.forEach { cards.appendContentsOf($0.actionCards) }
         return cards
     }
     

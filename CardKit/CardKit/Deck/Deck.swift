@@ -80,6 +80,21 @@ extension Deck {
     }
 }
 
+//MARK: Deck Query
+
+extension Deck {
+    /// Returns the TokenCard with the given CardIdentifier, or nil if no such
+    /// TokenCard exists in the Deck.
+    public func tokenCard(with identifier: CardIdentifier) -> TokenCard? {
+        for tokenCard in self.tokenCards {
+            if tokenCard.identifier == identifier {
+                return tokenCard
+            }
+        }
+        return nil
+    }
+}
+
 //MARK: Equatable
 
 extension Deck: Equatable {}

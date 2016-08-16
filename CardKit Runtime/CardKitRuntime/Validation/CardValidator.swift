@@ -102,6 +102,7 @@ class CardValidator: Validator {
             return self.checkMandatoryInputSlotNotBound(deck, hand, actionCard)
         })
         
+        // InputSlotBoundToUnboundValue
         // InputSlotBoundToUnexpectedType
         // InputSlotBoundToInvalidCardType
         actions.append({
