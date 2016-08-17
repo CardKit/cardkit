@@ -519,9 +519,9 @@
 		CC931A041D493D5F001B71B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CC9319FE1D493D45001B71B1 /* Freddy.framework */,
-				CC9E75CE1D5145BD00B7C738 /* Freddy.framework */,
-				CC931A021D493D54001B71B1 /* Freddy.framework */,
+				CCE72A2B1D64BCA800A347D8 /* iOS */,
+				CCE72A2C1D64BCAD00A347D8 /* macOS */,
+				CCE72A2D1D64BCB100A347D8 /* tvOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -635,6 +635,30 @@
 				CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */,
 			);
 			path = "Hand Structure";
+			sourceTree = "<group>";
+		};
+		CCE72A2B1D64BCA800A347D8 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CC9319FE1D493D45001B71B1 /* Freddy.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CCE72A2C1D64BCAD00A347D8 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CC9E75CE1D5145BD00B7C738 /* Freddy.framework */,
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		CCE72A2D1D64BCB100A347D8 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				CC931A021D493D54001B71B1 /* Freddy.framework */,
+			);
+			name = tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
