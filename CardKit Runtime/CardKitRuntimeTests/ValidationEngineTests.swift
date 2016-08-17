@@ -1,15 +1,15 @@
 //
-//  CardKitRuntimeTests.swift
-//  CardKitRuntimeTests
+//  ValidationEngineTests.swift
+//  CardKitRuntime
 //
 //  Created by Justin Weisz on 8/2/16.
 //  Copyright © 2016 IBM. All rights reserved.
 //
 
 import XCTest
-@testable import CardKitRuntime
+@testable import CardKit
 
-class CardKitRuntimeTests: XCTestCase {
+class ValidationEngineTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,4 +21,16 @@ class CardKitRuntimeTests: XCTestCase {
         super.tearDown()
     }
     
+    func testValidationEngineSimple() {
+        let noAction = CardKit.Action.NoAction
+        
+        let deck = (
+            noAction ==>
+            noAction
+            )%
+        
+        let errors = ValidationEngine.validate(deck)
+        
+        XCTAssertTrue(errors.count == 0)
+    }
 }
