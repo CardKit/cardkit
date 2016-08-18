@@ -12,7 +12,7 @@ import Freddy
 
 public typealias DeckIdentifier = CardIdentifier
 
-public struct Deck {
+public class Deck {
     /// These are the Hands that are stored at the Deck level.
     /// Hands may also be stored as subhands of a Hand, which means
     /// that this is NOT the complete set of Hands in the deck.
@@ -66,7 +66,7 @@ public struct Deck {
         return deckHands.first
     }
     
-    init() {
+    convenience init() {
         self.init(with: [])
     }
     
@@ -81,23 +81,41 @@ public struct Deck {
         self.deckCards = deck.deckCards
         self.tokenCards = []
     }
+    
+    //MARK: JSONEncodable & JSONDecodable
+    
+    public init(json: JSON) throws {
+        self.deckHands = try json.arrayOf("deckHands", type: Hand.self)
+        self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
+        self.tokenCards = try json.arrayOf("tokenCards", type: TokenCard.self)
+        self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
+    }
+    
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "deckHands": self.deckHands.toJSON(),
+            "deckCards": self.deckCards.toJSON(),
+            "tokenCards": self.tokenCards.toJSON(),
+            "identifier": self.identifier.toJSON()
+            ])
+    }
 }
 
 //MARK: Deck Addition
 
 extension Deck {
     /// Add the Hand to the Deck as a top-level Hand (i.e. not nested within any Hands).
-    mutating func add(hand: Hand) {
+    func add(hand: Hand) {
         self.deckHands.append(hand)
     }
     
     /// Add the Deck card to the Deck.
-    mutating func add(card: DeckCard) {
+    func add(card: DeckCard) {
         self.deckCards.append(card)
     }
     
     /// Add the Token card to the Deck.
-    mutating func add(card: TokenCard) {
+    func add(card: TokenCard) {
         self.tokenCards.append(card)
     }
 }
@@ -106,7 +124,7 @@ extension Deck {
 
 extension Deck {
     /// Remove the Hand from the Deck. Removes the Hand even if it is nested within another Hand.
-    mutating func remove(hand: Hand) {
+    func remove(hand: Hand) {
         if self.deckHands.contains(hand) {
             self.deckHands.removeObject(hand)
         } else {
@@ -118,12 +136,12 @@ extension Deck {
     }
     
     /// Remove the Deck card from the Deck.
-    mutating func remove(card: DeckCard) {
+    func remove(card: DeckCard) {
         self.deckCards.removeObject(card)
     }
     
     /// Remove the Token card from the Deck.
-    mutating func remove(card: TokenCard) {
+    func remove(card: TokenCard) {
         self.tokenCards.removeObject(card)
     }
 }
@@ -168,29 +186,5 @@ public func == (lhs: Deck, rhs: Deck) -> Bool {
 extension Deck: Hashable {
     public var hashValue: Int {
         return self.identifier.hashValue
-    }
-}
-
-//MARK: JSONDecodable
-
-extension Deck: JSONDecodable {
-    public init(json: JSON) throws {
-        self.deckHands = try json.arrayOf("deckHands", type: Hand.self)
-        self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
-        self.tokenCards = try json.arrayOf("tokenCards", type: TokenCard.self)
-        self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
-    }
-}
-
-//MARK: JSONEncodable
-
-extension Deck: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .Dictionary([
-            "deckHands": self.deckHands.toJSON(),
-            "deckCards": self.deckCards.toJSON(),
-            "tokenCards": self.tokenCards.toJSON(),
-            "identifier": self.identifier.toJSON()
-            ])
     }
 }

@@ -39,7 +39,7 @@ class DeckTests: XCTestCase {
         let deck = (
             noAction ==>
             noAction
-            )% + CardKit.Deck.Repeat + CardKit.Deck.Terminate.instance()
+            )% + CardKit.Deck.Repeat + CardKit.Deck.Terminate.makeCard()
         
         // NoAction, End Rule, No Action, End Rule, Repeat, Terminate
         XCTAssertTrue(deck.cardCount == 6)

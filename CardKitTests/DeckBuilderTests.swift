@@ -30,7 +30,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testInputBindingOverwrite() {
-        var duration = CardKit.Input.Time.Duration.instance()
+        var duration = CardKit.Input.Time.Duration.makeCard()
         do {
             duration = try duration <- 5
             duration = try duration <- 2

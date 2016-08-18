@@ -31,7 +31,7 @@ public struct HandCardDescriptor: CardDescriptor {
     }
     
     /// Return a new instance of the HandCard.
-    func instance() -> HandCard {
+    func makeCard() -> HandCard {
         switch self.handCardType {
         case .Branch:
             return BranchHandCard(with: self)
@@ -50,12 +50,12 @@ public struct HandCardDescriptor: CardDescriptor {
     /// correctly-typed subclass of HandCard based on the cardType of this descriptor. For example, this 
     /// is how one would obtain a RepeatHandCard instance from the Repeat card descriptor.
     ///
-    /// `guard let card: RepeatHandCard = CardKit.Hand.Next.Repeat.instance() else { // should not fail }`
+    /// `guard let card: RepeatHandCard = CardKit.Hand.Next.Repeat.makeCard() else { // should not fail }`
     ///
     /// In case of a type mismatch, nil will be returned. For example, trying to obtain a RepeatHandCard
     /// from a descriptor of type End Rule:
     ///
-    /// `guard let card: RepeatHandCard = CardKit.Hand.End.All.instance() else { // will always fail }`
+    /// `guard let card: RepeatHandCard = CardKit.Hand.End.All.makeCard() else { // will always fail }`
     ///
     /// Also, when using this method, the type of the variable being assigned must always be specified, otherwise
     /// the compiler will not be able to infer the type.

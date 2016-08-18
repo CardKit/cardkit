@@ -17,7 +17,7 @@ infix operator <- { associativity right precedence 160 }
 //MARK: Binding Data to an InputCard
 
 public func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard {
-    return try lhs.instance() <- rhs
+    return try lhs.makeCard() <- rhs
 }
 
 /// Bind data to an InputCard
@@ -30,7 +30,7 @@ public func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard {
 /// Try binding an InputCard to an ActionCardDescriptor. Creates a new
 /// ActionCard instance first.
 public func <- (lhs: ActionCardDescriptor, rhs: InputCard) throws -> ActionCard {
-    return try lhs.instance() <- rhs
+    return try lhs.makeCard() <- rhs
 }
 
 /// Try binding an InputCard to an ActionCard, looking for the first
@@ -42,7 +42,7 @@ public func <- (lhs: ActionCard, rhs: InputCard) throws -> ActionCard {
 /// Bind a TokenCard to an ActionCardDescriptor. Creates a new ActionCard
 /// instance first.
 public func <- (lhs: ActionCardDescriptor, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
-    return try lhs.instance() <- rhs
+    return try lhs.makeCard() <- rhs
 }
 
 /// Bind a TokenCard to an ActionCard in the specified slot
@@ -55,7 +55,7 @@ public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> Ac
 
 /// Return a new hand with the given ActionCard and a Not card played with it
 public prefix func ! (operand: ActionCardDescriptor) -> Hand {
-    return !operand.instance()
+    return !operand.makeCard()
 }
 
 /// Return a new hand with the given ActionCard and a Not card played with it
@@ -75,15 +75,15 @@ public prefix func ! (operand: ActionCard) -> Hand {
 //MARK: And Operations
 
 public func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
-    return lhs.instance() && rhs.instance()
+    return lhs.makeCard() && rhs.makeCard()
 }
 
 public func && (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
-    return lhs.instance() && rhs
+    return lhs.makeCard() && rhs
 }
 
 public func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
-    return lhs && rhs.instance()
+    return lhs && rhs.makeCard()
 }
 
 /// Return a new hand with the given ActionCards ANDed together
@@ -102,7 +102,7 @@ public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
 }
 
 public func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
-    return lhs && rhs.instance()
+    return lhs && rhs.makeCard()
 }
 
 public func && (lhs: Hand, rhs: ActionCard) -> Hand {
@@ -113,7 +113,7 @@ public func && (lhs: Hand, rhs: ActionCard) -> Hand {
 }
 
 public func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
-    return lhs.instance() && rhs
+    return lhs.makeCard() && rhs
 }
 
 public func && (lhs: ActionCard, rhs: Hand) -> Hand {
@@ -137,15 +137,15 @@ public func && (lhs: Hand, rhs: Hand) -> Hand {
 //MARK: Or Operations
 
 public func || (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
-    return lhs.instance() || rhs.instance()
+    return lhs.makeCard() || rhs.makeCard()
 }
 
 public func || (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
-    return lhs.instance() || rhs
+    return lhs.makeCard() || rhs
 }
 
 public func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
-    return lhs || rhs.instance()
+    return lhs || rhs.makeCard()
 }
 
 /// Return a new hand with the given ActionCards ORed together
@@ -166,7 +166,7 @@ public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
 }
 
 public func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
-    return lhs || rhs.instance()
+    return lhs || rhs.makeCard()
 }
 
 public func || (lhs: Hand, rhs: ActionCard) -> Hand {
@@ -177,7 +177,7 @@ public func || (lhs: Hand, rhs: ActionCard) -> Hand {
 }
 
 public func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
-    return lhs.instance() || rhs
+    return lhs.makeCard() || rhs
 }
 
 public func || (lhs: ActionCard, rhs: Hand) -> Hand {
@@ -202,15 +202,15 @@ public func || (lhs: Hand, rhs: Hand) -> Hand {
 //MARK: Adding Cards to a Hand
 
 public func + (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
-    return lhs.instance() + rhs.instance()
+    return lhs.makeCard() + rhs.makeCard()
 }
 
 public func + (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
-    return lhs.instance() + rhs
+    return lhs.makeCard() + rhs
 }
 
 public func + (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
-    return lhs + rhs.instance()
+    return lhs + rhs.makeCard()
 }
 
 public func + (lhs: ActionCard, rhs: ActionCard) -> Hand {
@@ -222,7 +222,7 @@ public func + (lhs: ActionCard, rhs: ActionCard) -> Hand {
 }
 
 public func + (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
-    return lhs + rhs.instance()
+    return lhs + rhs.makeCard()
 }
 
 public func + (lhs: Hand, rhs: ActionCard) -> Hand {
@@ -233,15 +233,15 @@ public func + (lhs: Hand, rhs: ActionCard) -> Hand {
 }
 
 public func + (lhs: HandCardDescriptor, rhs: HandCardDescriptor) -> Hand {
-    return lhs.instance() + rhs.instance()
+    return lhs.makeCard() + rhs.makeCard()
 }
 
 public func + (lhs: HandCardDescriptor, rhs: HandCard) -> Hand {
-    return lhs.instance() + rhs
+    return lhs.makeCard() + rhs
 }
 
 public func + (lhs: HandCard, rhs: HandCardDescriptor) -> Hand {
-    return lhs + rhs.instance()
+    return lhs + rhs.makeCard()
 }
 
 public func + (lhs: HandCard, rhs: HandCard) -> Hand {
@@ -252,7 +252,7 @@ public func + (lhs: HandCard, rhs: HandCard) -> Hand {
 }
 
 public func + (lhs: Hand, rhs: HandCardDescriptor) -> Hand {
-    return lhs + rhs.instance()
+    return lhs + rhs.makeCard()
 }
 
 public func + (lhs: Hand, rhs: HandCard) -> Hand {
@@ -275,15 +275,15 @@ public func + (lhs: Hand, rhs: Hand) -> Hand {
 infix operator ==> { associativity right precedence 80 }
 
 public func ==> (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> [Hand] {
-    return lhs.instance() ==> rhs.instance()
+    return lhs.makeCard() ==> rhs.makeCard()
 }
 
 public func ==> (lhs: ActionCardDescriptor, rhs: ActionCard) -> [Hand] {
-    return lhs.instance() ==> rhs
+    return lhs.makeCard() ==> rhs
 }
 
 public func ==> (lhs: ActionCard, rhs: ActionCardDescriptor) -> [Hand] {
-    return lhs ==> rhs.instance()
+    return lhs ==> rhs.makeCard()
 }
 
 /// Return a new deck with lhs and rhs as separate hands
@@ -296,7 +296,7 @@ public func ==> (lhs: ActionCard, rhs: ActionCard) -> [Hand] {
 }
 
 public func ==> (lhs: ActionCardDescriptor, rhs: Hand) -> [Hand] {
-    return lhs.instance() ==> rhs
+    return lhs.makeCard() ==> rhs
 }
 
 public func ==> (lhs: ActionCard, rhs: Hand) -> [Hand] {
@@ -306,7 +306,7 @@ public func ==> (lhs: ActionCard, rhs: Hand) -> [Hand] {
 }
 
 public func ==> (lhs: Hand, rhs: ActionCardDescriptor) -> [Hand] {
-    return lhs ==> rhs.instance()
+    return lhs ==> rhs.makeCard()
 }
 
 public func ==> (lhs: Hand, rhs: ActionCard) -> [Hand] {
@@ -320,7 +320,7 @@ public func ==> (lhs: Hand, rhs: Hand) -> [Hand] {
 }
 
 public func ==> (lhs: ActionCardDescriptor, rhs: [Hand]) -> [Hand] {
-    return lhs.instance() ==> rhs
+    return lhs.makeCard() ==> rhs
 }
 
 public func ==> (lhs: ActionCard, rhs: [Hand]) -> [Hand] {
@@ -334,7 +334,7 @@ public func ==> (lhs: ActionCard, rhs: [Hand]) -> [Hand] {
 }
 
 public func ==> (lhs: HandCardDescriptor, rhs: [Hand]) -> [Hand] {
-    return lhs.instance() ==> rhs
+    return lhs.makeCard() ==> rhs
 }
 
 public func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
@@ -348,9 +348,23 @@ public func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
 }
 
 
-//MARK: Deckification
+//MARK: Sealing Hands & Decks
 
 postfix operator % {}
+
+/// Seals a card into a Hand
+public postfix func % (operand: ActionCard) -> Hand {
+    let hand = Hand()
+    hand.add(operand)
+    return hand
+}
+
+/// Seals a card into a Hand
+public postfix func % (operand: HandCard) -> Hand {
+    let hand = Hand()
+    hand.add(operand)
+    return hand
+}
 
 /// Seals a deck with a given Hand
 public postfix func % (operand: Hand) -> Deck {
@@ -359,7 +373,7 @@ public postfix func % (operand: Hand) -> Deck {
 
 /// Seals a deck with the given set of hands
 public postfix func % (operand: [Hand]) -> Deck {
-    var deck = Deck()
+    let deck = Deck()
     deck.deckHands = operand
     return deck
 }
@@ -369,14 +383,14 @@ public postfix func % (operand: [Hand]) -> Deck {
 
 /// Adds an instance of DeckCardDescriptor to a Deck
 public func + (lhs: Deck, rhs: DeckCardDescriptor) -> Deck {
-    var deck = Deck(copying: lhs)
-    deck.add(rhs.instance())
+    let deck = Deck(copying: lhs)
+    deck.add(rhs.makeCard())
     return deck
 }
 
 /// Adds a DeckCard to a Deck
 public func + (lhs: Deck, rhs: DeckCard) -> Deck {
-    var deck = Deck(copying: lhs)
+    let deck = Deck(copying: lhs)
     deck.add(rhs)
     return deck
 }

@@ -49,7 +49,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     }
     
     /// Return a new ActionCard instance using our descriptor
-    func instance() -> ActionCard {
+    func makeCard() -> ActionCard {
         return ActionCard(with: self)
     }
 }

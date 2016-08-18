@@ -21,7 +21,7 @@ class InputBindingTests: XCTestCase {
     }
 
     func testValidDoubleBinding() {
-        let angle = CardKit.Input.Location.Angle.instance()
+        let angle = CardKit.Input.Location.Angle.makeCard()
         
         do {
             try angle.bind(withValue: 1.0)
@@ -33,7 +33,7 @@ class InputBindingTests: XCTestCase {
     }
     
     func testValidNSDataBinding() {
-        let image = CardKit.Input.Media.Image.instance()
+        let image = CardKit.Input.Media.Image.makeCard()
         
         let str = "Hello, world"
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)
@@ -51,7 +51,7 @@ class InputBindingTests: XCTestCase {
     }
     
     func testValidStructBinding() {
-        let bb = CardKit.Input.Location.BoundingBox.instance()
+        let bb = CardKit.Input.Location.BoundingBox.makeCard()
         
         let topLeft = CKCoordinate2D(latitude: 0.0, longitude: 0.0)
         let topRight = CKCoordinate2D(latitude: 0.0, longitude: 1.0)
@@ -71,7 +71,7 @@ class InputBindingTests: XCTestCase {
     }
     
     func testTypeMismatchBinding() {
-        let integer = CardKit.Input.Numeric.Integer.instance()
+        let integer = CardKit.Input.Numeric.Integer.makeCard()
         
         do {
             try integer.bind(withValue: 1.0)
