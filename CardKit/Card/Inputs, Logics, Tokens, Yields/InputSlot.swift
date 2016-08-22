@@ -1,0 +1,145 @@
+//
+//  InputSlot.swift
+//  CardKit
+//
+//  Created by Justin Weisz on 8/1/16.
+//  Copyright © 2016 IBM. All rights reserved.
+//
+
+import Foundation
+
+import Freddy
+
+//MARK: InputSlot
+
+/// Input slots are identified by a String.
+public typealias InputSlotIdentifier = String
+
+/// Represents the metadata of an input to a card. Input is bound to a specified slot in the card. Inputs may be optional.
+public struct InputSlot {
+    public let identifier: InputSlotIdentifier
+    public let inputType: InputType
+    public let isOptional: Bool
+    
+    init(identifier: InputSlotIdentifier, type: InputType, isOptional: Bool) {
+        self.identifier = identifier
+        self.inputType = type
+        self.isOptional = isOptional
+    }
+}
+
+//MARK: Equatable
+
+extension InputSlot: Equatable {}
+
+public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
+    var equal = true
+    equal = equal && lhs.identifier == rhs.identifier
+    equal = equal && lhs.inputType == rhs.inputType
+    equal = equal && lhs.isOptional == rhs.isOptional
+    return equal
+}
+
+//MARK: Hashable
+
+extension InputSlot: Hashable {
+    public var hashValue: Int {
+        return identifier.hashValue &+ (inputType.hashValue &* 3) &+ (isOptional.hashValue &* 5)
+    }
+}
+
+//MARK: JSONDecodable
+
+extension InputSlot: JSONDecodable {
+    public init(json: JSON) throws {
+        self.identifier = try json.string("identifier")
+        self.inputType = try json.decode("inputType", type: InputType.self)
+        self.isOptional = try json.bool("isOptional")
+    }
+}
+
+//MARK: JSONEncodable
+
+extension InputSlot: JSONEncodable {
+    public func toJSON() -> JSON {
+        return .Dictionary([
+            "identifier": self.identifier.toJSON(),
+            "inputType": self.inputType.toJSON(),
+            "isOptional": self.isOptional.toJSON()
+            ])
+    }
+}
+
+//MARK:- InputSlotBinding
+
+/// An InputSlot may either be bound to an InputCard or an ActionCard that produces a yield.
+/// In the case of an InputCard, we store the entire instance of the InputCard in the slot, 
+/// because the InputCard is considered a "child" that is "bound" to the slot. In the case 
+/// of a yielding ActionCard, that ActionCard belongs to an (earlier) Hand, so we just store
+/// it's identifier here.
+public enum InputSlotBinding {
+    case Unbound
+    case BoundToInputCard(InputCard)
+    case BoundToYieldingActionCard(CardIdentifier, Yield)
+}
+
+//MARK: CustomStringConvertable
+
+extension InputSlotBinding: CustomStringConvertible {
+    public var description: String {
+        get {
+            switch self {
+            case .Unbound:
+                return "[unbound]"
+            case .BoundToInputCard(let card):
+                return "[bound to InputCard \(card.identifier)]"
+            case .BoundToYieldingActionCard(let cardIdentifier, let yield):
+                return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
+            }
+        }
+    }
+}
+
+//MARK: JSONEncodable
+
+extension InputSlotBinding: JSONEncodable {
+    public func toJSON() -> JSON {
+        switch self {
+        case .Unbound:
+            return .Dictionary([
+                "type": "Unbound"])
+        case .BoundToInputCard(let card):
+            return .Dictionary([
+                "type": "BoundToInputCard",
+                "target": card.toJSON()])
+        case .BoundToYieldingActionCard(let cardIdentifier, let yield):
+            return .Dictionary([
+                "type": "BoundToYieldingActionCard",
+                "identifier": cardIdentifier.toJSON(),
+                "yield": yield.toJSON()])
+        }
+    }
+}
+
+//MARK: JSONDecodable
+
+extension InputSlotBinding: JSONDecodable {
+    public init(json: JSON) throws {
+        let type = try json.string("type")
+        
+        switch type {
+        case "Unbound":
+            self = .Unbound
+        case "BoundToInputCard":
+            let target = try json.decode("target", type: InputCard.self)
+            self = .BoundToInputCard(target)
+        case "BoundToYieldingActionCard":
+            let identifier = try json.string("identifier")
+            let cardIdentifier = CardIdentifier(with: identifier)
+            let yield = try json.decode("yield", type: Yield.self)
+            self = .BoundToYieldingActionCard(cardIdentifier, yield)
+        default:
+            throw JSON.Error.ValueNotConvertible(value: json, to: InputSlotBinding.self)
+        }
+    }
+}
