@@ -17,6 +17,8 @@ public typealias InputSlotIdentifier = String
 
 /// Represents the metadata of an input to a card. Input is bound to a specified slot in the card. Inputs may be optional.
 public struct InputSlot {
+    /// The identifier of an InputSlot should be something human-understandable, such as "Duration" or 
+    /// "Location". This is NOT a UUID-based identifier as used for Cards, Yields, etc.
     public let identifier: InputSlotIdentifier
     public let inputType: InputType
     public let isOptional: Bool
@@ -67,6 +69,19 @@ extension InputSlot: JSONEncodable {
             "inputType": self.inputType.toJSON(),
             "isOptional": self.isOptional.toJSON()
             ])
+    }
+}
+
+//MARK: [InputSlot]
+
+extension Array where Element : InputSlot {
+    func slot(named name: String) -> InputSlot? {
+        for slot in self {
+            if slot.identifier == name {
+                return slot
+            }
+        }
+        return nil
     }
 }
 
