@@ -80,7 +80,7 @@ extension SequenceType where Generator.Element == InputSlot {
             if slot.identifier == name {
                 return slot
             }
-        }asdf
+        }
         return nil
     }
 }
