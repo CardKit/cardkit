@@ -74,7 +74,7 @@ extension InputSlot: JSONEncodable {
 
 //MARK: [InputSlot]
 
-extension Array where Element : InputSlot {
+extension SequenceType where Generator.Element == InputSlot {
     func slot(named name: String) -> InputSlot? {
         for slot in self {
             if slot.identifier == name {
