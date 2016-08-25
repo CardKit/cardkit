@@ -60,6 +60,13 @@ public class Deck {
         } + self.deckCards.count + self.tokenCards.count
     }
     
+    /// Returns the complete set of ActionCards in the Deck.
+    public var actionCards: [ActionCard] {
+        var cards: [ActionCard] = []
+        self.hands.forEach { cards.appendContentsOf($0.actionCards) }
+        return cards
+    }
+    
     /// Returns the first Hand in the Deck, or nil if there are no
     /// hands in the deck.
     public var firstHand: Hand? {
