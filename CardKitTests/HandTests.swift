@@ -694,4 +694,113 @@ class HandTests: XCTestCase {
         XCTAssertTrue(handD.nestedSubhands.count == 1)
         XCTAssertTrue(handE.nestedSubhands.count == 0)
     }
+    
+    func testTrivialSatisfaction() {
+        let hand = Hand()
+        let cards: Set<CardIdentifier> = Set()
+        let satisfactionResult = hand.satisfactionResult(given: cards)
+        XCTAssertTrue(satisfactionResult.0 == true)
+        XCTAssertTrue(satisfactionResult.1 == nil)
+    }
+    
+    func testAndSatisfaction() {
+        let noActionA = CardKit.Action.NoAction.makeCard()
+        let noActionB = CardKit.Action.NoAction.makeCard()
+        let hand = noActionA && noActionB
+        
+        var cards: Set<CardIdentifier> = Set()
+        
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == false)
+        
+        cards.insert(noActionA.identifier)
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == false)
+        
+        cards.insert(noActionB.identifier)
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == true)
+    }
+    
+    func testOrSatisfaction() {
+        let noActionA = CardKit.Action.NoAction.makeCard()
+        let noActionB = CardKit.Action.NoAction.makeCard()
+        let hand = noActionA || noActionB
+        
+        var cards: Set<CardIdentifier> = Set()
+        
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == false)
+        
+        cards.insert(noActionA.identifier)
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == true)
+        
+        cards.insert(noActionB.identifier)
+        XCTAssertTrue(hand.satisfactionResult(given: cards).0 == true)
+    }
+    
+    func testComplexLogicSatisfaction() {
+        let noActionA = CardKit.Action.NoAction.makeCard()
+        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionC = CardKit.Action.NoAction.makeCard()
+        let noActionD = CardKit.Action.NoAction.makeCard()
+        
+        // this is kind of cheating, we should never use action card instances across hands like this
+        let hand = ((noActionA && noActionB) || (noActionC && noActionD))
+        
+        var ab: Set<CardIdentifier> = Set()
+        ab.insert(noActionA.identifier)
+        ab.insert(noActionB.identifier)
+        
+        XCTAssertTrue(hand.satisfactionResult(given: ab).0 == true)
+        
+        var cd: Set<CardIdentifier> = Set()
+        cd.insert(noActionC.identifier)
+        cd.insert(noActionD.identifier)
+        
+        XCTAssertTrue(hand.satisfactionResult(given: cd).0 == true)
+        
+        var ad: Set<CardIdentifier> = Set()
+        ad.insert(noActionA.identifier)
+        ad.insert(noActionD.identifier)
+        
+        XCTAssertTrue(hand.satisfactionResult(given: ad).0 == false)
+        
+        var abc: Set<CardIdentifier> = Set()
+        abc.insert(noActionA.identifier)
+        abc.insert(noActionB.identifier)
+        
+        XCTAssertTrue(hand.satisfactionResult(given: abc).0 == true)
+    }
+    
+    func testBranchSatisfaction() {
+        let noActionA = CardKit.Action.NoAction.makeCard()
+        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionC = CardKit.Action.NoAction.makeCard()
+        let noActionD = CardKit.Action.NoAction.makeCard()
+        
+        // this is kind of cheating, we should never use action card instances across hands like this
+        let handA = (noActionA && noActionB) + (noActionC && noActionD)
+        
+        let abTree = handA.cardTrees[0]
+        let cdTree = handA.cardTrees[1]
+        
+        let handB = Hand()
+        handA.addBranch(from: abTree, to: handB)
+        
+        let handC = Hand()
+        handA.addBranch(from: cdTree, to: handC)
+        
+        var ab: Set<CardIdentifier> = Set()
+        ab.insert(noActionA.identifier)
+        ab.insert(noActionB.identifier)
+        
+        let abSat = handA.satisfactionResult(given: ab)
+        XCTAssertTrue(abSat.0 == true)
+        XCTAssertTrue(abSat.1 == handB)
+        
+        var cd: Set<CardIdentifier> = Set()
+        cd.insert(noActionC.identifier)
+        cd.insert(noActionD.identifier)
+        
+        let cdSat = handA.satisfactionResult(given: cd)
+        XCTAssertTrue(cdSat.0 == true)
+        XCTAssertTrue(cdSat.1 == handC)
+    }
 }

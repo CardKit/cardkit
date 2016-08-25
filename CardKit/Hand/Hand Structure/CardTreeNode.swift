@@ -488,6 +488,49 @@ extension CardTreeNode {
     }
 }
 
+//MARK: CardTreeNode Satisfaction
+
+extension CardTreeNode {
+    func isSatisfied(by cards: Set<CardIdentifier>) -> Bool {
+        switch self {
+        case .Action(let actionCard):
+            // if actionCard.identifier is in the set of satisfied cards, then YES
+            // it is satisfied
+            return cards.contains(actionCard.identifier)
+        case .UnaryLogic(let logicCard, let subtree):
+            switch logicCard.operation {
+            case .BooleanNot:
+                if let subtree = subtree {
+                    return !subtree.isSatisfied(by: cards)
+                } else {
+                    // there is no subtree, so there are no ActionCards that affect 
+                    // satisfaction -- by definition, YES this is satisfied
+                    return true
+                }
+            default:
+                // this is an invalid logic type for this card, hence NO it is not satisfied
+                return false
+            }
+        case .BinaryLogic(let logicCard, let left, let right):
+            switch logicCard.operation {
+            case .BooleanAnd:
+                // if the subtree is nil then by definition it is satisfied
+                let leftSatisfied = left?.isSatisfied(by: cards) ?? true
+                let rightSatisfied = right?.isSatisfied(by: cards) ?? true
+                return leftSatisfied && rightSatisfied
+            case .BooleanOr:
+                // if the subtree is nil then by definition it is satisfied
+                let leftSatisfied = left?.isSatisfied(by: cards) ?? true
+                let rightSatisfied = right?.isSatisfied(by: cards) ?? true
+                return leftSatisfied || rightSatisfied
+            default:
+                // this is an invalid logic type for this card, hence NO it is not satisfied
+                return false
+            }
+        }
+    }
+}
+
 //MARK: Debugging
 
 extension CardTreeNode {

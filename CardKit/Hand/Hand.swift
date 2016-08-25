@@ -783,6 +783,43 @@ extension Hand {
     }
 }
 
+//MARK: Hand Satisfaction
+
+extension Hand {
+    /// Returns a tuple of (Bool, Hand?) signifying whether the hand is satisfied by the given
+    /// set of CardIdentifiers, as well as which subhand should be branched to. Hands with no
+    /// CardTrees are considered satisfied.
+    func satisfactionResult(given cards: Set<CardIdentifier>) -> (Bool, Hand?) {
+        if self.cardTrees.count == 0 {
+            return (true, nil)
+        }
+        
+        // test if each CardTree is satisfied given the set of cards
+        for tree in self.cardTrees {
+            if tree.isSatisfied(by: cards) {
+                // is there a branch?
+                for branchCard in self.branchCards {
+                    if branchCard.cardTreeIdentifier == tree.identifier {
+                        // find the subhand
+                        for subhand in self.subhands {
+                            if subhand.identifier == branchCard.targetHandIdentifier {
+                                // got it
+                                return (true, subhand)
+                            }
+                        }
+                    }
+                }
+                
+                // tree is satisfied but there is no subhand to branch to
+                return (true, nil)
+            }
+        }
+        
+        // no CardTrees were satisfied
+        return (false, nil)
+    }
+}
+
 //MARK: Equatable
 
 extension Hand: Equatable {}

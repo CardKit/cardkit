@@ -241,6 +241,16 @@ extension SequenceType where Generator.Element == CardTree {
     }
 }
 
+//MARK: CardTree Satisfaction
+
+extension CardTree {
+    func isSatisfied(by cards: Set<CardIdentifier>) -> Bool {
+        // a CardTree with a nil root is satisfied by definition
+        guard let root = self.root else { return true }
+        return root.isSatisfied(by: cards)
+    }
+}
+
 //MARK: Debugging
 
 extension CardTree {
