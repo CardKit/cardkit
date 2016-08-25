@@ -789,7 +789,7 @@ extension Hand {
     /// Returns a tuple of (Bool, Hand?) signifying whether the hand is satisfied by the given
     /// set of CardIdentifiers, as well as which subhand should be branched to. Hands with no
     /// CardTrees are considered satisfied.
-    func satisfactionResult(given cards: Set<CardIdentifier>) -> (Bool, Hand?) {
+    public func satisfactionResult(given cards: Set<CardIdentifier>) -> (Bool, Hand?) {
         if self.cardTrees.count == 0 {
             return (true, nil)
         }
