@@ -52,6 +52,14 @@ extension Yield: Hashable {
     }
 }
 
+//MARK: CustomStringConvertible
+
+extension Yield: CustomStringConvertible {
+    public var description: String {
+        return "\(self.identifier) [\(self.type)]"
+    }
+}
+
 //MARK: JSONEncodable
 
 extension Yield: JSONEncodable {
