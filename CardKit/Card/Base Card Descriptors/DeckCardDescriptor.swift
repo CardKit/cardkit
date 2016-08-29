@@ -21,7 +21,11 @@ public struct DeckCardDescriptor: CardDescriptor {
     
     public init(name: String, subpath: String?, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
-        self.path = CardPath(withPath: "Deck/\(subpath)" ?? "Deck")
+        if let subpath = subpath {
+            self.path = CardPath(withPath: "Deck/\(subpath)")
+        } else {
+            self.path = CardPath(withPath: "Deck")
+        }
         self.version = version
         self.assetCatalog = assetCatalog
     }

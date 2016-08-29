@@ -36,7 +36,11 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     //swiftlint:disable:next function_parameter_count
     public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
-        self.path = CardPath(withPath: "Action/\(subpath)" ?? "Action")
+        if let subpath = subpath {
+            self.path = CardPath(withPath: "Action/\(subpath)")
+        } else {
+            self.path = CardPath(withPath: "Action")
+        }
         self.version = version
         self.assetCatalog = assetCatalog
         

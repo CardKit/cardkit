@@ -23,7 +23,11 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     
     public init(name: String, subpath: String?, isConsumed: Bool, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
-        self.path = CardPath(withPath: "Token/\(subpath)" ?? "Token")
+        if let subpath = subpath {
+            self.path = CardPath(withPath: "Token/\(subpath)")
+        } else {
+            self.path = CardPath(withPath: "Token")
+        }
         self.version = version
         self.assetCatalog = assetCatalog
         

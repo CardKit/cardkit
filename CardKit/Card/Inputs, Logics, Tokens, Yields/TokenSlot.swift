@@ -62,6 +62,19 @@ extension TokenSlot: JSONEncodable {
     }
 }
 
+//MARK: [TokenSlot]
+
+extension SequenceType where Generator.Element == TokenSlot {
+    public func slot(with identifier: String) -> TokenSlot? {
+        for slot in self {
+            if slot.identifier == identifier {
+                return slot
+            }
+        }
+        return nil
+    }
+}
+
 //MARK:- TokenSlotBinding
 
 /// A TokenSlot may only be bound to a TokenCard.

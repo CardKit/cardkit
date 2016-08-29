@@ -23,7 +23,11 @@ public struct HandCardDescriptor: CardDescriptor {
     
     public init(name: String, subpath: String?, handCardType: HandCardType, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
-        self.path = CardPath(withPath: "Hand/\(subpath)" ?? "Hand")
+        if let subpath = subpath {
+            self.path = CardPath(withPath: "Hand/\(subpath)")
+        } else {
+            self.path = CardPath(withPath: "Hand")
+        }
         self.version = version
         self.assetCatalog = assetCatalog
         

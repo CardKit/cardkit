@@ -25,7 +25,11 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     //swiftlint:disable:next function_parameter_count
     public init(name: String, subpath: String?, inputType: InputType, inputDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
-        self.path = CardPath(withPath: "Input/\(subpath)" ?? "Input")
+        if let subpath = subpath {
+            self.path = CardPath(withPath: "Input/\(subpath)")
+        } else {
+            self.path = CardPath(withPath: "Input")
+        }
         self.version = version
         self.assetCatalog = assetCatalog
         

@@ -94,16 +94,56 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public required init(json: JSON) throws {
         self.identifier = try json.decode("identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode("descriptor", type: ActionCardDescriptor.self)
-        self.inputBindings = try json.dictionary("inputBindings").withDecodedKeysAndValues()
-        self.tokenBindings = try json.dictionary("tokenBindings").withDecodedKeysAndValues()
+        
+        self.inputBindings = [:]
+        let jsonInputBindings: [String : InputSlotBinding] = try json.dictionary("inputBindings").withDecodedValues()
+        for (slotName, binding) in jsonInputBindings {
+            // find the InputSlot
+            guard let slot = self.descriptor.inputSlots.slot(named: slotName) else {
+                throw JSON.Error.ValueNotConvertible(value: json, to: ActionCard.self)
+            }
+            
+            // bind it
+            self.inputBindings[slot] = binding
+        }
+        
+        self.tokenBindings = [:]
+        let jsonTokenBindings: [String : TokenSlotBinding] = try json.dictionary("tokenBindings").withDecodedValues()
+        for (identifier, binding) in jsonTokenBindings {
+            // find the TokenSlot
+            guard let slot = self.descriptor.tokenSlots.slot(with: identifier) else {
+                throw JSON.Error.ValueNotConvertible(value: json, to: ActionCard.self)
+            }
+            
+            // bind it
+            self.tokenBindings[slot] = binding
+        }
     }
     
     public func toJSON() -> JSON {
+        // need to treat inputBindings and tokenBindings special. we can't just rely on
+        // self.inputBindings.toJSON() because Freddy will use String(InputSlot) to create
+        // the string values for the dictionary keys. which means our keys will end up looking
+        // like this, which is impossible to decode:
+        //   InputSlot(name: \"Duration\", inputType: CardKitTests_iOS.InputType.SwiftInt, isOptional: false)
+        // instead, we will use the *name* of the slot as the key, and when we deserialize, we will restore
+        // the original mapping back to the actual InputSlot object.
+        
+        var jsonInputBindings: [String : InputSlotBinding] = [:]
+        for (slot, binding) in self.inputBindings {
+            jsonInputBindings[slot.name] = binding
+        }
+        
+        var jsonTokenBindings: [String : TokenSlotBinding] = [:]
+        for (slot, binding) in self.tokenBindings {
+            jsonTokenBindings[slot.identifier] = binding
+        }
+        
         return .Dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON(),
-            "inputBindings": self.inputBindings.toJSON(),
-            "tokenBindings": self.tokenBindings.toJSON()
+            "inputBindings": jsonInputBindings.toJSON(),
+            "tokenBindings": jsonTokenBindings.toJSON()
             ])
     }
 }
