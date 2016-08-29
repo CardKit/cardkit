@@ -19,11 +19,16 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
-    // input bindings
+    // Input bindings
     public private (set) var inputBindings: [InputSlot : InputSlotBinding] = [:]
     
+    // Exposed from the descriptor
     public var inputSlots: [InputSlot] {
-        return Array(self.inputBindings.keys)
+        return self.descriptor.inputSlots
+    }
+    
+    public var yields: [Yield] {
+        return self.descriptor.yields
     }
     
     /// Returns the InputCards bound to us.
