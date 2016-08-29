@@ -42,8 +42,8 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testHandBuilding() {
-        let noActionA = CardKit.Action.NoAction
-        let noActionB = CardKit.Action.NoAction
+        let noActionA = CKTests.Action.NoAction
+        let noActionB = CKTests.Action.NoAction
         let hand = noActionA + noActionB
         
         // NoActionA, NoActionB, End Rule
@@ -59,7 +59,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testSimpleDeck() {
-        let noAction = CardKit.Action.NoAction
+        let noAction = CKTests.Action.NoAction
         
         let deck = (
             noAction ==>
@@ -71,7 +71,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testDeckWithBindings() {
-        let noAction = CardKit.Action.NoAction
+        let noAction = CKTests.Action.NoAction
         let timer = CardKit.Action.Trigger.Time.Timer
         let wait = CardKit.Action.Trigger.Time.WaitUntilTime
         

@@ -21,7 +21,7 @@ class DeckTests: XCTestCase {
     }
     
     func testDeckWithSingleDeckCard() {
-        let noAction = CardKit.Action.NoAction
+        let noAction = CKTests.Action.NoAction
         
         let deck = (
             noAction ==>
@@ -34,7 +34,7 @@ class DeckTests: XCTestCase {
     }
     
     func testDeckWithMultipleDeckCards() {
-        let noAction = CardKit.Action.NoAction
+        let noAction = CKTests.Action.NoAction
         
         let deck = (
             noAction ==>

@@ -165,6 +165,9 @@
 		CC9E76621D54F33500B7C738 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76611D54F33500B7C738 /* DeckTests.swift */; };
 		CC9E76631D54F33500B7C738 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76611D54F33500B7C738 /* DeckTests.swift */; };
 		CC9E76641D54F33500B7C738 /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E76611D54F33500B7C738 /* DeckTests.swift */; };
+		CCBB792B1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
+		CCBB792C1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
+		CCBB792D1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
 		CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
@@ -357,6 +360,7 @@
 		CC9E76591D53C1BC00B7C738 /* HandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandTests.swift; sourceTree = "<group>"; };
 		CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetExtensions.swift; sourceTree = "<group>"; };
 		CC9E76611D54F33500B7C738 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		CCBB792A1D7466E0003B6458 /* CKTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKTests.swift; sourceTree = "<group>"; };
 		CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		CCE729161D5A33F400A347D8 /* HandEndRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandEndRule.swift; sourceTree = "<group>"; };
 		CCE729181D5A33F400A347D8 /* HandCardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandCardType.swift; sourceTree = "<group>"; };
@@ -475,6 +479,7 @@
 		CC9317BF1D479278001B71B1 /* CardKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				CCBB792A1D7466E0003B6458 /* CKTests.swift */,
 				CC9317C01D479278001B71B1 /* CardKitTests.swift */,
 				CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */,
 				CC9E76511D52822300B7C738 /* DeckBuilderTests.swift */,
@@ -1098,6 +1103,7 @@
 				CCE729261D5A33F400A347D8 /* HandCardType.swift in Sources */,
 				CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729A81D5CAD1F00A347D8 /* CardTree.swift in Sources */,
+				CCBB792B1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765A1D53C1BC00B7C738 /* HandTests.swift in Sources */,
 				CCE729461D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CC931A841D496238001B71B1 /* InputCard.swift in Sources */,
@@ -1201,6 +1207,7 @@
 				CCE729281D5A33F400A347D8 /* HandCardType.swift in Sources */,
 				CCCAD6B81D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729AA1D5CAD1F00A347D8 /* CardTree.swift in Sources */,
+				CCBB792C1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765B1D53C1BC00B7C738 /* HandTests.swift in Sources */,
 				CCE729481D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CC931A861D496238001B71B1 /* InputCard.swift in Sources */,
@@ -1304,6 +1311,7 @@
 				CCE7292A1D5A33F400A347D8 /* HandCardType.swift in Sources */,
 				CCCAD6BA1D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729AC1D5CAD1F00A347D8 /* CardTree.swift in Sources */,
+				CCBB792D1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765C1D53C1BC00B7C738 /* HandTests.swift in Sources */,
 				CCE7294A1D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CC931A881D496238001B71B1 /* InputCard.swift in Sources */,

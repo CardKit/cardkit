@@ -32,12 +32,12 @@ class HandTests: XCTestCase {
     func testHandAdd() {
         let hand = Hand()
         
-        let noAction = CardKit.Action.NoAction.makeCard()
+        let noAction = CKTests.Action.NoAction.makeCard()
         hand.add(noAction)
         
         // this is 2 because we will always have an End Rule card in the hand
         XCTAssertTrue(hand.cardCount == 2)
-        XCTAssertTrue(hand.cards(matching: CardKit.Action.NoAction).count == 1)
+        XCTAssertTrue(hand.cards(matching: CKTests.Action.NoAction).count == 1)
         
         let rep = CardKit.Hand.Next.Repeat.makeCard()
         hand.add(rep)
@@ -50,7 +50,7 @@ class HandTests: XCTestCase {
     func testHandRemove() {
         let hand = Hand()
         
-        let noAction = CardKit.Action.NoAction.makeCard()
+        let noAction = CKTests.Action.NoAction.makeCard()
         hand.add(noAction)
         
         let rep = CardKit.Hand.Next.Repeat.makeCard()
@@ -69,7 +69,7 @@ class HandTests: XCTestCase {
     func testCardMembership() {
         let hand = Hand()
         
-        let noAction = CardKit.Action.NoAction.makeCard()
+        let noAction = CKTests.Action.NoAction.makeCard()
         
         XCTAssertTrue(!hand.contains(noAction))
         
@@ -85,12 +85,12 @@ class HandTests: XCTestCase {
     func testHandMultipleAdd() {
         let hand = Hand()
         
-        let noAction = CardKit.Action.NoAction.makeCard()
+        let noAction = CKTests.Action.NoAction.makeCard()
         hand.add(noAction)
         hand.add(noAction)
         hand.add(noAction)
         
-        XCTAssertTrue(hand.cards(matching: CardKit.Action.NoAction).count == 1)
+        XCTAssertTrue(hand.cards(matching: CKTests.Action.NoAction).count == 1)
         
         // two cards: NoAction and End Rule
         XCTAssertTrue(hand.cardCount == 2)
@@ -98,8 +98,8 @@ class HandTests: XCTestCase {
     
     func testHandLogicAnd() {
         // test that AND is functioning correctly
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
         
         // test that the deck builder is adding an AND card
         let hand = noActionA && noActionB
@@ -125,8 +125,8 @@ class HandTests: XCTestCase {
     
     func testHandLogicOr() {
         // test that OR is functioning correctly
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
         
         // test that the deck builder is adding an OR card
         let hand = noActionA || noActionB
@@ -152,7 +152,7 @@ class HandTests: XCTestCase {
     
     func testHandLogicNot() {
         // test that NOT is functioning correctly
-        let noAction = CardKit.Action.NoAction.makeCard()
+        let noAction = CKTests.Action.NoAction.makeCard()
         
         // test that the deck builder is adding a NOT card
         let hand = !noAction
@@ -176,10 +176,10 @@ class HandTests: XCTestCase {
     }
     
     func testMergeHands() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         let handA = noActionA && noActionB
         let handB = noActionC && noActionD
@@ -195,10 +195,10 @@ class HandTests: XCTestCase {
     }
     
     func testMergeHandsWithAnd() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         let handA = noActionA && noActionB
         let handB = noActionC && noActionD
@@ -251,10 +251,10 @@ class HandTests: XCTestCase {
     }
     
     func testMergeHandsWithOr() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         let handA = noActionA || noActionB
         let handB = noActionC || noActionD
@@ -307,12 +307,12 @@ class HandTests: XCTestCase {
     }
     
     func testComplicatedHandLogic() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
-        let noActionE = CardKit.Action.NoAction.makeCard()
-        let noActionF = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
+        let noActionE = CKTests.Action.NoAction.makeCard()
+        let noActionF = CKTests.Action.NoAction.makeCard()
         
         let hand = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
         
@@ -340,10 +340,10 @@ class HandTests: XCTestCase {
     }
     
     func testSimpleAddRemove() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         let hand = Hand()
         
@@ -381,10 +381,10 @@ class HandTests: XCTestCase {
     }
     
     func testComplicatedAddRemove() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         guard let andA: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() else {
             XCTFail("did not obtain a LogicHandCard from typedInstance()")
@@ -426,10 +426,10 @@ class HandTests: XCTestCase {
     
     //swiftlint:disable:next function_body_length
     func testAttachDetach() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         guard let and: LogicHandCard = CardKit.Hand.Logic.LogicalAnd.typedInstance() else {
             XCTFail("did not obtain a LogicHandCard from typedInstance()")
@@ -610,12 +610,12 @@ class HandTests: XCTestCase {
     }
     
     func testComplexBranchCard() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
-        let noActionE = CardKit.Action.NoAction.makeCard()
-        let noActionF = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
+        let noActionE = CKTests.Action.NoAction.makeCard()
+        let noActionF = CKTests.Action.NoAction.makeCard()
         
         // this is kind of cheating, we should never use action card instances across hands like this
         let handA = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
@@ -630,8 +630,8 @@ class HandTests: XCTestCase {
     }
     
     func testBranchOverwriting() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
         let handA = noActionA && noActionB
         guard let tree = handA.cardTrees.first else {
             XCTFail("handA does not have any cardTrees")
@@ -704,8 +704,8 @@ class HandTests: XCTestCase {
     }
     
     func testAndSatisfaction() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
         let hand = noActionA && noActionB
         
         var cards: Set<CardIdentifier> = Set()
@@ -720,8 +720,8 @@ class HandTests: XCTestCase {
     }
     
     func testOrSatisfaction() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
         let hand = noActionA || noActionB
         
         var cards: Set<CardIdentifier> = Set()
@@ -736,10 +736,10 @@ class HandTests: XCTestCase {
     }
     
     func testComplexLogicSatisfaction() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         // this is kind of cheating, we should never use action card instances across hands like this
         let hand = ((noActionA && noActionB) || (noActionC && noActionD))
@@ -770,10 +770,10 @@ class HandTests: XCTestCase {
     }
     
     func testBranchSatisfaction() {
-        let noActionA = CardKit.Action.NoAction.makeCard()
-        let noActionB = CardKit.Action.NoAction.makeCard()
-        let noActionC = CardKit.Action.NoAction.makeCard()
-        let noActionD = CardKit.Action.NoAction.makeCard()
+        let noActionA = CKTests.Action.NoAction.makeCard()
+        let noActionB = CKTests.Action.NoAction.makeCard()
+        let noActionC = CKTests.Action.NoAction.makeCard()
+        let noActionD = CKTests.Action.NoAction.makeCard()
         
         // this is kind of cheating, we should never use action card instances across hands like this
         let handA = (noActionA && noActionB) + (noActionC && noActionD)

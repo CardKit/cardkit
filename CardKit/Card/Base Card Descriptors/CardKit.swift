@@ -22,20 +22,6 @@ public struct CardKit {
     public struct Action {
         private init() {}
         
-        //MARK: NoAction
-        /// Descriptor for NoAction card
-        public static let NoAction = ActionCardDescriptor(
-            name: "No Action",
-            subpath: nil,
-            inputs: nil,
-            tokens: nil,
-            yields: nil,
-            yieldDescription: nil,
-            ends: true,
-            endsDescription: "Ends instantly.",
-            assetCatalog: CardAssetCatalog(description: "No action performed."),
-            version: 0)
-        
         /// Contains descriptors for Action/Trigger cards
         public struct Trigger {
             private init() {}
@@ -385,13 +371,6 @@ public struct CardKit {
                 assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"),
                 version: 0)
         }
-    }
-    
-    //MARK:- Token Cards
-    
-    /// Contains descriptors for Token cards
-    public struct Token {
-        private init() {}
     }
 }
 // swiftlint:enable nesting

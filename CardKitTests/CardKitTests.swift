@@ -22,7 +22,7 @@ class CardKitTests: XCTestCase {
     }
     
     func testDeck() {
-        var d: Deck = Deck()
+        let d: Deck = Deck()
         
         let h1: Hand = Hand()
         let h2: Hand = Hand()
