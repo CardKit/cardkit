@@ -12,19 +12,19 @@ import Freddy
 
 //MARK: InputSlot
 
-/// Input slots are identified by a String.
-public typealias InputSlotIdentifier = String
+/// Input slots are named with Strings.
+public typealias InputSlotName = String
 
 /// Represents the metadata of an input to a card. Input is bound to a specified slot in the card. Inputs may be optional.
 public struct InputSlot {
-    /// The identifier of an InputSlot should be something human-understandable, such as "Duration" or 
+    /// The name of an InputSlot is a human-understandable name, such as "Duration" or
     /// "Location". This is NOT a UUID-based identifier as used for Cards, Yields, etc.
-    public let identifier: InputSlotIdentifier
+    public let name: InputSlotName
     public let inputType: InputType
     public let isOptional: Bool
     
-    init(identifier: InputSlotIdentifier, type: InputType, isOptional: Bool) {
-        self.identifier = identifier
+    init(name: InputSlotName, type: InputType, isOptional: Bool) {
+        self.name = name
         self.inputType = type
         self.isOptional = isOptional
     }
@@ -36,7 +36,7 @@ extension InputSlot: Equatable {}
 
 public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
     var equal = true
-    equal = equal && lhs.identifier == rhs.identifier
+    equal = equal && lhs.name == rhs.name
     equal = equal && lhs.inputType == rhs.inputType
     equal = equal && lhs.isOptional == rhs.isOptional
     return equal
@@ -46,7 +46,7 @@ public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
 
 extension InputSlot: Hashable {
     public var hashValue: Int {
-        return identifier.hashValue &+ (inputType.hashValue &* 3) &+ (isOptional.hashValue &* 5)
+        return name.hashValue &+ (inputType.hashValue &* 3) &+ (isOptional.hashValue &* 5)
     }
 }
 
@@ -54,7 +54,7 @@ extension InputSlot: Hashable {
 
 extension InputSlot: JSONDecodable {
     public init(json: JSON) throws {
-        self.identifier = try json.string("identifier")
+        self.name = try json.string("name")
         self.inputType = try json.decode("inputType", type: InputType.self)
         self.isOptional = try json.bool("isOptional")
     }
@@ -65,7 +65,7 @@ extension InputSlot: JSONDecodable {
 extension InputSlot: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "identifier": self.identifier.toJSON(),
+            "name": self.name.toJSON(),
             "inputType": self.inputType.toJSON(),
             "isOptional": self.isOptional.toJSON()
             ])
@@ -77,7 +77,7 @@ extension InputSlot: JSONEncodable {
 extension SequenceType where Generator.Element == InputSlot {
     public func slot(named name: String) -> InputSlot? {
         for slot in self {
-            if slot.identifier == name {
+            if slot.name == name {
                 return slot
             }
         }
