@@ -83,8 +83,7 @@ extension ActionCardDescriptor: Hashable {
 
 extension ActionCardDescriptor: CustomStringConvertible {
     public var description: String {
-        let ends = self.ends ? "ENDS" : "DOES NOT END"
-        return "\(name) [\(self.cardType), \(self.inputSlots.count) input slots, \(self.tokenSlots.count) tokens slots, \(self.yields.count) yields, \(ends), version \(self.version)]"
+        return "\(self.path.description)/\(self.name)"
     }
 }
 

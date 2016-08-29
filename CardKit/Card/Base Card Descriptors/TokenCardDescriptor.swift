@@ -65,8 +65,7 @@ extension TokenCardDescriptor: Hashable {
 
 extension TokenCardDescriptor: CustomStringConvertible {
     public var description: String {
-        let consumed = self.isConsumed ? "CONSUMED" : "NOT CONSUMED"
-        return "\(name) [\(self.cardType), \(consumed), version \(self.version)]"
+        return "\(self.path.description)/\(self.name)"
     }
 }
 

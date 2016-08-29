@@ -62,7 +62,7 @@ extension DeckCardDescriptor: Hashable {
 
 extension DeckCardDescriptor: CustomStringConvertible {
     public var description: String {
-        return "\(name) [\(self.cardType), version \(self.version)]"
+        return "\(self.path.description)/\(self.name)"
     }
 }
 

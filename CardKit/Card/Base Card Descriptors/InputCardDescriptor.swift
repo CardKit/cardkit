@@ -68,7 +68,7 @@ extension InputCardDescriptor: Hashable {
 
 extension InputCardDescriptor: CustomStringConvertible {
     public var description: String {
-        return "\(name) [\(self.cardType), inputType: \(self.inputType), version \(self.version)]"
+        return "\(self.path.description)/\(self.name)"
     }
 }
 

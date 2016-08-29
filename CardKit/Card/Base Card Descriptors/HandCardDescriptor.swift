@@ -104,7 +104,7 @@ extension HandCardDescriptor: Hashable {
 
 extension HandCardDescriptor: CustomStringConvertible {
     public var description: String {
-        return "\(name) [cardType: \(self.cardType), handCardType: \(self.handCardType), version \(self.version)]"
+        return "\(self.path.description)/\(self.name)"
     }
 }
 
