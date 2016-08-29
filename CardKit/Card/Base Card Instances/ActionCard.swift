@@ -63,7 +63,7 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public private (set) var tokenBindings: [TokenSlot : TokenSlotBinding] = [:]
     
     public var tokenSlots: [TokenSlot] {
-        return Array(self.tokenBindings.keys)
+        return self.descriptor.tokenSlots
     }
     
     public var boundTokenCardIdentifiers: [CardIdentifier] {
