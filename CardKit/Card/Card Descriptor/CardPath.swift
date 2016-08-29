@@ -58,9 +58,7 @@ extension CardPath: CustomStringConvertible {
 
 extension CardPath: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
-            "path": self.pathComponents.toJSON()
-            ])
+        return self.pathComponents.toJSON()
     }
 }
 
@@ -68,6 +66,6 @@ extension CardPath: JSONEncodable {
 
 extension CardPath: JSONDecodable {
     public init(json: JSON) throws {
-        self.pathComponents = try json.arrayOf("path", type: String.self)
+        self.pathComponents = try json.arrayOf(type: String.self)
     }
 }
