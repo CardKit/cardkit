@@ -88,7 +88,6 @@ public func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 
 /// Return a new hand with the given ActionCards ANDed together
 public func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
-    print("AND(A,A): \(lhs.identifier) && \(rhs.identifier)")
     // create a new Hand
     let hand = Hand()
     
@@ -106,7 +105,6 @@ public func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func && (lhs: Hand, rhs: ActionCard) -> Hand {
-    print("AND(H,A): \(lhs.identifier) && \(rhs.identifier)")
     let hand = Hand()
     hand.add(rhs)
     return lhs && hand
@@ -117,7 +115,6 @@ public func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
 }
 
 public func && (lhs: ActionCard, rhs: Hand) -> Hand {
-    print("AND(A,H): \(lhs.identifier) && \(rhs.identifier)")
     let hand = Hand()
     hand.add(lhs)
     return rhs && hand
@@ -130,7 +127,6 @@ public func && (lhs: ActionCard, rhs: Hand) -> Hand {
 /// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
 /// new Hand, with rhs having precedence when there are conflicts.
 public func && (lhs: Hand, rhs: Hand) -> Hand {
-    print("AND(H,H): \(lhs.identifier) && \(rhs.identifier)")
     return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .BooleanAnd)
 }
 
@@ -150,7 +146,6 @@ public func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 
 /// Return a new hand with the given ActionCards ORed together
 public func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
-    print("OR(A,A): \(lhs.identifier) && \(rhs.identifier)")
     // create a new Hand
     let hand = Hand()
     hand.add(lhs)
@@ -170,7 +165,6 @@ public func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func || (lhs: Hand, rhs: ActionCard) -> Hand {
-    print("OR(H,A): \(lhs.identifier) && \(rhs.identifier)")
     let hand = Hand()
     hand.add(rhs)
     return lhs || hand
@@ -181,7 +175,6 @@ public func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
 }
 
 public func || (lhs: ActionCard, rhs: Hand) -> Hand {
-    print("OR(A,H): \(lhs.identifier) && \(rhs.identifier)")
     let hand = Hand()
     hand.add(lhs)
     return rhs || hand
@@ -194,7 +187,6 @@ public func || (lhs: ActionCard, rhs: Hand) -> Hand {
 /// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
 /// new Hand, with rhs having precedence when there are conflicts.
 public func || (lhs: Hand, rhs: Hand) -> Hand {
-    print("OR(H,H): \(lhs.identifier) && \(rhs.identifier)")
     return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .BooleanOr)
 }
 
@@ -214,7 +206,6 @@ public func + (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func + (lhs: ActionCard, rhs: ActionCard) -> Hand {
-    print("ADD(A,A): \(lhs.identifier) && \(rhs.identifier)")
     let hand = Hand()
     hand.add(lhs)
     hand.add(rhs)
@@ -226,7 +217,6 @@ public func + (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
 }
 
 public func + (lhs: Hand, rhs: ActionCard) -> Hand {
-    print("ADD(H,A): \(lhs.identifier) && \(rhs.identifier)")
     let hand = lhs
     hand.add(rhs)
     return hand
@@ -265,7 +255,6 @@ public func + (lhs: Hand, rhs: HandCard) -> Hand {
 //MARK: Merging Hands Together
 
 public func + (lhs: Hand, rhs: Hand) -> Hand {
-    print("ADD(H,H): \(lhs.identifier) && \(rhs.identifier)")
     return lhs.merged(with: rhs)
 }
 
