@@ -54,15 +54,15 @@ public func <- (lhs: ActionCard, rhs: [InputCard]) throws -> ActionCard {
     return ret
 }
 
-/// Bind a TokenCard to an ActionCardDescriptor. Creates a new ActionCard
+/// Bind a TokenCard to an ActionCardDescriptor in the given TokenSlotName. Creates a new ActionCard
 /// instance first.
-public func <- (lhs: ActionCardDescriptor, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
+public func <- (lhs: ActionCardDescriptor, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
     return try lhs.makeCard() <- rhs
 }
 
-/// Bind a TokenCard to an ActionCard in the specified slot
-public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
-    return try lhs.bound(with: rhs.1, toSlotWithIdentifier: rhs.0)
+/// Bind a TokenCard to an ActionCard in the given TokenSlotName in the specified slot
+public func <- (lhs: ActionCard, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
+    return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
 }
 
 /// Bind an ActionCardDescriptors's Yield to an ActionCardDescriptor. Creates new ActionCard

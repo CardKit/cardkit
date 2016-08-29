@@ -12,12 +12,12 @@ import Freddy
 
 //MARK: TokenSlot
 
-/// Token slots are identified by a String.
-public typealias TokenIdentifier = String
+/// Token slots are named with Strings.
+public typealias TokenSlotName = String
 
 /// Represents the metadata of a token.
 public struct TokenSlot {
-    public let identifier: TokenIdentifier
+    public let name: TokenSlotName
     public let descriptor: TokenCardDescriptor
 }
 
@@ -27,7 +27,7 @@ extension TokenSlot: Equatable {}
 
 public func == (lhs: TokenSlot, rhs: TokenSlot) -> Bool {
     var equal = true
-    equal = equal && lhs.identifier == rhs.identifier
+    equal = equal && lhs.name == rhs.name
     equal = equal && lhs.descriptor == rhs.descriptor
     return equal
 }
@@ -36,7 +36,7 @@ public func == (lhs: TokenSlot, rhs: TokenSlot) -> Bool {
 
 extension TokenSlot: Hashable {
     public var hashValue: Int {
-        let a: Int = identifier.hashValue
+        let a: Int = name.hashValue
         let b: Int = descriptor.hashValue
         return a &+ (b &* 3)
     }
@@ -46,7 +46,7 @@ extension TokenSlot: Hashable {
 
 extension TokenSlot: JSONDecodable {
     public init(json: JSON) throws {
-        self.identifier = try json.string("identifier")
+        self.name = try json.string("name")
         self.descriptor = try json.decode("descriptor", type: TokenCardDescriptor.self)
     }
 }
@@ -56,7 +56,7 @@ extension TokenSlot: JSONDecodable {
 extension TokenSlot: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
-            "identifier": self.identifier.toJSON(),
+            "name": self.name.toJSON(),
             "descriptor": self.descriptor.toJSON()
             ])
     }
@@ -65,9 +65,9 @@ extension TokenSlot: JSONEncodable {
 //MARK: [TokenSlot]
 
 extension SequenceType where Generator.Element == TokenSlot {
-    public func slot(with identifier: String) -> TokenSlot? {
+    public func slot(named name: String) -> TokenSlot? {
         for slot in self {
-            if slot.identifier == identifier {
+            if slot.name == name {
                 return slot
             }
         }
