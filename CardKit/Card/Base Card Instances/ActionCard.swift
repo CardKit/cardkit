@@ -99,7 +99,7 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
         let jsonInputBindings: [String : InputSlotBinding] = try json.dictionary("inputBindings").withDecodedValues()
         for (slotName, binding) in jsonInputBindings {
             // find the InputSlot
-            guard let slot = self.descriptor.inputSlots.slot(named: slotName) else {
+            guard let slot = self.inputSlots.slot(named: slotName) else {
                 throw JSON.Error.ValueNotConvertible(value: json, to: ActionCard.self)
             }
             
@@ -185,6 +185,18 @@ extension ActionCard: BindsWithActionCard {
         self.inputBindings[slot] = .BoundToYieldingActionCard(card.identifier, yield)
     }
     
+    /// Binds the given ActionCard to the first available InputSlot with matching InputType.
+    func bind(with card: ActionCard, yield: Yield) throws {
+        for slot in self.inputSlots {
+            if yield.type == slot.inputType && !self.isSlotBound(slot) {
+                self.bind(with: card, yield: yield, in: slot)
+                return
+            }
+        }
+        
+        throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
+    }
+    
     /// Unbinds the card that was bound to the specified InputSlot
     func unbind(slot: InputSlot) {
         self.inputBindings.removeValueForKey(slot)
@@ -195,6 +207,19 @@ extension ActionCard: BindsWithActionCard {
         var newInputBindings = inputBindings
         newInputBindings[slot] = .BoundToYieldingActionCard(card.identifier, yield)
         return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+    }
+    
+    /// Returns a new ActionCard with the given ActionCard bound to the first free InputSlot with matching InputType.
+    func bound(with card: ActionCard, yield: Yield) throws -> ActionCard {
+        for slot in self.inputSlots {
+            if yield.type == slot.inputType && !self.isSlotBound(slot) {
+                var newInputBindings = inputBindings
+                newInputBindings[slot] = .BoundToYieldingActionCard(card.identifier, yield)
+                return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+            }
+        }
+        
+        throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
     }
     
     /// Returns a new ActionCard with the given InputSlot unbound
@@ -215,16 +240,21 @@ extension ActionCard: BindsWithActionCard {
     
     /// Retrieve the binding of the given InputSlot
     public func binding(of slot: InputSlot) -> InputSlotBinding? {
-        return self.inputBindings[slot] ?? nil
+        return self.inputBindings[slot]
     }
 }
 
 //MARK: BindsWithInputCard
 
 extension ActionCard: BindsWithInputCard {
+    /// Binds the given InputCard to the specified InputSlot
+    func bind(with card: InputCard, in slot: InputSlot) {
+        self.inputBindings[slot] = .BoundToInputCard(card)
+    }
+    
     /// Binds the given InputCard to the first available InputSlot with matching InputType.
     func bind(with card: InputCard) throws {
-        for slot in self.descriptor.inputSlots {
+        for slot in self.inputSlots {
             if card.descriptor.inputType == slot.inputType && !self.isSlotBound(slot) {
                 self.bind(with: card, in: slot)
                 return
@@ -234,9 +264,16 @@ extension ActionCard: BindsWithInputCard {
         throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
     }
     
+    /// Returns a new ActionCard with the given InputCard bound to the specified InputSlot
+    func bound(with card: InputCard, in slot: InputSlot) -> ActionCard {
+        var newInputBindings = inputBindings
+        newInputBindings[slot] = .BoundToInputCard(card)
+        return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
+    }
+    
     /// Returns a new ActionCard with the given InputCard bound to the first free InputSlot with matching InputType.
     func bound(with card: InputCard) throws -> ActionCard {
-        for slot in self.descriptor.inputSlots {
+        for slot in self.inputSlots {
             if card.descriptor.inputType == slot.inputType && !self.isSlotBound(slot) {
                 var newInputBindings = inputBindings
                 newInputBindings[slot] = .BoundToInputCard(card)
@@ -247,20 +284,9 @@ extension ActionCard: BindsWithInputCard {
         throw ActionCard.BindingError.NoFreeSlotMatchingInputTypeFound
     }
     
-    /// Binds the given InputCard to the specified InputSlot
-    func bind(with card: InputCard, in slot: InputSlot) {
-        self.inputBindings[slot] = .BoundToInputCard(card)
-    }
-    
-    /// Returns a new ActionCard with the given InputCard bound to the specified InputSlot
-    func bound(with card: InputCard, in slot: InputSlot) -> ActionCard {
-        var newInputBindings = inputBindings
-        newInputBindings[slot] = .BoundToInputCard(card)
-        return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
-    }
-    
-    /// Returns the value held in the specified InputSlot
-    public func value(of slot: InputSlot) -> InputDataBinding {
+    /// Returns the InputDataBinding held in the specified InputSlot, or .Unbound if the
+    /// slot is not bound.
+    public func boundData(of slot: InputSlot) -> InputDataBinding {
         guard let binding = self.inputBindings[slot] else { return .Unbound }
         
         switch binding {
@@ -270,6 +296,42 @@ extension ActionCard: BindsWithInputCard {
             return card.boundData
         case .BoundToYieldingActionCard(_):
             return .Unbound
+        }
+    }
+    
+    /// Returns the raw value held in the specified InputSlot, or nil
+    /// if the slot is unbound or if the data cannot be cast to the requested
+    /// type.
+    public func value<T>(of slot: InputSlot) -> T? {
+        guard let binding = self.inputBindings[slot] else { return nil }
+        switch binding {
+        case .BoundToInputCard(let card):
+            switch card.boundData {
+            case .SwiftInt(let val):
+                return val as? T
+            case .SwiftDouble(let val):
+                return val as? T
+            case .SwiftString(let val):
+                return val as? T
+            case .SwiftData(let val):
+                return val as? T
+            case .SwiftDate(let val):
+                return val as? T
+            case .Coordinate2D(let val):
+                return val as? T
+            case .Coordinate2DPath(let val):
+                return val as? T
+            case .Coordinate3D(let val):
+                return val as? T
+            case .Coordinate3DPath(let val):
+                return val as? T
+            case .CardinalDirection(let val):
+                return val as? T
+            default:
+                return nil
+            }
+        default:
+            return nil
         }
     }
 }

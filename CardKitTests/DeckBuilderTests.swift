@@ -41,6 +41,71 @@ class DeckBuilderTests: XCTestCase {
         XCTAssertTrue(duration.inputDataValue() == 2)
     }
     
+    func testTransitiveBinding() {
+        do {
+            let _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5)
+        } catch let error {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testYieldBinding() {
+        let a = CKTests.Action.YieldingNoAction.makeCard()
+        let b = CKTests.Action.YieldingNoAction.makeCard()
+        
+        do {
+            let boundA = try a <- (b, b.yields.first!)
+            
+            XCTAssertTrue(boundA.isSlotBound(boundA.inputSlots.first!))
+            
+            let binding = boundA.binding(of: boundA.inputSlots.first!)!
+            if case .BoundToYieldingActionCard(let identifier, let yield) = binding {
+                XCTAssertTrue(identifier == b.identifier)
+                XCTAssertTrue(yield.identifier == b.yields.first!.identifier)
+            } else {
+                XCTFail("yield case is not BoundToYieldingActionCard")
+            }
+            
+        } catch let error {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testMultipleInputBinding() {
+        let a = CKTests.Action.AcceptsMultipleInputTypes.makeCard()
+        
+        do {
+            let boundA = try a <- (CardKit.Input.Numeric.Real <- 5.0) <- (CardKit.Input.Numeric.Real <- 3.0)
+            
+            let slotA = boundA.inputSlots.slot(named: "A")!
+            let slotB = boundA.inputSlots.slot(named: "B")!
+            let slotC = boundA.inputSlots.slot(named: "C")!
+            let slotD = boundA.inputSlots.slot(named: "D")!
+            
+            XCTAssertTrue(boundA.isSlotBound(slotA))
+            XCTAssertFalse(boundA.isSlotBound(slotB))
+            XCTAssertTrue(boundA.isSlotBound(slotC))
+            XCTAssertFalse(boundA.isSlotBound(slotD))
+            
+            guard let aValue: Double = boundA.value(of: slotA) else {
+                XCTFail("expected a Double value in slotA")
+                return
+            }
+            
+            XCTAssertTrue(aValue == 5.0)
+            
+            guard let cValue: Double = boundA.value(of: slotC) else {
+                XCTFail("expected a Double value in slotC")
+                return
+            }
+            
+            XCTAssertTrue(cValue == 3.0)
+            
+        } catch let error {
+            XCTFail("\(error)")
+        }
+    }
+    
     func testHandBuilding() {
         let noActionA = CKTests.Action.NoAction
         let noActionB = CKTests.Action.NoAction
@@ -48,14 +113,6 @@ class DeckBuilderTests: XCTestCase {
         
         // NoActionA, NoActionB, End Rule
         XCTAssertTrue(hand.cardCount == 3)
-    }
-    
-    func testTransitiveBinding() {
-        do {
-            let _ = try (CardKit.Action.Trigger.Time.Timer <- CardKit.Input.Time.Duration <- 5)
-        } catch let error {
-            XCTFail("\(error)")
-        }
     }
     
     func testSimpleDeck() {
@@ -81,11 +138,11 @@ class DeckBuilderTests: XCTestCase {
                 noAction ==>
                 
                 // wait 5 seconds
-                timer <- CardKit.Input.Time.Duration <- 5  ==>
+                timer <- (CardKit.Input.Time.Duration <- 5)  ==>
                 
                 // wait 10 seconds and until the clock time is reached
-                timer <- CardKit.Input.Time.Duration <- 10
-                    && wait <- CardKit.Input.Time.ClockTime <- NSDate()
+                timer <- (CardKit.Input.Time.Duration <- 10)
+                    && wait <- (CardKit.Input.Time.ClockTime <- NSDate())
             )%
             
             XCTAssertTrue(deck.handCount == 3)

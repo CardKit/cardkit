@@ -33,5 +33,38 @@ public struct CKTests {
             endsDescription: "Ends instantly.",
             assetCatalog: CardAssetCatalog(description: "No action performed."),
             version: 0)
+        
+        //MARK: YieldingNoAction
+        /// Descriptor for YieldingNoAction card
+        public static let YieldingNoAction = ActionCardDescriptor(
+            name: "Yielding No Action",
+            subpath: nil,
+            inputs: [InputSlot(name: "Input", type: .SwiftDouble, isOptional: false)],
+            tokens: nil,
+            yields: [Yield(type: .SwiftDouble)],
+            yieldDescription: "The answer to the question.",
+            ends: true,
+            endsDescription: "Ends instantly.",
+            assetCatalog: CardAssetCatalog(description: "No action performed, but yields magic."),
+            version: 0)
+        
+        //MARK: AcceptsMultipleInputTypes
+        /// Descriptor for AcceptsMultipleInputTypes card
+        public static let AcceptsMultipleInputTypes = ActionCardDescriptor(
+            name: "Accepts Multiple Input Types",
+            subpath: nil,
+            inputs: [
+                InputSlot(name: "A", type: .SwiftDouble, isOptional: false),
+                InputSlot(name: "B", type: .SwiftString, isOptional: false),
+                InputSlot(name: "C", type: .SwiftDouble, isOptional: false),
+                InputSlot(name: "D", type: .SwiftData, isOptional: false)
+            ],
+            tokens: nil,
+            yields: nil,
+            yieldDescription: nil,
+            ends: true,
+            endsDescription: "Ends instantly.",
+            assetCatalog: CardAssetCatalog(description: "No action performed, but accepts magic inputs."),
+            version: 0)
     }
 }

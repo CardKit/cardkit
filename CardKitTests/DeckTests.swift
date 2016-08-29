@@ -57,11 +57,11 @@ class DeckTests: XCTestCase {
                 noAction ==>
                     
                     // wait 5 seconds
-                    timer <- CardKit.Input.Time.Duration <- 5  ==>
+                    timer <- (CardKit.Input.Time.Duration <- 5)  ==>
                     
                     // wait 10 seconds and until the clock time is reached
-                    timer <- CardKit.Input.Time.Duration <- 10
-                    && wait <- CardKit.Input.Time.ClockTime <- NSDate()
+                    timer <- (CardKit.Input.Time.Duration <- 10)
+                    && wait <- (CardKit.Input.Time.ClockTime <- NSDate())
                 )%
             
             let prettyStr = deck.toJSON().stringify(true)

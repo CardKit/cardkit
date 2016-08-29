@@ -11,7 +11,7 @@ import Foundation
 
 //MARK: Binding Operator
 
-infix operator <- { associativity right precedence 160 }
+infix operator <- { associativity left precedence 160 }
 
 
 //MARK: Binding Data to an InputCard
@@ -39,6 +39,21 @@ public func <- (lhs: ActionCard, rhs: InputCard) throws -> ActionCard {
     return try lhs.bound(with: rhs)
 }
 
+/// Try binding a set of InputCards to an ActionCardDescriptor. Creates a new
+/// ActionCard instance first.
+public func <- (lhs: ActionCardDescriptor, rhs: [InputCard]) throws -> ActionCard {
+    return try lhs.makeCard() <- rhs
+}
+
+/// Try binding a set of InputCards to an ActionCard.
+public func <- (lhs: ActionCard, rhs: [InputCard]) throws -> ActionCard {
+    var ret = lhs
+    for card in rhs {
+        ret = try ret.bound(with: card)
+    }
+    return ret
+}
+
 /// Bind a TokenCard to an ActionCardDescriptor. Creates a new ActionCard
 /// instance first.
 public func <- (lhs: ActionCardDescriptor, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
@@ -48,6 +63,29 @@ public func <- (lhs: ActionCardDescriptor, rhs: (TokenIdentifier, TokenCard)) th
 /// Bind a TokenCard to an ActionCard in the specified slot
 public func <- (lhs: ActionCard, rhs: (TokenIdentifier, TokenCard)) throws -> ActionCard {
     return try lhs.bound(with: rhs.1, toSlotWithIdentifier: rhs.0)
+}
+
+/// Bind an ActionCardDescriptors's Yield to an ActionCardDescriptor. Creates new ActionCard
+/// instances first.
+public func <- (lhs: ActionCardDescriptor, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
+    return try lhs.makeCard() <- (rhs.0.makeCard(), rhs.1)
+}
+
+/// Bind an ActionCard's Yield to an ActionCardDescriptor. Creates a new ActionCard
+/// instance first.
+public func <- (lhs: ActionCardDescriptor, rhs: (ActionCard, Yield)) throws -> ActionCard {
+    return try lhs.makeCard() <- rhs
+}
+
+/// Bind an ActionCardDescriptor's Yield to an ActionCard. Creates a new ActionCard
+/// instance first.
+public func <- (lhs: ActionCard, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
+    return try lhs <- (rhs.0.makeCard(), rhs.1)
+}
+
+/// Bind a Yield to an ActionCard.
+public func <- (lhs: ActionCard, rhs: (ActionCard, Yield)) throws -> ActionCard {
+    return try lhs.bound(with: rhs.0, yield: rhs.1)
 }
 
 
