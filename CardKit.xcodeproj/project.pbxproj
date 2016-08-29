@@ -168,6 +168,12 @@
 		CCBB792B1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
 		CCBB792C1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
 		CCBB792D1D7466E0003B6458 /* CKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTests.swift */; };
+		CCBB793B1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
+		CCBB793C1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
+		CCBB793D1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
+		CCBB793E1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
+		CCBB793F1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
+		CCBB79401D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
 		CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
@@ -361,6 +367,7 @@
 		CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetExtensions.swift; sourceTree = "<group>"; };
 		CC9E76611D54F33500B7C738 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CCBB792A1D7466E0003B6458 /* CKTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKTests.swift; sourceTree = "<group>"; };
+		CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreddyExtensions.swift; sourceTree = "<group>"; };
 		CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		CCE729161D5A33F400A347D8 /* HandEndRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandEndRule.swift; sourceTree = "<group>"; };
 		CCE729181D5A33F400A347D8 /* HandCardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandCardType.swift; sourceTree = "<group>"; };
@@ -573,8 +580,9 @@
 			isa = PBXGroup;
 			children = (
 				CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */,
-				CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */,
 				CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */,
+				CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */,
+				CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */,
 				CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */,
 			);
 			path = Extensions;
@@ -1055,6 +1063,7 @@
 				CCE7293F1D5A465E00A347D8 /* InputSlot.swift in Sources */,
 				CC931A4B1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
 				CC9E764B1D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
+				CCBB793B1D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CCE729191D5A33F400A347D8 /* HandEndRule.swift in Sources */,
 				CCE729981D5B75B900A347D8 /* BindsWithTokenCard.swift in Sources */,
 				CCE729641D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
@@ -1096,6 +1105,7 @@
 				CCE729651D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
 				CC9E763F1D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A7D1D496231001B71B1 /* HandCard.swift in Sources */,
+				CCBB793C1D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CC9E76451D524AD800B7C738 /* DeckBuilder.swift in Sources */,
 				CCE7298D1D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
 				CCE7296B1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
@@ -1159,6 +1169,7 @@
 				CCE729411D5A465E00A347D8 /* InputSlot.swift in Sources */,
 				CC931A851D496238001B71B1 /* InputCard.swift in Sources */,
 				CC9E764D1D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
+				CCBB793D1D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CCE7291B1D5A33F400A347D8 /* HandEndRule.swift in Sources */,
 				CCE7299A1D5B75B900A347D8 /* BindsWithTokenCard.swift in Sources */,
 				CCE729661D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
@@ -1200,6 +1211,7 @@
 				CCE729671D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
 				CC9E76401D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A7F1D496231001B71B1 /* HandCard.swift in Sources */,
+				CCBB793E1D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CC9E76471D524AD800B7C738 /* DeckBuilder.swift in Sources */,
 				CCE7298F1D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
 				CCE7296D1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
@@ -1263,6 +1275,7 @@
 				CCE729431D5A465E00A347D8 /* InputSlot.swift in Sources */,
 				CC931A4F1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
 				CC9E764F1D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
+				CCBB793F1D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CCE7291D1D5A33F400A347D8 /* HandEndRule.swift in Sources */,
 				CCE7299C1D5B75B900A347D8 /* BindsWithTokenCard.swift in Sources */,
 				CCE729681D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
@@ -1304,6 +1317,7 @@
 				CCE729691D5B75B300A347D8 /* AcceptsInputs.swift in Sources */,
 				CC9E76411D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */,
 				CC931A811D496231001B71B1 /* HandCard.swift in Sources */,
+				CCBB79401D7487DF003B6458 /* FreddyExtensions.swift in Sources */,
 				CC9E76491D524AD800B7C738 /* DeckBuilder.swift in Sources */,
 				CCE729911D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
 				CCE7296F1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
