@@ -6,6 +6,8 @@ CardKit is written in Swift and supports macOS, iOS, and tvOS.
 
 CardKit depends on [Freddy](https://github.com/bignerdranch/Freddy) for JSON object serialization & deserialization.
 
+The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validating and executing CardKit programs.
+
 ## Card Descriptors & Cards
 
 A `CardDescriptor` represents the information that would appear on a printed card. For example, the image below shows a sample annotated card containing various kinds of information.
@@ -20,7 +22,7 @@ A `CardDescriptor` contains a host of information used to describe the card:
 * **Version**. Version numbers are used to keep track of cards in case a card's metadata ever changes, or we need to support execution of multiple versions of the same card.
 * **Asset Catalog**. An Asset Catalog contains information about all assets needed to render the card on screen (e.g. a PNG rendering of the card, textual descriptions, etc.)
 
-A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and it's implementation is managed by the `CardKit Runtime`.
+A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and it's implementation is managed by `CardKit Runtime`.
 
 The `Card` protocol, plus a set of associated base classes (`ActionCard`, `DeckCard`, `HandCard`, `InputCard`, and `TokenCard`) are the basis for card instances. A card's *instance* tracks information about how the card is bound to other cards and in which hand a card appears. For example, an `InputCardDescriptor` may specify that an Input card should contain a `Double` value. The corresponding `InputCard` instance would track *which* `Double` was assigned to the Input card (e.g. "5.0").
 
@@ -38,7 +40,7 @@ Action cards are used to perform an action with a physical device. For example, 
 
 ![FlyTo card image](images/fly-to.png)
 
-`ActionCardDescriptor` defines the base card descriptor for an `ActionCard`. Action cards may accept inputs from other cards (`AcceptsInputs`), they may be bound to `TokenCards` to drive physical activities (`AcceptsTokens`), they may produce data that can be used by other downstream cards (`ProducesYields`), and they may trigger execution state changes (`Satisfiable`).
+`ActionCardDescriptor` defines the base card descriptor for an `ActionCard`. Action cards may accept inputs from other cards (`AcceptsInputs`), they may be bound to `TokenCards` to drive physical activities (`AcceptsTokens`), they may produce data that can be used by other downstream cards (`ProducesInput`, `ProducesYields`), and they may trigger execution state changes (`Satisfiable`).
 
 ### Deck
 
@@ -48,7 +50,7 @@ Deck cards are used to modify the execution logic of the Deck, such as ending ex
 
 ### Hand
 
-Hand cards are used to modify the execution logic of a Hand. Arbitrary Boolean logics are supported with Hand cards, such that a Hand card's own satisfaction is be triggered using a Boolean operation across a subset of `Satisfiable` cards in the hand (note: currently, `CardKit` does not enforce that the logic is applied only to `Satisfiable` cards). Branching and Repetition logic are also handled by Hand cards.
+Hand cards are used to modify the execution logic of a Hand. Arbitrary Boolean logics are supported with Hand cards, such that a Hand card's own satisfaction is based on the satisfaction of the cards to which it is attached. Branching and Repetition logic are also handled by Hand cards.
 
 ![Repeat Hand card image](images/repeat-hand.png)
 
@@ -58,13 +60,15 @@ Input cards are used to provide concrete, user-specified inputs to an Action car
 
 ![Input card image](images/location.png)
 
-Input cards are similar to Action cards in that both produce some piece of data that is used by a card (called a Yield). In the case of Input cards, that data will always be user-specified. In the case of Action cards, that data will be computed based on the side-effects of executing the Action card.
+Input cards are similar to Action cards in that both produce some piece of data that is used by a card. For an `ActionCard`, this is called a `Yield` and it is computed at run-time based on the effects of executing the Action card. For an `InputCard`, this data is always user-specified at the time of program construction.
+
+The `InputSlot` class manages the Input slots of an Action card. Each `InputSlot` has a human-understandable name (e.g. "Duration" or "Location") and a corresponding `InputType` (defined as an enum, e.g. `.SwiftDouble` or `.Coordinate2D`). `ActionCard` keeps track of `InputSlot` binding using the `InputSlotBinding` enum; a slot may be unbound, bound to an `InputCard`, or bound to the `Yield` of an `ActionCard`.
 
 ### Token
 
-Token cards represent the physical IoT hardware. Token card implementations (deriving from `TokenCard`) are designed to communicate with IoT hardware to perform the requisite actions as specified by the CardKit program. For example, a `DroneTokenCard` might be created to control a drone. It is the responsibility for the Token card's implementation to perform any actual communication with the drone (or other IoT hardware).
+Token cards represent physical IoT hardware. Token card implementations, based on the `ExecutableTokenCard` class in `CardKit Runtime`, are designed to communicate with IoT hardware to perform the requisite actions as specified by the CardKit program. For example, a `Drone` token implementation may be created to control a drone. It is the responsibility for the Token card's implementation to perform any actual communication with the drone (or other IoT hardware).
 
-Tokens adhere to the `Consumable` protocol to specify whether their use is consumed by an `ActionCard`. If a token is consumed, it's use by one `ActionCard` prevents its use by another `ActionCard` (e.g. a camera that can only respond to one command at a time). Tokens that are not consumed may be bound to multiple `ActionCard`s in the same hand. Token consumability applies only within the current Hand; a Token that was consumed in a previous hand may be used by a new `ActionCard` in the current hand.
+Tokens adhere to the `Consumable` protocol to specify whether their use is consumed by an `ActionCard`. If a token is consumed, its use by one `ActionCard` prevents its use by another `ActionCard` (e.g. a camera that can only respond to one command at a time). Tokens that are not consumed may be bound to multiple `ActionCard`s in the same hand. Token consumability applies only within the current Hand; a Token that was consumed in a previous hand may be used by a new `ActionCard` in the current hand.
 
 ![Camera card image](images/camera.png)
 
@@ -82,18 +86,13 @@ Note that `CardKit` only provides facilities for defining the structure of a Car
 
 ### Yields
 
-An `ActionCard` may produce some amount of data upon its execution. For example, a card that performs a computation to detect the location of an object in an image may *yield* the location of the object. These yields can then be used as Inputs to downstream cards (defined in later hands).
+An `ActionCard` may produce some amount of data upon its execution. For example, a card that performs a computation to detect the location of an object in an image may *yield* the location of the object. These yields can then be used as Inputs to downstream cards (cards that are defined in later hands).
 
 ### End Flag
 
 Cards may execute indefinitely or their execution may halt upon some condition. For example, a card that reads data from a humidity sensor may continuously perform these readings; a card that controls a drone to fly to a particular location may cease execution once the drone has reached that location. These two execution styles are captured by the End Flag.
 
 The End Flag is captured by the `Satisfiable` protocol. A card is considered "satisfied" once its end condition has been met.
-
-Satisfaction of a hand occurs when both of the following conditions are met:
-
-* All `HandCard`s specifying satisfaction logic (i.e. `LogicHandCard` instances) are satisfied
-* All `ActionCard`s not bound to a `HandCard` are satisfied
 
 ### Slots
 
@@ -104,7 +103,7 @@ Action cards contain a set of `InputSlots` and `TokenSlots` representing "slots"
 public static let Timer = ActionCardDescriptor(
 …
 	inputs: [
-		InputSlot(identifier: "Duration", type: InputType.SwiftInt, isOptional: false)
+		InputSlot(name: "Duration", type: InputType.SwiftInt, isOptional: false)
 	],
 …
 }
@@ -119,12 +118,12 @@ Cards are bound to each other when the yields from one card are used as inputs t
 * `ActionCard` to `ActionCard` – this is a Yield relationship
 * `InputCard` to `ActionCard` – this is an Input relationship
 * `TokenCard` to `ActionCard` – this is a Token relationship
-* Value to `InputCard` – this binds a specific data value (wrapped in an `InputBinding`) to an Input card
+* Value to `InputCard` – this binds a specific data value (wrapped in an `InputDataBinding`) to an Input card
 
 The `bind()` methods are implemented generically, enabling any kind of data to be bound to a card. However, there are a few caveats:
 
 * Input slots are specified with the type of data they are expecting. Thus, a type-checking step is performed during binding to ensure that the type of the given data matches the expected type.
-* Everything needs to serialize to and from JSON, including input bindings. Because Swift does not currently allow instantiating an instance of a struct from its String type name (e.g. cannot instantiate a struct `Foo` from the string "Foo"), we box the values of bound input using the `InputBinding` enum. This enum contains cases for commonly-used Swift types (Int, Double, Date, Data), as well as some custom structs that may be useful in CardKit (Coordinate2D, Coordinate3D, etc.).
+* Everything needs to serialize to and from JSON, including input bindings. Because Swift does not currently allow instantiating an instance of a struct from its String type name (e.g. cannot instantiate a struct `Foo` from the string "Foo"), we box the values of bound input using the `InputDataBinding` enum. This enum contains cases for commonly-used Swift types (Int, Double, Date, Data), as well as some custom structs that may be useful in CardKit (Coordinate2D, Coordinate3D, etc.).
 
 ## Hands, Decks & Deck Building
 
@@ -134,7 +133,55 @@ A Deck is an ordered sequence of Hands. Execution of a Deck will always begin wi
 
 As with `Card` instances, `Hand`s contain a UUID-based identifier, enabling references to be made from a branching `HandCard` to another `Hand` in the Deck.
 
-To enable a rapid construction of CardKit programs, we introduce some syntactic sugar using operator overloading. Here is an example of the smallest, complete CardKit program using this syntax.
+### Hand Representation
+
+Hands are represented as a forest of `CardTree`s. Each node in a `CardTree` is represented by a `CardTreeNode`, which may be an `ActionCard`, a `UnaryLogicCard` (used for NOT logic), or a `BinaryLogicCard` (used for AND and OR logics). Each `CardTree` has a unique UUID-based identifier.
+
+A Hand also contains a set of subhands to which it may branch. These subhands are stored in the Hand, as opposed to in the parent Deck, because once a branch is taken from a Hand, it cannot be returned from. This rule ensures that Yield dependencies remain hierarchically correct. For example, consider the following program structure:
+
+```
+Deck D = 
+  Hand_1
+  Hand_2
+  Hand_3 --(branch)--> Hand_3a
+  Hand_4
+```
+
+Deck `D` contains four hands, `Hand_1`, `Hand_2`, `Hand_3`, and `Hand_4`. `Hand_3a` is contained within `Hand_3` as a subhand. The possible execution orders of this Deck are therefore,
+
+* `Hand_1 -> Hand_2 -> Hand_3 -> Hand_4`
+* `Hand_1 -> Hand_2 -> Hand_3 -> Hand_3a`
+
+By design, we do not allow `Hand_4` to execute after `Hand_3a`. Thus, it is stored as a subhand of `Hand_3` rather than as another Hand in the Deck.
+
+### Hand Satisfaction
+
+Satisfaction of a hand occurs when either of the following conditions are met:
+
+* A branching `CardTree` is satisfied, in which case the next Hand to be executed will be the one targeted by the `BranchHandCard`.
+* All `CardTrees` are satisfied, in which case the next Hand to be executed will be the next one in the Deck.
+
+Empty `CardTree`s are considered satisfied.
+
+### Branching
+
+`BranchHandCard`s are used to specify branching logic. Each `BranchHandCard` maintains the identifier of the `CardTree` from which to branch, as well as the identifier of the `Hand` to which to branch. This target Hand must be a subhand of the Hand.
+
+### Deck Builder Syntax
+
+To enable a rapid construction of CardKit programs, we introduce some syntactic sugar using operator overloading.
+
+|  Operator  |  Function  |  Examples  |
+|---|---|---|
+|  `<-`  |  Binding  |  Data value to `InputCard`, `ActionCard` to `ActionCard`, `InputCard` to `ActionCard`)  |
+| `!`  |  Logical Not  |  Negates an `ActionCard`  |
+|  `&&`  |  Logical And  |  And between two `ActionCard`s, And between two `Hand`s by collapsing all `CardTree`s and ANDing them together  |
+|  `||`  |  Logical Or  |  Or between two `ActionCard`s, Or between two Hands by collapsing all `CardTree`s and ORing them together  |
+|  `+`  |  Combining  |  Combines cards to make a Hand, adds cards to an existing Hand, merges Hands, adds Deck cards to a Deck  |
+|  `==>`  |  Sequencing  |  Sequences Cards and Hands into `[Hand]`  |
+|  `%`  |  Sealing  |  Seals a card into a Hand, seals a `[Hand]` into a `Deck`  |
+
+Here is an example of the smallest, complete CardKit program using the Deck Builder syntax.
 
 ```
 let deck = (
@@ -152,12 +199,11 @@ Note that because the `==>` operator takes two operands, we can only use this sy
 ```
 let deck = Deck()
 let hand = Hand()
-hand.add(CardKit.Action.NoAction.instance())
+hand.add(CKTests.Action.NoAction.instance())
 deck.add(hand)
 ```
 
 Input bindings can also be specified using the Deck Builder syntax.
-
 
 ```
 let timerCard: ActionCard = CardKit.Action.Trigger.Time.Timer <- CardKit.Input.Time.Duration <- 5
@@ -168,30 +214,33 @@ Note that `timerCard` is built using `ActionCardDescriptors` and `InputCardDescr
 A Hand containing `HandCard` logic is specified below.
 
 ```
-let A = CardKit.Action.NoAction.instance()
-let B = CardKit.Action.NoAction.instance()
-let C = CardKit.Action.NoAction.instance()
-let D = CardKit.Action.NoAction.instance()
-let E = CardKit.Action.NoAction.instance()
-let F = CardKit.Action.NoAction.instance()
+let A = CKTests.Action.NoAction.instance()
+let B = CKTests.Action.NoAction.instance()
+let C = CKTests.Action.NoAction.instance()
+let D = CKTests.Action.NoAction.instance()
+let E = CKTests.Action.NoAction.instance()
+let F = CKTests.Action.NoAction.instance()
 let hand = ((A && B) || (C && D)) + E + !F
 ```
 
-The operators `&&`, `||`, and `!` produce `HandCard`s with the respective Boolean operator, applied to the specified cards. The operator `+` is used to combine cards in a hand (e.g. without adding additional logic cards). Thus, the resulting Hand contains the following cards:
+The operators `&&`, `||`, and `!` produce `HandCard`s with the respective Boolean operator, applied to the specified cards. The operator `+` is used to combine cards in a hand (e.g. without adding additional logic cards). Thus, the resulting Hand contains the following `CardTree`s:
 
 ```
-A, B, C, D, E, F, AND(A, B), AND(C, D), NOT(F), OR(AND(A, B), AND(C, D))
+   Tree 1        Tree 2    Tree 3
+     OR            E         NOT
+    /   \                     |
+  AND   AND                   F
+ /  \   /  \
+A    B  C   D
 ```
 
-Note that this hand will be considered satisfied when the following conditions are met. Because `E` is not bound to any `HandCard` logic, it is considered in the Hand's satisfaction. Because `A, B, C, D, F` are bound to `HandCard` logic, their individual satisfaction states are ignored.
+Note that this hand will be considered satisfied when the following three conditions are met:
 
-```
-AND(A, B) = Satisfied
-AND(C, D) = Satisfied
-NOT(F) = Satisfied
-OR(AND(A, B), AND(C, D)) = Satisfied
-E = Satisfied
-```
+* Tree 1 is satisfied via `OR(AND(A,B), AND(C,D))`
+* Tree 2 is satisfied via `E`
+* Tree 3 is satisfied via `NOT(F)`
+
+If this Hand contained a `BranchHandCard`, then the Hand would be satisfied only when the source `CardTree` of the branch was satisfied. This logic applies to Hands that contain multiple `BranchHandCard`s: the first one to be satisfied determines which subhand to which to branch.
 
 ## Coding Principles
 
@@ -220,7 +269,7 @@ We follow a few naming guidelines in CardKit.
 
 Due to limitations in Swift reflection, we use an `enum` to box `Input` and `Yield` types. This is because we are not able to instantiate a reference to a type from it's String name, as would be given in the JSON representation of a CardKit program (`NSClassFromName()` does not work for `struct` types).
 
-The box types are defined in `Input.swift` (`Yield.swift` creates a `typealias YieldType = InputType` so the boxing also works with Yields). Common Swift types are supported (`Int`, `Double`, `String`, `NSData`, `NSDate`), plus some additional types that are useful for IoT applications (`CKCoordinate2D`, `CKCoordinate2DPath`, `CKCardinalDirection`, etc.).
+The box types are defined in `Input.swift` (`Yield.swift` creates a `typealias YieldType = InputType` so the boxing also works with Yields). Common Swift types are supported (`Int`, `Double`, `String`, `NSData`, `NSDate`), plus some additional types that are useful for IoT applications (`Coordinate2D`, `Coordinate2DPath`, `CardinalDirection`, etc.).
 
 ## Building
 
