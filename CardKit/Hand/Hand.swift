@@ -794,7 +794,10 @@ extension Hand {
             return (true, nil)
         }
         
-        // test if each CardTree is satisfied given the set of cards
+        // keep track of whether all hands are satisfied given the set of cards
+        var allSatisfied = true
+        
+        // test if any branching CardTree is satisfied given the set of cards
         for tree in self.cardTrees {
             if tree.isSatisfied(by: cards) {
                 // is there a branch?
@@ -809,14 +812,15 @@ extension Hand {
                         }
                     }
                 }
-                
-                // tree is satisfied but there is no subhand to branch to
-                return (true, nil)
+            } else {
+                // oops, a subtree was not satisfied
+                allSatisfied = false
             }
         }
         
-        // no CardTrees were satisfied
-        return (false, nil)
+        // no branching CardTrees were satisfied, so hand satisfaction is either
+        // true if all CardTrees were satisfied, or false otherwise
+        return allSatisfied ? (true, nil) : (false, nil)
     }
 }
 
