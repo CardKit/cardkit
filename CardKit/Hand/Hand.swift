@@ -30,7 +30,9 @@ public class Hand: JSONEncodable, JSONDecodable {
     
     /// Specifies the End Rule that governs the logic of this Hand. The default
     /// is that ALL cards in the hand must End before moving to the next Hand.
-    /// There may only be one EndRuleCard in a Hand.
+    /// There may only be one EndRuleCard in a Hand. Note BranchHandCards have precedence
+    /// over the End Rule card, such that once a BranchHandCard's CardTree is satisfied,
+    /// the Hand will end and the branch will be taken.
     private (set) var endRuleCard: EndRuleHandCard = EndRuleHandCard(with: CardKit.Hand.End.All)
     
     /// Unique identifier for the Hand
@@ -794,12 +796,19 @@ extension Hand {
             return (true, nil)
         }
         
-        // keep track of whether all hands are satisfied given the set of cards
+        // keep track of whether ALL hands are satisfied given the set of cards
+        // assume they are all satisfied until we find an unsatisfied CardTree
         var allSatisfied = true
+        
+        // keep track of whether ANY hands are satisfied given the set of cards
+        // assume that none is satisfied until we find a satisfied CardTree
+        var anySatisfied = false
         
         // test if any branching CardTree is satisfied given the set of cards
         for tree in self.cardTrees {
             if tree.isSatisfied(by: cards) {
+                anySatisfied = true
+                
                 // is there a branch?
                 for branchCard in self.branchCards {
                     if branchCard.cardTreeIdentifier == tree.identifier {
@@ -818,9 +827,19 @@ extension Hand {
             }
         }
         
-        // no branching CardTrees were satisfied, so hand satisfaction is either
-        // true if all CardTrees were satisfied, or false otherwise
-        return allSatisfied ? (true, nil) : (false, nil)
+        // at this point, no branching CardTrees were satisfied, which means the next
+        // hand to be executed is the next hand in the deck (hence, the 2nd arg in the 
+        // tuple is nil). as for whether the hand is satisfied, it depends on the 
+        // End Rule card.
+        switch self.endRule {
+        case .EndWhenAnySatisfied:
+            return (anySatisfied, nil)
+        case .EndWhenAllSatisfied:
+            return (allSatisfied, nil)
+        case .Indeterminate:
+            // default to EndWhenAllSatisfied
+            return (allSatisfied, nil)
+        }
     }
 }
 
