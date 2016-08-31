@@ -199,7 +199,7 @@ In addition to the Deck Builder syntax, we also support an imperative syntax for
 ```
 let deck = Deck()
 let hand = Hand()
-hand.add(CKTests.Action.NoAction.instance())
+hand.add(CKTests.Action.NoAction.makeCard())
 deck.add(hand)
 ```
 
@@ -214,12 +214,12 @@ Note that `timerCard` is built using `ActionCardDescriptors` and `InputCardDescr
 A Hand containing `HandCard` logic is specified below.
 
 ```
-let A = CKTests.Action.NoAction.instance()
-let B = CKTests.Action.NoAction.instance()
-let C = CKTests.Action.NoAction.instance()
-let D = CKTests.Action.NoAction.instance()
-let E = CKTests.Action.NoAction.instance()
-let F = CKTests.Action.NoAction.instance()
+let A = CKTests.Action.NoAction.makeCard()
+let B = CKTests.Action.NoAction.makeCard()
+let C = CKTests.Action.NoAction.makeCard()
+let D = CKTests.Action.NoAction.makeCard()
+let E = CKTests.Action.NoAction.makeCard()
+let F = CKTests.Action.NoAction.makeCard()
 let hand = ((A && B) || (C && D)) + E + !F
 ```
 
