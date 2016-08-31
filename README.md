@@ -181,20 +181,20 @@ To enable a rapid construction of CardKit programs, we introduce some syntactic 
 |  `==>`  |  Sequencing  |  Sequences Cards and Hands into `[Hand]`  |
 |  `%`  |  Sealing  |  Seals a card into a Hand, seals a `[Hand]` into a `Deck`  |
 
-Here is an example of the smallest, complete CardKit program using the Deck Builder syntax.
+Here is an example of a small, complete CardKit program using the Deck Builder syntax.
 
 ```
 let deck = (
-	CardKit.Action.NoAction ==> 
-	CardKit.Action.NoAction
+	CKTests.Action.NoAction ==> 
+	CKTests.Action.NoAction
 )%        
 ```
 
+The `==>` operator is used to specify a sequence of Hands. Note that we are able to produce a `Hand` containing an `ActionCard`, even though we specified `CKTests.Action.NoAction` which is an `ActionCardDescriptor`. This behavior is possible because the internal specification of `==>` will create an `ActionCard` instance when given an `ActionCardDescriptor`.
+
 The `%` operator is used to "seal" a deck from a sequence of hands.
 
-The `==>` operator is used to specify a sequence of Hands. Note that we are able to produce a `Hand` containing an `ActionCard`, even though we specified `CardKit.Action.NoAction: ActionCardDescriptor`. This behavior is possible because the internal specification of `==>` will create an `ActionCard` instance when given an `ActionCardDescriptor`.
-
-Note that because the `==>` operator takes two operands, we can only use this syntax to specify Decks that contain two or more hands. For a Deck consisting of a single Hand, we recommend using the imperative syntax instead.
+In addition to the Deck Builder syntax, we also support an imperative syntax for building decks.
 
 ```
 let deck = Deck()
