@@ -23,7 +23,7 @@ public struct InputSlot {
     public let inputType: InputType
     public let isOptional: Bool
     
-    init(name: InputSlotName, type: InputType, isOptional: Bool) {
+    public init(name: InputSlotName, type: InputType, isOptional: Bool) {
         self.name = name
         self.inputType = type
         self.isOptional = isOptional
