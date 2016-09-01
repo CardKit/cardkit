@@ -39,7 +39,7 @@ public struct CKTests {
         public static let YieldingNoAction = ActionCardDescriptor(
             name: "Yielding No Action",
             subpath: nil,
-            inputs: [InputSlot(name: "Input", type: .SwiftDouble, isOptional: false)],
+            inputs: [InputSlot(name: "Input", descriptor: CardKit.Input.Numeric.Real, isOptional: false)],
             tokens: nil,
             yields: [Yield(type: .SwiftDouble)],
             yieldDescription: "The answer to the question.",
@@ -54,10 +54,10 @@ public struct CKTests {
             name: "Accepts Multiple Input Types",
             subpath: nil,
             inputs: [
-                InputSlot(name: "A", type: .SwiftDouble, isOptional: false),
-                InputSlot(name: "B", type: .SwiftString, isOptional: false),
-                InputSlot(name: "C", type: .SwiftDouble, isOptional: false),
-                InputSlot(name: "D", type: .SwiftData, isOptional: false)
+                InputSlot(name: "A", descriptor: CardKit.Input.Numeric.Real, isOptional: false),
+                InputSlot(name: "B", descriptor: CardKit.Input.Text.String, isOptional: false),
+                InputSlot(name: "C", descriptor: CardKit.Input.Numeric.Real, isOptional: false),
+                InputSlot(name: "D", descriptor: CardKit.Input.Raw.Data, isOptional: false)
             ],
             tokens: nil,
             yields: nil,

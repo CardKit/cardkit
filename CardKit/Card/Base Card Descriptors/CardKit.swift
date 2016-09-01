@@ -36,7 +36,7 @@ public struct CardKit {
                     name: "Timer",
                     subpath: "Trigger/Time",
                     inputs: [
-                        InputSlot(name: "Duration", type: InputType.SwiftInt, isOptional: false)
+                        InputSlot(name: "Duration", descriptor: CardKit.Input.Time.Duration, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
@@ -52,7 +52,7 @@ public struct CardKit {
                     name: "Wait Until Time",
                     subpath: "Trigger/Time",
                     inputs: [
-                        InputSlot(name: "ClockTime", type: InputType.SwiftDate, isOptional: false)
+                        InputSlot(name: "ClockTime", descriptor: CardKit.Input.Time.ClockTime, isOptional: false)
                     ],
                     tokens: nil,
                     yields: nil,
@@ -312,6 +312,21 @@ public struct CardKit {
                 version: 0)
         }
         
+        /// Contains descriptors for Input/Raw cards
+        public struct Raw {
+            private init() {}
+            
+            //MARK: Raw/Data
+            /// Descriptor for Raw/Data card
+            public static let Data = InputCardDescriptor(
+                name: "Data",
+                subpath: "Raw",
+                inputType: .SwiftData,
+                inputDescription: "Raw data",
+                assetCatalog: CardAssetCatalog(description: "Raw data"),
+                version: 0)
+        }
+        
         /// Contains descriptors for Input/Relative cards
         public struct Relative {
             private init() {}
@@ -334,6 +349,21 @@ public struct CardKit {
                 inputType: .Coordinate2D,
                 inputDescription: "Coordinate offset",
                 assetCatalog: CardAssetCatalog(description: "A coordinate used to offset from an object's location"),
+                version: 0)
+        }
+        
+        /// Contains descriptors for Input/Text cards
+        public struct Text {
+            private init() {}
+            
+            //MARK: Text/String
+            /// Descriptor for Text/String card
+            public static let String = InputCardDescriptor(
+                name: "String",
+                subpath: "Text",
+                inputType: .SwiftString,
+                inputDescription: "String",
+                assetCatalog: CardAssetCatalog(description: "A string"),
                 version: 0)
         }
         

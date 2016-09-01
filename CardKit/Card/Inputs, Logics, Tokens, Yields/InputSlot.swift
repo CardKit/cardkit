@@ -20,12 +20,12 @@ public struct InputSlot {
     /// The name of an InputSlot is a human-understandable name, such as "Duration" or
     /// "Location". This is NOT a UUID-based identifier as used for Cards, Yields, etc.
     public let name: InputSlotName
-    public let inputType: InputType
+    public let descriptor: InputCardDescriptor
     public let isOptional: Bool
     
-    public init(name: InputSlotName, type: InputType, isOptional: Bool) {
+    public init(name: InputSlotName, descriptor: InputCardDescriptor, isOptional: Bool) {
         self.name = name
-        self.inputType = type
+        self.descriptor = descriptor
         self.isOptional = isOptional
     }
 }
@@ -37,7 +37,7 @@ extension InputSlot: Equatable {}
 public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
     var equal = true
     equal = equal && lhs.name == rhs.name
-    equal = equal && lhs.inputType == rhs.inputType
+    equal = equal && lhs.descriptor == rhs.descriptor
     equal = equal && lhs.isOptional == rhs.isOptional
     return equal
 }
@@ -46,7 +46,7 @@ public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
 
 extension InputSlot: Hashable {
     public var hashValue: Int {
-        return name.hashValue &+ (inputType.hashValue &* 3) &+ (isOptional.hashValue &* 5)
+        return name.hashValue &+ (descriptor.hashValue &* 3) &+ (isOptional.hashValue &* 5)
     }
 }
 
@@ -55,7 +55,7 @@ extension InputSlot: Hashable {
 extension InputSlot: JSONDecodable {
     public init(json: JSON) throws {
         self.name = try json.string("name")
-        self.inputType = try json.decode("inputType", type: InputType.self)
+        self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
         self.isOptional = try json.bool("isOptional")
     }
 }
@@ -66,7 +66,7 @@ extension InputSlot: JSONEncodable {
     public func toJSON() -> JSON {
         return .Dictionary([
             "name": self.name.toJSON(),
-            "inputType": self.inputType.toJSON(),
+            "descriptor": self.descriptor.toJSON(),
             "isOptional": self.isOptional.toJSON()
             ])
     }
