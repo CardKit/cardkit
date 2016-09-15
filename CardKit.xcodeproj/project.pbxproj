@@ -128,12 +128,12 @@
 		CC931B391D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
 		CC931B3A1D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
 		CC931B3B1D4A8ED2001B71B1 /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931B221D4A8ED2001B71B1 /* CardKit.swift */; };
-		CC931BCD1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
-		CC931BCE1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
-		CC931BCF1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
-		CC931BD01D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
-		CC931BD11D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
-		CC931BD21D4BB350001B71B1 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */; };
+		CC931BCD1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BCE1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BCF1D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BD01D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BD11D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
+		CC931BD21D4BB350001B71B1 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */; };
 		CC9E75CF1D5145BD00B7C738 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E75CE1D5145BD00B7C738 /* Freddy.framework */; };
 		CC9E763F1D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */; };
 		CC9E76401D523DBE00B7C738 /* CardDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */; };
@@ -174,12 +174,6 @@
 		CCBB793E1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
 		CCBB793F1D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
 		CCBB79401D7487DF003B6458 /* FreddyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */; };
-		CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
-		CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
-		CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
-		CCCAD6B81D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
-		CCCAD6B91D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
-		CCCAD6BA1D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */; };
 		CCE728DA1D5A18B700A347D8 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9319FE1D493D45001B71B1 /* Freddy.framework */; };
 		CCE729191D5A33F400A347D8 /* HandEndRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729161D5A33F400A347D8 /* HandEndRule.swift */; };
 		CCE7291A1D5A33F400A347D8 /* HandEndRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729161D5A33F400A347D8 /* HandEndRule.swift */; };
@@ -356,7 +350,7 @@
 		CC931A891D49623E001B71B1 /* TokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCard.swift; sourceTree = "<group>"; };
 		CC931ABC1D4A8557001B71B1 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		CC931B221D4A8ED2001B71B1 /* CardKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardKit.swift; sourceTree = "<group>"; };
-		CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		CC9E75CE1D5145BD00B7C738 /* Freddy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Freddy.framework; path = Carthage/Build/Mac/Freddy.framework; sourceTree = "<group>"; };
 		CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptorTests.swift; sourceTree = "<group>"; };
 		CC9E76431D524AD800B7C738 /* DeckBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckBuilder.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -368,7 +362,6 @@
 		CC9E76611D54F33500B7C738 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CCBB792A1D7466E0003B6458 /* CKTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKTests.swift; sourceTree = "<group>"; };
 		CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreddyExtensions.swift; sourceTree = "<group>"; };
-		CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		CCE729161D5A33F400A347D8 /* HandEndRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandEndRule.swift; sourceTree = "<group>"; };
 		CCE729181D5A33F400A347D8 /* HandCardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandCardType.swift; sourceTree = "<group>"; };
 		CCE729331D5A465E00A347D8 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
@@ -580,9 +573,8 @@
 			isa = PBXGroup;
 			children = (
 				CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */,
-				CCCAD6B41D50DEEA00864D34 /* DictionaryExtensions.swift */,
 				CCBB793A1D7487DF003B6458 /* FreddyExtensions.swift */,
-				CC931BCC1D4BB350001B71B1 /* NSDateExtensions.swift */,
+				CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */,
 				CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */,
 			);
 			path = Extensions;
@@ -1055,7 +1047,7 @@
 				CC9E76441D524AD800B7C738 /* DeckBuilder.swift in Sources */,
 				CCE729921D5B75B900A347D8 /* BindsWithInputCard.swift in Sources */,
 				CC931A751D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931BCD1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BCD1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A511D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CCE7298C1D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
 				CC931A3F1D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
@@ -1079,7 +1071,6 @@
 				CCE729451D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CCE729251D5A33F400A347D8 /* HandCardType.swift in Sources */,
 				CC931A8A1D49623E001B71B1 /* TokenCard.swift in Sources */,
-				CCCAD6B51D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CC931A391D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CCE729B51D5CB18E00A347D8 /* HandLogicOperation.swift in Sources */,
 				CC9319AF1D4937C9001B71B1 /* CardType.swift in Sources */,
@@ -1117,7 +1108,6 @@
 				CCE7296B1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
 				CC931A4C1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
 				CCE729261D5A33F400A347D8 /* HandCardType.swift in Sources */,
-				CCCAD6B61D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729A81D5CAD1F00A347D8 /* CardTree.swift in Sources */,
 				CCBB792B1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765A1D53C1BC00B7C738 /* HandTests.swift in Sources */,
@@ -1132,7 +1122,7 @@
 				CCE729711D5B75B300A347D8 /* Consumable.swift in Sources */,
 				CC93199E1D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC9319981D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BCE1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BCE1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A681D4961D9001B71B1 /* Card.swift in Sources */,
 				CC9E764C1D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
 				CC931A091D494D1F001B71B1 /* Hand.swift in Sources */,
@@ -1160,7 +1150,7 @@
 				CCE729591D5A465E00A347D8 /* Yield.swift in Sources */,
 				CC931A771D49622A001B71B1 /* DeckCard.swift in Sources */,
 				CCE729941D5B75B900A347D8 /* BindsWithInputCard.swift in Sources */,
-				CC931BCF1D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BCF1D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A531D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CC931A411D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
 				CCE7298E1D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
@@ -1183,7 +1173,6 @@
 				CCE729471D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CCE729BE1D5E09BC00A347D8 /* CardTreeNode.swift in Sources */,
 				CCE729271D5A33F400A347D8 /* HandCardType.swift in Sources */,
-				CCCAD6B71D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CC000D851D4E96A500132B0A /* Deck.swift in Sources */,
 				CC931A3B1D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CC9319B11D4937C9001B71B1 /* CardType.swift in Sources */,
@@ -1223,7 +1212,6 @@
 				CCE7296D1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
 				CC931A4E1D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
 				CCE729281D5A33F400A347D8 /* HandCardType.swift in Sources */,
-				CCCAD6B81D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729AA1D5CAD1F00A347D8 /* CardTree.swift in Sources */,
 				CCBB792C1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765B1D53C1BC00B7C738 /* HandTests.swift in Sources */,
@@ -1238,7 +1226,7 @@
 				CCE729731D5B75B300A347D8 /* Consumable.swift in Sources */,
 				CC9319A01D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC93199A1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BD01D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BD01D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A6A1D4961D9001B71B1 /* Card.swift in Sources */,
 				CC9E764E1D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
 				CC931A0B1D494D1F001B71B1 /* Hand.swift in Sources */,
@@ -1267,7 +1255,7 @@
 				CC9E76481D524AD800B7C738 /* DeckBuilder.swift in Sources */,
 				CCE729961D5B75B900A347D8 /* BindsWithInputCard.swift in Sources */,
 				CC931A791D49622A001B71B1 /* DeckCard.swift in Sources */,
-				CC931BD11D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BD11D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A551D495457001B71B1 /* TokenCardDescriptor.swift in Sources */,
 				CCE729901D5B75B900A347D8 /* BindsWithActionCard.swift in Sources */,
 				CC931A431D495457001B71B1 /* DeckCardDescriptor.swift in Sources */,
@@ -1291,7 +1279,6 @@
 				CCE729491D5A465E00A347D8 /* InputTypes.swift in Sources */,
 				CCE729291D5A33F400A347D8 /* HandCardType.swift in Sources */,
 				CC931A8E1D49623E001B71B1 /* TokenCard.swift in Sources */,
-				CCCAD6B91D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CC931A3D1D495457001B71B1 /* ActionCardDescriptor.swift in Sources */,
 				CCE729B91D5CB18E00A347D8 /* HandLogicOperation.swift in Sources */,
 				CC9319B31D4937C9001B71B1 /* CardType.swift in Sources */,
@@ -1329,7 +1316,6 @@
 				CCE7296F1D5B75B300A347D8 /* AcceptsTokens.swift in Sources */,
 				CC931A501D495457001B71B1 /* InputCardDescriptor.swift in Sources */,
 				CCE7292A1D5A33F400A347D8 /* HandCardType.swift in Sources */,
-				CCCAD6BA1D50DEEA00864D34 /* DictionaryExtensions.swift in Sources */,
 				CCE729AC1D5CAD1F00A347D8 /* CardTree.swift in Sources */,
 				CCBB792D1D7466E0003B6458 /* CKTests.swift in Sources */,
 				CC9E765C1D53C1BC00B7C738 /* HandTests.swift in Sources */,
@@ -1344,7 +1330,7 @@
 				CCE729751D5B75B300A347D8 /* Consumable.swift in Sources */,
 				CC9319A21D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC93199C1D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
-				CC931BD21D4BB350001B71B1 /* NSDateExtensions.swift in Sources */,
+				CC931BD21D4BB350001B71B1 /* DateExtensions.swift in Sources */,
 				CC931A6C1D4961D9001B71B1 /* Card.swift in Sources */,
 				CC9E76501D526F0200B7C738 /* ArrayExtensions.swift in Sources */,
 				CC931A0D1D494D1F001B71B1 /* Hand.swift in Sources */,
