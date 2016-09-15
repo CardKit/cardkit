@@ -1,1 +1,2 @@
-github "bignerdranch/Freddy" ~> 2.1
+#github "bignerdranch/Freddy" ~> 2.1
+github "bignerdranch/Freddy" "swift3"

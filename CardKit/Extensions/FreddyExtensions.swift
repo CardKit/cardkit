@@ -11,18 +11,18 @@ import Foundation
 import Freddy
 
 extension JSON {
-    public func stringify(prettyPrinted: Swift.Bool = false) -> Swift.String {
-        let options: NSJSONWritingOptions =
+    public func stringify(_ prettyPrinted: Swift.Bool = false) -> Swift.String {
+        let options: JSONSerialization.WritingOptions =
             prettyPrinted
-                ? NSJSONWritingOptions.PrettyPrinted
-                : NSJSONWritingOptions.init(rawValue: 0)
+                ? JSONSerialization.WritingOptions.prettyPrinted
+                : JSONSerialization.WritingOptions.init(rawValue: 0)
         
         do {
             let data = try self.serialize()
-            let obj = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.init(rawValue: 0))
-            let prettyData = try NSJSONSerialization.dataWithJSONObject(obj, options: options)
+            let obj = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
+            let prettyData = try JSONSerialization.data(withJSONObject: obj, options: options)
             
-            guard let str = Swift.String(data: prettyData, encoding: NSUTF8StringEncoding) else { return "" }
+            guard let str = Swift.String(data: prettyData, encoding: String.Encoding.utf8) else { return "" }
             return str
             
         } catch {

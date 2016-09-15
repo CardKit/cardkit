@@ -10,7 +10,8 @@ import Foundation
 
 import Freddy
 
-extension Dictionary where Key: StringLiteralConvertible {
+/*
+extension Dictionary where Key: ExpressibleByStringLiteral {
     func withDecodedKeysAndValues<KeyType: JSONDecodable, ValueType: JSONDecodable>() throws -> [KeyType : ValueType] {
         var dict: [KeyType : ValueType] = [:]
         for (k, v) in self {
@@ -23,7 +24,7 @@ extension Dictionary where Key: StringLiteralConvertible {
         return dict
     }
     
-    func withDecodedValues<T where T: JSONDecodable>() throws -> [String : T] {
+    func withDecodedValues<T>() throws -> [String : T] where T: JSONDecodable {
         var dict: [String : T] = [:]
         for (k, v) in self {
             if let stringKey = k as? String, let jsonVal = v as? JSON {
@@ -34,3 +35,4 @@ extension Dictionary where Key: StringLiteralConvertible {
         return dict
     }
 }
+*/

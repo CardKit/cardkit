@@ -10,10 +10,10 @@ import Foundation
 
 import Freddy
 
-//MARK: InputCardDescriptor
+// MARK: InputCardDescriptor
 
 public struct InputCardDescriptor: CardDescriptor, ProducesInput {
-    public let cardType: CardType = .Input
+    public let cardType: CardType = .input
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -43,7 +43,7 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension InputCardDescriptor: Equatable {}
 
@@ -56,7 +56,7 @@ public func == (lhs: InputCardDescriptor, rhs: InputCardDescriptor) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension InputCardDescriptor: Hashable {
     public var hashValue: Int {
@@ -64,7 +64,7 @@ extension InputCardDescriptor: Hashable {
     }
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension InputCardDescriptor: CustomStringConvertible {
     public var description: String {
@@ -72,11 +72,11 @@ extension InputCardDescriptor: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension InputCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
@@ -88,15 +88,15 @@ extension InputCardDescriptor: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension InputCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.path = try json.decode("path", type: CardPath.self)
-        self.version = try json.int("version")
-        self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.inputType = try json.decode("inputType", type: InputType.self)
-        self.inputDescription = try json.string("inputDescription")
+        self.name = try json.getString(at: "name")
+        self.path = try json.decode(at: "path", type: CardPath.self)
+        self.version = try json.getInt(at: "version")
+        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
+        self.inputType = try json.decode(at: "inputType", type: InputType.self)
+        self.inputDescription = try json.getString(at: "inputDescription")
     }
 }

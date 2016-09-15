@@ -10,36 +10,36 @@ import Foundation
 
 import Freddy
 
-//MARK: HandEndRule
+// MARK: HandEndRule
 
 public enum HandEndRule: String {
-    case Indeterminate
-    case EndWhenAllSatisfied
-    case EndWhenAnySatisfied
+    case indeterminate
+    case endWhenAllSatisfied
+    case endWhenAnySatisfied
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension HandEndRule: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .Indeterminate:
-            return .String("Indeterminate")
-        case .EndWhenAllSatisfied:
-            return .String("EndWhenAllSatisfied")
-        case .EndWhenAnySatisfied:
-            return .String("EndWhenAnySatisfied")
+        case .indeterminate:
+            return .string("indeterminate")
+        case .endWhenAllSatisfied:
+            return .string("endWhenAllSatisfied")
+        case .endWhenAnySatisfied:
+            return .string("endWhenAnySatisfied")
         }
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension HandEndRule: JSONDecodable {
     public init(json: JSON) throws {
-        let type = try json.string()
+        let type = try json.getString()
         guard let typeEnum = HandEndRule(rawValue: type) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: HandEndRule.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: HandEndRule.self)
         }
         self = typeEnum
     }

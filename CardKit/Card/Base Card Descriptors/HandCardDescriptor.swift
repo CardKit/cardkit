@@ -10,10 +10,10 @@ import Foundation
 
 import Freddy
 
-//MARK: HandCardDescriptor
+// MARK: HandCardDescriptor
 
 public struct HandCardDescriptor: CardDescriptor {
-    public let cardType: CardType = .Hand
+    public let cardType: CardType = .hand
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -37,15 +37,15 @@ public struct HandCardDescriptor: CardDescriptor {
     /// Return a new instance of the HandCard.
     func makeCard() -> HandCard {
         switch self.handCardType {
-        case .Branch:
+        case .branch:
             return BranchHandCard(with: self)
-        case .Repeat:
+        case .repeatHand:
             return RepeatHandCard(with: self)
-        case .EndWhenAnySatisfied:
+        case .endWhenAnySatisfied:
             return EndRuleHandCard(with: self)
-        case .EndWhenAllSatisfied:
+        case .endWhenAllSatisfied:
             return EndRuleHandCard(with: self)
-        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+        case .booleanLogicAnd, .booleanLogicOr, .booleanLogicNot:
             return LogicHandCard(with: self)
         }
     }
@@ -65,21 +65,21 @@ public struct HandCardDescriptor: CardDescriptor {
     /// the compiler will not be able to infer the type.
     func typedInstance<T>() -> T? {
         switch self.handCardType {
-        case .Branch:
+        case .branch:
             return BranchHandCard(with: self) as? T
-        case .Repeat:
+        case .repeatHand:
             return RepeatHandCard(with: self) as? T
-        case .EndWhenAnySatisfied:
+        case .endWhenAnySatisfied:
             return EndRuleHandCard(with: self) as? T
-        case .EndWhenAllSatisfied:
+        case .endWhenAllSatisfied:
             return EndRuleHandCard(with: self) as? T
-        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+        case .booleanLogicAnd, .booleanLogicOr, .booleanLogicNot:
             return LogicHandCard(with: self) as? T
         }
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension HandCardDescriptor: Equatable {}
 
@@ -92,7 +92,7 @@ public func == (lhs: HandCardDescriptor, rhs: HandCardDescriptor) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension HandCardDescriptor: Hashable {
     public var hashValue: Int {
@@ -100,7 +100,7 @@ extension HandCardDescriptor: Hashable {
     }
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension HandCardDescriptor: CustomStringConvertible {
     public var description: String {
@@ -108,11 +108,11 @@ extension HandCardDescriptor: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension HandCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
@@ -123,14 +123,14 @@ extension HandCardDescriptor: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension HandCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.path = try json.decode("path", type: CardPath.self)
-        self.version = try json.int("version")
-        self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.handCardType = try json.decode("handCardType", type: HandCardType.self)
+        self.name = try json.getString(at: "name")
+        self.path = try json.decode(at: "path", type: CardPath.self)
+        self.version = try json.getInt(at: "version")
+        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
+        self.handCardType = try json.decode(at: "handCardType", type: HandCardType.self)
     }
 }

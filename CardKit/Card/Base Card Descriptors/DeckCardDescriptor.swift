@@ -10,10 +10,10 @@ import Foundation
 
 import Freddy
 
-//MARK: DeckCardDescriptor
+// MARK: DeckCardDescriptor
 
 public struct DeckCardDescriptor: CardDescriptor {
-    public let cardType: CardType = .Deck
+    public let cardType: CardType = .deck
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -36,7 +36,7 @@ public struct DeckCardDescriptor: CardDescriptor {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension DeckCardDescriptor: Equatable {}
 
@@ -50,7 +50,7 @@ public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
 }
 
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension DeckCardDescriptor: Hashable {
     public var hashValue: Int {
@@ -58,7 +58,7 @@ extension DeckCardDescriptor: Hashable {
     }
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension DeckCardDescriptor: CustomStringConvertible {
     public var description: String {
@@ -66,11 +66,11 @@ extension DeckCardDescriptor: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension DeckCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
@@ -80,13 +80,13 @@ extension DeckCardDescriptor: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension DeckCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.path = try json.decode("path", type: CardPath.self)
-        self.version = try json.int("version")
-        self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
+        self.name = try json.getString(at: "name")
+        self.path = try json.decode(at: "path", type: CardPath.self)
+        self.version = try json.getInt(at: "version")
+        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
     }
 }

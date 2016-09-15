@@ -10,7 +10,7 @@ import Foundation
 
 import Freddy
 
-//MARK: InputSlot
+// MARK: InputSlot
 
 /// Input slots are named with Strings.
 public typealias InputSlotName = String
@@ -30,7 +30,7 @@ public struct InputSlot {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension InputSlot: Equatable {}
 
@@ -42,7 +42,7 @@ public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension InputSlot: Hashable {
     public var hashValue: Int {
@@ -50,21 +50,21 @@ extension InputSlot: Hashable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension InputSlot: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.descriptor = try json.decode("descriptor", type: InputCardDescriptor.self)
-        self.isOptional = try json.bool("isOptional")
+        self.name = try json.getString(at: "name")
+        self.descriptor = try json.decode(at: "descriptor", type: InputCardDescriptor.self)
+        self.isOptional = try json.getBool(at: "isOptional")
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension InputSlot: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "name": self.name.toJSON(),
             "descriptor": self.descriptor.toJSON(),
             "isOptional": self.isOptional.toJSON()
@@ -72,9 +72,9 @@ extension InputSlot: JSONEncodable {
     }
 }
 
-//MARK: [InputSlot]
+// MARK: [InputSlot]
 
-extension SequenceType where Generator.Element == InputSlot {
+extension Sequence where Iterator.Element == InputSlot {
     public func slot(named name: String) -> InputSlot? {
         for slot in self {
             if slot.name == name {
@@ -85,7 +85,7 @@ extension SequenceType where Generator.Element == InputSlot {
     }
 }
 
-//MARK:- InputSlotBinding
+// MARK: - InputSlotBinding
 
 /// An InputSlot may either be bound to an InputCard or an ActionCard that produces a yield.
 /// In the case of an InputCard, we store the entire instance of the InputCard in the slot, 
@@ -93,68 +93,68 @@ extension SequenceType where Generator.Element == InputSlot {
 /// of a yielding ActionCard, that ActionCard belongs to an (earlier) Hand, so we just store
 /// it's identifier here.
 public enum InputSlotBinding {
-    case Unbound
-    case BoundToInputCard(InputCard)
-    case BoundToYieldingActionCard(CardIdentifier, Yield)
+    case unbound
+    case boundToInputCard(InputCard)
+    case boundToYieldingActionCard(CardIdentifier, Yield)
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension InputSlotBinding: CustomStringConvertible {
     public var description: String {
         get {
             switch self {
-            case .Unbound:
+            case .unbound:
                 return "[unbound]"
-            case .BoundToInputCard(let card):
+            case .boundToInputCard(let card):
                 return "[bound to InputCard \(card.identifier)]"
-            case .BoundToYieldingActionCard(let cardIdentifier, let yield):
+            case .boundToYieldingActionCard(let cardIdentifier, let yield):
                 return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
             }
         }
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension InputSlotBinding: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .Unbound:
-            return .Dictionary([
-                "type": "Unbound"])
-        case .BoundToInputCard(let card):
-            return .Dictionary([
-                "type": "BoundToInputCard",
+        case .unbound:
+            return .dictionary([
+                "type": "unbound"])
+        case .boundToInputCard(let card):
+            return .dictionary([
+                "type": "boundToInputCard",
                 "target": card.toJSON()])
-        case .BoundToYieldingActionCard(let cardIdentifier, let yield):
-            return .Dictionary([
-                "type": "BoundToYieldingActionCard",
+        case .boundToYieldingActionCard(let cardIdentifier, let yield):
+            return .dictionary([
+                "type": "boundToYieldingActionCard",
                 "identifier": cardIdentifier.toJSON(),
                 "yield": yield.toJSON()])
         }
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension InputSlotBinding: JSONDecodable {
     public init(json: JSON) throws {
-        let type = try json.string("type")
+        let type = try json.getString(at: "type")
         
         switch type {
-        case "Unbound":
-            self = .Unbound
-        case "BoundToInputCard":
-            let target = try json.decode("target", type: InputCard.self)
-            self = .BoundToInputCard(target)
-        case "BoundToYieldingActionCard":
-            let identifier = try json.string("identifier")
+        case "unbound":
+            self = .unbound
+        case "boundToInputCard":
+            let target = try json.decode(at: "target", type: InputCard.self)
+            self = .boundToInputCard(target)
+        case "boundToYieldingActionCard":
+            let identifier = try json.getString(at: "identifier")
             let cardIdentifier = CardIdentifier(with: identifier)
-            let yield = try json.decode("yield", type: Yield.self)
-            self = .BoundToYieldingActionCard(cardIdentifier, yield)
+            let yield = try json.decode(at: "yield", type: Yield.self)
+            self = .boundToYieldingActionCard(cardIdentifier, yield)
         default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: InputSlotBinding.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: InputSlotBinding.self)
         }
     }
 }

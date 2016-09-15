@@ -115,7 +115,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        XCTAssertTrue(first.descriptor.handCardType == .BooleanLogicAnd)
+        XCTAssertTrue(first.descriptor.handCardType == HandCardType.booleanLogicAnd)
         
         let children = hand.children(of: first)
         XCTAssertTrue(children.count == 2)
@@ -142,7 +142,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        XCTAssertTrue(first.descriptor.handCardType == .BooleanLogicOr)
+        XCTAssertTrue(first.descriptor.handCardType == .booleanLogicOr)
         
         let children = hand.children(of: first)
         XCTAssertTrue(children.count == 2)
@@ -168,7 +168,7 @@ class HandTests: XCTestCase {
             return
         }
         
-        XCTAssertTrue(first.descriptor.handCardType == .BooleanLogicNot)
+        XCTAssertTrue(first.descriptor.handCardType == .booleanLogicNot)
         
         let children = hand.children(of: first)
         XCTAssertTrue(children.count == 1)
@@ -183,7 +183,7 @@ class HandTests: XCTestCase {
         
         let handA = noActionA && noActionB
         let handB = noActionC && noActionD
-        let merged = handA + handB
+        let merged = handA ++ handB
         
         // merged should have 7 cards:
         // A, B, C, D, AND(A,B), AND(C,D), End Rule
@@ -314,7 +314,7 @@ class HandTests: XCTestCase {
         let noActionE = CKTests.Action.NoAction.makeCard()
         let noActionF = CKTests.Action.NoAction.makeCard()
         
-        let hand = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
+        let hand = ((noActionA && noActionB) || (noActionC && noActionD)) ++ noActionE ++ !noActionF
         
         // should be 11 cards total:
         // noActionA, noActionB, noActionC, noActionD, noActionE, noActionF (6)
@@ -518,7 +518,7 @@ class HandTests: XCTestCase {
     }
     
     func testEndRule() {
-        guard let endRuleAny: EndRuleHandCard = CardKit.Hand.End.Any.typedInstance() else {
+        guard let endRuleAny: EndRuleHandCard = CardKit.Hand.End.OnAny.typedInstance() else {
             XCTFail("did not obtain an EndRuleHandCard instance from typedInstance()")
             return
         }
@@ -526,15 +526,15 @@ class HandTests: XCTestCase {
         let hand = Hand()
         hand.add(endRuleAny)
         
-        XCTAssertTrue(hand.endRule == .EndWhenAnySatisfied)
+        XCTAssertTrue(hand.endRule == .endWhenAnySatisfied)
     }
     
     func testEndRuleMergesCorrectly() {
-        guard let endRuleAll: EndRuleHandCard = CardKit.Hand.End.All.typedInstance() else {
+        guard let endRuleAll: EndRuleHandCard = CardKit.Hand.End.OnAll.typedInstance() else {
             XCTFail("did not obtain an EndRuleHandCard instance from typedInstance()")
             return
         }
-        guard let endRuleAny: EndRuleHandCard = CardKit.Hand.End.Any.typedInstance() else {
+        guard let endRuleAny: EndRuleHandCard = CardKit.Hand.End.OnAny.typedInstance() else {
             XCTFail("did not obtain an EndRuleHandCard instance from typedInstance()")
             return
         }
@@ -548,12 +548,12 @@ class HandTests: XCTestCase {
         // merge B into A: B's rule overwrites A's rule
         let btoa = handA.merged(with: handB)
         XCTAssertTrue(btoa.cardCount == 1)
-        XCTAssertTrue(btoa.endRule == .EndWhenAnySatisfied)
+        XCTAssertTrue(btoa.endRule == .endWhenAnySatisfied)
         
         // merge A into B: A's rule overwrites B's rule
         let atob = handB.merged(with: handA)
         XCTAssertTrue(atob.cardCount == 1)
-        XCTAssertTrue(atob.endRule == .EndWhenAllSatisfied)
+        XCTAssertTrue(atob.endRule == .endWhenAllSatisfied)
     }
     
     func testRepeatCard() {
@@ -618,8 +618,8 @@ class HandTests: XCTestCase {
         let noActionF = CKTests.Action.NoAction.makeCard()
         
         // this is kind of cheating, we should never use action card instances across hands like this
-        let handA = ((noActionA && noActionB) || (noActionC && noActionD)) + noActionE + !noActionF
-        let handB = !noActionA + (noActionB && noActionC) + (noActionD || !noActionE) + noActionF
+        let handA = ((noActionA && noActionB) || (noActionC && noActionD)) ++ noActionE ++ !noActionF
+        let handB = !noActionA ++ (noActionB && noActionC) ++ (noActionD || !noActionE) ++ noActionF
         
         for tree in handA.cardTrees {
             let branch = handA.addBranch(from: tree, to: handB)
@@ -639,10 +639,10 @@ class HandTests: XCTestCase {
         }
         
         let handB = Hand()
-        handA.addBranch(from: tree, to: handB)
+        let _ = handA.addBranch(from: tree, to: handB)
         
         let handC = Hand()
-        handA.addBranch(from: tree, to: handC)
+        let _ = handA.addBranch(from: tree, to: handC)
         
         XCTAssertTrue(handA.branchTarget(of: tree) == handC.identifier)
     }
@@ -654,10 +654,10 @@ class HandTests: XCTestCase {
         let handD = Hand()
         let handE = Hand()
         
-        handA.addBranch(to: handB)
-        handB.addBranch(to: handC)
-        handC.addBranch(to: handD)
-        handD.addBranch(to: handE)
+        let _ = handA.addBranch(to: handB)
+        let _ = handB.addBranch(to: handC)
+        let _ = handC.addBranch(to: handD)
+        let _ = handD.addBranch(to: handE)
         
         // each hand has only one (direct) subhand
         XCTAssertTrue(handA.subhands.count == 1)
@@ -776,16 +776,16 @@ class HandTests: XCTestCase {
         let noActionD = CKTests.Action.NoAction.makeCard()
         
         // this is kind of cheating, we should never use action card instances across hands like this
-        let handA = (noActionA && noActionB) + (noActionC && noActionD)
+        let handA = (noActionA && noActionB) ++ (noActionC && noActionD)
         
         let abTree = handA.cardTrees[0]
         let cdTree = handA.cardTrees[1]
         
         let handB = Hand()
-        handA.addBranch(from: abTree, to: handB)
+        let _ = handA.addBranch(from: abTree, to: handB)
         
         let handC = Hand()
-        handA.addBranch(from: cdTree, to: handC)
+        let _ = handA.addBranch(from: cdTree, to: handC)
         
         var ab: Set<CardIdentifier> = Set()
         ab.insert(noActionA.identifier)

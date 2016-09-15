@@ -33,8 +33,8 @@ public class Deck {
     /// all Hands that are nested in other Hands due to branching logic.
     public var hands: [Hand] {
         var hands: [Hand] = []
-        hands.appendContentsOf(self.deckHands)
-        self.deckHands.forEach { hands.appendContentsOf($0.nestedSubhands) }
+        hands.append(contentsOf: self.deckHands)
+        self.deckHands.forEach { hands.append(contentsOf: $0.nestedSubhands) }
         return hands
     }
     
@@ -49,7 +49,7 @@ public class Deck {
     /// Returns the complete set of Cards in the Deck.
     public var cards: [Card] {
         var cards: [Card] = []
-        self.hands.forEach { cards.appendContentsOf($0.cards) }
+        self.hands.forEach { cards.append(contentsOf: $0.cards) }
         return cards
     }
     
@@ -63,7 +63,7 @@ public class Deck {
     /// Returns the complete set of ActionCards in the Deck.
     public var actionCards: [ActionCard] {
         var cards: [ActionCard] = []
-        self.hands.forEach { cards.appendContentsOf($0.actionCards) }
+        self.hands.forEach { cards.append(contentsOf: $0.actionCards) }
         return cards
     }
     
@@ -89,17 +89,17 @@ public class Deck {
         self.tokenCards = []
     }
     
-    //MARK: JSONEncodable & JSONDecodable
+    // MARK: JSONEncodable & JSONDecodable
     
     public init(json: JSON) throws {
-        self.deckHands = try json.arrayOf("deckHands", type: Hand.self)
-        self.deckCards = try json.arrayOf("deckCards", type: DeckCard.self)
-        self.tokenCards = try json.arrayOf("tokenCards", type: TokenCard.self)
-        self.identifier = try json.decode("identifier", type: DeckIdentifier.self)
+        self.deckHands = try json.decodedArray(at: "deckHands", type: Hand.self)
+        self.deckCards = try json.decodedArray(at: "deckCards", type: DeckCard.self)
+        self.tokenCards = try json.decodedArray(at: "tokenCards", type: TokenCard.self)
+        self.identifier = try json.decode(at: "identifier", type: DeckIdentifier.self)
     }
     
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "deckHands": self.deckHands.toJSON(),
             "deckCards": self.deckCards.toJSON(),
             "tokenCards": self.tokenCards.toJSON(),
@@ -108,30 +108,30 @@ public class Deck {
     }
 }
 
-//MARK: Deck Addition
+// MARK: Deck Addition
 
 extension Deck {
     /// Add the Hand to the Deck as a top-level Hand (i.e. not nested within any Hands).
-    func add(hand: Hand) {
+    func add(_ hand: Hand) {
         self.deckHands.append(hand)
     }
     
     /// Add the Deck card to the Deck.
-    func add(card: DeckCard) {
+    func add(_ card: DeckCard) {
         self.deckCards.append(card)
     }
     
     /// Add the Token card to the Deck.
-    func add(card: TokenCard) {
+    func add(_ card: TokenCard) {
         self.tokenCards.append(card)
     }
 }
 
-//MARK: Deck Removal
+// MARK: Deck Removal
 
 extension Deck {
     /// Remove the Hand from the Deck. Removes the Hand even if it is nested within another Hand.
-    func remove(hand: Hand) {
+    func remove(_ hand: Hand) {
         if self.deckHands.contains(hand) {
             self.deckHands.removeObject(hand)
         } else {
@@ -143,17 +143,17 @@ extension Deck {
     }
     
     /// Remove the Deck card from the Deck.
-    func remove(card: DeckCard) {
+    func remove(_ card: DeckCard) {
         self.deckCards.removeObject(card)
     }
     
     /// Remove the Token card from the Deck.
-    func remove(card: TokenCard) {
+    func remove(_ card: TokenCard) {
         self.tokenCards.removeObject(card)
     }
 }
 
-//MARK: Deck Query
+// MARK: Deck Query
 
 extension Deck {
     /// Returns the TokenCard with the given CardIdentifier, or nil if no such
@@ -180,7 +180,7 @@ extension Deck {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension Deck: Equatable {}
 
@@ -188,7 +188,7 @@ public func == (lhs: Deck, rhs: Deck) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension Deck: Hashable {
     public var hashValue: Int {

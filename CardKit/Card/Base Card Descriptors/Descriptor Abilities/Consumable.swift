@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: Consumable
+// MARK: Consumable
 
 /// Applied to card descriptors that are consumed
 protocol Consumable {

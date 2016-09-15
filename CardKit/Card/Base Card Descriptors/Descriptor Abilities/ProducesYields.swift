@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: ProducesYields
+// MARK: ProducesYields
 
 /// Applied to card descriptors that produce yields
 protocol ProducesYields {

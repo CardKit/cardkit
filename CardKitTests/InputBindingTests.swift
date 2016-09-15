@@ -36,7 +36,7 @@ class InputBindingTests: XCTestCase {
         let image = CardKit.Input.Media.Image.makeCard()
         
         let str = "Hello, world"
-        let data = str.dataUsingEncoding(NSUTF8StringEncoding)
+        let data = str.data(using: String.Encoding.utf8)
         
         do {
             try image.bind(withValue: data!)
@@ -44,8 +44,8 @@ class InputBindingTests: XCTestCase {
             XCTFail("error binding double value to Angle card: \(error)")
         }
         
-        let boundData: NSData = image.inputDataValue()!
-        let boundStr: String = String(data: boundData, encoding: NSUTF8StringEncoding)!
+        let boundData: Data = image.inputDataValue()!
+        let boundStr: String = String(data: boundData, encoding: String.Encoding.utf8)!
         
         XCTAssertTrue(boundStr == str)
     }

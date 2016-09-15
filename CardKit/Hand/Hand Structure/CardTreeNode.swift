@@ -10,32 +10,32 @@ import Foundation
 
 import Freddy
 
-//MARK: CardTreeNode
+// MARK: CardTreeNode
 
 public indirect enum CardTreeNode {
-    case Action(ActionCard)
-    case UnaryLogic(LogicHandCard, CardTreeNode?)
-    case BinaryLogic(LogicHandCard, CardTreeNode?, CardTreeNode?)
+    case action(ActionCard)
+    case unaryLogic(LogicHandCard, CardTreeNode?)
+    case binaryLogic(LogicHandCard, CardTreeNode?, CardTreeNode?)
     
     public var cards: [Card] {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             return [actionCard]
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             var cards: [Card] = []
             cards.append(logicCard)
             if let subtree = subtree {
-                cards.appendContentsOf(subtree.cards)
+                cards.append(contentsOf: subtree.cards)
             }
             return cards
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             var cards: [Card] = []
             cards.append(logicCard)
             if let left = left {
-                cards.appendContentsOf(left.cards)
+                cards.append(contentsOf: left.cards)
             }
             if let right = right {
-                cards.appendContentsOf(right.cards)
+                cards.append(contentsOf: right.cards)
             }
             return cards
         }
@@ -43,40 +43,40 @@ public indirect enum CardTreeNode {
     
     public var actionCards: [ActionCard] {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             return [actionCard]
-        case .UnaryLogic(_, let subtree):
+        case .unaryLogic(_, let subtree):
             var cards: [ActionCard] = []
             if let subtree = subtree {
-                cards.appendContentsOf(subtree.actionCards)
+                cards.append(contentsOf: subtree.actionCards)
             }
             return cards
-        case .BinaryLogic(_, let left, let right):
+        case .binaryLogic(_, let left, let right):
             var cards: [ActionCard] = []
             if let left = left {
-                cards.appendContentsOf(left.actionCards)
+                cards.append(contentsOf: left.actionCards)
             }
             if let right = right {
-                cards.appendContentsOf(right.actionCards)
+                cards.append(contentsOf: right.actionCards)
             }
             return cards
         }
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension CardTreeNode: Equatable {}
 
 /// CardTrees are equal when they are structually equivalent.
 public func == (lhs: CardTreeNode, rhs: CardTreeNode) -> Bool {
-    if case .Action(let lhsActionCard) = lhs,
-        case .Action(let rhsActionCard) = rhs {
+    if case .action(let lhsActionCard) = lhs,
+        case .action(let rhsActionCard) = rhs {
         return lhsActionCard == rhsActionCard
     }
     
-    if case .UnaryLogic(let lhsLogicCard, let lhsSubtree) = lhs,
-        case .UnaryLogic(let rhsLogicCard, let rhsSubtree) = rhs {
+    if case .unaryLogic(let lhsLogicCard, let lhsSubtree) = lhs,
+        case .unaryLogic(let rhsLogicCard, let rhsSubtree) = rhs {
         if lhsLogicCard == rhsLogicCard {
             return lhsSubtree == rhsSubtree
         } else {
@@ -84,8 +84,8 @@ public func == (lhs: CardTreeNode, rhs: CardTreeNode) -> Bool {
         }
     }
     
-    if case .BinaryLogic(let lhsLogicCard, let lhsLeft, let lhsRight) = lhs,
-        case .BinaryLogic(let rhsLogicCard, let rhsLeft, let rhsRight) = rhs {
+    if case .binaryLogic(let lhsLogicCard, let lhsLeft, let lhsRight) = lhs,
+        case .binaryLogic(let rhsLogicCard, let rhsLeft, let rhsRight) = rhs {
         if lhsLogicCard == rhsLogicCard {
             return lhsLeft == rhsLeft && lhsRight == rhsRight
         } else {
@@ -96,20 +96,20 @@ public func == (lhs: CardTreeNode, rhs: CardTreeNode) -> Bool {
     return false
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension CardTreeNode: Hashable {
     public var hashValue: Int {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             return actionCard.hashValue
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             if let subtree = subtree {
                 return logicCard.hashValue &+ subtree.hashValue
             } else {
                 return logicCard.hashValue
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             var hash: Int = logicCard.hashValue
             if let left = left {
                 hash = hash &+ left.hashValue
@@ -122,79 +122,79 @@ extension CardTreeNode: Hashable {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension CardTreeNode: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .Action(let actionCard):
-            return .Dictionary([
-                "type": "Action",
+        case .action(let actionCard):
+            return .dictionary([
+                "type": "action",
                 "card": actionCard.toJSON()
                 ])
-        case .UnaryLogic(let logicCard, let subtree):
-            return .Dictionary([
-                "type": "UnaryLogic",
+        case .unaryLogic(let logicCard, let subtree):
+            return .dictionary([
+                "type": "unaryLogic",
                 "logicCard": logicCard.toJSON(),
-                "subtree": subtree?.toJSON() ?? .String("nil")
+                "subtree": subtree?.toJSON() ?? .string("nil")
                 ])
-        case .BinaryLogic(let logicCard, let left, let right):
-            return .Dictionary([
-                "type": "BinaryLogic",
+        case .binaryLogic(let logicCard, let left, let right):
+            return .dictionary([
+                "type": "binaryLogic",
                 "logicCard": logicCard.toJSON(),
-                "leftSubtree": left?.toJSON() ?? .String("nil"),
-                "rightSubtree": right?.toJSON() ?? .String("nil")
+                "leftSubtree": left?.toJSON() ?? .string("nil"),
+                "rightSubtree": right?.toJSON() ?? .string("nil")
                 ])
         }
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension CardTreeNode: JSONDecodable {
     public init(json: JSON) throws {
-        let type = try json.string("type")
+        let type = try json.getString(at: "type")
         
         switch type {
-        case "Action":
-            let actionCard = try json.decode("actionCard", type: ActionCard.self)
-            self = .Action(actionCard)
-        case "UnaryLogic":
-            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
+        case "action":
+            let actionCard = try json.decode(at: "actionCard", type: ActionCard.self)
+            self = .action(actionCard)
+        case "unaryLogic":
+            let logicCard = try json.decode(at: "logicCard", type: LogicHandCard.self)
             
-            let subtreeStr = try json.string("subtree")
+            let subtreeStr = try json.getString(at: "subtree")
             if subtreeStr == "nil" {
-                self = .UnaryLogic(logicCard, nil)
+                self = .unaryLogic(logicCard, nil)
             } else {
-                let subtree = try json.decode("subtree", type: CardTreeNode.self)
-                self = .UnaryLogic(logicCard, subtree)
+                let subtree = try json.decode(at: "subtree", type: CardTreeNode.self)
+                self = .unaryLogic(logicCard, subtree)
             }
-        case "BinaryLogic":
-            let logicCard = try json.decode("logicCard", type: LogicHandCard.self)
+        case "binaryLogic":
+            let logicCard = try json.decode(at: "logicCard", type: LogicHandCard.self)
             
-            let leftStr = try json.string("leftSubtree")
-            let rightStr = try json.string("rightSubtree")
+            let leftStr = try json.getString(at: "leftSubtree")
+            let rightStr = try json.getString(at: "rightSubtree")
             
             var left: CardTreeNode? = nil
             var right: CardTreeNode? = nil
             
             if leftStr != "nil" {
-                left = try json.decode("leftSubtree", type: CardTreeNode.self)
+                left = try json.decode(at: "leftSubtree", type: CardTreeNode.self)
             }
             
             if rightStr != "nil" {
-                right = try json.decode("rightSubtree", type: CardTreeNode.self)
+                right = try json.decode(at: "rightSubtree", type: CardTreeNode.self)
             }
             
-            self = .BinaryLogic(logicCard, left, right)
+            self = .binaryLogic(logicCard, left, right)
             
         default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: CardTreeNode.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: CardTreeNode.self)
         }
     }
 }
 
-//MARK: CardTreeNode Attachment
+// MARK: CardTreeNode Attachment
 
 extension CardTreeNode {
     /// Returns a new CardTreeNode with the given CardTreeNode attached as a child of the given LogicHandCard
@@ -202,51 +202,51 @@ extension CardTreeNode {
         
         func attached(with cardTree: CardTreeNode, asChildOf logicCard: LogicHandCard, atNode node: CardTreeNode) -> CardTreeNode {
             switch self {
-            case .Action(let actionCard):
-                return .Action(actionCard)
-            case .UnaryLogic(let logic, let subtree):
+            case .action(let actionCard):
+                return .action(actionCard)
+            case .unaryLogic(let logic, let subtree):
                 if logic == logicCard {
                     if subtree == nil {
                         // got it, attach the cardTree
-                        return .UnaryLogic(logic, cardTree)
+                        return .unaryLogic(logic, cardTree)
                     } else {
                         // already has something attached, fail silently
-                        return .UnaryLogic(logic, subtree)
+                        return .unaryLogic(logic, subtree)
                     }
                 } else {
                     if let subtree = subtree {
                         // keep searching for that logic card
-                        return .UnaryLogic(logic, subtree.attached(with: cardTree, asChildOf: logicCard))
+                        return .unaryLogic(logic, subtree.attached(with: cardTree, asChildOf: logicCard))
                     } else {
                         // logicCard was not found
-                        return .UnaryLogic(logic, nil)
+                        return .unaryLogic(logic, nil)
                     }
                 }
-            case .BinaryLogic(let logic, let left, let right):
+            case .binaryLogic(let logic, let left, let right):
                 if logic == logicCard {
                     if left == nil {
                         // free slot in left child
-                        return .BinaryLogic(logic, cardTree, right)
+                        return .binaryLogic(logic, cardTree, right)
                     } else if right == nil {
                         // free slot in right child
-                        return .BinaryLogic(logic, left, cardTree)
+                        return .binaryLogic(logic, left, cardTree)
                     } else {
                         // oops no free slots
-                        return .BinaryLogic(logic, left, right)
+                        return .binaryLogic(logic, left, right)
                     }
                 } else {
                     if let left = left, let right = right {
                         // search for the logicCard in both children
-                        return .BinaryLogic(logic, left.attached(with: cardTree, asChildOf: logicCard), right.attached(with: cardTree, asChildOf: logicCard))
+                        return .binaryLogic(logic, left.attached(with: cardTree, asChildOf: logicCard), right.attached(with: cardTree, asChildOf: logicCard))
                     } else if let left = left {
                         // search for the logicCard in the left child; right child is nil
-                        return .BinaryLogic(logic, left.attached(with: cardTree, asChildOf: logicCard), nil)
+                        return .binaryLogic(logic, left.attached(with: cardTree, asChildOf: logicCard), nil)
                     } else if let right = right {
                         // search for the logicCard in the right child; left child is nil
-                        return .BinaryLogic(logic, nil, right.attached(with: cardTree, asChildOf: logicCard))
+                        return .binaryLogic(logic, nil, right.attached(with: cardTree, asChildOf: logicCard))
                     } else {
                         // both children are nil, we didn't find the logicCard
-                        return .BinaryLogic(logic, nil, nil)
+                        return .binaryLogic(logic, nil, nil)
                     }
                 }
             }
@@ -256,29 +256,29 @@ extension CardTreeNode {
     }
 }
 
-//MARK: CardTreeNode Removal
+// MARK: CardTreeNode Removal
 
 extension CardTreeNode {
     /// Returns a new CardTreeNode without the given ActionCard.
-    func removing(card: ActionCard) -> CardTreeNode? {
+    func removing(_ card: ActionCard) -> CardTreeNode? {
         switch self {
-        case .Action(let actionCard):
-            return card == actionCard ? nil : .Action(actionCard)
-        case .UnaryLogic(let logicCard, let subtree):
-            return .UnaryLogic(logicCard, subtree?.removing(card))
-        case .BinaryLogic(let logicCard, let left, let right):
-            return .BinaryLogic(logicCard, left?.removing(card), right?.removing(card))
+        case .action(let actionCard):
+            return card == actionCard ? nil : .action(actionCard)
+        case .unaryLogic(let logicCard, let subtree):
+            return .unaryLogic(logicCard, subtree?.removing(card))
+        case .binaryLogic(let logicCard, let left, let right):
+            return .binaryLogic(logicCard, left?.removing(card), right?.removing(card))
         }
     }
     
     /// Remove a LogicHandCard from a CardTreeNode. Returns the root of the new tree,
     /// as well as any oprhan subtrees that were created by removing the card.
     /// (e.g. children of a {Unary,Binary}Logic tree).
-    func removing(card: LogicHandCard) -> (CardTreeNode?, [CardTreeNode]) {
+    func removing(_ card: LogicHandCard) -> (CardTreeNode?, [CardTreeNode]) {
         switch self {
-        case .Action(let actionCard):
-            return (.Action(actionCard), [])
-        case .UnaryLogic(let logicCard, let subtree):
+        case .action(let actionCard):
+            return (.action(actionCard), [])
+        case .unaryLogic(let logicCard, let subtree):
             if card == logicCard {
                 if let subtree = subtree {
                     return (nil, [subtree])
@@ -288,12 +288,12 @@ extension CardTreeNode {
             } else {
                 if let subtree = subtree {
                     let (newSubtree, orphans) = subtree.removing(card)
-                    return (.UnaryLogic(logicCard, newSubtree), orphans)
+                    return (.unaryLogic(logicCard, newSubtree), orphans)
                 } else {
                     return (nil, [])
                 }
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             if card == logicCard {
                 var orphans: [CardTreeNode] = []
                 if let l = left {
@@ -317,23 +317,23 @@ extension CardTreeNode {
                 }
                 
                 var orphans: [CardTreeNode] = []
-                orphans.appendContentsOf(orphansLeft)
-                orphans.appendContentsOf(orphansRight)
-                return (.BinaryLogic(logicCard, newLeft, newRight), orphans)
+                orphans.append(contentsOf: orphansLeft)
+                orphans.append(contentsOf: orphansRight)
+                return (.binaryLogic(logicCard, newLeft, newRight), orphans)
             }
         }
     }
 }
 
-//MARK: CardTreeNode Query
+// MARK: CardTreeNode Query
 
 extension CardTreeNode {
     /// Returns true if the CardTreeNode contains a card with the given identifier.
     func contains(cardIdentifier identifier: CardIdentifier) -> Bool {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             return identifier == actionCard.identifier
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             if identifier == logicCard.identifier {
                 return true
             }
@@ -343,7 +343,7 @@ extension CardTreeNode {
             } else {
                 return false
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             if identifier == logicCard.identifier {
                 return true
             }
@@ -364,25 +364,25 @@ extension CardTreeNode {
     /// Returns all ActionCards with the given descriptor.
     func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             if actionCard.descriptor == descriptor {
                 return [actionCard]
             } else {
                 return []
             }
-        case .UnaryLogic(_, let subtree):
+        case .unaryLogic(_, let subtree):
             if let subtree = subtree {
                 return subtree.cards(matching: descriptor)
             } else {
                 return []
             }
-        case .BinaryLogic(_, let left, let right):
+        case .binaryLogic(_, let left, let right):
             var matching: [ActionCard] = []
             if let left = left {
-                matching.appendContentsOf(left.cards(matching: descriptor))
+                matching.append(contentsOf: left.cards(matching: descriptor))
             }
             if let right = right {
-                matching.appendContentsOf(right.cards(matching: descriptor))
+                matching.append(contentsOf: right.cards(matching: descriptor))
             }
             return matching
         }
@@ -391,27 +391,27 @@ extension CardTreeNode {
     /// Returns all LogicHandCards with the given descriptor.
     func cards(matching descriptor: HandCardDescriptor) -> [LogicHandCard] {
         switch self {
-        case .Action(_):
+        case .action(_):
             return []
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             var matching: [LogicHandCard] = []
             if logicCard.descriptor == descriptor {
                 matching.append(logicCard)
             }
             if let subtree = subtree {
-                matching.appendContentsOf(subtree.cards(matching: descriptor))
+                matching.append(contentsOf: subtree.cards(matching: descriptor))
             }
             return matching
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             var matching: [LogicHandCard] = []
             if logicCard.descriptor == descriptor {
                 matching.append(logicCard)
             }
             if let left = left {
-                matching.appendContentsOf(left.cards(matching: descriptor))
+                matching.append(contentsOf: left.cards(matching: descriptor))
             }
             if let right = right {
-                matching.appendContentsOf(right.cards(matching: descriptor))
+                matching.append(contentsOf: right.cards(matching: descriptor))
             }
             return matching
         }
@@ -420,10 +420,10 @@ extension CardTreeNode {
     /// Returns the Card with the given CardIdentifier, or nil if no such card was found..
     func card(with identifier: CardIdentifier) -> Card? {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             return actionCard.identifier == identifier ? actionCard : nil
             
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             if logicCard.identifier == identifier {
                 return logicCard
             }
@@ -434,7 +434,7 @@ extension CardTreeNode {
             
             return nil
             
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             if logicCard.identifier == identifier {
                 return logicCard
             }
@@ -457,9 +457,9 @@ extension CardTreeNode {
     /// if no such node was found.
     func cardTreeNode(of card: LogicHandCard) -> CardTreeNode? {
         switch self {
-        case .Action(_):
+        case .action(_):
             return nil
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             if logicCard == card {
                 return self
             }
@@ -469,7 +469,7 @@ extension CardTreeNode {
             } else {
                 return nil
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             if logicCard == card {
                 return self
             }
@@ -488,18 +488,18 @@ extension CardTreeNode {
     }
 }
 
-//MARK: CardTreeNode Satisfaction
+// MARK: CardTreeNode Satisfaction
 
 extension CardTreeNode {
     func isSatisfied(by cards: Set<CardIdentifier>) -> Bool {
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             // if actionCard.identifier is in the set of satisfied cards, then YES
             // it is satisfied
             return cards.contains(actionCard.identifier)
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             switch logicCard.operation {
-            case .BooleanNot:
+            case .booleanNot:
                 if let subtree = subtree {
                     return !subtree.isSatisfied(by: cards)
                 } else {
@@ -511,14 +511,14 @@ extension CardTreeNode {
                 // this is an invalid logic type for this card, hence NO it is not satisfied
                 return false
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             switch logicCard.operation {
-            case .BooleanAnd:
+            case .booleanAnd:
                 // if the subtree is nil then by definition it is satisfied
                 let leftSatisfied = left?.isSatisfied(by: cards) ?? true
                 let rightSatisfied = right?.isSatisfied(by: cards) ?? true
                 return leftSatisfied && rightSatisfied
-            case .BooleanOr:
+            case .booleanOr:
                 // if the subtree is nil then by definition it is satisfied
                 let leftSatisfied = left?.isSatisfied(by: cards) ?? true
                 let rightSatisfied = right?.isSatisfied(by: cards) ?? true
@@ -531,11 +531,11 @@ extension CardTreeNode {
     }
 }
 
-//MARK: Debugging
+// MARK: Debugging
 
 extension CardTreeNode {
     func printToConsole(atLevel level: Int) {
-        func spacePrint(level: Int, _ msg: String) {
+        func spacePrint(_ level: Int, _ msg: String) {
             for _ in 0..<level {
                 print("    ", terminator: "")
             }
@@ -543,9 +543,9 @@ extension CardTreeNode {
         }
         
         switch self {
-        case .Action(let actionCard):
+        case .action(let actionCard):
             spacePrint(level, "ActionCard \(actionCard.descriptor.name) [\(actionCard.identifier)]")
-        case .UnaryLogic(let logicCard, let subtree):
+        case .unaryLogic(let logicCard, let subtree):
             spacePrint(level, "UnaryLogic \(logicCard.descriptor.name) [\(logicCard.identifier)]")
             if let subtree = subtree {
                 spacePrint(level, "  subtree:")
@@ -553,7 +553,7 @@ extension CardTreeNode {
             } else {
                 spacePrint(level, "  subtree: nil")
             }
-        case .BinaryLogic(let logicCard, let left, let right):
+        case .binaryLogic(let logicCard, let left, let right):
             spacePrint(level, "BinaryLogic \(logicCard.descriptor.name) [\(logicCard.identifier)]")
             if let left = left {
                 spacePrint(level, "  left:")

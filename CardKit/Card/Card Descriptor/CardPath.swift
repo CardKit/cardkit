@@ -11,15 +11,15 @@ import Foundation
 import Freddy
 
 public struct CardPath {
-    private let pathComponents: [String]
+    fileprivate let pathComponents: [String]
     
     /// Create a CardPath from a path string. Path strings are of the form "a/b/c" (e.g. "Input/Location").
     init(withPath path: String) {
-        self.pathComponents = path.characters.split("/").map(String.init)
+        self.pathComponents = path.characters.split(separator: "/").map(String.init)
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension CardPath: Equatable {}
 
@@ -33,28 +33,28 @@ public func == (lhs: CardPath, rhs: CardPath) -> Bool {
     return true
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension CardPath: Hashable {
     public var hashValue: Int {
         get {
             // sum up the hash values of all the components
-            return self.pathComponents.reduce(0, combine: { $0 &+ $1.hashValue })
+            return self.pathComponents.reduce(0, { $0 &+ $1.hashValue })
         }
     }
 }
 
-//MARK: CustomStringConvertible
+// MARK: CustomStringConvertible
 
 extension CardPath: CustomStringConvertible {
     public var description: String {
         get {
-            return self.pathComponents.joinWithSeparator("/")
+            return self.pathComponents.joined(separator: "/")
         }
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension CardPath: JSONEncodable {
     public func toJSON() -> JSON {
@@ -62,10 +62,10 @@ extension CardPath: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension CardPath: JSONDecodable {
     public init(json: JSON) throws {
-        self.pathComponents = try json.arrayOf(type: String.self)
+        self.pathComponents = try json.decodedArray(type: String.self)
     }
 }

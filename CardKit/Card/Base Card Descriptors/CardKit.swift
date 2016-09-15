@@ -11,26 +11,26 @@ import Foundation
 /// Defines the descriptor hierarchy for all cards in CardKit, grouped by type (Action, Deck, Hand, Input, Token). Each card's implementation should extend this struct to add a new static member for its descriptor.
 // swiftlint:disable nesting
 public struct CardKit {
-    private init() {}
+    fileprivate init() {}
     
     // note these cannot be defined in extensions, otherwise they won't 
     // be extendable from the swift files for card implementations
     
-    //MARK:- Action Cards
+    // MARK: - Action Cards
     
     /// Contains descriptors for Action cards
     public struct Action {
-        private init() {}
+        fileprivate init() {}
         
         /// Contains descriptors for Action/Trigger cards
         public struct Trigger {
-            private init() {}
+            fileprivate init() {}
             
             /// Contains descriptors for Action/Trigger/Time cards
             public struct Time {
-                private init() {}
+                fileprivate init() {}
                 
-                //MARK: Trigger/Time/Timer
+                // MARK: Trigger/Time/Timer
                 /// Descriptor for the Timer card
                 public static let Timer = ActionCardDescriptor(
                     name: "Timer",
@@ -46,7 +46,7 @@ public struct CardKit {
                     assetCatalog: CardAssetCatalog(description: "Set a timer"),
                     version: 0)
                 
-                //MARK: Triger/WaitUntilTime
+                // MARK: Triger/WaitUntilTime
                 /// Descriptor for the WaitUntilTime card
                 public static let WaitUntilTime = ActionCardDescriptor(
                     name: "Wait Until Time",
@@ -65,20 +65,20 @@ public struct CardKit {
         }
     }
     
-    //MARK:- Deck Cards
+    // MARK: - Deck Cards
     
     /// Contains descriptors for Deck cards
     public struct Deck {
-        private init() {}
+        fileprivate init() {}
         
-        //MARK: Repeat
+        // MARK: Repeat
         public static let Repeat = DeckCardDescriptor(
             name: "Repeat",
             subpath: nil,
             assetCatalog: CardAssetCatalog(description: "Repeat the deck"),
             version: 0)
         
-        //MARK: Terminate
+        // MARK: Terminate
         public static let Terminate = DeckCardDescriptor(
             name: "Terminate",
             subpath: nil,
@@ -86,177 +86,177 @@ public struct CardKit {
             version: 0)
     }
     
-    //MARK:- Hand Cards
+    // MARK: - Hand Cards
     
     /// Contains descriptors for Hand cards
     public struct Hand {
-        private init() {}
+        fileprivate init() {}
         
         /// Contains descriptors for Hand/Next cards
         public struct Next {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Branch
+            // MARK: Branch
             /// Descriptor for the Branch card
             public static let Branch = HandCardDescriptor(
                 name: "Branch",
                 subpath: "Next",
-                handCardType: .Branch,
+                handCardType: .branch,
                 assetCatalog: CardAssetCatalog(description: "Branch to the specified hand"),
                 version: 0)
             
-            //MARK: Repeat
+            // MARK: Repeat
             /// Descriptor for the Repeat card
             public static let Repeat = HandCardDescriptor(
                 name: "Repeat",
                 subpath: "Next",
-                handCardType: .Repeat,
+                handCardType: .repeatHand,
                 assetCatalog: CardAssetCatalog(description: "Repeat the hand"),
                 version: 0)
         }
         
         /// Contains descriptors for Hand/End cards
         public struct End {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: All
+            // MARK: All
             /// Descriptor for the All card
-            public static let All = HandCardDescriptor(
+            public static let OnAll = HandCardDescriptor(
                 name: "All",
                 subpath: "End",
-                handCardType: .EndWhenAllSatisfied,
+                handCardType: .endWhenAllSatisfied,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied"),
                 version: 0)
             
-            //MARK: Any
+            // MARK: Any
             /// Descriptor for the Any card
-            public static let Any = HandCardDescriptor(
+            public static let OnAny = HandCardDescriptor(
                 name: "Any",
                 subpath: "End",
-                handCardType: .EndWhenAnySatisfied,
+                handCardType: .endWhenAnySatisfied,
                 assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied"),
                 version: 0)
         }
         
         /// Contains descriptors for Hand/Logic cards
         public struct Logic {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: LogicalNot
+            // MARK: LogicalNot
             /// Descriptor for the LogicalNot card
             public static let LogicalNot = HandCardDescriptor(
                 name: "Not",
                 subpath: "Logic",
-                handCardType: .BooleanLogicNot,
+                handCardType: .booleanLogicNot,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied"),
                 version: 0)
             
-            //MARK: LogicalAnd
+            // MARK: LogicalAnd
             /// Descriptor for the LogicalAnd card
             public static let LogicalAnd = HandCardDescriptor(
                 name: "And",
                 subpath: "Logic",
-                handCardType: .BooleanLogicAnd,
+                handCardType: .booleanLogicAnd,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied"),
                 version: 0)
             
-            //MARK: LogicalOr
+            // MARK: LogicalOr
             /// Descriptor for the LogicalOr card
             public static let LogicalOr = HandCardDescriptor(
                 name: "Or",
                 subpath: "Logic",
-                handCardType: .BooleanLogicOr,
+                handCardType: .booleanLogicOr,
                 assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"),
                 version: 0)
         }
     }
     
-    //MARK:- Input Cards
+    // MARK: - Input Cards
     
     /// Contains descriptors for Input cards
     public struct Input {
-        private init() {}
+        fileprivate init() {}
         
         /// Contains descriptors for Input/Location cards
         public struct Location {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Location/Angle
+            // MARK: Location/Angle
             /// Descriptor for the Angle card
             public static let Angle = InputCardDescriptor(
                 name: "Angle",
                 subpath: "Location",
-                inputType: .SwiftDouble,
+                inputType: .swiftDouble,
                 inputDescription: "Angle (in degrees)",
                 assetCatalog: CardAssetCatalog(description: "Angle (in degrees)"),
                 version: 0)
             
-            //MARK: Location/BoundingBox
+            // MARK: Location/BoundingBox
             /// Descriptor for the Bounding Box card
             public static let BoundingBox = InputCardDescriptor(
                 name: "Bounding Box",
                 subpath: "Location",
-                inputType: .Coordinate2DPath,
+                inputType: .coordinate2DPath,
                 inputDescription: "Set of 2D coordinates",
                 assetCatalog: CardAssetCatalog(description: "Bounding Box (2D)"),
                 version: 0)
             
-            //MARK: Location/BoundingBox3D
+            // MARK: Location/BoundingBox3D
             /// Descriptor for the Bounding Box 3D card
             public static let BoundingBox3D = InputCardDescriptor(
                 name: "Bounding Box 3D",
                 subpath: "Location",
-                inputType: .Coordinate3DPath,
+                inputType: .coordinate3DPath,
                 inputDescription: "Set of 3D coordinates",
                 assetCatalog: CardAssetCatalog(description: "Bounding Box (3D)"),
                 version: 0)
             
-            //MARK: Location/CardinalDirection
+            // MARK: Location/CardinalDirection
             /// Descriptor for the Cardinal Direction card
             public static let CardinalDirection = InputCardDescriptor(
                 name: "Cardinal Direction",
                 subpath: "Location",
-                inputType: .CardinalDirection,
+                inputType: .cardinalDirection,
                 inputDescription: "Cardinal Direction",
                 assetCatalog: CardAssetCatalog(description: "Cardinal Direction (N, S, E, W)"),
                 version: 0)
             
-            //MARK: Location/Distance
+            // MARK: Location/Distance
             /// Descriptor for the Distance card
             public static let Distance = InputCardDescriptor(
                 name: "Distance",
                 subpath: "Location",
-                inputType: .SwiftDouble,
+                inputType: .swiftDouble,
                 inputDescription: "Distance (meters)",
                 assetCatalog: CardAssetCatalog(description: "Distance (meters)"),
                 version: 0)
             
-            //MARK: Location/Location
+            // MARK: Location/Location
             /// Descriptor for the Location card
             public static let Location = InputCardDescriptor(
                 name: "Location",
                 subpath: "Location",
-                inputType: .Coordinate3D,
+                inputType: .coordinate3D,
                 inputDescription: "Coordinate (3D)",
                 assetCatalog: CardAssetCatalog(description: "Location (3D coordinate)"),
                 version: 0)
             
-            //MARK: Location/Path
+            // MARK: Location/Path
             /// Descriptor for the Path card
             public static let Path = InputCardDescriptor(
                 name: "Path",
                 subpath: "Location",
-                inputType: .Coordinate2DPath,
+                inputType: .coordinate2DPath,
                 inputDescription: "2D coordinate path",
                 assetCatalog: CardAssetCatalog(description: "Path (2D)"),
                 version: 0)
             
-            //MARK: Location/Path3D
+            // MARK: Location/Path3D
             /// Descriptor for the Path 3D card
             public static let Path3D = InputCardDescriptor(
                 name: "Path 3D",
                 subpath: "Location",
-                inputType: .Coordinate3DPath,
+                inputType: .coordinate3DPath,
                 inputDescription: "3D coordinate path",
                 assetCatalog: CardAssetCatalog(description: "Path (3D)"),
                 version: 0)
@@ -264,24 +264,24 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Media cards
         public struct Media {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Media/Audio
+            // MARK: Media/Audio
             /// Descriptor for the Audio card
             public static let Audio = InputCardDescriptor(
                 name: "Audio",
                 subpath: "Media/Audio",
-                inputType: .SwiftData,
+                inputType: .swiftData,
                 inputDescription: "Audio (data)",
                 assetCatalog: CardAssetCatalog(description: "Audio"),
                 version: 0)
             
-            //MARK: Media/Image
+            // MARK: Media/Image
             /// Descriptor for the Image card
             public static let Image = InputCardDescriptor(
                 name: "Image",
                 subpath: "Media/Image",
-                inputType: .SwiftData,
+                inputType: .swiftData,
                 inputDescription: "Audio (data)",
                 assetCatalog: CardAssetCatalog(description: "Image"),
                 version: 0)
@@ -289,24 +289,24 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Numeric cards
         public struct Numeric {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Numeric/Integer
+            // MARK: Numeric/Integer
             /// Descriptor for the Integer card
             public static let Integer = InputCardDescriptor(
                 name: "Integer",
                 subpath: "Numeric",
-                inputType: .SwiftInt,
+                inputType: .swiftInt,
                 inputDescription: "Integer",
                 assetCatalog: CardAssetCatalog(description: "Integer number"),
                 version: 0)
             
-            //MARK: Numeric/Real
+            // MARK: Numeric/Real
             /// Descriptor for the Real card
             public static let Real = InputCardDescriptor(
                 name: "Real",
                 subpath: "Numeric",
-                inputType: .SwiftDouble,
+                inputType: .swiftDouble,
                 inputDescription: "Real",
                 assetCatalog: CardAssetCatalog(description: "Real number"),
                 version: 0)
@@ -314,14 +314,14 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Raw cards
         public struct Raw {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Raw/Data
+            // MARK: Raw/Data
             /// Descriptor for Raw/Data card
             public static let Data = InputCardDescriptor(
                 name: "Data",
                 subpath: "Raw",
-                inputType: .SwiftData,
+                inputType: .swiftData,
                 inputDescription: "Raw data",
                 assetCatalog: CardAssetCatalog(description: "Raw data"),
                 version: 0)
@@ -329,24 +329,24 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Relative cards
         public struct Relative {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Relative/RelativeToLocation
+            // MARK: Relative/RelativeToLocation
             /// Descriptor for the RelativeToLocation card
             public static let RelativeToLocation = InputCardDescriptor(
                 name: "Relative To Location",
                 subpath: "Relative",
-                inputType: .Coordinate2D,
+                inputType: .coordinate2D,
                 inputDescription: "Coordinate offset",
                 assetCatalog: CardAssetCatalog(description: "A coordinate used to offset another coordinate"),
                 version: 0)
             
-            //MARK: Relative/RelativeToObject
+            // MARK: Relative/RelativeToObject
             /// Descriptor for the RelativeToObject card
             public static let RelativeToObject = InputCardDescriptor(
                 name: "Relative To Object",
                 subpath: "Relative",
-                inputType: .Coordinate2D,
+                inputType: .coordinate2D,
                 inputDescription: "Coordinate offset",
                 assetCatalog: CardAssetCatalog(description: "A coordinate used to offset from an object's location"),
                 version: 0)
@@ -354,14 +354,14 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Text cards
         public struct Text {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Text/String
+            // MARK: Text/String
             /// Descriptor for Text/String card
             public static let String = InputCardDescriptor(
                 name: "String",
                 subpath: "Text",
-                inputType: .SwiftString,
+                inputType: .swiftString,
                 inputDescription: "String",
                 assetCatalog: CardAssetCatalog(description: "A string"),
                 version: 0)
@@ -369,34 +369,34 @@ public struct CardKit {
         
         /// Contains descriptors for Input/Time cards
         public struct Time {
-            private init() {}
+            fileprivate init() {}
             
-            //MARK: Time/ClockTime
+            // MARK: Time/ClockTime
             /// Descriptor for ClockTime card
             public static let ClockTime = InputCardDescriptor(
                 name: "Clock Time",
                 subpath: "Time",
-                inputType: .SwiftDate,
+                inputType: .swiftDate,
                 inputDescription: "Date & time string",
                 assetCatalog: CardAssetCatalog(description: "Time (date & time)"),
                 version: 0)
             
-            //MARK: Time/Duration
+            // MARK: Time/Duration
             /// Descriptor for Duration card
             public static let Duration = InputCardDescriptor(
                 name: "Duration",
                 subpath: "Time",
-                inputType: .SwiftInt,
+                inputType: .swiftInt,
                 inputDescription: "Duration (seconds)",
                 assetCatalog: CardAssetCatalog(description: "Duration (seconds)"),
                 version: 0)
             
-            //MARK: Time/Periodicity
+            // MARK: Time/Periodicity
             /// Descriptor for the Periodicity card
             public static let Periodicity = InputCardDescriptor(
                 name: "Periodicity",
                 subpath: "Time",
-                inputType: .Coordinate2D,
+                inputType: .coordinate2D,
                 inputDescription: "Periodic frequency (seconds)",
                 assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"),
                 version: 0)

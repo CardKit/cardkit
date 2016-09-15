@@ -14,7 +14,7 @@ public class TokenCard: Card, JSONEncodable, JSONDecodable {
     public let descriptor: TokenCardDescriptor
     
     // Card protocol
-    public private (set) var identifier: CardIdentifier = CardIdentifier()
+    public fileprivate (set) var identifier: CardIdentifier = CardIdentifier()
     public var cardType: CardType { return descriptor.cardType }
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
@@ -23,22 +23,22 @@ public class TokenCard: Card, JSONEncodable, JSONDecodable {
         self.descriptor = descriptor
     }
     
-    //MARK: JSONEncodable & JSONDecodable
+    // MARK: JSONEncodable & JSONDecodable
     
     public required init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode("descriptor", type: TokenCardDescriptor.self)
+        self.identifier = try json.decode(at: "identifier", type: CardIdentifier.self)
+        self.descriptor = try json.decode(at: "descriptor", type: TokenCardDescriptor.self)
     }
     
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "identifier": self.identifier.toJSON(),
             "descriptor": self.descriptor.toJSON()
             ])
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension TokenCard: Equatable {}
 
@@ -46,7 +46,7 @@ public func == (lhs: TokenCard, rhs: TokenCard) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension TokenCard: Hashable {
     public var hashValue: Int {
