@@ -64,7 +64,7 @@ class DeckTests: XCTestCase {
                     && wait <- (CardKit.Input.Time.ClockTime <- Date())
                 )%
             
-            let prettyStr = deck.toJSON().stringify(true)
+            let prettyStr = try deck.toJSON().serializeString()
             print("\(prettyStr)")
             
         } catch let error {
