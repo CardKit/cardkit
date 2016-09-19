@@ -32,7 +32,7 @@ class InputBindingTests: XCTestCase {
         XCTAssertTrue(angle.inputDataValue() == 1.0)
     }
     
-    func testValidNSDataBinding() {
+    func testValidDataBinding() {
         let image = CardKit.Input.Media.Image.makeCard()
         
         let str = "Hello, world"
