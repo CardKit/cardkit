@@ -494,9 +494,16 @@ extension Array where Iterator.Element : Hand {
     }
 }
 
-// MARK: Adding DeckCards to a Deck
+// MARK: Adding Cards to a Deck
 
 extension Deck {
+    /// Adds a TokenCard to a Deck
+    static func + (lhs: Deck, rhs: TokenCard) -> Deck {
+        let deck = Deck(copying: lhs)
+        deck.add(rhs)
+        return deck
+    }
+    
     /// Adds an instance of DeckCardDescriptor to a Deck
     static func + (lhs: Deck, rhs: DeckCardDescriptor) -> Deck {
         let deck = Deck(copying: lhs)
