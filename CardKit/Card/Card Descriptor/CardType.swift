@@ -11,14 +11,14 @@ import Foundation
 import Freddy
 
 public enum CardType: String {
-    case Action
-    case Deck
-    case Hand
-    case Input
-    case Token
+    case action
+    case deck
+    case hand
+    case input
+    case token
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension CardType: JSONEncodable {
     public func toJSON() -> JSON {
@@ -26,13 +26,13 @@ extension CardType: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension CardType: JSONDecodable {
     public init(json: JSON) throws {
         let string = try json.decode(type: String.self)
         guard let value = CardType(rawValue: string) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: CardType.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: CardType.self)
         }
         self = value
     }

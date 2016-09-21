@@ -9,7 +9,7 @@
 import Foundation
 
 extension Set {
-    mutating func insertAll(objects: [Set.Element]) {
+    mutating func insertAll(_ objects: [Set.Element]) {
         for item in objects {
             self.insert(item)
         }

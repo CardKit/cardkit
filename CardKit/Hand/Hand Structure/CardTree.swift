@@ -10,12 +10,12 @@ import Foundation
 
 import Freddy
 
-//MARK: CardTreeIdentifier
+// MARK: CardTreeIdentifier
 
 /// Used to uniquely identify a CardTree
 public typealias CardTreeIdentifier = CardIdentifier
 
-//MARK:- CardTree
+// MARK: - CardTree
 
 /// A CardTree represents a tree of Logic & Action cards. CardTrees are used to 
 /// determine when a Hand is satisfied (the set of CardTrees in a Hand must be 
@@ -42,27 +42,27 @@ public class CardTree: JSONEncodable, JSONDecodable {
     public init() {
     }
     
-    //MARK: JSONDecodable & JSONEncodable
+    // MARK: JSONDecodable & JSONEncodable
     public required init(json: JSON) throws {
-        self.identifier = try json.decode("identifier", type: CardTreeIdentifier.self)
+        self.identifier = try json.decode(at: "identifier", type: CardTreeIdentifier.self)
         
-        let rootStr = try json.string("root")
+        let rootStr = try json.getString(at: "root")
         if rootStr == "nil" {
             self.root = nil
         } else {
-            self.root = try json.decode("root", type: CardTreeNode.self)
+            self.root = try json.decode(at: "root", type: CardTreeNode.self)
         }
     }
     
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "identifier": self.identifier.toJSON(),
-            "root": self.root?.toJSON() ?? .String("nil")
+            "root": self.root?.toJSON() ?? .string("nil")
             ])
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension CardTree: Equatable {}
 
@@ -70,7 +70,7 @@ public func == (lhs: CardTree, rhs: CardTree) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension CardTree: Hashable {
     public var hashValue: Int {
@@ -78,7 +78,7 @@ extension CardTree: Hashable {
     }
 }
 
-//MARK: CardTree Attachment
+// MARK: CardTree Attachment
 
 extension CardTree {
     /// Attach the given CardTree as a child of the given LogicHandCard.
@@ -95,7 +95,7 @@ extension CardTree {
     
     /// Attach the given ActionCard as a child of the given LogicHandCard.
     func attach(with card: ActionCard, asChildOf logicCard: LogicHandCard) {
-        let node: CardTreeNode = .Action(card)
+        let node: CardTreeNode = .action(card)
         self.attach(with: node, asChildOf: logicCard)
     }
     
@@ -106,20 +106,20 @@ extension CardTree {
     }
 }
 
-//MARK: CardTree Detachment
+// MARK: CardTree Detachment
 
 extension CardTree {
     /// Detach the given ActionCard from the CardTree. Returns the detached
     /// CardTreeNode, or nil if the ActionCard was not found in the tree.
-    func detach(card: ActionCard) -> CardTreeNode? {
+    func detach(_ card: ActionCard) -> CardTreeNode? {
         guard let root = self.root else { return nil }
         self.root = root.removing(card)
-        return .Action(card)
+        return .action(card)
     }
     
     /// Detach the given LogicHandCard from the CardTree. Returns the detached
     /// CardTreeNode, or nil if the LogicHandCard was not found in the tree.
-    func detach(card: LogicHandCard) -> CardTreeNode? {
+    func detach(_ card: LogicHandCard) -> CardTreeNode? {
         guard let root = self.root else { return nil }
         guard let detached = self.cardTreeNode(of: card) else { return nil }
         let (newRoot, _) = root.removing(card)
@@ -128,13 +128,13 @@ extension CardTree {
     }
 }
 
-//MARK: CardTree Removal
+// MARK: CardTree Removal
 
 extension CardTree {
     /// Remove the given ActionCard from the CardTree. Returns the removed
     /// CardTreeNode, or nil if the ActionCard was not found in the tree.
     /// This method is equivalent to detach().
-    func remove(card: ActionCard) -> CardTreeNode? {
+    func remove(_ card: ActionCard) -> CardTreeNode? {
         return self.detach(card)
     }
     
@@ -142,7 +142,7 @@ extension CardTree {
     /// CardTreeNode and any orphaned subtrees created by removing the LogicHandCard.
     /// This method is structurally equivalent to detach(), except it also returns
     /// the orphaned CardTrees as a separate array.
-    func remove(card: LogicHandCard) -> (CardTreeNode?, [CardTree]) {
+    func remove(_ card: LogicHandCard) -> (CardTreeNode?, [CardTree]) {
         guard let root = self.root else { return (nil, []) }
         guard let detached = self.cardTreeNode(of: card) else { return (nil, []) }
         
@@ -161,7 +161,7 @@ extension CardTree {
     }
 }
 
-//MARK: CardTree Query
+// MARK: CardTree Query
 
 extension CardTree {
     /// Returns true if the CardTree contains a card with the given identifier.
@@ -196,9 +196,9 @@ extension CardTree {
     }
 }
 
-//MARK: [CardTree] Query
+// MARK: [CardTree] Query
 
-extension SequenceType where Generator.Element == CardTree {
+extension Sequence where Iterator.Element == CardTree {
     /// Returns the CardTree containing the given ActionCard.
     func cardTree(containing card: ActionCard) -> CardTree? {
         for tree in self {
@@ -241,7 +241,7 @@ extension SequenceType where Generator.Element == CardTree {
     }
 }
 
-//MARK: CardTree Satisfaction
+// MARK: CardTree Satisfaction
 
 extension CardTree {
     func isSatisfied(by cards: Set<CardIdentifier>) -> Bool {
@@ -251,11 +251,11 @@ extension CardTree {
     }
 }
 
-//MARK: Debugging
+// MARK: Debugging
 
 extension CardTree {
     func printToConsole(atLevel level: Int) {
-        func spacePrint(level: Int, _ msg: String) {
+        func spacePrint(_ level: Int, _ msg: String) {
             for _ in 0..<level {
                 print("    ", terminator: "")
             }

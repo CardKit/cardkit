@@ -10,10 +10,10 @@ import Foundation
 
 import Freddy
 
-//MARK: TokenCardDescriptor
+// MARK: TokenCardDescriptor
 
 public struct TokenCardDescriptor: CardDescriptor, Consumable {
-    public let cardType: CardType = .Token
+    public let cardType: CardType = .token
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -40,7 +40,7 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension TokenCardDescriptor: Equatable {}
 
@@ -53,7 +53,7 @@ public func == (lhs: TokenCardDescriptor, rhs: TokenCardDescriptor) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension TokenCardDescriptor: Hashable {
     public var hashValue: Int {
@@ -61,7 +61,7 @@ extension TokenCardDescriptor: Hashable {
     }
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension TokenCardDescriptor: CustomStringConvertible {
     public var description: String {
@@ -69,11 +69,11 @@ extension TokenCardDescriptor: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension TokenCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
@@ -84,14 +84,14 @@ extension TokenCardDescriptor: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension TokenCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.path = try json.decode("path", type: CardPath.self)
-        self.version = try json.int("version")
-        self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.isConsumed = try json.bool("isConsumed")
+        self.name = try json.getString(at: "name")
+        self.path = try json.decode(at: "path", type: CardPath.self)
+        self.version = try json.getInt(at: "version")
+        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
+        self.isConsumed = try json.getBool(at: "isConsumed")
     }
 }

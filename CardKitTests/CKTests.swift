@@ -12,15 +12,15 @@ import Foundation
 
 // swiftlint:disable nesting
 public struct CKTests {
-    private init() {}
+    fileprivate init() {}
     
-    //MARK:- Action Cards
+    // MARK: - Action Cards
     
     /// Contains descriptors for Action cards
     public struct Action {
-        private init() {}
+        fileprivate init() {}
         
-        //MARK: NoAction
+        // MARK: NoAction
         /// Descriptor for NoAction card
         public static let NoAction = ActionCardDescriptor(
             name: "No Action",
@@ -34,21 +34,21 @@ public struct CKTests {
             assetCatalog: CardAssetCatalog(description: "No action performed."),
             version: 0)
         
-        //MARK: YieldingNoAction
+        // MARK: YieldingNoAction
         /// Descriptor for YieldingNoAction card
         public static let YieldingNoAction = ActionCardDescriptor(
             name: "Yielding No Action",
             subpath: nil,
             inputs: [InputSlot(name: "Input", descriptor: CardKit.Input.Numeric.Real, isOptional: false)],
             tokens: nil,
-            yields: [Yield(type: .SwiftDouble)],
+            yields: [Yield(type: .swiftDouble)],
             yieldDescription: "The answer to the question.",
             ends: true,
             endsDescription: "Ends instantly.",
             assetCatalog: CardAssetCatalog(description: "No action performed, but yields magic."),
             version: 0)
         
-        //MARK: AcceptsMultipleInputTypes
+        // MARK: AcceptsMultipleInputTypes
         /// Descriptor for AcceptsMultipleInputTypes card
         public static let AcceptsMultipleInputTypes = ActionCardDescriptor(
             name: "Accepts Multiple Input Types",

@@ -11,7 +11,7 @@ import Foundation
 import Freddy
 
 
-//MARK: CKCoordinate2D
+// MARK: CKCoordinate2D
 
 public struct CKCoordinate2D {
     public let latitude: Double
@@ -32,21 +32,21 @@ public func == (lhs: CKCoordinate2D, rhs: CKCoordinate2D) -> Bool {
 
 extension CKCoordinate2D: JSONDecodable {
     public init(json: JSON) throws {
-        self.latitude = try json.double("latitude")
-        self.longitude = try json.double("longitude")
+        self.latitude = try json.getDouble(at: "latitude")
+        self.longitude = try json.getDouble(at: "longitude")
     }
 }
 
 extension CKCoordinate2D: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "latitude": self.latitude.toJSON(),
             "longitude": self.longitude.toJSON()
             ])
     }
 }
 
-//MARK: CKCoordinate3D
+// MARK: CKCoordinate3D
 
 public struct CKCoordinate3D {
     public let latitude: Double
@@ -70,15 +70,15 @@ public func == (lhs: CKCoordinate3D, rhs: CKCoordinate3D) -> Bool {
 
 extension CKCoordinate3D: JSONDecodable {
     public init(json: JSON) throws {
-        self.latitude = try json.double("latitude")
-        self.longitude = try json.double("longitude")
-        self.altitudeMeters = try json.double("altitudeMeters")
+        self.latitude = try json.getDouble(at: "latitude")
+        self.longitude = try json.getDouble(at: "longitude")
+        self.altitudeMeters = try json.getDouble(at: "altitudeMeters")
     }
 }
 
 extension CKCoordinate3D: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "latitude": self.latitude.toJSON(),
             "longitude": self.longitude.toJSON(),
             "altitudeMeters": self.altitudeMeters.toJSON()
@@ -86,45 +86,43 @@ extension CKCoordinate3D: JSONEncodable {
     }
 }
 
-//MARK: CardinalDirection
+// MARK: CardinalDirection
 
 public enum CKCardinalDirection: String {
-    case North
-    case South
-    case East
-    case West
+    case north
+    case south
+    case east
+    case west
 }
 
 extension CKCardinalDirection: CustomStringConvertible {
     public var description: String {
-        get {
-            switch self {
-            case .North:
-                return "North"
-            case .South:
-                return "South"
-            case .East:
-                return "East"
-            case .West:
-                return "West"
-            }
+        switch self {
+        case .north:
+            return "north"
+        case .south:
+            return "south"
+        case .east:
+            return "east"
+        case .west:
+            return "west"
         }
     }
 }
 
 extension CKCardinalDirection: JSONDecodable {
     public init(json: JSON) throws {
-        let direction = try json.string()
+        let direction = try json.getString()
         if let directionEnum = CKCardinalDirection(rawValue: direction) {
             self = directionEnum
         } else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: CKCardinalDirection.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: CKCardinalDirection.self)
         }
     }
 }
 
 extension CKCardinalDirection: JSONEncodable {
     public func toJSON() -> JSON {
-        return .String(self.description)
+        return .string(self.description)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: ProducesInput
+// MARK: ProducesInput
 
 /// Applied to card descriptors that produce input
 protocol ProducesInput {

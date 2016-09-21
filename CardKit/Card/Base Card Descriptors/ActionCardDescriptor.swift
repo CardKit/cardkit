@@ -10,10 +10,10 @@ import Foundation
 
 import Freddy
 
-//MARK: ActionCardDescriptor
+// MARK: ActionCardDescriptor
 
 public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens, ProducesYields, Satisfiable {
-    public let cardType: CardType = .Action
+    public let cardType: CardType = .action
     public let name: String
     public let path: CardPath
     public let version: Int
@@ -58,7 +58,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension ActionCardDescriptor: Equatable {}
 
@@ -71,7 +71,7 @@ public func == (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension ActionCardDescriptor: Hashable {
     public var hashValue: Int {
@@ -79,7 +79,7 @@ extension ActionCardDescriptor: Hashable {
     }
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension ActionCardDescriptor: CustomStringConvertible {
     public var description: String {
@@ -87,11 +87,11 @@ extension ActionCardDescriptor: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension ActionCardDescriptor: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
@@ -107,19 +107,19 @@ extension ActionCardDescriptor: JSONEncodable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension ActionCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.path = try json.decode("path", type: CardPath.self)
-        self.version = try json.int("version")
-        self.assetCatalog = try json.decode("assetCatalog", type: CardAssetCatalog.self)
-        self.inputSlots = try json.arrayOf("inputSlots", type: InputSlot.self)
-        self.tokenSlots = try json.arrayOf("tokenSlots", type: TokenSlot.self)
-        self.yields = try json.arrayOf("yields", type: Yield.self)
-        self.yieldDescription = try json.string("yieldDescription")
-        self.ends = try json.bool("ends")
-        self.endDescription = try json.string("endDescription")
+        self.name = try json.getString(at: "name")
+        self.path = try json.decode(at: "path", type: CardPath.self)
+        self.version = try json.getInt(at: "version")
+        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
+        self.inputSlots = try json.decodedArray(at: "inputSlots", type: InputSlot.self)
+        self.tokenSlots = try json.decodedArray(at: "tokenSlots", type: TokenSlot.self)
+        self.yields = try json.decodedArray(at: "yields", type: Yield.self)
+        self.yieldDescription = try json.getString(at: "yieldDescription")
+        self.ends = try json.getBool(at: "ends")
+        self.endDescription = try json.getString(at: "endDescription")
     }
 }

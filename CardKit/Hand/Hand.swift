@@ -20,20 +20,20 @@ public class Hand: JSONEncodable, JSONDecodable {
     var cardTrees: [CardTree] = []
     
     /// The set of Hands to which this Hand may branch.
-    public private (set) var subhands: [Hand] = []
+    public fileprivate (set) var subhands: [Hand] = []
     
     /// These cards specify which CardTree branches to which child Hand.
-    public private (set) var branchCards: [BranchHandCard] = []
+    public fileprivate (set) var branchCards: [BranchHandCard] = []
     
     /// Specifies whether the hand should repeat a number of times
-    public private (set) var repeatCard: RepeatHandCard? = nil
+    public fileprivate (set) var repeatCard: RepeatHandCard? = nil
     
     /// Specifies the End Rule that governs the logic of this Hand. The default
     /// is that ALL cards in the hand must End before moving to the next Hand.
     /// There may only be one EndRuleCard in a Hand. Note BranchHandCards have precedence
     /// over the End Rule card, such that once a BranchHandCard's CardTree is satisfied,
     /// the Hand will end and the branch will be taken.
-    private (set) var endRuleCard: EndRuleHandCard = EndRuleHandCard(with: CardKit.Hand.End.All)
+    fileprivate (set) var endRuleCard: EndRuleHandCard = EndRuleHandCard(with: CardKit.Hand.End.OnAll)
     
     /// Unique identifier for the Hand
     public var identifier: HandIdentifier = HandIdentifier()
@@ -44,7 +44,7 @@ public class Hand: JSONEncodable, JSONDecodable {
         var cards: [Card] = []
         
         // append all cards in all cardTrees
-        self.cardTrees.forEach { cards.appendContentsOf($0.cards) }
+        self.cardTrees.forEach { cards.append(contentsOf: $0.cards) }
         
         // append all branch cards
         self.branchCards.forEach { cards.append($0) }
@@ -63,7 +63,7 @@ public class Hand: JSONEncodable, JSONDecodable {
     /// Returns all of the ActionCards in the Hand.
     public var actionCards: [ActionCard] {
         var cards: [ActionCard] = []
-        self.cardTrees.forEach { cards.appendContentsOf($0.actionCards) }
+        self.cardTrees.forEach { cards.append(contentsOf: $0.actionCards) }
         return cards
     }
     
@@ -87,8 +87,8 @@ public class Hand: JSONEncodable, JSONDecodable {
     /// A complete list of all nested subhands accessible from this Hand.
     public var nestedSubhands: [Hand] {
         var hands: [Hand] = []
-        hands.appendContentsOf(self.subhands)
-        self.subhands.forEach { hands.appendContentsOf($0.nestedSubhands) }
+        hands.append(contentsOf: self.subhands)
+        self.subhands.forEach { hands.append(contentsOf: $0.nestedSubhands) }
         return hands
     }
     
@@ -121,76 +121,76 @@ public class Hand: JSONEncodable, JSONDecodable {
     init() {
     }
     
-    //MARK: JSONEncodable & JSONDecodable
+    // MARK: JSONEncodable & JSONDecodable
     
     public required init(json: JSON) throws {
-        self.cardTrees = try json.arrayOf("cardTrees", type: CardTree.self)
-        self.subhands = try json.arrayOf("sughands", type: Hand.self)
-        self.branchCards = try json.arrayOf("branchCards", type: BranchHandCard.self)
-        self.endRuleCard = try json.decode("endRuleCard", type: EndRuleHandCard.self)
-        self.identifier = try json.decode("identifier", type: HandIdentifier.self)
+        self.cardTrees = try json.decodedArray(at: "cardTrees", type: CardTree.self)
+        self.subhands = try json.decodedArray(at: "sughands", type: Hand.self)
+        self.branchCards = try json.decodedArray(at: "branchCards", type: BranchHandCard.self)
+        self.endRuleCard = try json.decode(at: "endRuleCard", type: EndRuleHandCard.self)
+        self.identifier = try json.decode(at: "identifier", type: HandIdentifier.self)
         
-        let repeatStr = try json.string("repeatCard")
+        let repeatStr = try json.getString(at: "repeatCard")
         if repeatStr == "nil" {
             self.repeatCard = nil
         } else {
-            self.repeatCard = try json.decode("repeatCard", type: RepeatHandCard.self)
+            self.repeatCard = try json.decode(at: "repeatCard", type: RepeatHandCard.self)
         }
     }
     
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "cardTrees": self.cardTrees.toJSON(),
             "subhands": self.subhands.toJSON(),
             "branchCards": self.branchCards.toJSON(),
-            "repeatCard": self.repeatCard?.toJSON() ?? .String("nil"),
+            "repeatCard": self.repeatCard?.toJSON() ?? .string("nil"),
             "endRuleCard": self.endRuleCard.toJSON(),
             "identifier": self.identifier.toJSON()
             ])
     }
 }
 
-//MARK: Card Addition
+// MARK: Card Addition
 
 extension Hand {
     /// Add the card to the hand if it isn't in the hand already.
-    func add(card: ActionCard) {
+    func add(_ card: ActionCard) {
         if !self.contains(card) {
             // make a new CardTree with the card
             let tree = CardTree()
-            tree.root = .Action(card)
+            tree.root = .action(card)
             self.cardTrees.append(tree)
         }
     }
     
     /// Add the given cards to the hand, ignoring cards that have already
     /// been added to the hand.
-    func add(cards: [ActionCard]) {
+    func add(_ cards: [ActionCard]) {
         cards.forEach { self.add($0) }
     }
     
     /// Add the HandCard to the hand if it isn't in the hand already.
-    func add(card: HandCard) {
+    func add(_ card: HandCard) {
         if !self.contains(card) {
             // figure out what this is to know where to add it
             switch card.descriptor.handCardType {
-            case .BooleanLogicAnd, .BooleanLogicOr:
+            case .booleanLogicAnd, .booleanLogicOr:
                 guard let logicCard = card as? LogicHandCard else { return }
                 let tree = CardTree()
-                tree.root = .BinaryLogic(logicCard, nil, nil)
+                tree.root = .binaryLogic(logicCard, nil, nil)
                 self.cardTrees.append(tree)
-            case .BooleanLogicNot:
+            case .booleanLogicNot:
                 guard let logicCard = card as? LogicHandCard else { return }
                 let tree = CardTree()
-                tree.root = .UnaryLogic(logicCard, nil)
+                tree.root = .unaryLogic(logicCard, nil)
                 self.cardTrees.append(tree)
-            case .Branch:
+            case .branch:
                 guard let branchCard = card as? BranchHandCard else { return }
                 self.branchCards.append(branchCard)
-            case .EndWhenAllSatisfied, .EndWhenAnySatisfied:
+            case .endWhenAllSatisfied, .endWhenAnySatisfied:
                 guard let endCard = card as? EndRuleHandCard else { return }
                 self.endRuleCard = endCard
-            case .Repeat:
+            case .repeatHand:
                 guard let repeatCard = card as? RepeatHandCard else { return }
                 self.repeatCard = repeatCard
             }
@@ -199,17 +199,17 @@ extension Hand {
     
     /// Add the given cards to the hand, ignoring cards that have already
     /// been added to the hand.
-    func add(cards: [HandCard]) {
+    func add(_ cards: [HandCard]) {
         cards.forEach { self.add($0) }
     }
 }
 
-//MARK: Card Attachment
+// MARK: Card Attachment
 
 extension Hand {
     /// Attaches an ActionCard to nest under a LogicHandCard. Fails if the destination
     /// already has its child slots filled.
-    public func attach(card: ActionCard, to destination: LogicHandCard) {
+    public func attach(_ card: ActionCard, to destination: LogicHandCard) {
         // create a new CardTree for destination if it isn't in the Hand yet
         if self.cardTrees.cardTree(containing: destination) == nil {
             guard let newTree = destination.asCardTree() else { return }
@@ -234,7 +234,7 @@ extension Hand {
     
     /// Attaches a LogicHandCard to nest under another LogicHandCard. Fails if the destination
     /// already has its child slots filled.
-    public func attach(card: LogicHandCard, to destination: LogicHandCard) {
+    public func attach(_ card: LogicHandCard, to destination: LogicHandCard) {
         // create a new CardTree for destination if it isn't in the Hand yet
         if self.cardTrees.cardTree(containing: destination) == nil {
             guard let newTree = destination.asCardTree() else { return }
@@ -258,12 +258,12 @@ extension Hand {
     }
 }
 
-//MARK: Card Detachment
+// MARK: Card Detachment
 
 extension Hand {
     /// Detaches an ActionCard from its parent. Detaching an ActionCard keeps it in the Hand, but 
     /// detaches it from the LogicHandCard to which it was attached.
-    public func detach(card: ActionCard) {
+    public func detach(_ card: ActionCard) {
         guard let tree = self.cardTrees.cardTree(containing: card) else { return }
         let detached = tree.detach(card)
         
@@ -278,7 +278,7 @@ extension Hand {
     
     /// Detaches a LogicHandCard from its parent. Detaching a LogicHandCard keeps it in the Hand, but
     /// detaches it from the LogicHandCard to which it was attached.
-    public func detach(card: LogicHandCard) {
+    public func detach(_ card: LogicHandCard) {
         guard let tree = self.cardTrees.cardTree(containing: card) else { return }
         let detached = tree.detach(card)
         
@@ -293,32 +293,32 @@ extension Hand {
     
     /// Removes empty CardTrees that may have been produced as a result of remove()
     /// attach(), or detach() operations.
-    private func removeEmptyCardTrees() {
+    fileprivate func removeEmptyCardTrees() {
         self.cardTrees = self.cardTrees.filter { $0.cardCount > 0 }
     }
 }
 
-//MARK: Card Removal
+// MARK: Card Removal
 
 extension Hand {
     /// Remove the given card from the hand.
-    public func remove(card: ActionCard) {
+    public func remove(_ card: ActionCard) {
         guard let tree = self.cardTrees.cardTree(containing: card) else { return }
-        tree.remove(card)
+        let _ = tree.remove(card)
     }
     
     /// Remove the given cards from the hand.
-    public func remove(cards: [ActionCard]) {
+    public func remove(_ cards: [ActionCard]) {
         cards.forEach { self.remove($0) }
     }
     
     /// Remove the given card from the hand. LogicHandCards that are removed will have their orphaned children
     /// added back to the Hand. EndRule cards with the rule EndWhenAllSatisfied cannot be removed as this 
     /// is the default.
-    public func remove(card: HandCard) {
+    public func remove(_ card: HandCard) {
         // figure out what this is to know how to remove it
         switch card.descriptor.handCardType {
-        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+        case .booleanLogicAnd, .booleanLogicOr, .booleanLogicNot:
             guard let logicCard = card as? LogicHandCard else { return }
             guard let tree = self.cardTrees.cardTree(containing: logicCard) else { return }
             
@@ -326,24 +326,24 @@ extension Hand {
             let (_, orphans) = tree.remove(logicCard)
             
             // add the orphans back to the Hand
-            self.cardTrees.appendContentsOf(orphans)
+            self.cardTrees.append(contentsOf: orphans)
             
-        case .Branch:
+        case .branch:
             guard let branchCard = card as? BranchHandCard else { return }
             self.branchCards.removeObject(branchCard)
             
-        case .EndWhenAllSatisfied:
+        case .endWhenAllSatisfied:
             // cannot remove. mwahaha.
             return
             
-        case .EndWhenAnySatisfied:
+        case .endWhenAnySatisfied:
             // make sure we're trying to remove *this* EndRuleHandCard
             if self.endRuleCard.identifier == card.identifier {
                 // revert to EndWhenAllSatisfied
-                self.endRuleCard = EndRuleHandCard(with: CardKit.Hand.End.All)
+                self.endRuleCard = EndRuleHandCard(with: CardKit.Hand.End.OnAll)
             }
             
-        case .Repeat:
+        case .repeatHand:
             // make sure we're trying to remove *this* RepeatHandCard
             if self.repeatCard?.identifier == card.identifier {
                 self.repeatCard = nil
@@ -352,7 +352,7 @@ extension Hand {
     }
     
     /// Remove the given cards from the hand.
-    public func remove(cards: [HandCard]) {
+    public func remove(_ cards: [HandCard]) {
         cards.forEach { self.remove($0) }
     }
     
@@ -365,39 +365,39 @@ extension Hand {
     }
 }
 
-//MARK: Card Query
+// MARK: Card Query
 
 extension Hand {
     /// Returns true if the ahnd contains a card with the given identifier.
-    public func contains(identfier: CardIdentifier) -> Bool {
+    public func contains(_ identfier: CardIdentifier) -> Bool {
         return self.card(with: identifier) != nil
     }
     
     /// Returns true if the hand contains the given card.
-    public func contains(card: ActionCard) -> Bool {
+    public func contains(_ card: ActionCard) -> Bool {
         return self.cardTrees.reduce(false) {
             return $0 || $1.contains(cardIdentifier: card.identifier)
         }
     }
     
     /// Returns true if the hand contains the given card.
-    public func contains(card: HandCard) -> Bool {
+    public func contains(_ card: HandCard) -> Bool {
         // figure out what this is to know how to remove it
         switch card.descriptor.handCardType {
-        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+        case .booleanLogicAnd, .booleanLogicOr, .booleanLogicNot:
             return self.cardTrees.reduce(false) {
                 return $0 || $1.contains(cardIdentifier: card.identifier)
             }
             
-        case .Branch:
+        case .branch:
             guard let branchCard = card as? BranchHandCard else { return false }
             return self.branchCards.contains(branchCard)
             
-        case .EndWhenAllSatisfied, .EndWhenAnySatisfied:
+        case .endWhenAllSatisfied, .endWhenAnySatisfied:
             guard let endRuleCard = card as? EndRuleHandCard else { return false }
             return endRuleCard == self.endRuleCard
             
-        case .Repeat:
+        case .repeatHand:
             guard let repeatCard = card as? RepeatHandCard else { return false }
             return repeatCard == self.repeatCard
         }
@@ -407,7 +407,7 @@ extension Hand {
     public func cards(matching descriptor: ActionCardDescriptor) -> [ActionCard] {
         var matching: [ActionCard] = []
         for tree in self.cardTrees {
-            matching.appendContentsOf(tree.cards(matching: descriptor))
+            matching.append(contentsOf: tree.cards(matching: descriptor))
         }
         return matching
     }
@@ -415,25 +415,25 @@ extension Hand {
     /// Returns the set of HandCards with the given descriptor.
     public func cards(matching descriptor: HandCardDescriptor) -> [HandCard] {
         switch descriptor.handCardType {
-        case .BooleanLogicAnd, .BooleanLogicOr, .BooleanLogicNot:
+        case .booleanLogicAnd, .booleanLogicOr, .booleanLogicNot:
             // find all LogicHandCards in the CardTrees
             var matching: [HandCard] = []
             for tree in self.cardTrees {
-                matching.appendContentsOf(tree.cards(matching: descriptor).map { $0 as HandCard })
+                matching.append(contentsOf: tree.cards(matching: descriptor).map { $0 as HandCard })
             }
             return matching
             
-        case .Branch:
+        case .branch:
             return self.branchCards.filter { $0.descriptor == descriptor }
         
-        case .EndWhenAllSatisfied, .EndWhenAnySatisfied:
+        case .endWhenAllSatisfied, .endWhenAnySatisfied:
             if self.endRuleCard.descriptor == descriptor {
                 return [self.endRuleCard]
             } else {
                 return []
             }
             
-        case .Repeat:
+        case .repeatHand:
             if let repeatCard = self.repeatCard {
                 if repeatCard.descriptor == descriptor {
                     return [repeatCard]
@@ -475,13 +475,13 @@ extension Hand {
     /// Returns the CardIdentifiers of the child cards of the given LogicHandCard.
     func children(of card: LogicHandCard) -> [CardIdentifier] {
         
-        func cardIdentifierFromNode(node: CardTreeNode) -> CardIdentifier {
+        func cardIdentifierFromNode(_ node: CardTreeNode) -> CardIdentifier {
             switch node {
-            case .Action(let child):
+            case .action(let child):
                 return child.identifier
-            case .UnaryLogic(let child, _):
+            case .unaryLogic(let child, _):
                 return child.identifier
-            case .BinaryLogic(let child, _, _):
+            case .binaryLogic(let child, _, _):
                 return child.identifier
             }
         }
@@ -490,13 +490,13 @@ extension Hand {
         
         var children: [CardIdentifier] = []
         
-        if case .UnaryLogic(_, let subtree) = node {
+        if case .unaryLogic(_, let subtree) = node {
             // pull out the child CardIdentifier from the subtree node
             if let subtree = subtree {
                 children.append(cardIdentifierFromNode(subtree))
             }
             
-        } else if case .BinaryLogic(_, let left, let right) = node {
+        } else if case .binaryLogic(_, let left, let right) = node {
             // pull out the child CardIdentifier from each subtree
             if let left = left {
                 children.append(cardIdentifierFromNode(left))
@@ -510,7 +510,7 @@ extension Hand {
     }
 }
 
-//MARK: Branching
+// MARK: Branching
 
 extension Hand {
     /// Add a branch to the given Hand to the given Hand. Since no CardTree is specified yet,
@@ -602,7 +602,7 @@ extension Hand {
     }
     
     /// Returns true if the Hand contains the given Hand. Operates recursively.
-    func contains(hand: Hand) -> Bool {
+    func contains(_ hand: Hand) -> Bool {
         // check our subhands
         let contains = self.subhands.reduce(false) {
             (contains, subhand) in contains || subhand == hand
@@ -617,7 +617,7 @@ extension Hand {
     }
     
     /// Removes the given Hand from the Hand. Does not remove any BranchHandCards that branch to this hand. Operates recursively.
-    func remove(hand: Hand) {
+    func remove(_ hand: Hand) {
         // filter out the hand from my subhands
         self.subhands = self.subhands.filter { $0 != hand }
         
@@ -639,20 +639,20 @@ extension Hand {
     }
 }
 
-//MARK: Hand Merging
+// MARK: Hand Merging
 
 extension Hand {
     /// Merges the two hands together. If there are conflicting End Rules, the one
     /// that takes precedence is the one from the hand being merged into this one.
     func merge(with hand: Hand) {
         // copy in all of the CardTrees
-        self.cardTrees.appendContentsOf(hand.cardTrees)
+        self.cardTrees.append(contentsOf: hand.cardTrees)
         
         // copy in all of the child hands
-        self.subhands.appendContentsOf(hand.subhands)
+        self.subhands.append(contentsOf: hand.subhands)
         
         // copy in any Branch cards
-        self.branchCards.appendContentsOf(hand.branchCards)
+        self.branchCards.append(contentsOf: hand.branchCards)
         
         // copy the End Rule card
         self.endRuleCard = hand.endRuleCard
@@ -666,16 +666,16 @@ extension Hand {
         let merged: Hand = Hand()
         
         // copy in the CardTrees
-        merged.cardTrees.appendContentsOf(self.cardTrees)
-        merged.cardTrees.appendContentsOf(hand.cardTrees)
+        merged.cardTrees.append(contentsOf: self.cardTrees)
+        merged.cardTrees.append(contentsOf: hand.cardTrees)
         
         // copy in the child Hands
-        merged.subhands.appendContentsOf(self.subhands)
-        merged.subhands.appendContentsOf(hand.subhands)
+        merged.subhands.append(contentsOf: self.subhands)
+        merged.subhands.append(contentsOf: hand.subhands)
         
         // copy in the Branch cards
-        merged.branchCards.appendContentsOf(self.branchCards)
-        merged.branchCards.appendContentsOf(hand.branchCards)
+        merged.branchCards.append(contentsOf: self.branchCards)
+        merged.branchCards.append(contentsOf: hand.branchCards)
         
         // use the EndRule card from the hand being merged in
         merged.endRuleCard = hand.endRuleCard
@@ -717,13 +717,13 @@ extension Hand {
         guard let first: CardTreeNode = nonEmptyTrees[0].root else { return hand }
         guard let second: CardTreeNode = nonEmptyTrees[1].root else { return hand }
         
-        guard let combine: HandCardDescriptor =
-            (self.endRule == .EndWhenAllSatisfied)
+        let combine: HandCardDescriptor =
+            (self.endRule == .endWhenAllSatisfied)
                 ? CardKit.Hand.Logic.LogicalAnd
-                : CardKit.Hand.Logic.LogicalOr else { return hand }
+                : CardKit.Hand.Logic.LogicalOr
         
         guard let initial: LogicHandCard = combine.typedInstance() else { return hand }
-        let initialNode: CardTreeNode = .BinaryLogic(initial, first, second)
+        let initialNode: CardTreeNode = .binaryLogic(initial, first, second)
         
         // merge
         let rest = nonEmptyTrees[2...nonEmptyTrees.endIndex]
@@ -733,7 +733,7 @@ extension Hand {
             // add nextTree to partialTree
             guard let logicCard: LogicHandCard = combine.typedInstance() else { return partialTreeRoot }
             guard let nextTreeRoot = nextTree.root else { return partialTreeRoot }
-            return .BinaryLogic(logicCard, partialTreeRoot, nextTreeRoot)
+            return .binaryLogic(logicCard, partialTreeRoot, nextTreeRoot)
             
         }
         
@@ -763,11 +763,11 @@ extension Hand {
         var newCard: LogicHandCard? = nil
         
         switch operation {
-        case .BooleanAnd:
+        case .booleanAnd:
             newCard = CardKit.Hand.Logic.LogicalAnd.typedInstance()
-        case .BooleanOr:
+        case .booleanOr:
             newCard = CardKit.Hand.Logic.LogicalOr.typedInstance()
-        case .BooleanNot, .Indeterminate:
+        case .booleanNot, .indeterminate:
             newCard = nil
         }
         
@@ -776,7 +776,7 @@ extension Hand {
         if let newCard = newCard {
             merged.removeAll()
             let tree = CardTree()
-            tree.root = .BinaryLogic(newCard, lhsRoot, rhsRoot)
+            tree.root = .binaryLogic(newCard, lhsRoot, rhsRoot)
             merged.cardTrees.append(tree)
             
         }
@@ -785,7 +785,7 @@ extension Hand {
     }
 }
 
-//MARK: Hand Satisfaction
+// MARK: Hand Satisfaction
 
 extension Hand {
     /// Returns a tuple of (Bool, Hand?) signifying whether the hand is satisfied by the given
@@ -832,18 +832,18 @@ extension Hand {
         // tuple is nil). as for whether the hand is satisfied, it depends on the 
         // End Rule card.
         switch self.endRule {
-        case .EndWhenAnySatisfied:
+        case .endWhenAnySatisfied:
             return (anySatisfied, nil)
-        case .EndWhenAllSatisfied:
+        case .endWhenAllSatisfied:
             return (allSatisfied, nil)
-        case .Indeterminate:
+        case .indeterminate:
             // default to EndWhenAllSatisfied
             return (allSatisfied, nil)
         }
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension Hand: Equatable {}
 
@@ -853,7 +853,7 @@ public func == (lhs: Hand, rhs: Hand) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension Hand: Hashable {
     public var hashValue: Int {
@@ -861,11 +861,11 @@ extension Hand: Hashable {
     }
 }
 
-//MARK: Debugging
+// MARK: Debugging
 
 extension Hand {
     func printToConsole(atLevel level: Int) {
-        func spacePrint(level: Int, _ msg: String) {
+        func spacePrint(_ level: Int, _ msg: String) {
             for _ in 0..<level {
                 print("    ", terminator: "")
             }

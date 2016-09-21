@@ -59,7 +59,7 @@ class DeckBuilderTests: XCTestCase {
             XCTAssertTrue(boundA.isSlotBound(boundA.inputSlots.first!))
             
             let binding = boundA.binding(of: boundA.inputSlots.first!)!
-            if case .BoundToYieldingActionCard(let identifier, let yield) = binding {
+            if case .boundToYieldingActionCard(let identifier, let yield) = binding {
                 XCTAssertTrue(identifier == b.identifier)
                 XCTAssertTrue(yield.identifier == b.yields.first!.identifier)
             } else {
@@ -109,7 +109,7 @@ class DeckBuilderTests: XCTestCase {
     func testHandBuilding() {
         let noActionA = CKTests.Action.NoAction
         let noActionB = CKTests.Action.NoAction
-        let hand = noActionA + noActionB
+        let hand = noActionA ++ noActionB
         
         // NoActionA, NoActionB, End Rule
         XCTAssertTrue(hand.cardCount == 3)
@@ -142,7 +142,7 @@ class DeckBuilderTests: XCTestCase {
                 
                 // wait 10 seconds and until the clock time is reached
                 timer <- (CardKit.Input.Time.Duration <- 10)
-                    && wait <- (CardKit.Input.Time.ClockTime <- NSDate())
+                    && wait <- (CardKit.Input.Time.ClockTime <- Date())
             )%
             
             XCTAssertTrue(deck.handCount == 3)

@@ -10,13 +10,13 @@ import Foundation
 
 import Freddy
 
-//MARK: YieldType
+// MARK: YieldType
 public typealias YieldType = InputType
 
-//MARK: YieldIdentifier
-public typealias YieldIdentifier = NSUUID
+// MARK: YieldIdentifier
+public typealias YieldIdentifier = UUID
 
-//MARK:- Yield
+// MARK: - Yield
 
 public struct Yield {
     public var identifier: YieldIdentifier
@@ -28,12 +28,12 @@ public struct Yield {
     public var type: YieldType
     
     init(type: YieldType) {
-        self.identifier = NSUUID()
+        self.identifier = UUID()
         self.type = type
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension Yield: Equatable {}
 
@@ -44,7 +44,7 @@ public func == (lhs: Yield, rhs: Yield) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension Yield: Hashable {
     public var hashValue: Int {
@@ -52,7 +52,7 @@ extension Yield: Hashable {
     }
 }
 
-//MARK: CustomStringConvertible
+// MARK: CustomStringConvertible
 
 extension Yield: CustomStringConvertible {
     public var description: String {
@@ -60,25 +60,25 @@ extension Yield: CustomStringConvertible {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension Yield: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
-            "identifier": self.identifier.UUIDString.toJSON(),
-            "type": String(self.type).toJSON()])
+        return .dictionary([
+            "identifier": self.identifier.uuidString.toJSON(),
+            "type": String(describing: self.type).toJSON()])
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension Yield: JSONDecodable {
     public init(json: JSON) throws {
-        let uuidStr = try json.string("identifier")
-        guard let uuid = NSUUID(UUIDString: uuidStr) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: Yield.self)
+        let uuidStr = try json.getString(at: "identifier")
+        guard let uuid = UUID(uuidString: uuidStr) else {
+            throw JSON.Error.valueNotConvertible(value: json, to: Yield.self)
         }
         self.identifier = uuid
-        self.type = try json.decode("type", type: YieldType.self)
+        self.type = try json.decode(at: "type", type: YieldType.self)
     }
 }

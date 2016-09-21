@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: AcceptsInputs
+// MARK: AcceptsInputs
 
 /// Applied to card descriptors that accept inputs
 protocol AcceptsInputs {

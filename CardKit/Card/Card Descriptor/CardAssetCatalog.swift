@@ -22,20 +22,20 @@ public struct CardAssetCatalog {
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension CardAssetCatalog: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "textualDescription": self.textualDescription.toJSON()
             ])
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension CardAssetCatalog: JSONDecodable {
     public init(json: JSON) throws {
-        self.textualDescription = try json.string("textualDescription")
+        self.textualDescription = try json.getString(at: "textualDescription")
     }
 }

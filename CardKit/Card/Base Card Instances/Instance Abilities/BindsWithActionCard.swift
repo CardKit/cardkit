@@ -8,22 +8,22 @@
 
 import Foundation
 
-//MARK: BindsWithActionCard
+// MARK: BindsWithActionCard
 
 /// Applied to card instances that bind with Action cards (i.e. bind to their yield values)
 protocol BindsWithActionCard {
     // mutating binds
     mutating func bind(with card: ActionCard, yield: Yield, in slot: InputSlot)
     mutating func bind(with card: ActionCard, yield: Yield) throws
-    mutating func unbind(slot: InputSlot)
+    mutating func unbind(_ slot: InputSlot)
     
     // non-mutating binds
     func bound(with card: ActionCard, yield: Yield, in slot: InputSlot) -> ActionCard
     func bound(with card: ActionCard, yield: Yield) throws -> ActionCard
-    func unbound(slot: InputSlot) -> ActionCard
+    func unbound(_ slot: InputSlot) -> ActionCard
     
     // test if a slot is bound
-    func isSlotBound(slot: InputSlot) -> Bool
+    func isSlotBound(_ slot: InputSlot) -> Bool
     
     // retrieve the binding of the slot
     func binding(of slot: InputSlot) -> InputSlotBinding?

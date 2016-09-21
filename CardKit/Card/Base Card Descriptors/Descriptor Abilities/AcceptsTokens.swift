@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: AcceptsTokens
+// MARK: AcceptsTokens
 
 /// Applied to card descriptors that accept tokens
 protocol AcceptsTokens {

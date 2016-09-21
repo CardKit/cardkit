@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: BindsWithInputCard
+// MARK: BindsWithInputCard
 
 /// Applied to card instances that bind with Input cards
 protocol BindsWithInputCard {
@@ -16,16 +16,16 @@ protocol BindsWithInputCard {
     mutating func bind(with card: InputCard) throws
     mutating func bind(with card: InputCard, in slot: InputSlot) throws
     mutating func bind(with card: InputCard, inSlotNamed name: InputSlotName) throws
-    mutating func unbind(slot: InputSlot)
+    mutating func unbind(_ slot: InputSlot)
     
     // non-mutating binds
     func bound(with card: InputCard) throws -> ActionCard
     func bound(with card: InputCard, in slot: InputSlot) throws -> ActionCard
     func bound(with card: InputCard, inSlotNamed name: InputSlotName) throws -> ActionCard
-    func unbound(slot: InputSlot) -> ActionCard
+    func unbound(_ slot: InputSlot) -> ActionCard
     
     // test if a slot is bound
-    func isSlotBound(slot: InputSlot) -> Bool
+    func isSlotBound(_ slot: InputSlot) -> Bool
     
     // retrieve the binding of a slot
     func binding(of slot: InputSlot) -> InputSlotBinding?

@@ -10,61 +10,61 @@ import Foundation
 
 import Freddy
 
-//MARK: HandCardType
+// MARK: HandCardType
 
 public enum HandCardType: String {
     /// Branch to another hand.
-    case Branch
+    case branch
     
     /// Repeat executing the hand.
-    case Repeat
+    case repeatHand
     
     /// Conclude the hand when ALL conditions are satisfied
-    case EndWhenAllSatisfied
+    case endWhenAllSatisfied
     
     /// Conclude the hand when ANY condition is satisfied
-    case EndWhenAnySatisfied
+    case endWhenAnySatisfied
     
     /// Perform a boolean AND to determine whether this card is satisfied.
-    case BooleanLogicAnd
+    case booleanLogicAnd
     
     /// Perform a boolean OR to determine whether this card is satisfied.
-    case BooleanLogicOr
+    case booleanLogicOr
     
     /// Perform a boolean NOT to determine whether this card is satisfied.
-    case BooleanLogicNot
+    case booleanLogicNot
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension HandCardType: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .Branch:
-            return .String("Branch")
-        case .Repeat:
-            return .String("Repeat")
-        case .EndWhenAllSatisfied:
-            return .String("EndWHenAllSatisfied")
-        case .EndWhenAnySatisfied:
-            return .String("EndWhenAnySatisfied")
-        case .BooleanLogicAnd:
-            return .String("BooleanLogicAnd")
-        case .BooleanLogicOr:
-            return .String("BooleanLogicOr")
-        case .BooleanLogicNot:
-            return .String("BooleanLogicNot")
+        case .branch:
+            return .string("branch")
+        case .repeatHand:
+            return .string("repeatHand")
+        case .endWhenAllSatisfied:
+            return .string("endWHenAllSatisfied")
+        case .endWhenAnySatisfied:
+            return .string("endWhenAnySatisfied")
+        case .booleanLogicAnd:
+            return .string("booleanLogicAnd")
+        case .booleanLogicOr:
+            return .string("booleanLogicOr")
+        case .booleanLogicNot:
+            return .string("booleanLogicNot")
         }
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension HandCardType: JSONDecodable {
     public init(json: JSON) throws {
-        let type = try json.string()
+        let type = try json.getString()
         guard let typeEnum = HandCardType(rawValue: type) else {
-            throw JSON.Error.ValueNotConvertible(value: json, to: HandCardType.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: HandCardType.self)
         }
         self = typeEnum
     }

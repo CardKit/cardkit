@@ -10,7 +10,7 @@ import Foundation
 
 import Freddy
 
-//MARK: TokenSlot
+// MARK: TokenSlot
 
 /// Token slots are named with Strings.
 public typealias TokenSlotName = String
@@ -21,7 +21,7 @@ public struct TokenSlot {
     public let descriptor: TokenCardDescriptor
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension TokenSlot: Equatable {}
 
@@ -32,7 +32,7 @@ public func == (lhs: TokenSlot, rhs: TokenSlot) -> Bool {
     return equal
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension TokenSlot: Hashable {
     public var hashValue: Int {
@@ -42,29 +42,29 @@ extension TokenSlot: Hashable {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension TokenSlot: JSONDecodable {
     public init(json: JSON) throws {
-        self.name = try json.string("name")
-        self.descriptor = try json.decode("descriptor", type: TokenCardDescriptor.self)
+        self.name = try json.getString(at: "name")
+        self.descriptor = try json.decode(at: "descriptor", type: TokenCardDescriptor.self)
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension TokenSlot: JSONEncodable {
     public func toJSON() -> JSON {
-        return .Dictionary([
+        return .dictionary([
             "name": self.name.toJSON(),
             "descriptor": self.descriptor.toJSON()
             ])
     }
 }
 
-//MARK: [TokenSlot]
+// MARK: [TokenSlot]
 
-extension SequenceType where Generator.Element == TokenSlot {
+extension Sequence where Iterator.Element == TokenSlot {
     public func slot(named name: String) -> TokenSlot? {
         for slot in self {
             if slot.name == name {
@@ -75,59 +75,59 @@ extension SequenceType where Generator.Element == TokenSlot {
     }
 }
 
-//MARK:- TokenSlotBinding
+// MARK: - TokenSlotBinding
 
 /// A TokenSlot may only be bound to a TokenCard.
 public enum TokenSlotBinding {
-    case Unbound
-    case BoundToTokenCard(CardIdentifier)
+    case unbound
+    case boundToTokenCard(CardIdentifier)
 }
 
-//MARK: CustomStringConvertable
+// MARK: CustomStringConvertable
 
 extension TokenSlotBinding: CustomStringConvertible {
     public var description: String {
         get {
             switch self {
-            case .Unbound:
+            case .unbound:
                 return "[unbound]"
-            case .BoundToTokenCard(let identifier):
+            case .boundToTokenCard(let identifier):
                 return "[bound to TokenCard \(identifier)]"
             }
         }
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension TokenSlotBinding: JSONEncodable {
     public func toJSON() -> JSON {
         switch self {
-        case .Unbound:
-            return .Dictionary([
-                "type": "Unbound"])
-        case .BoundToTokenCard(let identifier):
-            return .Dictionary([
-                "type": "BoundToTokenCard",
+        case .unbound:
+            return .dictionary([
+                "type": "unbound"])
+        case .boundToTokenCard(let identifier):
+            return .dictionary([
+                "type": "boundToTokenCard",
                 "target": identifier.toJSON()])
         }
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension TokenSlotBinding: JSONDecodable {
     public init(json: JSON) throws {
-        let type = try json.string("type")
+        let type = try json.getString(at: "type")
         
         switch type {
-        case "Unbound":
-            self = .Unbound
-        case "BoundToTokenCard":
-            let target = try json.decode("target", type: CardIdentifier.self)
-            self = .BoundToTokenCard(target)
+        case "unbound":
+            self = .unbound
+        case "boundToTokenCard":
+            let target = try json.decode(at: "target", type: CardIdentifier.self)
+            self = .boundToTokenCard(target)
         default:
-            throw JSON.Error.ValueNotConvertible(value: json, to: TokenSlotBinding.self)
+            throw JSON.Error.valueNotConvertible(value: json, to: TokenSlotBinding.self)
         }
     }
 }

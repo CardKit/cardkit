@@ -10,14 +10,14 @@ import Foundation
 
 import Freddy
 
-//MARK: CardIdentifier
+// MARK: CardIdentifier
 
 /// CardIdentifiers are used to uniquely identify instances of Cards in a Deck to ensure Inputs and Yields are bound to the correct instance.
 public struct CardIdentifier {
-    private let identifier: String
+    fileprivate let identifier: String
     
     init() {
-        identifier = NSUUID().UUIDString
+        identifier = UUID().uuidString
     }
     
     init(with identifier: String) {
@@ -25,7 +25,7 @@ public struct CardIdentifier {
     }
 }
 
-//MARK: Equatable
+// MARK: Equatable
 
 extension CardIdentifier: Equatable {}
 
@@ -33,7 +33,7 @@ public func == (lhs: CardIdentifier, rhs: CardIdentifier) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-//MARK: Hashable
+// MARK: Hashable
 
 extension CardIdentifier: Hashable {
     public var hashValue: Int {
@@ -41,7 +41,7 @@ extension CardIdentifier: Hashable {
     }
 }
 
-//MARK: CustomStringConvertible
+// MARK: CustomStringConvertible
 
 extension CardIdentifier: CustomStringConvertible {
     public var description: String {
@@ -49,15 +49,15 @@ extension CardIdentifier: CustomStringConvertible {
     }
 }
 
-//MARK: JSONDecodable
+// MARK: JSONDecodable
 
 extension CardIdentifier: JSONDecodable {
     public init(json: JSON) throws {
-        self.identifier = try json.string()
+        self.identifier = try json.getString()
     }
 }
 
-//MARK: JSONEncodable
+// MARK: JSONEncodable
 
 extension CardIdentifier: JSONEncodable {
     public func toJSON() -> JSON {
@@ -65,7 +65,7 @@ extension CardIdentifier: JSONEncodable {
     }
 }
 
-//MARK:- Card
+// MARK: - Card
 
 public protocol Card {
     var identifier: CardIdentifier { get }
