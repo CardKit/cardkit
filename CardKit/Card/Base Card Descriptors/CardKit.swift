@@ -245,7 +245,7 @@ extension CardKit.Input.Location {
     public static let BoundingBox = InputCardDescriptor(
         name: "Bounding Box",
         subpath: "Location",
-        inputType: .coordinate2DPath,
+        inputType: .jsonObject,
         inputDescription: "Set of 2D coordinates",
         assetCatalog: CardAssetCatalog(description: "Bounding Box (2D)"),
         version: 0)
@@ -255,7 +255,7 @@ extension CardKit.Input.Location {
     public static let BoundingBox3D = InputCardDescriptor(
         name: "Bounding Box 3D",
         subpath: "Location",
-        inputType: .coordinate3DPath,
+        inputType: .jsonObject,
         inputDescription: "Set of 3D coordinates",
         assetCatalog: CardAssetCatalog(description: "Bounding Box (3D)"),
         version: 0)
@@ -265,7 +265,7 @@ extension CardKit.Input.Location {
     public static let CardinalDirection = InputCardDescriptor(
         name: "Cardinal Direction",
         subpath: "Location",
-        inputType: .cardinalDirection,
+        inputType: .jsonObject,
         inputDescription: "Cardinal Direction",
         assetCatalog: CardAssetCatalog(description: "Cardinal Direction (N, S, E, W)"),
         version: 0)
@@ -285,7 +285,7 @@ extension CardKit.Input.Location {
     public static let Location = InputCardDescriptor(
         name: "Location",
         subpath: "Location",
-        inputType: .coordinate3D,
+        inputType: .jsonObject,
         inputDescription: "Coordinate (3D)",
         assetCatalog: CardAssetCatalog(description: "Location (3D coordinate)"),
         version: 0)
@@ -295,7 +295,7 @@ extension CardKit.Input.Location {
     public static let Path = InputCardDescriptor(
         name: "Path",
         subpath: "Location",
-        inputType: .coordinate2DPath,
+        inputType: .jsonObject,
         inputDescription: "2D coordinate path",
         assetCatalog: CardAssetCatalog(description: "Path (2D)"),
         version: 0)
@@ -305,7 +305,7 @@ extension CardKit.Input.Location {
     public static let Path3D = InputCardDescriptor(
         name: "Path 3D",
         subpath: "Location",
-        inputType: .coordinate3DPath,
+        inputType: .jsonObject,
         inputDescription: "3D coordinate path",
         assetCatalog: CardAssetCatalog(description: "Path (3D)"),
         version: 0)
@@ -373,7 +373,7 @@ extension CardKit.Input.Relative {
     public static let RelativeToLocation = InputCardDescriptor(
         name: "Relative To Location",
         subpath: "Relative",
-        inputType: .coordinate2D,
+        inputType: .jsonObject,
         inputDescription: "Coordinate offset",
         assetCatalog: CardAssetCatalog(description: "A coordinate used to offset another coordinate"),
         version: 0)
@@ -383,7 +383,7 @@ extension CardKit.Input.Relative {
     public static let RelativeToObject = InputCardDescriptor(
         name: "Relative To Object",
         subpath: "Relative",
-        inputType: .coordinate2D,
+        inputType: .jsonObject,
         inputDescription: "Coordinate offset",
         assetCatalog: CardAssetCatalog(description: "A coordinate used to offset from an object's location"),
         version: 0)
@@ -427,7 +427,7 @@ extension CardKit.Input.Time {
     public static let Periodicity = InputCardDescriptor(
         name: "Periodicity",
         subpath: "Time",
-        inputType: .coordinate2D,
+        inputType: .jsonObject,
         inputDescription: "Periodic frequency (seconds)",
         assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"),
         version: 0)

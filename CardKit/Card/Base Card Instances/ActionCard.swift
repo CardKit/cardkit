@@ -364,15 +364,7 @@ extension ActionCard: BindsWithInputCard {
                 return val as? T
             case .swiftDate(let val):
                 return val as? T
-            case .coordinate2D(let val):
-                return val as? T
-            case .coordinate2DPath(let val):
-                return val as? T
-            case .coordinate3D(let val):
-                return val as? T
-            case .coordinate3DPath(let val):
-                return val as? T
-            case .cardinalDirection(let val):
+            case .jsonObject(let val):
                 return val as? T
             default:
                 return nil

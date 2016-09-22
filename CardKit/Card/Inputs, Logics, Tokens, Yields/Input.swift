@@ -21,14 +21,9 @@ public enum InputType: String {
     case swiftData
     case swiftDate
     
-    // coordinates
-    case coordinate2D
-    case coordinate2DPath
-    case coordinate3D
-    case coordinate3DPath
-    
-    // direction
-    case cardinalDirection
+    // used for anything that is not a swift primitive
+    // (e.g. a struct or a class that implements JSONEncodable)
+    case jsonObject
 }
 
 // MARK: JSONEncodable
@@ -46,16 +41,8 @@ extension InputType: JSONEncodable {
             return .string("swiftData")
         case .swiftDate:
             return .string("swiftDate")
-        case .coordinate2D:
-            return .string("coordinate2D")
-        case .coordinate2DPath:
-            return .string("coordinate2DPath")
-        case .coordinate3D:
-            return .string("coordinate3D")
-        case .coordinate3DPath:
-            return .string("coordinate3DPath")
-        case .cardinalDirection:
-            return .string("cardinalDirection")
+        case .jsonObject:
+            return .string("jsonObject")
         }
     }
 }
@@ -83,11 +70,7 @@ public enum InputDataBinding {
     case swiftString(String)
     case swiftData(Data)
     case swiftDate(Date)
-    case coordinate2D(CKCoordinate2D)
-    case coordinate2DPath([CKCoordinate2D])
-    case coordinate3D(CKCoordinate3D)
-    case coordinate3DPath([CKCoordinate3D])
-    case cardinalDirection(CKCardinalDirection)
+    case jsonObject(JSON)
 }
 
 // MARK: CustomStringConvertable
@@ -108,16 +91,8 @@ extension InputDataBinding: CustomStringConvertible {
                 return "\(val.count) bytes [data]"
             case .swiftDate(let val):
                 return "\(val) [date]"
-            case .coordinate2D(let val):
-                return "\(val) [coord2d]"
-            case .coordinate2DPath(let val):
-                return "\(val) [coord2dpath]"
-            case .coordinate3D(let val):
-                return "\(val) [coord3d]"
-            case .coordinate3DPath(let val):
-                return "\(val) [coord3dpath]"
-            case .cardinalDirection(let val):
-                return "\(val) [cardinal direction]"
+            case .jsonObject(let val):
+                return "\(val) [jsonObject]"
             }
         }
     }
@@ -128,52 +103,36 @@ extension InputDataBinding: CustomStringConvertible {
 extension InputDataBinding: JSONEncodable {
     // swiftlint:disable:next function_body_length
     public func toJSON() -> JSON {
+        let unbound: JSON = .dictionary(["type": InputDataBinding.unbound.description.toJSON()])
+        
         switch self {
         case .unbound:
-            return .dictionary([
-            "type": "unbound"])
+            return unbound
         case .swiftInt(let val):
             return .dictionary([
-                "type": "swiftInt",
+                "type": InputType.swiftInt.rawValue.toJSON(),
                 "value": val.toJSON()])
         case .swiftDouble(let val):
             return .dictionary([
-                "type": "swiftDouble",
+                "type": InputType.swiftDouble.rawValue.toJSON(),
                 "value": val.toJSON()])
         case .swiftString(let val):
             return .dictionary([
-                "type": "swiftString",
+                "type": InputType.swiftString.rawValue.toJSON(),
                 "value": val.toJSON()])
         case .swiftData(let val):
-            let options = Data.Base64EncodingOptions(rawValue: 0)
-            let base64 = val.base64EncodedString(options: options)
+            let base64 = val.base64EncodedString()
             return .dictionary([
-                "type": "swiftData",
+                "type": InputType.swiftData.rawValue.toJSON(),
                 "value": base64.toJSON()])
         case .swiftDate(let val):
             return .dictionary([
-                "type": "swiftDate",
+                "type": InputType.swiftDate.rawValue.toJSON(),
                 "value": val.gmtTimeString.toJSON()])
-        case .coordinate2D(let val):
+        case .jsonObject(let val):
             return .dictionary([
-                "type": "coordinate2D",
-                "value": val.toJSON()])
-        case .coordinate2DPath(let val):
-            return .dictionary([
-                "type": "coordinate2DPath",
-                "value": val.toJSON()])
-        case .coordinate3D(let val):
-            return .dictionary([
-                "type": "coordinate3D",
-                "value": val.toJSON()])
-        case .coordinate3DPath(let val):
-            return .dictionary([
-                "type": "coordinate3DPath",
-                "value": val.toJSON()])
-        case .cardinalDirection(let val):
-            return .dictionary([
-                "type": "cardinalDirection",
-                "value": val.toJSON()])
+                "type": InputType.jsonObject.rawValue.toJSON(),
+                "value": val])
         }
     }
 }
@@ -185,7 +144,7 @@ extension InputDataBinding: JSONDecodable {
     public init(json: JSON) throws {
         let type = try json.getString(at: "type")
         
-        if type == "Unbound" {
+        if type == InputDataBinding.unbound.description {
             self = .unbound
             return
         }
@@ -206,7 +165,7 @@ extension InputDataBinding: JSONDecodable {
             self = .swiftString(value)
         case .swiftData:
             let value = try json.getString(at: "value")
-            if let data = Data(base64Encoded: value, options: NSData.Base64DecodingOptions(rawValue: 0)) {
+            if let data = Data(base64Encoded: value) {
                 self = .swiftData(data)
             } else {
                 throw JSON.Error.valueNotConvertible(value: json, to: InputDataBinding.self)
@@ -218,21 +177,8 @@ extension InputDataBinding: JSONDecodable {
             } else {
                 throw JSON.Error.valueNotConvertible(value: json, to: InputDataBinding.self)
             }
-        case .coordinate2D:
-            let value = try json.decode(at: "value", type: CKCoordinate2D.self)
-            self = .coordinate2D(value)
-        case .coordinate2DPath:
-            let value = try json.decodedArray(at: "value", type: CKCoordinate2D.self)
-            self = .coordinate2DPath(value)
-        case .coordinate3D:
-            let value = try json.decode(at: "value", type: CKCoordinate3D.self)
-            self = .coordinate3D(value)
-        case .coordinate3DPath:
-            let value = try json.decodedArray(at: "value", type: CKCoordinate3D.self)
-            self = .coordinate3DPath(value)
-        case .cardinalDirection:
-            let value = try json.decode(at: "value", type: CKCardinalDirection.self)
-            self = .cardinalDirection(value)
+        case .jsonObject:
+            self = .jsonObject(json)
         }
     }
 }

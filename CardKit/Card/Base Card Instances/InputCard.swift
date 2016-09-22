@@ -104,21 +104,13 @@ extension InputCard {
         case let v as Date:
             try throwIfTypesDisagree(.swiftDate, self.descriptor.inputType)
             return .swiftDate(v)
-        case let v as CKCoordinate2D:
-            try throwIfTypesDisagree(.coordinate2D, self.descriptor.inputType)
-            return .coordinate2D(v)
-        case let v as [CKCoordinate2D]:
-            try throwIfTypesDisagree(.coordinate2DPath, self.descriptor.inputType)
-            return .coordinate2DPath(v)
-        case let v as CKCoordinate3D:
-            try throwIfTypesDisagree(.coordinate3D, self.descriptor.inputType)
-            return .coordinate3D(v)
-        case let v as [CKCoordinate3D]:
-            try throwIfTypesDisagree(.coordinate3DPath, self.descriptor.inputType)
-            return .coordinate3DPath(v)
-        case let v as CKCardinalDirection:
-            try throwIfTypesDisagree(.cardinalDirection, self.descriptor.inputType)
-            return .cardinalDirection(v)
+        case let v as JSON:
+            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
+            return .jsonObject(v)
+        case let v as JSONEncodable:
+            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
+            let json = v.toJSON()
+            return .jsonObject(json)
         default:
             throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
         }
@@ -148,16 +140,34 @@ extension InputCard {
             if let ret = val as? T { return ret }
         case .swiftDate(let val):
             if let ret = val as? T { return ret }
-        case .coordinate2D(let val):
+        case .jsonObject(let val):
             if let ret = val as? T { return ret }
-        case .coordinate2DPath(let val):
+        }
+        
+        return nil
+    }
+    
+    /// Return the data value bound to the input. Returns nil if no data has yet been bound.
+    public func inputDataValue<T>() -> T? where T : JSONDecodable {
+        switch self.boundData {
+        case .unbound:
+            return nil
+        case .swiftInt(let val):
             if let ret = val as? T { return ret }
-        case .coordinate3D(let val):
+        case .swiftDouble(let val):
             if let ret = val as? T { return ret }
-        case .coordinate3DPath(let val):
+        case .swiftString(let val):
             if let ret = val as? T { return ret }
-        case .cardinalDirection(let val):
+        case .swiftData(let val):
             if let ret = val as? T { return ret }
+        case .swiftDate(let val):
+            if let ret = val as? T { return ret }
+        case .jsonObject(let val):
+            do {
+                return try T(json: val)
+            } catch {
+                return nil
+            }
         }
         
         return nil
