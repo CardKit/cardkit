@@ -1,5 +1,5 @@
 //
-//  CKTests.swift
+//  CKTestCards.swift
 //  CardKit
 //
 //  Created by Justin Weisz on 8/29/16.
@@ -11,7 +11,7 @@ import Foundation
 /// Descriptors for test cards.
 
 // swiftlint:disable nesting
-public struct CKTests {
+public struct CKTestCards {
     fileprivate init() {}
     
     // MARK: - Action Cards
@@ -41,7 +41,7 @@ public struct CKTests {
             subpath: nil,
             inputs: [InputSlot(name: "Input", descriptor: CardKit.Input.Numeric.Real, isOptional: false)],
             tokens: nil,
-            yields: [Yield(type: .swiftDouble)],
+            yields: [Yield(type: Double.self)],
             yieldDescription: "The answer to the question.",
             ends: true,
             endsDescription: "Ends instantly.",
@@ -55,9 +55,9 @@ public struct CKTests {
             subpath: nil,
             inputs: [
                 InputSlot(name: "A", descriptor: CardKit.Input.Numeric.Real, isOptional: false),
-                InputSlot(name: "B", descriptor: CardKit.Input.Text.String, isOptional: false),
+                InputSlot(name: "B", descriptor: CardKit.Input.Text.TextString, isOptional: false),
                 InputSlot(name: "C", descriptor: CardKit.Input.Numeric.Real, isOptional: false),
-                InputSlot(name: "D", descriptor: CardKit.Input.Raw.Data, isOptional: false)
+                InputSlot(name: "D", descriptor: CardKit.Input.Raw.RawData, isOptional: false)
             ],
             tokens: nil,
             yields: nil,

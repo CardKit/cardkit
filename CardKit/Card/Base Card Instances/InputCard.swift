@@ -73,24 +73,40 @@ extension InputCard {
         case unsupportedDataType(type: Any.Type)
         
         /// The value given for a binding does not match the expected type for the InputCard
-        case bindingTypeMismatch(given: InputType, expected: InputType)
+        case bindingTypeMismatch(given: String, expected: String)
     }
     
     /// Bind the input data
     fileprivate func boundValue<T>(_ value: T) throws -> InputDataBinding {
         
         // make sure the type of the value matches the type expected by the descriptor
-        func throwIfTypesDisagree(_ given: InputType, _ expected: InputType) throws {
-            if given != expected {
-                throw InputCard.BindingError.bindingTypeMismatch(given: given, expected: expected)
-            }
+//        func throwIfTypesDisagree(_ given: InputType, _ expected: String) throws {
+//            let givenType = String(describing: type(of: given))
+//            if givenType != expected {
+//                throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expected)
+//            }
+//        }
+        
+        // make sure the type of the value matches the type expected by the descriptor
+        let givenType = String(describing: type(of: value))
+        let expectedType = self.descriptor.inputType
+        
+        if givenType != expectedType {
+            throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expectedType)
+        }
+        
+        // bind the value
+        if let v = value as? JSONEncodable {
+            return .bound(v.toJSON())
+        } else {
+            throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
         }
         
         // this is a little silly, but we can't just use Any.Type for our
         // Inputs because we can't deserialize the type from a string
-        switch value {
+        /*switch value {
         case let v as Int:
-            try throwIfTypesDisagree(.swiftInt, self.descriptor.inputType)
+            try throwIfTypesDisagree(Int.Type, self.descriptor.inputType)
             return .swiftInt(v)
         case let v as Double:
             try throwIfTypesDisagree(.swiftDouble, self.descriptor.inputType)
@@ -113,7 +129,7 @@ extension InputCard {
             return .jsonObject(json)
         default:
             throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
-        }
+        }*/
     }
     
     func bind<T>(withValue value: T) throws {
@@ -126,10 +142,12 @@ extension InputCard {
     }
     
     /// Return the data value bound to the input. Returns nil if no data has yet been bound.
-    public func inputDataValue<T>() -> T? {
+    /*public func inputDataValue<T>() -> T? {
         switch self.boundData {
         case .unbound:
             return nil
+        case .bound(let val):
+            
         case .swiftInt(let val):
             if let ret = val as? T { return ret }
         case .swiftDouble(let val):
@@ -145,40 +163,27 @@ extension InputCard {
         }
         
         return nil
-    }
+    }*/
     
     /// Return the data value bound to the input. Returns nil if no data has yet been bound.
     public func inputDataValue<T>() -> T? where T : JSONDecodable {
         switch self.boundData {
         case .unbound:
             return nil
-        case .swiftInt(let val):
-            if let ret = val as? T { return ret }
-        case .swiftDouble(let val):
-            if let ret = val as? T { return ret }
-        case .swiftString(let val):
-            if let ret = val as? T { return ret }
-        case .swiftData(let val):
-            if let ret = val as? T { return ret }
-        case .swiftDate(let val):
-            if let ret = val as? T { return ret }
-        case .jsonObject(let val):
+        case .bound(let val):
             do {
                 return try T(json: val)
             } catch {
                 return nil
             }
         }
-        
-        return nil
     }
     
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
-        switch self.boundData {
-        case .unbound:
+        if case .unbound = self.boundData {
             return false
-        default:
+        } else {
             return true
         }
     }

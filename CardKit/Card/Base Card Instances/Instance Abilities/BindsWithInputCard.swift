@@ -8,6 +8,8 @@
 
 import Foundation
 
+import Freddy
+
 // MARK: BindsWithInputCard
 
 /// Applied to card instances that bind with Input cards
@@ -30,5 +32,5 @@ protocol BindsWithInputCard {
     // retrieve the binding of a slot
     func binding(of slot: InputSlot) -> InputSlotBinding?
     func boundData(of slot: InputSlot) -> InputDataBinding
-    func value<T>(of slot: InputSlot) -> T?
+    func value<T>(of slot: InputSlot) -> T? where T : JSONDecodable
 }

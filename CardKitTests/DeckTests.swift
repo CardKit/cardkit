@@ -21,7 +21,7 @@ class DeckTests: XCTestCase {
     }
     
     func testDeckWithSingleDeckCard() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         
         let deck = (
             noAction ==>
@@ -34,7 +34,7 @@ class DeckTests: XCTestCase {
     }
     
     func testDeckWithMultipleDeckCards() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         
         let deck = (
             noAction ==>
@@ -47,7 +47,7 @@ class DeckTests: XCTestCase {
     }
     
     func testDeckJSONSerialization() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         let timer = CardKit.Action.Trigger.Time.Timer
         let wait = CardKit.Action.Trigger.Time.WaitUntilTime
         

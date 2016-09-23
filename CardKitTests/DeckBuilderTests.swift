@@ -50,8 +50,8 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testYieldBinding() {
-        let a = CKTests.Action.YieldingNoAction.makeCard()
-        let b = CKTests.Action.YieldingNoAction.makeCard()
+        let a = CKTestCards.Action.YieldingNoAction.makeCard()
+        let b = CKTestCards.Action.YieldingNoAction.makeCard()
         
         do {
             let boundA = try a <- (b, b.yields.first!)
@@ -72,7 +72,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testMultipleInputBinding() {
-        let a = CKTests.Action.AcceptsMultipleInputTypes.makeCard()
+        let a = CKTestCards.Action.AcceptsMultipleInputTypes.makeCard()
         
         do {
             let boundA = try a <- (CardKit.Input.Numeric.Real <- 5.0) <- (CardKit.Input.Numeric.Real <- 3.0)
@@ -107,8 +107,8 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testHandBuilding() {
-        let noActionA = CKTests.Action.NoAction
-        let noActionB = CKTests.Action.NoAction
+        let noActionA = CKTestCards.Action.NoAction
+        let noActionB = CKTestCards.Action.NoAction
         let hand = noActionA ++ noActionB
         
         // NoActionA, NoActionB, End Rule
@@ -116,7 +116,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testSimpleDeck() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         
         let deck = (
             noAction ==>
@@ -128,7 +128,7 @@ class DeckBuilderTests: XCTestCase {
     }
     
     func testDeckWithBindings() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         let timer = CardKit.Action.Trigger.Time.Timer
         let wait = CardKit.Action.Trigger.Time.WaitUntilTime
         

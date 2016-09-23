@@ -19,7 +19,13 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     public let version: Int
     public let assetCatalog: CardAssetCatalog
     
-    public let inputType: InputType
+    // inputType is represented as a String here because swift3 cannot produce a
+    // Type from a String. so we try to enforce some semblance of "type safety" by
+    // requiring init() to take an InputType, but when we deserialize from JSON we
+    // only get a String of the type name and must keep it as a string. this means
+    // at runtime, it's theoretically possible to have an InputDataBinding of a 
+    // mismatching type from what the descriptor expects.
+    public let inputType: String
     public let inputDescription: String
     
     //swiftlint:disable:next function_parameter_count
@@ -33,7 +39,15 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
         self.version = version
         self.assetCatalog = assetCatalog
         
-        self.inputType = inputType
+        // remove the ".Type" suffix
+        let type = String(describing: type(of: inputType))
+        if type.hasSuffix(".Type") {
+            let index = type.index(type.endIndex, offsetBy: -5)
+            self.inputType = type.substring(to: index)
+        } else {
+            self.inputType = type
+        }
+        
         self.inputDescription = inputDescription
     }
     
@@ -96,7 +110,7 @@ extension InputCardDescriptor: JSONDecodable {
         self.path = try json.decode(at: "path", type: CardPath.self)
         self.version = try json.getInt(at: "version")
         self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
-        self.inputType = try json.decode(at: "inputType", type: InputType.self)
+        self.inputType = try json.getString(at: "inputType")
         self.inputDescription = try json.getString(at: "inputDescription")
     }
 }

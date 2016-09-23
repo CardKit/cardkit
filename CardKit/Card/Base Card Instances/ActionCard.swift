@@ -349,23 +349,17 @@ extension ActionCard: BindsWithInputCard {
     /// Returns the raw value held in the specified InputSlot, or nil
     /// if the slot is unbound or if the data cannot be cast to the requested
     /// type.
-    public func value<T>(of slot: InputSlot) -> T? {
+    public func value<T>(of slot: InputSlot) -> T? where T : JSONDecodable {
         guard let binding = self.inputBindings[slot] else { return nil }
         switch binding {
         case .boundToInputCard(let card):
             switch card.boundData {
-            case .swiftInt(let val):
-                return val as? T
-            case .swiftDouble(let val):
-                return val as? T
-            case .swiftString(let val):
-                return val as? T
-            case .swiftData(let val):
-                return val as? T
-            case .swiftDate(let val):
-                return val as? T
-            case .jsonObject(let val):
-                return val as? T
+            case .bound(let val):
+                do {
+                    return try T(json: val)
+                } catch {
+                    return nil
+                }
             default:
                 return nil
             }

@@ -21,8 +21,8 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorIdentity() {
-        let noActionA = CKTests.Action.NoAction
-        let noActionB = CKTests.Action.NoAction
+        let noActionA = CKTestCards.Action.NoAction
+        let noActionB = CKTestCards.Action.NoAction
         XCTAssertTrue(noActionA == noActionB)
         XCTAssertFalse(noActionA != noActionB)
     }
@@ -34,8 +34,8 @@ class CardDescriptorTests: XCTestCase {
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         
         let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
         let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
@@ -57,8 +57,8 @@ class CardDescriptorTests: XCTestCase {
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: "A", assetCatalog: CardAssetCatalog(), version: 0)
         
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: "A", inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h2 = InputCardDescriptor(name: "A", subpath: "A", inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
         
         let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
         let i2 = HandCardDescriptor(name: "A", subpath: "A", handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
@@ -80,8 +80,8 @@ class CardDescriptorTests: XCTestCase {
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 1)
         
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: .swiftDouble, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 1)
+        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 1)
         
         let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
         let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 1)
@@ -97,7 +97,7 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorToAndFromJSON() {
-        let noAction = CKTests.Action.NoAction
+        let noAction = CKTestCards.Action.NoAction
         let jsonNoAction = noAction.toJSON()
         
         do {
