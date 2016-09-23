@@ -40,10 +40,10 @@ public class TokenCard: Card, JSONEncodable, JSONDecodable {
 
 // MARK: Equatable
 
-extension TokenCard: Equatable {}
-
-public func == (lhs: TokenCard, rhs: TokenCard) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension TokenCard: Equatable {
+    static public func == (lhs: TokenCard, rhs: TokenCard) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

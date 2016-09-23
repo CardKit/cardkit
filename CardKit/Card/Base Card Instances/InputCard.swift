@@ -50,10 +50,10 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
 
 // MARK: Equatable
 
-extension InputCard: Equatable {}
-
-public func == (lhs: InputCard, rhs: InputCard) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension InputCard: Equatable {
+    static public func == (lhs: InputCard, rhs: InputCard) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

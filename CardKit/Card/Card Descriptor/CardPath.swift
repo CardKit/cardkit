@@ -21,16 +21,16 @@ public struct CardPath {
 
 // MARK: Equatable
 
-extension CardPath: Equatable {}
-
-public func == (lhs: CardPath, rhs: CardPath) -> Bool {
-    if lhs.pathComponents.count != rhs.pathComponents.count { return false }
-    for i in 0..<lhs.pathComponents.count {
-        if lhs.pathComponents[i] != rhs.pathComponents[i] {
-            return false
+extension CardPath: Equatable {
+    static public func == (lhs: CardPath, rhs: CardPath) -> Bool {
+        if lhs.pathComponents.count != rhs.pathComponents.count { return false }
+        for i in 0..<lhs.pathComponents.count {
+            if lhs.pathComponents[i] != rhs.pathComponents[i] {
+                return false
+            }
         }
+        return true
     }
-    return true
 }
 
 // MARK: Hashable

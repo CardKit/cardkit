@@ -42,13 +42,13 @@ public struct Yield {
 
 // MARK: Equatable
 
-extension Yield: Equatable {}
-
-public func == (lhs: Yield, rhs: Yield) -> Bool {
-    var equal = true
-    equal = equal && lhs.identifier == rhs.identifier
-    equal = equal && lhs.type == rhs.type
-    return equal
+extension Yield: Equatable {
+    static public func == (lhs: Yield, rhs: Yield) -> Bool {
+        var equal = true
+        equal = equal && lhs.identifier == rhs.identifier
+        equal = equal && lhs.type == rhs.type
+        return equal
+    }
 }
 
 // MARK: Hashable

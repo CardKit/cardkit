@@ -182,10 +182,10 @@ extension Deck {
 
 // MARK: Equatable
 
-extension Deck: Equatable {}
-
-public func == (lhs: Deck, rhs: Deck) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension Deck: Equatable {
+    static public func == (lhs: Deck, rhs: Deck) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

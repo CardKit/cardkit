@@ -32,14 +32,14 @@ public struct InputSlot {
 
 // MARK: Equatable
 
-extension InputSlot: Equatable {}
-
-public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
-    var equal = true
-    equal = equal && lhs.name == rhs.name
-    equal = equal && lhs.descriptor == rhs.descriptor
-    equal = equal && lhs.isOptional == rhs.isOptional
-    return equal
+extension InputSlot: Equatable {
+    static public func == (lhs: InputSlot, rhs: InputSlot) -> Bool {
+        var equal = true
+        equal = equal && lhs.name == rhs.name
+        equal = equal && lhs.descriptor == rhs.descriptor
+        equal = equal && lhs.isOptional == rhs.isOptional
+        return equal
+    }
 }
 
 // MARK: Hashable
