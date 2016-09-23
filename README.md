@@ -62,7 +62,9 @@ Input cards are used to provide concrete, user-specified inputs to an Action car
 
 Input cards are similar to Action cards in that both produce some piece of data that is used by a card. For an `ActionCard`, this is called a `Yield` and it is computed at run-time based on the effects of executing the Action card. For an `InputCard`, this data is always user-specified at the time of program construction.
 
-The `InputSlot` class manages the Input slots of an Action card. Each `InputSlot` has a human-understandable name (e.g. "Duration" or "Location") and a corresponding `InputType` (defined as an enum, e.g. `.SwiftDouble` or `.Coordinate2D`). `ActionCard` keeps track of `InputSlot` binding using the `InputSlotBinding` enum; a slot may be unbound, bound to an `InputCard`, or bound to the `Yield` of an `ActionCard`.
+The `InputSlot` class manages the Input slots of an Action card. Each `InputSlot` has a human-understandable name (e.g. "Duration" or "Location") and a corresponding `InputType` (stored internally as a `String`).
+
+`ActionCard` keeps track of `InputSlot` binding using the `InputSlotBinding` enum; a slot may be unbound, bound to an `InputCard`, or bound to the `Yield` of an `ActionCard`.
 
 ### Token
 
@@ -103,7 +105,7 @@ Action cards contain a set of `InputSlots` and `TokenSlots` representing "slots"
 public static let Timer = ActionCardDescriptor(
 …
 	inputs: [
-		InputSlot(name: "Duration", type: InputType.SwiftInt, isOptional: false)
+		InputSlot(name: "Duration", type: Int.self, isOptional: false)
 	],
 …
 }
@@ -123,7 +125,11 @@ Cards are bound to each other when the yields from one card are used as inputs t
 The `bind()` methods are implemented generically, enabling any kind of data to be bound to a card. However, there are a few caveats:
 
 * Input slots are specified with the type of data they are expecting. Thus, a type-checking step is performed during binding to ensure that the type of the given data matches the expected type.
-* Everything needs to serialize to and from JSON, including input bindings. Because Swift does not currently allow instantiating an instance of a struct from its String type name (e.g. cannot instantiate a struct `Foo` from the string "Foo"), we box the values of bound input using the `InputDataBinding` enum. This enum contains cases for commonly-used Swift types (Int, Double, Date, Data), as well as some custom structs that may be useful in CardKit (Coordinate2D, Coordinate3D, etc.).
+* Input bindings need to serialize to and from JSON. Because Swift does not currently allow instantiating an instance of a struct from its String type name (e.g. cannot instantiate a struct `Foo` from the string "Foo"), we box the values of bound input using `InputDataBinding` enum. This enum contains two cases: 
+	* `.unbound`: the slot has not been bound
+	* `.bound(JSON)`: a `JSON` value has been bound to the slot
+
+This way, cards can bind data to any Swift type so long as it conforms to `JSONEncodable & JSONDecodable`.
 
 ## Hands, Decks & Deck Building
 
@@ -185,12 +191,12 @@ Here is an example of a small, complete CardKit program using the Deck Builder s
 
 ```
 let deck = (
-	CKTests.Action.NoAction ==> 
-	CKTests.Action.NoAction
+	CKTestCards.Action.NoAction ==> 
+	CKTestCards.Action.NoAction
 )%        
 ```
 
-The `==>` operator is used to specify a sequence of Hands. Note that we are able to produce a `Hand` containing an `ActionCard`, even though we specified `CKTests.Action.NoAction` which is an `ActionCardDescriptor`. This behavior is possible because the internal specification of `==>` will create an `ActionCard` instance when given an `ActionCardDescriptor`.
+The `==>` operator is used to specify a sequence of Hands. Note that we are able to produce a `Hand` containing an `ActionCard`, even though we specified `CKTestCards.Action.NoAction` which is an `ActionCardDescriptor`. This behavior is possible because the internal specification of `==>` will create an `ActionCard` instance when given an `ActionCardDescriptor`.
 
 The `%` operator is used to "seal" a deck from a sequence of hands.
 
@@ -199,27 +205,27 @@ In addition to the Deck Builder syntax, we also support an imperative syntax for
 ```
 let deck = Deck()
 let hand = Hand()
-hand.add(CKTests.Action.NoAction.makeCard())
+hand.add(CKTestCards.Action.NoAction.makeCard())
 deck.add(hand)
 ```
 
 Input bindings can also be specified using the Deck Builder syntax.
 
 ```
-let timerCard: ActionCard = CardKit.Action.Trigger.Time.Timer <- CardKit.Input.Time.Duration <- 5
+let card: ActionCard = CKTestCards.Action.AcceptsMultipleInputTypes <- CardKit.Input.Numeric.Real <- 5.0
 ```
 
-Note that `timerCard` is built using `ActionCardDescriptors` and `InputCardDescriptors`. Internally, the `<-` operator is creating an `ActionCard` instance and an`InputCard` instance, it is binding the value "5" to the `InputCard`, and it is binding the `InputCard` to the `ActionCard`.
+Note that `card` is built using `ActionCardDescriptors` and `InputCardDescriptors`. Internally, the `<-` operator is creating an `ActionCard` instance and an`InputCard` instance, it is binding the value “5.0” to the `InputCard`, and it is binding the `InputCard` to the `ActionCard`.
 
 A Hand containing `HandCard` logic is specified below.
 
 ```
-let A = CKTests.Action.NoAction.makeCard()
-let B = CKTests.Action.NoAction.makeCard()
-let C = CKTests.Action.NoAction.makeCard()
-let D = CKTests.Action.NoAction.makeCard()
-let E = CKTests.Action.NoAction.makeCard()
-let F = CKTests.Action.NoAction.makeCard()
+let A = CKTestCards.Action.NoAction.makeCard()
+let B = CKTestCards.Action.NoAction.makeCard()
+let C = CKTestCards.Action.NoAction.makeCard()
+let D = CKTestCards.Action.NoAction.makeCard()
+let E = CKTestCards.Action.NoAction.makeCard()
+let F = CKTestCards.Action.NoAction.makeCard()
 let hand = ((A && B) || (C && D)) + E + !F
 ```
 
@@ -246,11 +252,11 @@ If this Hand contained a `BranchHandCard`, then the Hand would be satisfied only
 
 ### Serialization
 
-Our intention is for CardKit programs to be specified entirely in JSON to allow for portability across devices. For example, an iOS app may be created to allow a programmer to create a CardKit program. That program ought to be serializable and transferred to a tvOS app which is responsible for it's execution. Thus, many (if not all?) of the structs and classes defined in CardKit are `JSONEncodable` and `JSONDecodable` using the Freddy framework.
+Our intention is for CardKit programs to be specified entirely in JSON to allow for portability across devices. For example, an iOS app may be created to allow a programmer to create a CardKit program. That program ought to be serializable and transferred to a tvOS app which is responsible for it's execution. Thus, many of the structs and classes defined in CardKit are `JSONEncodable` and `JSONDecodable` using the Freddy framework.
 
 ### Static Card Descriptors
 
-Card Descriptors encapsulate all of the metadata associated with a card. We statically define the struct `CardKit` to contain descriptors for the entire hierarchy of CardKit cards. For example, the descriptor of the `Angle` card is defined under `CardKit.Input.Location.Angle`. Each descriptor is defined statically because its metadata will not change at run time.
+Card Descriptors encapsulate all of the metadata associated with a card. We statically define the struct `CardKit` to contain descriptors for the entire hierarchy of CardKit cards. For example, the descriptor of the `Integer` card is defined under `CardKit.Input.Numeric.Integer`. Each descriptor is defined statically because its metadata will not change at run time.
 
 ### Separation Between Specification and Runtime
 
@@ -265,11 +271,15 @@ We follow a few naming guidelines in CardKit.
 * We try to use value semantics (structs) wherever possible, although we really want to use inheritance in some places (e.g. `LogicHandCard : HandCard`), so we use classes in those cases. But, because of the Serialization requirement, we use value-like semantics when performing equality testing for these classes (e.g. using `CardIdentifier` and `HandIdentifier`).
 * Extensions to Swift types are specified in `Extensions/(Type)Extension.swift`
 
-### Input & Yield Boxing
+### Input Boxing
 
-Due to limitations in Swift reflection, we use an `enum` to box `Input` and `Yield` types. This is because we are not able to instantiate a reference to a type from it's String name, as would be given in the JSON representation of a CardKit program (`NSClassFromName()` does not work for `struct` types).
+Due to limitations in Swift reflection, we use an `enum InputDataBinding` to box bound `Input` values. This is because we are not able to instantiate a reference to a type from it's String name, as would be given in the JSON representation of a CardKit program (`NSClassFromName()` does not work for `struct` types). Note that the value stored inside the box is a `JSON` object, enabling any type that conforms to `JSONEncodable & JSONDecodable` to be boxed.
 
-The box types are defined in `Input.swift` (`Yield.swift` creates a `typealias YieldType = InputType` so the boxing also works with Yields). Common Swift types are supported (`Int`, `Double`, `String`, `NSData`, `NSDate`), plus some additional types that are useful for IoT applications (`Coordinate2D`, `Coordinate2DPath`, `CardinalDirection`, etc.).
+When removing bound values from the box, we must be explicit about its type. Internally, the `CardKit Runtime` attempts to construct an object instance for the type specified. For example, an `ExecutableActionCard` may retrieve the value bound to slot "A" as follows.
+
+`let a: Double = self.value(forInput: "A")`
+
+If the `InputSlot` "A" is `.bound` and the `JSON` value contained within it is convertible to `Double`, then the method returns the correct value. Otherwise, it returns `nil`.
 
 ## Building
 
