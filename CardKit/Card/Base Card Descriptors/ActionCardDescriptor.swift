@@ -34,7 +34,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let endDescription: String
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String?, assetCatalog: CardAssetCatalog, version: Int = 0) {
         self.name = name
         if let subpath = subpath {
             self.path = CardPath(withPath: "Action/\(subpath)")
@@ -49,7 +49,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
         self.yields = yields ?? []
         self.yieldDescription = yieldDescription ?? ""
         self.ends = ends
-        self.endDescription = endsDescription
+        self.endDescription = endsDescription ?? ""
     }
     
     /// Return a new ActionCard instance using our descriptor

@@ -28,8 +28,8 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorEquality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
         
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
@@ -51,8 +51,8 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorPathInequality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: "A", inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let a2 = ActionCardDescriptor(name: "A", subpath: "A", inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
         
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: "A", assetCatalog: CardAssetCatalog(), version: 0)
@@ -74,8 +74,8 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorVersionInequality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: "", assetCatalog: CardAssetCatalog(), version: 1)
+        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 1)
         
         let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
         let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 1)
