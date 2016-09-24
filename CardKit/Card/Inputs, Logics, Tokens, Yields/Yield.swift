@@ -26,7 +26,7 @@ public struct Yield {
     // that String (e.g. "Dictionary<Int, Int>" -> Dictionary<Int, Int>)
     public var type: String
     
-    init(type: YieldType) {
+    public init(type: YieldType) {
         self.identifier = UUID()
         
         // remove the ".Type" suffix
