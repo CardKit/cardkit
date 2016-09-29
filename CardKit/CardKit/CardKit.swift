@@ -193,11 +193,6 @@ extension CardKit.Hand.Logic {
 // MARK: - Input Cards
     
 extension CardKit.Input {
-    /// Contains descriptors for Input/Location cards
-    public struct Location {
-        fileprivate init() {}
-    }
-    
     /// Contains descriptors for Input/Media cards
     public struct Media {
         fileprivate init() {}
@@ -213,11 +208,6 @@ extension CardKit.Input {
         fileprivate init() {}
     }
     
-    /// Contains descriptors for Input/Relative cards
-    public struct Relative {
-        fileprivate init() {}
-    }
-    
     /// Contains descriptors for Input/Text cards
     public struct Text {
         fileprivate init() {}
@@ -229,95 +219,13 @@ extension CardKit.Input {
     }
 }
 
-extension CardKit.Input.Location {
-    // MARK: Location/Angle
-    /// Descriptor for the Angle card
-    public static let Angle = InputCardDescriptor(
-        name: "Angle",
-        subpath: "Location",
-        inputType: .swiftDouble,
-        inputDescription: "Angle (in degrees)",
-        assetCatalog: CardAssetCatalog(description: "Angle (in degrees)"),
-        version: 0)
-    
-    // MARK: Location/BoundingBox
-    /// Descriptor for the Bounding Box card
-    public static let BoundingBox = InputCardDescriptor(
-        name: "Bounding Box",
-        subpath: "Location",
-        inputType: .coordinate2DPath,
-        inputDescription: "Set of 2D coordinates",
-        assetCatalog: CardAssetCatalog(description: "Bounding Box (2D)"),
-        version: 0)
-    
-    // MARK: Location/BoundingBox3D
-    /// Descriptor for the Bounding Box 3D card
-    public static let BoundingBox3D = InputCardDescriptor(
-        name: "Bounding Box 3D",
-        subpath: "Location",
-        inputType: .coordinate3DPath,
-        inputDescription: "Set of 3D coordinates",
-        assetCatalog: CardAssetCatalog(description: "Bounding Box (3D)"),
-        version: 0)
-    
-    // MARK: Location/CardinalDirection
-    /// Descriptor for the Cardinal Direction card
-    public static let CardinalDirection = InputCardDescriptor(
-        name: "Cardinal Direction",
-        subpath: "Location",
-        inputType: .cardinalDirection,
-        inputDescription: "Cardinal Direction",
-        assetCatalog: CardAssetCatalog(description: "Cardinal Direction (N, S, E, W)"),
-        version: 0)
-    
-    // MARK: Location/Distance
-    /// Descriptor for the Distance card
-    public static let Distance = InputCardDescriptor(
-        name: "Distance",
-        subpath: "Location",
-        inputType: .swiftDouble,
-        inputDescription: "Distance (meters)",
-        assetCatalog: CardAssetCatalog(description: "Distance (meters)"),
-        version: 0)
-    
-    // MARK: Location/Location
-    /// Descriptor for the Location card
-    public static let Location = InputCardDescriptor(
-        name: "Location",
-        subpath: "Location",
-        inputType: .coordinate3D,
-        inputDescription: "Coordinate (3D)",
-        assetCatalog: CardAssetCatalog(description: "Location (3D coordinate)"),
-        version: 0)
-    
-    // MARK: Location/Path
-    /// Descriptor for the Path card
-    public static let Path = InputCardDescriptor(
-        name: "Path",
-        subpath: "Location",
-        inputType: .coordinate2DPath,
-        inputDescription: "2D coordinate path",
-        assetCatalog: CardAssetCatalog(description: "Path (2D)"),
-        version: 0)
-    
-    // MARK: Location/Path3D
-    /// Descriptor for the Path 3D card
-    public static let Path3D = InputCardDescriptor(
-        name: "Path 3D",
-        subpath: "Location",
-        inputType: .coordinate3DPath,
-        inputDescription: "3D coordinate path",
-        assetCatalog: CardAssetCatalog(description: "Path (3D)"),
-        version: 0)
-}
-
 extension CardKit.Input.Media {
     // MARK: Media/Audio
     /// Descriptor for the Audio card
     public static let Audio = InputCardDescriptor(
         name: "Audio",
         subpath: "Media/Audio",
-        inputType: .swiftData,
+        inputType: Data.self,
         inputDescription: "Audio (data)",
         assetCatalog: CardAssetCatalog(description: "Audio"),
         version: 0)
@@ -327,7 +235,7 @@ extension CardKit.Input.Media {
     public static let Image = InputCardDescriptor(
         name: "Image",
         subpath: "Media/Image",
-        inputType: .swiftData,
+        inputType: Data.self,
         inputDescription: "Audio (data)",
         assetCatalog: CardAssetCatalog(description: "Image"),
         version: 0)
@@ -339,7 +247,7 @@ extension CardKit.Input.Numeric {
     public static let Integer = InputCardDescriptor(
         name: "Integer",
         subpath: "Numeric",
-        inputType: .swiftInt,
+        inputType: Int.self,
         inputDescription: "Integer",
         assetCatalog: CardAssetCatalog(description: "Integer number"),
         version: 0)
@@ -349,7 +257,7 @@ extension CardKit.Input.Numeric {
     public static let Real = InputCardDescriptor(
         name: "Real",
         subpath: "Numeric",
-        inputType: .swiftDouble,
+        inputType: Double.self,
         inputDescription: "Real",
         assetCatalog: CardAssetCatalog(description: "Real number"),
         version: 0)
@@ -358,44 +266,22 @@ extension CardKit.Input.Numeric {
 extension CardKit.Input.Raw {
     // MARK: Raw/Data
     /// Descriptor for Raw/Data card
-    public static let Data = InputCardDescriptor(
-        name: "Data",
+    public static let RawData = InputCardDescriptor(
+        name: "Raw Data",
         subpath: "Raw",
-        inputType: .swiftData,
+        inputType: Data.self,
         inputDescription: "Raw data",
         assetCatalog: CardAssetCatalog(description: "Raw data"),
-        version: 0)
-}
-
-extension CardKit.Input.Relative {
-    // MARK: Relative/RelativeToLocation
-    /// Descriptor for the RelativeToLocation card
-    public static let RelativeToLocation = InputCardDescriptor(
-        name: "Relative To Location",
-        subpath: "Relative",
-        inputType: .coordinate2D,
-        inputDescription: "Coordinate offset",
-        assetCatalog: CardAssetCatalog(description: "A coordinate used to offset another coordinate"),
-        version: 0)
-    
-    // MARK: Relative/RelativeToObject
-    /// Descriptor for the RelativeToObject card
-    public static let RelativeToObject = InputCardDescriptor(
-        name: "Relative To Object",
-        subpath: "Relative",
-        inputType: .coordinate2D,
-        inputDescription: "Coordinate offset",
-        assetCatalog: CardAssetCatalog(description: "A coordinate used to offset from an object's location"),
         version: 0)
 }
 
 extension CardKit.Input.Text {
     // MARK: Text/String
     /// Descriptor for Text/String card
-    public static let String = InputCardDescriptor(
-        name: "String",
+    public static let TextString = InputCardDescriptor(
+        name: "Text String",
         subpath: "Text",
-        inputType: .swiftString,
+        inputType: String.self,
         inputDescription: "String",
         assetCatalog: CardAssetCatalog(description: "A string"),
         version: 0)
@@ -407,7 +293,7 @@ extension CardKit.Input.Time {
     public static let ClockTime = InputCardDescriptor(
         name: "Clock Time",
         subpath: "Time",
-        inputType: .swiftDate,
+        inputType: Date.self,
         inputDescription: "Date & time string",
         assetCatalog: CardAssetCatalog(description: "Time (date & time)"),
         version: 0)
@@ -417,7 +303,7 @@ extension CardKit.Input.Time {
     public static let Duration = InputCardDescriptor(
         name: "Duration",
         subpath: "Time",
-        inputType: .swiftInt,
+        inputType: Int.self,
         inputDescription: "Duration (seconds)",
         assetCatalog: CardAssetCatalog(description: "Duration (seconds)"),
         version: 0)
@@ -427,7 +313,7 @@ extension CardKit.Input.Time {
     public static let Periodicity = InputCardDescriptor(
         name: "Periodicity",
         subpath: "Time",
-        inputType: .coordinate2D,
+        inputType: Int.self,
         inputDescription: "Periodic frequency (seconds)",
         assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"),
         version: 0)

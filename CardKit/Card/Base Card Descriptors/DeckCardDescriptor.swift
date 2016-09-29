@@ -38,17 +38,16 @@ public struct DeckCardDescriptor: CardDescriptor {
 
 // MARK: Equatable
 
-extension DeckCardDescriptor: Equatable {}
-
-/// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
-public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
-    var equal = true
-    equal = equal && lhs.name == rhs.name
-    equal = equal && lhs.path == rhs.path
-    equal = equal && lhs.version == rhs.version
-    return equal
+extension DeckCardDescriptor: Equatable {
+    /// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
+    static public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
+        var equal = true
+        equal = equal && lhs.name == rhs.name
+        equal = equal && lhs.path == rhs.path
+        equal = equal && lhs.version == rhs.version
+        return equal
+    }
 }
-
 
 // MARK: Hashable
 

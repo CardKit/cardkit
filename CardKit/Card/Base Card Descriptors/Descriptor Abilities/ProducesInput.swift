@@ -12,6 +12,6 @@ import Foundation
 
 /// Applied to card descriptors that produce input
 protocol ProducesInput {
-    var inputType: InputType { get }
+    var inputType: String { get }
     var inputDescription: String { get }
 }

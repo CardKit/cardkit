@@ -66,34 +66,34 @@ public indirect enum CardTreeNode {
 
 // MARK: Equatable
 
-extension CardTreeNode: Equatable {}
-
-/// CardTrees are equal when they are structually equivalent.
-public func == (lhs: CardTreeNode, rhs: CardTreeNode) -> Bool {
-    if case .action(let lhsActionCard) = lhs,
-        case .action(let rhsActionCard) = rhs {
-        return lhsActionCard == rhsActionCard
-    }
-    
-    if case .unaryLogic(let lhsLogicCard, let lhsSubtree) = lhs,
-        case .unaryLogic(let rhsLogicCard, let rhsSubtree) = rhs {
-        if lhsLogicCard == rhsLogicCard {
-            return lhsSubtree == rhsSubtree
-        } else {
-            return false
+extension CardTreeNode: Equatable {
+    /// CardTrees are equal when they are structually equivalent.
+    static public func == (lhs: CardTreeNode, rhs: CardTreeNode) -> Bool {
+        if case .action(let lhsActionCard) = lhs,
+            case .action(let rhsActionCard) = rhs {
+            return lhsActionCard == rhsActionCard
         }
-    }
-    
-    if case .binaryLogic(let lhsLogicCard, let lhsLeft, let lhsRight) = lhs,
-        case .binaryLogic(let rhsLogicCard, let rhsLeft, let rhsRight) = rhs {
-        if lhsLogicCard == rhsLogicCard {
-            return lhsLeft == rhsLeft && lhsRight == rhsRight
-        } else {
-            return false
+        
+        if case .unaryLogic(let lhsLogicCard, let lhsSubtree) = lhs,
+            case .unaryLogic(let rhsLogicCard, let rhsSubtree) = rhs {
+            if lhsLogicCard == rhsLogicCard {
+                return lhsSubtree == rhsSubtree
+            } else {
+                return false
+            }
         }
+        
+        if case .binaryLogic(let lhsLogicCard, let lhsLeft, let lhsRight) = lhs,
+            case .binaryLogic(let rhsLogicCard, let rhsLeft, let rhsRight) = rhs {
+            if lhsLogicCard == rhsLogicCard {
+                return lhsLeft == rhsLeft && lhsRight == rhsRight
+            } else {
+                return false
+            }
+        }
+        
+        return false
     }
-    
-    return false
 }
 
 // MARK: Hashable

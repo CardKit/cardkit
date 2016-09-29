@@ -64,10 +64,10 @@ public class CardTree: JSONEncodable, JSONDecodable {
 
 // MARK: Equatable
 
-extension CardTree: Equatable {}
-
-public func == (lhs: CardTree, rhs: CardTree) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension CardTree: Equatable {
+    static public func == (lhs: CardTree, rhs: CardTree) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

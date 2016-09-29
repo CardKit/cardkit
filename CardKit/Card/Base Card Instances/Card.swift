@@ -27,10 +27,10 @@ public struct CardIdentifier {
 
 // MARK: Equatable
 
-extension CardIdentifier: Equatable {}
-
-public func == (lhs: CardIdentifier, rhs: CardIdentifier) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension CardIdentifier: Equatable {
+    static public func == (lhs: CardIdentifier, rhs: CardIdentifier) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

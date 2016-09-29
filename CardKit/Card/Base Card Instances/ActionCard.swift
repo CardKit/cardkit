@@ -150,10 +150,10 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
 
 // MARK: Equatable
 
-extension ActionCard: Equatable {}
-
-public func == (lhs: ActionCard, rhs: ActionCard) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension ActionCard: Equatable {
+    static public func == (lhs: ActionCard, rhs: ActionCard) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable
@@ -349,31 +349,17 @@ extension ActionCard: BindsWithInputCard {
     /// Returns the raw value held in the specified InputSlot, or nil
     /// if the slot is unbound or if the data cannot be cast to the requested
     /// type.
-    public func value<T>(of slot: InputSlot) -> T? {
+    public func value<T>(of slot: InputSlot) -> T? where T : JSONDecodable {
         guard let binding = self.inputBindings[slot] else { return nil }
         switch binding {
         case .boundToInputCard(let card):
             switch card.boundData {
-            case .swiftInt(let val):
-                return val as? T
-            case .swiftDouble(let val):
-                return val as? T
-            case .swiftString(let val):
-                return val as? T
-            case .swiftData(let val):
-                return val as? T
-            case .swiftDate(let val):
-                return val as? T
-            case .coordinate2D(let val):
-                return val as? T
-            case .coordinate2DPath(let val):
-                return val as? T
-            case .coordinate3D(let val):
-                return val as? T
-            case .coordinate3DPath(let val):
-                return val as? T
-            case .cardinalDirection(let val):
-                return val as? T
+            case .bound(let val):
+                do {
+                    return try T(json: val)
+                } catch {
+                    return nil
+                }
             default:
                 return nil
             }

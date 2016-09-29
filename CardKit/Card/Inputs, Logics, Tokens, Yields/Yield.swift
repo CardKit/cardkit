@@ -21,27 +21,34 @@ public typealias YieldIdentifier = UUID
 public struct Yield {
     public var identifier: YieldIdentifier
     
-    // in the future, this should be Any.Type. however, right now there is no way
+    // in the future, this should be Any.Type. however, swift3 has no way
     // to take a String and figure out the Swift struct type that corresponds to
-    // that String (e.g. "Dictionary<Int, Int>" -> Dictionary<Int, Int>), which
-    // means that we need to box & unbox the type
-    public var type: YieldType
+    // that String (e.g. "Dictionary<Int, Int>" -> Dictionary<Int, Int>)
+    public var type: String
     
-    init(type: YieldType) {
+    public init(type: YieldType) {
         self.identifier = UUID()
-        self.type = type
+        
+        // remove the ".Type" suffix
+        let typeStr = String(describing: type(of: type))
+        if typeStr.hasSuffix(".Type") {
+            let index = typeStr.index(typeStr.endIndex, offsetBy: -5)
+            self.type = typeStr.substring(to: index)
+        } else {
+            self.type = typeStr
+        }
     }
 }
 
 // MARK: Equatable
 
-extension Yield: Equatable {}
-
-public func == (lhs: Yield, rhs: Yield) -> Bool {
-    var equal = true
-    equal = equal && lhs.identifier == rhs.identifier
-    equal = equal && lhs.type == rhs.type
-    return equal
+extension Yield: Equatable {
+    static public func == (lhs: Yield, rhs: Yield) -> Bool {
+        var equal = true
+        equal = equal && lhs.identifier == rhs.identifier
+        equal = equal && lhs.type == rhs.type
+        return equal
+    }
 }
 
 // MARK: Hashable
@@ -66,7 +73,7 @@ extension Yield: JSONEncodable {
     public func toJSON() -> JSON {
         return .dictionary([
             "identifier": self.identifier.uuidString.toJSON(),
-            "type": String(describing: self.type).toJSON()])
+            "type": self.type.toJSON()])
     }
 }
 
@@ -79,6 +86,6 @@ extension Yield: JSONDecodable {
             throw JSON.Error.valueNotConvertible(value: json, to: Yield.self)
         }
         self.identifier = uuid
-        self.type = try json.decode(at: "type", type: YieldType.self)
+        self.type = try json.getString(at: "type")
     }
 }

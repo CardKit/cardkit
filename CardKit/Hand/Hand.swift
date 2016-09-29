@@ -845,12 +845,12 @@ extension Hand {
 
 // MARK: Equatable
 
-extension Hand: Equatable {}
-
-/// Hands are considered equal when they have the same identifier (even if their
-/// contents are different.)
-public func == (lhs: Hand, rhs: Hand) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension Hand: Equatable {
+    /// Hands are considered equal when they have the same identifier (even if their
+    /// contents are different.)
+    static public func == (lhs: Hand, rhs: Hand) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable

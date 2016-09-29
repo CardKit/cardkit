@@ -19,17 +19,22 @@ public typealias TokenSlotName = String
 public struct TokenSlot {
     public let name: TokenSlotName
     public let descriptor: TokenCardDescriptor
+    
+    public init(name: TokenSlotName, descriptor: TokenCardDescriptor) {
+        self.name = name
+        self.descriptor = descriptor
+    }
 }
 
 // MARK: Equatable
 
-extension TokenSlot: Equatable {}
-
-public func == (lhs: TokenSlot, rhs: TokenSlot) -> Bool {
-    var equal = true
-    equal = equal && lhs.name == rhs.name
-    equal = equal && lhs.descriptor == rhs.descriptor
-    return equal
+extension TokenSlot: Equatable {
+    static public func == (lhs: TokenSlot, rhs: TokenSlot) -> Bool {
+        var equal = true
+        equal = equal && lhs.name == rhs.name
+        equal = equal && lhs.descriptor == rhs.descriptor
+        return equal
+    }
 }
 
 // MARK: Hashable

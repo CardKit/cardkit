@@ -50,10 +50,10 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
 
 // MARK: Equatable
 
-extension InputCard: Equatable {}
-
-public func == (lhs: InputCard, rhs: InputCard) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension InputCard: Equatable {
+    static public func == (lhs: InputCard, rhs: InputCard) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable
@@ -73,24 +73,40 @@ extension InputCard {
         case unsupportedDataType(type: Any.Type)
         
         /// The value given for a binding does not match the expected type for the InputCard
-        case bindingTypeMismatch(given: InputType, expected: InputType)
+        case bindingTypeMismatch(given: String, expected: String)
     }
     
     /// Bind the input data
     fileprivate func boundValue<T>(_ value: T) throws -> InputDataBinding {
         
         // make sure the type of the value matches the type expected by the descriptor
-        func throwIfTypesDisagree(_ given: InputType, _ expected: InputType) throws {
-            if given != expected {
-                throw InputCard.BindingError.bindingTypeMismatch(given: given, expected: expected)
-            }
+//        func throwIfTypesDisagree(_ given: InputType, _ expected: String) throws {
+//            let givenType = String(describing: type(of: given))
+//            if givenType != expected {
+//                throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expected)
+//            }
+//        }
+        
+        // make sure the type of the value matches the type expected by the descriptor
+        let givenType = String(describing: type(of: value))
+        let expectedType = self.descriptor.inputType
+        
+        if givenType != expectedType {
+            throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expectedType)
+        }
+        
+        // bind the value
+        if let v = value as? JSONEncodable {
+            return .bound(v.toJSON())
+        } else {
+            throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
         }
         
         // this is a little silly, but we can't just use Any.Type for our
         // Inputs because we can't deserialize the type from a string
-        switch value {
+        /*switch value {
         case let v as Int:
-            try throwIfTypesDisagree(.swiftInt, self.descriptor.inputType)
+            try throwIfTypesDisagree(Int.Type, self.descriptor.inputType)
             return .swiftInt(v)
         case let v as Double:
             try throwIfTypesDisagree(.swiftDouble, self.descriptor.inputType)
@@ -104,24 +120,16 @@ extension InputCard {
         case let v as Date:
             try throwIfTypesDisagree(.swiftDate, self.descriptor.inputType)
             return .swiftDate(v)
-        case let v as CKCoordinate2D:
-            try throwIfTypesDisagree(.coordinate2D, self.descriptor.inputType)
-            return .coordinate2D(v)
-        case let v as [CKCoordinate2D]:
-            try throwIfTypesDisagree(.coordinate2DPath, self.descriptor.inputType)
-            return .coordinate2DPath(v)
-        case let v as CKCoordinate3D:
-            try throwIfTypesDisagree(.coordinate3D, self.descriptor.inputType)
-            return .coordinate3D(v)
-        case let v as [CKCoordinate3D]:
-            try throwIfTypesDisagree(.coordinate3DPath, self.descriptor.inputType)
-            return .coordinate3DPath(v)
-        case let v as CKCardinalDirection:
-            try throwIfTypesDisagree(.cardinalDirection, self.descriptor.inputType)
-            return .cardinalDirection(v)
+        case let v as JSON:
+            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
+            return .jsonObject(v)
+        case let v as JSONEncodable:
+            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
+            let json = v.toJSON()
+            return .jsonObject(json)
         default:
             throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
-        }
+        }*/
     }
     
     func bind<T>(withValue value: T) throws {
@@ -134,10 +142,12 @@ extension InputCard {
     }
     
     /// Return the data value bound to the input. Returns nil if no data has yet been bound.
-    public func inputDataValue<T>() -> T? {
+    /*public func inputDataValue<T>() -> T? {
         switch self.boundData {
         case .unbound:
             return nil
+        case .bound(let val):
+            
         case .swiftInt(let val):
             if let ret = val as? T { return ret }
         case .swiftDouble(let val):
@@ -148,27 +158,32 @@ extension InputCard {
             if let ret = val as? T { return ret }
         case .swiftDate(let val):
             if let ret = val as? T { return ret }
-        case .coordinate2D(let val):
-            if let ret = val as? T { return ret }
-        case .coordinate2DPath(let val):
-            if let ret = val as? T { return ret }
-        case .coordinate3D(let val):
-            if let ret = val as? T { return ret }
-        case .coordinate3DPath(let val):
-            if let ret = val as? T { return ret }
-        case .cardinalDirection(let val):
+        case .jsonObject(let val):
             if let ret = val as? T { return ret }
         }
         
         return nil
+    }*/
+    
+    /// Return the data value bound to the input. Returns nil if no data has yet been bound.
+    public func inputDataValue<T>() -> T? where T : JSONDecodable {
+        switch self.boundData {
+        case .unbound:
+            return nil
+        case .bound(let val):
+            do {
+                return try T(json: val)
+            } catch {
+                return nil
+            }
+        }
     }
     
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
-        switch self.boundData {
-        case .unbound:
+        if case .unbound = self.boundData {
             return false
-        default:
+        } else {
             return true
         }
     }

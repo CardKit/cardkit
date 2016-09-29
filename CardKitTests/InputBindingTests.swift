@@ -8,6 +8,8 @@
 
 import XCTest
 
+import Freddy
+
 class InputBindingTests: XCTestCase {
 
     override func setUp() {
@@ -21,53 +23,94 @@ class InputBindingTests: XCTestCase {
     }
 
     func testValidDoubleBinding() {
-        let angle = CardKit.Input.Location.Angle.makeCard()
+        let card = CardKit.Input.Numeric.Real.makeCard()
         
         do {
-            try angle.bind(withValue: 1.0)
+            try card.bind(withValue: 1.0)
         } catch let error {
-            XCTFail("error binding double value to Angle card: \(error)")
+            XCTFail("error binding double value to Real card: \(error)")
         }
         
-        XCTAssertTrue(angle.inputDataValue() == 1.0)
+        XCTAssertTrue(card.inputDataValue() == 1.0)
     }
     
     func testValidDataBinding() {
         let image = CardKit.Input.Media.Image.makeCard()
         
         let str = "Hello, world"
-        let data = str.data(using: String.Encoding.utf8)
-        
-        do {
-            try image.bind(withValue: data!)
-        } catch let error {
-            XCTFail("error binding double value to Angle card: \(error)")
+        guard let data = str.data(using: String.Encoding.utf8) else {
+            XCTFail("could not convert String to Data")
+            return
         }
         
-        let boundData: Data = image.inputDataValue()!
-        let boundStr: String = String(data: boundData, encoding: String.Encoding.utf8)!
+        do {
+            try image.bind(withValue: data)
+        } catch let error {
+            XCTFail("error binding double value to Angle card: \(error)")
+            return
+        }
+        
+        guard let boundData: Data = image.inputDataValue() else {
+            XCTFail("could not get inputDataValue() as type Data")
+            return
+        }
+        
+        guard let boundStr: String = String(data: boundData, encoding: String.Encoding.utf8) else {
+            XCTFail("could not convert Data to String")
+            return
+        }
         
         XCTAssertTrue(boundStr == str)
     }
     
     func testValidStructBinding() {
-        let bb = CardKit.Input.Location.BoundingBox.makeCard()
-        
-        let topLeft = CKCoordinate2D(latitude: 0.0, longitude: 0.0)
-        let topRight = CKCoordinate2D(latitude: 0.0, longitude: 1.0)
-        let botLeft = CKCoordinate2D(latitude: 1.0, longitude: 0.0)
-        let botRight = CKCoordinate2D(latitude: 1.0, longitude: 1.0)
-        
-        let box: [CKCoordinate2D] = [topLeft, topRight, botLeft, botRight]
-        
-        do {
-            try bb.bind(withValue: box)
-        } catch let error {
-            XCTFail("error binding double value to Angle card: \(error)")
+        //swiftlint:disable:next nesting
+        struct FooBar: JSONEncodable, JSONDecodable {
+            var foo: Int
+            var bar: Int
+            
+            init(_ foo: Int, _ bar: Int) {
+                self.foo = foo
+                self.bar = bar
+            }
+            
+            init(json: JSON) throws {
+                self.foo = try json.getInt(at: "foo")
+                self.bar = try json.getInt(at: "bar")
+            }
+            
+            func toJSON() -> JSON {
+                return .dictionary([
+                    "foo": self.foo.toJSON(),
+                    "bar": self.bar.toJSON()])
+            }
         }
         
-        let bbBox: [CKCoordinate2D] = bb.inputDataValue()!
-        XCTAssertTrue(bbBox == box)
+        let foobarInput = InputCardDescriptor(
+            name: "FooBar",
+            subpath: nil,
+            inputType: FooBar.self,
+            inputDescription: "Foo! Bar!",
+            assetCatalog: CardAssetCatalog(),
+            version: 0)
+        
+        let card = foobarInput.makeCard()
+        let foobarInstance = FooBar(1, 2)
+        
+        do {
+            try card.bind(withValue: foobarInstance)
+        } catch let error {
+            XCTFail("error binding struct FooBar to FooBar card: \(error)")
+            return
+        }
+        
+        guard let value: FooBar = card.inputDataValue() else {
+            XCTFail("could not get inputDataValue() as type FooBar")
+            return
+        }
+        
+        XCTAssertTrue(value.foo == foobarInstance.foo)
+        XCTAssertTrue(value.bar == foobarInstance.bar)
     }
     
     func testTypeMismatchBinding() {

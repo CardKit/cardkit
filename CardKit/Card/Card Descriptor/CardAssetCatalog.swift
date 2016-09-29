@@ -13,11 +13,11 @@ import Freddy
 public struct CardAssetCatalog {
     public var textualDescription: String
     
-    init() {
+    public init() {
         self.textualDescription = ""
     }
     
-    init(description: String) {
+    public init(description: String) {
         self.textualDescription = description
     }
 }

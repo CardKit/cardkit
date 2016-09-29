@@ -28,10 +28,10 @@ public class HandCard: Card {
 
 // MARK: Equatable
 
-extension HandCard: Equatable {}
-
-public func == (lhs: HandCard, rhs: HandCard) -> Bool {
-    return lhs.identifier == rhs.identifier
+extension HandCard: Equatable {
+    static public func == (lhs: HandCard, rhs: HandCard) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }
 
 // MARK: Hashable
