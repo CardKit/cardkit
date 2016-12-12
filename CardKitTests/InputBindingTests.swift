@@ -10,6 +10,8 @@ import XCTest
 
 import Freddy
 
+@testable import CardKit
+
 class InputBindingTests: XCTestCase {
 
     override func setUp() {

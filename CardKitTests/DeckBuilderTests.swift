@@ -8,6 +8,8 @@
 
 import XCTest
 
+@testable import CardKit
+
 class DeckBuilderTests: XCTestCase {
 
     override func setUp() {

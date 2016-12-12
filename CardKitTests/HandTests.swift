@@ -8,6 +8,8 @@
 
 import XCTest
 
+@testable import CardKit
+
 //swiftlint:disable type_body_length
 class HandTests: XCTestCase {
 

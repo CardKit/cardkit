@@ -8,6 +8,8 @@
 
 import Foundation
 
+@testable import CardKit
+
 /// Descriptors for test cards.
 
 // swiftlint:disable nesting
