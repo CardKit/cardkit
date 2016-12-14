@@ -44,7 +44,7 @@ postfix operator %
 extension InputCardDescriptor {
     /// Bind data to an InputCardDescriptor. Creates a new
     /// InputCard instance first.
-    static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard {
+    public static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard {
         return try lhs.makeCard() <- rhs
     }
 }
@@ -61,37 +61,37 @@ extension InputCard {
 extension ActionCardDescriptor {
     /// Try binding an InputCard to an ActionCardDescriptor. Creates a new
     /// ActionCard instance first.
-    static func <- (lhs: ActionCardDescriptor, rhs: InputCard) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: InputCard) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
     /// Try binding a set of InputCards to an ActionCardDescriptor. Creates a new
     /// ActionCard instance first.
-    static func <- (lhs: ActionCardDescriptor, rhs: [InputCard]) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: [InputCard]) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
     /// Bind an InputCard to an ActionCardDescriptor in the given InputSlotName. Creates a new ActionCard
     /// instance first.
-    static func <- (lhs: ActionCardDescriptor, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
     /// Bind a TokenCard to an ActionCardDescriptor in the given TokenSlotName. Creates a new ActionCard
     /// instance first.
-    static func <- (lhs: ActionCardDescriptor, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
     /// Bind an ActionCardDescriptors's Yield to an ActionCardDescriptor. Creates new ActionCard
     /// instances first.
-    static func <- (lhs: ActionCardDescriptor, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
         return try lhs.makeCard() <- (rhs.0.makeCard(), rhs.1)
     }
     
     /// Bind an ActionCard's Yield to an ActionCardDescriptor. Creates a new ActionCard
     /// instance first.
-    static func <- (lhs: ActionCardDescriptor, rhs: (ActionCard, Yield)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (ActionCard, Yield)) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
 }
@@ -113,18 +113,18 @@ extension ActionCard {
     }
 
     /// Bind an InputCard to an ActionCard in the given InputSlotName
-    static func <- (lhs: ActionCard, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCard, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
     }
     
     /// Bind a TokenCard to an ActionCard in the given TokenSlotName
-    static func <- (lhs: ActionCard, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCard, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
     }
     
     /// Bind an ActionCardDescriptor's Yield to an ActionCard. Creates a new ActionCard
     /// instance first.
-    static func <- (lhs: ActionCard, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
+    public static func <- (lhs: ActionCard, rhs: (ActionCardDescriptor, Yield)) throws -> ActionCard {
         return try lhs <- (rhs.0.makeCard(), rhs.1)
     }
 
@@ -139,14 +139,14 @@ extension ActionCard {
 
 extension ActionCardDescriptor {
     /// Return a new hand with the given ActionCard and a Not card played with it
-    static public prefix func ! (operand: ActionCardDescriptor) -> Hand {
+    public static prefix func ! (operand: ActionCardDescriptor) -> Hand {
         return !operand.makeCard()
     }
 }
 
 extension ActionCard {
     /// Return a new hand with the given ActionCard and a Not card played with it
-    static public prefix func ! (operand: ActionCard) -> Hand {
+    public static prefix func ! (operand: ActionCard) -> Hand {
         // create a new Hand
         let hand = Hand()
         
@@ -163,26 +163,26 @@ extension ActionCard {
 // MARK: And Operations
 
 extension ActionCardDescriptor {
-    static func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
+    public static func && (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
         return lhs.makeCard() && rhs.makeCard()
     }
 
-    static func && (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
+    public static func && (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
         return lhs.makeCard() && rhs
     }
     
-    static func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
+    public static func && (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
         return lhs.makeCard() && rhs
     }
 }
 
 extension ActionCard {
-    static func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
+    public static func && (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
         return lhs && rhs.makeCard()
     }
 
     /// Return a new hand with the given ActionCards ANDed together
-    static func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    public static func && (lhs: ActionCard, rhs: ActionCard) -> Hand {
         // create a new Hand
         let hand = Hand()
         
@@ -195,7 +195,7 @@ extension ActionCard {
         return hand
     }
     
-    static func && (lhs: ActionCard, rhs: Hand) -> Hand {
+    public static func && (lhs: ActionCard, rhs: Hand) -> Hand {
         let hand = Hand()
         hand.add(lhs)
         return rhs && hand
@@ -203,11 +203,11 @@ extension ActionCard {
 }
 
 extension Hand {
-    static func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
+    public static func && (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
         return lhs && rhs.makeCard()
     }
 
-    static func && (lhs: Hand, rhs: ActionCard) -> Hand {
+    public static func && (lhs: Hand, rhs: ActionCard) -> Hand {
         let hand = Hand()
         hand.add(rhs)
         return lhs && hand
@@ -219,7 +219,7 @@ extension Hand {
     /// trees in lhs and rhs. Branch cards are removed in this operation because the CardTrees are no
     /// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
     /// new Hand, with rhs having precedence when there are conflicts.
-    static func && (lhs: Hand, rhs: Hand) -> Hand {
+    public static func && (lhs: Hand, rhs: Hand) -> Hand {
         return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .booleanAnd)
     }
 }
@@ -228,26 +228,26 @@ extension Hand {
 // MARK: Or Operations
 
 extension ActionCardDescriptor {
-    static func || (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
+    public static func || (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
         return lhs.makeCard() || rhs.makeCard()
     }
 
-    static func || (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
+    public static func || (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
         return lhs.makeCard() || rhs
     }
     
-    static func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
+    public static func || (lhs: ActionCardDescriptor, rhs: Hand) -> Hand {
         return lhs.makeCard() || rhs
     }
 }
 
 extension ActionCard {
-    static func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
+    public static func || (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
         return lhs || rhs.makeCard()
     }
 
     /// Return a new hand with the given ActionCards ORed together
-    static func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    public static func || (lhs: ActionCard, rhs: ActionCard) -> Hand {
         // create a new Hand
         let hand = Hand()
         hand.add(lhs)
@@ -262,7 +262,7 @@ extension ActionCard {
         return hand
     }
     
-    static func || (lhs: ActionCard, rhs: Hand) -> Hand {
+    public static func || (lhs: ActionCard, rhs: Hand) -> Hand {
         let hand = Hand()
         hand.add(lhs)
         return rhs || hand
@@ -270,11 +270,11 @@ extension ActionCard {
 }
 
 extension Hand {
-    static func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
+    public static func || (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
         return lhs || rhs.makeCard()
     }
 
-    static func || (lhs: Hand, rhs: ActionCard) -> Hand {
+    public static func || (lhs: Hand, rhs: ActionCard) -> Hand {
         let hand = Hand()
         hand.add(rhs)
         return lhs || hand
@@ -286,7 +286,7 @@ extension Hand {
     /// trees in lhs and rhs. Branch cards are removed in this operation because the CardTrees are no
     /// longer valid. All other cards (Hand, Repeat, End Rule) are copied into the
     /// new Hand, with rhs having precedence when there are conflicts.
-    static func || (lhs: Hand, rhs: Hand) -> Hand {
+    public static func || (lhs: Hand, rhs: Hand) -> Hand {
         return lhs.collapsed(combiningWith: rhs, usingLogicalOperation: .booleanOr)
     }
 }
@@ -295,21 +295,21 @@ extension Hand {
 // MARK: Adding Cards to a Hand
 
 extension ActionCardDescriptor {
-    static func ++ (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
+    public static func ++ (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Hand {
         return lhs.makeCard() ++ rhs.makeCard()
     }
 
-    static func ++ (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
+    public static func ++ (lhs: ActionCardDescriptor, rhs: ActionCard) -> Hand {
         return lhs.makeCard() ++ rhs
     }
 }
 
 extension ActionCard {
-    static func ++ (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
+    public static func ++ (lhs: ActionCard, rhs: ActionCardDescriptor) -> Hand {
         return lhs ++ rhs.makeCard()
     }
 
-    static func ++ (lhs: ActionCard, rhs: ActionCard) -> Hand {
+    public static func ++ (lhs: ActionCard, rhs: ActionCard) -> Hand {
         let hand = Hand()
         hand.add(lhs)
         hand.add(rhs)
@@ -318,21 +318,21 @@ extension ActionCard {
 }
 
 extension HandCardDescriptor {
-    static func ++ (lhs: HandCardDescriptor, rhs: HandCardDescriptor) -> Hand {
+    public static func ++ (lhs: HandCardDescriptor, rhs: HandCardDescriptor) -> Hand {
         return lhs.makeCard() ++ rhs.makeCard()
     }
     
-    static func ++ (lhs: HandCardDescriptor, rhs: HandCard) -> Hand {
+    public static func ++ (lhs: HandCardDescriptor, rhs: HandCard) -> Hand {
         return lhs.makeCard() ++ rhs
     }
 }
 
 extension HandCard {
-    static func ++ (lhs: HandCard, rhs: HandCardDescriptor) -> Hand {
+    public static func ++ (lhs: HandCard, rhs: HandCardDescriptor) -> Hand {
         return lhs ++ rhs.makeCard()
     }
     
-    static func ++ (lhs: HandCard, rhs: HandCard) -> Hand {
+    public static func ++ (lhs: HandCard, rhs: HandCard) -> Hand {
         let hand = Hand()
         hand.add(lhs)
         hand.add(rhs)
@@ -341,21 +341,21 @@ extension HandCard {
 }
 
 extension Hand {
-    static func ++ (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
+    public static func ++ (lhs: Hand, rhs: ActionCardDescriptor) -> Hand {
         return lhs ++ rhs.makeCard()
     }
 
-    static func ++ (lhs: Hand, rhs: ActionCard) -> Hand {
+    public static func ++ (lhs: Hand, rhs: ActionCard) -> Hand {
         let hand = lhs
         hand.add(rhs)
         return hand
     }
     
-    static func ++ (lhs: Hand, rhs: HandCardDescriptor) -> Hand {
+    public static func ++ (lhs: Hand, rhs: HandCardDescriptor) -> Hand {
         return lhs ++ rhs.makeCard()
     }
     
-    static func ++ (lhs: Hand, rhs: HandCard) -> Hand {
+    public static func ++ (lhs: Hand, rhs: HandCard) -> Hand {
         let hand = lhs
         hand.add(rhs)
         return hand
@@ -366,7 +366,7 @@ extension Hand {
 // MARK: Merging Hands Together
 
 extension Hand {
-    static func ++ (lhs: Hand, rhs: Hand) -> Hand {
+    public static func ++ (lhs: Hand, rhs: Hand) -> Hand {
         return lhs.merged(with: rhs)
     }
 }
@@ -375,30 +375,30 @@ extension Hand {
 // MARK: Sequencing Hands
 
 extension ActionCardDescriptor {
-    static func ==> (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> [Hand] {
+    public static func ==> (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> [Hand] {
         return lhs.makeCard() ==> rhs.makeCard()
     }
 
-    static func ==> (lhs: ActionCardDescriptor, rhs: ActionCard) -> [Hand] {
+    public static func ==> (lhs: ActionCardDescriptor, rhs: ActionCard) -> [Hand] {
         return lhs.makeCard() ==> rhs
     }
     
-    static func ==> (lhs: ActionCardDescriptor, rhs: Hand) -> [Hand] {
+    public static func ==> (lhs: ActionCardDescriptor, rhs: Hand) -> [Hand] {
         return lhs.makeCard() ==> rhs
     }
     
-    static func ==> (lhs: ActionCardDescriptor, rhs: [Hand]) -> [Hand] {
+    public static func ==> (lhs: ActionCardDescriptor, rhs: [Hand]) -> [Hand] {
         return lhs.makeCard() ==> rhs
     }
 }
 
 extension ActionCard {
-    static func ==> (lhs: ActionCard, rhs: ActionCardDescriptor) -> [Hand] {
+    public static func ==> (lhs: ActionCard, rhs: ActionCardDescriptor) -> [Hand] {
         return lhs ==> rhs.makeCard()
     }
 
     /// Return a new deck with lhs and rhs as separate hands
-    static func ==> (lhs: ActionCard, rhs: ActionCard) -> [Hand] {
+    public static func ==> (lhs: ActionCard, rhs: ActionCard) -> [Hand] {
         let lhsHand = Hand()
         lhsHand.add(lhs)
         let rhsHand = Hand()
@@ -406,13 +406,13 @@ extension ActionCard {
         return [lhsHand, rhsHand]
     }
     
-    static func ==> (lhs: ActionCard, rhs: Hand) -> [Hand] {
+    public static func ==> (lhs: ActionCard, rhs: Hand) -> [Hand] {
         let lhsHand = Hand()
         lhsHand.add(lhs)
         return [lhsHand, rhs]
     }
     
-    static func ==> (lhs: ActionCard, rhs: [Hand]) -> [Hand] {
+    public static func ==> (lhs: ActionCard, rhs: [Hand]) -> [Hand] {
         let hand = Hand()
         hand.add(lhs)
         
@@ -424,13 +424,13 @@ extension ActionCard {
 }
 
 extension HandCardDescriptor {
-    static func ==> (lhs: HandCardDescriptor, rhs: [Hand]) -> [Hand] {
+    public static func ==> (lhs: HandCardDescriptor, rhs: [Hand]) -> [Hand] {
         return lhs.makeCard() ==> rhs
     }
 }
 
 extension HandCard {
-    static func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
+    public static func ==> (lhs: HandCard, rhs: [Hand]) -> [Hand] {
         let hand = Hand()
         hand.add(lhs)
         
@@ -442,17 +442,17 @@ extension HandCard {
 }
 
 extension Hand {
-    static func ==> (lhs: Hand, rhs: ActionCardDescriptor) -> [Hand] {
+    public static func ==> (lhs: Hand, rhs: ActionCardDescriptor) -> [Hand] {
         return lhs ==> rhs.makeCard()
     }
     
-    static func ==> (lhs: Hand, rhs: ActionCard) -> [Hand] {
+    public static func ==> (lhs: Hand, rhs: ActionCard) -> [Hand] {
         let rhsHand = Hand()
         rhsHand.add(rhs)
         return [lhs, rhsHand]
     }
     
-    static func ==> (lhs: Hand, rhs: Hand) -> [Hand] {
+    public static func ==> (lhs: Hand, rhs: Hand) -> [Hand] {
         return [lhs, rhs]
     }
 }
@@ -462,7 +462,7 @@ extension Hand {
 
 extension ActionCard {
     /// Seals a card into a Hand
-    static postfix func % (operand: ActionCard) -> Hand {
+    public static postfix func % (operand: ActionCard) -> Hand {
         let hand = Hand()
         hand.add(operand)
         return hand
@@ -471,7 +471,7 @@ extension ActionCard {
 
 extension HandCard {
     /// Seals a card into a Hand
-    static postfix func % (operand: HandCard) -> Hand {
+    public static postfix func % (operand: HandCard) -> Hand {
         let hand = Hand()
         hand.add(operand)
         return hand
@@ -480,14 +480,14 @@ extension HandCard {
 
 extension Hand {
     /// Seals a deck with a given Hand
-    static postfix func % (operand: Hand) -> Deck {
+    public static postfix func % (operand: Hand) -> Deck {
         return [operand]%
     }
 }
 
 extension Array where Iterator.Element : Hand {
     /// Seals a deck with the given set of hands
-    static postfix func % (operand: [Hand]) -> Deck {
+    public static postfix func % (operand: [Hand]) -> Deck {
         let deck = Deck()
         deck.deckHands = operand
         return deck
@@ -498,21 +498,21 @@ extension Array where Iterator.Element : Hand {
 
 extension Deck {
     /// Adds a TokenCard to a Deck
-    static func + (lhs: Deck, rhs: TokenCard) -> Deck {
+    public static func + (lhs: Deck, rhs: TokenCard) -> Deck {
         let deck = Deck(copying: lhs)
         deck.add(rhs)
         return deck
     }
     
     /// Adds an instance of DeckCardDescriptor to a Deck
-    static func + (lhs: Deck, rhs: DeckCardDescriptor) -> Deck {
+    public static func + (lhs: Deck, rhs: DeckCardDescriptor) -> Deck {
         let deck = Deck(copying: lhs)
         deck.add(rhs.makeCard())
         return deck
     }
 
     /// Adds a DeckCard to a Deck
-    static func + (lhs: Deck, rhs: DeckCard) -> Deck {
+    public static func + (lhs: Deck, rhs: DeckCard) -> Deck {
         let deck = Deck(copying: lhs)
         deck.add(rhs)
         return deck

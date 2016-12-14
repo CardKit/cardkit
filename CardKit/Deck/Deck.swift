@@ -112,17 +112,17 @@ public class Deck {
 
 extension Deck {
     /// Add the Hand to the Deck as a top-level Hand (i.e. not nested within any Hands).
-    func add(_ hand: Hand) {
+    public func add(_ hand: Hand) {
         self.deckHands.append(hand)
     }
     
     /// Add the Deck card to the Deck.
-    func add(_ card: DeckCard) {
+    public func add(_ card: DeckCard) {
         self.deckCards.append(card)
     }
     
     /// Add the Token card to the Deck.
-    func add(_ card: TokenCard) {
+    public func add(_ card: TokenCard) {
         self.tokenCards.append(card)
     }
 }
@@ -131,7 +131,7 @@ extension Deck {
 
 extension Deck {
     /// Remove the Hand from the Deck. Removes the Hand even if it is nested within another Hand.
-    func remove(_ hand: Hand) {
+    public func remove(_ hand: Hand) {
         if self.deckHands.contains(hand) {
             self.deckHands.removeObject(hand)
         } else {
@@ -143,12 +143,12 @@ extension Deck {
     }
     
     /// Remove the Deck card from the Deck.
-    func remove(_ card: DeckCard) {
+    public func remove(_ card: DeckCard) {
         self.deckCards.removeObject(card)
     }
     
     /// Remove the Token card from the Deck.
-    func remove(_ card: TokenCard) {
+    public func remove(_ card: TokenCard) {
         self.tokenCards.removeObject(card)
     }
 }
