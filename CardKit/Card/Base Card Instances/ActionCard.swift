@@ -84,6 +84,14 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     }
     
     init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : InputSlotBinding], tokenBindings: [TokenSlot : TokenSlotBinding]) {
+        
+        
+        print("============================")
+        print("============================")
+        print("ActionCard INIT")
+        print("============================")
+        print("============================")
+        
         self.descriptor = descriptor
         self.inputBindings = inputBindings
         self.tokenBindings = tokenBindings
