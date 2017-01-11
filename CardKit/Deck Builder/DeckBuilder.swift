@@ -469,6 +469,15 @@ extension ActionCard {
     }
 }
 
+extension Array where Iterator.Element : ActionCard {
+    /// Seals a set of cards into an hand
+    public static postfix func % (operand: [ActionCard]) -> Hand {
+        let hand = Hand()
+        hand.add(operand)
+        return hand
+    }
+}
+
 extension HandCard {
     /// Seals a card into a Hand
     public static postfix func % (operand: HandCard) -> Hand {
