@@ -35,7 +35,7 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     }
     
     /// Return a new TokenCard instance using our descriptor
-    func makeCard() -> TokenCard {
+    public func makeCard() -> TokenCard {
         return TokenCard(with: self)
     }
 }
