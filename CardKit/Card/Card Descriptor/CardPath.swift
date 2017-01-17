@@ -37,10 +37,8 @@ extension CardPath: Equatable {
 
 extension CardPath: Hashable {
     public var hashValue: Int {
-        get {
-            // sum up the hash values of all the components
-            return self.pathComponents.reduce(0, { $0 &+ $1.hashValue })
-        }
+        // sum up the hash values of all the components
+        return self.pathComponents.reduce(0, { $0 &+ $1.hashValue })
     }
 }
 
@@ -48,9 +46,7 @@ extension CardPath: Hashable {
 
 extension CardPath: CustomStringConvertible {
     public var description: String {
-        get {
-            return self.pathComponents.joined(separator: "/")
-        }
+        return self.pathComponents.joined(separator: "/")
     }
 }
 

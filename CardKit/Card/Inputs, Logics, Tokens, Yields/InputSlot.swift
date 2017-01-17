@@ -102,15 +102,13 @@ public enum InputSlotBinding {
 
 extension InputSlotBinding: CustomStringConvertible {
     public var description: String {
-        get {
-            switch self {
-            case .unbound:
-                return "[unbound]"
-            case .boundToInputCard(let card):
-                return "[bound to InputCard \(card.identifier)]"
-            case .boundToYieldingActionCard(let cardIdentifier, let yield):
-                return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
-            }
+        switch self {
+        case .unbound:
+            return "[unbound]"
+        case .boundToInputCard(let card):
+            return "[bound to InputCard \(card.identifier)]"
+        case .boundToYieldingActionCard(let cardIdentifier, let yield):
+            return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
         }
     }
 }

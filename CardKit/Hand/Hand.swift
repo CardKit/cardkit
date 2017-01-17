@@ -79,8 +79,8 @@ public class Hand: JSONEncodable, JSONDecodable {
     /// The number of cards in this hand, as well as the number of cards
     /// recursively stored in all subhands.
     public var nestedCardCount: Int {
-        return self.cards.count + self.subhands.reduce(0) {
-            (count, hand) in count + hand.nestedCardCount
+        return self.cards.count + self.subhands.reduce(0) { (count, hand) in
+            count + hand.nestedCardCount
         }
     }
     
@@ -94,8 +94,8 @@ public class Hand: JSONEncodable, JSONDecodable {
     
     /// The number of subhands recursively stored in this hand.
     public var nestedSubhandCount: Int {
-        return self.subhands.count + self.subhands.reduce(0) {
-            (count, hand) in count + hand.nestedSubhandCount
+        return self.subhands.count + self.subhands.reduce(0) { (count, hand) in 
+            count + hand.nestedSubhandCount
         }
     }
     
@@ -604,13 +604,13 @@ extension Hand {
     /// Returns true if the Hand contains the given Hand. Operates recursively.
     func contains(_ hand: Hand) -> Bool {
         // check our subhands
-        let contains = self.subhands.reduce(false) {
-            (contains, subhand) in contains || subhand == hand
+        let contains = self.subhands.reduce(false) { (contains, subhand) in
+            contains || subhand == hand
         }
         // if we don't have it, see if our subhands has it
         if !contains {
-            return self.subhands.reduce(false) {
-                (contains, subhand) in contains || subhand.contains(hand)
+            return self.subhands.reduce(false) { (contains, subhand) in
+                contains || subhand.contains(hand)
             }
         }
         return contains
@@ -727,8 +727,7 @@ extension Hand {
         
         // merge
         let rest = nonEmptyTrees[2...nonEmptyTrees.endIndex]
-        let newRoot = rest.reduce(initialNode) {
-            (partialTreeRoot, nextTree) -> CardTreeNode in
+        let newRoot = rest.reduce(initialNode) { (partialTreeRoot, nextTree) -> CardTreeNode in
             
             // add nextTree to partialTree
             guard let logicCard: LogicHandCard = combine.typedInstance() else { return partialTreeRoot }
