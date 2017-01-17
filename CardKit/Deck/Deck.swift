@@ -41,8 +41,8 @@ public class Deck {
     /// Returns the complete number of Hands in the Deck, including
     /// Hands that are nested in other Hands due to branching logic.
     public var handCount: Int {
-        return deckHands.count + deckHands.reduce(0) {
-            (count, hand) in count + hand.nestedSubhandCount
+        return deckHands.count + deckHands.reduce(0) { (count, hand) in
+            count + hand.nestedSubhandCount
         }
     }
     
@@ -55,8 +55,8 @@ public class Deck {
     
     /// Returns the complete number of Cards in the Deck.
     public var cardCount: Int {
-        return self.deckHands.reduce(0) {
-            (count, hand) in count + hand.nestedCardCount
+        return self.deckHands.reduce(0) { (count, hand) in
+            count + hand.nestedCardCount
         } + self.deckCards.count + self.tokenCards.count
     }
     

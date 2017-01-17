@@ -23,9 +23,7 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let tokenSlots: [TokenSlot]
     
     public var producesYields: Bool {
-        get {
-            return yields.count > 0
-        }
+        return yields.count > 0
     }
     public let yields: [Yield]
     public let yieldDescription: String

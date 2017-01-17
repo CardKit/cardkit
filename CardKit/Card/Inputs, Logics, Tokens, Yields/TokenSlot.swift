@@ -92,13 +92,11 @@ public enum TokenSlotBinding {
 
 extension TokenSlotBinding: CustomStringConvertible {
     public var description: String {
-        get {
-            switch self {
-            case .unbound:
-                return "[unbound]"
-            case .boundToTokenCard(let identifier):
-                return "[bound to TokenCard \(identifier)]"
-            }
+        switch self {
+        case .unbound:
+            return "[unbound]"
+        case .boundToTokenCard(let identifier):
+            return "[bound to TokenCard \(identifier)]"
         }
     }
 }
