@@ -193,6 +193,11 @@ extension CardKit.Hand.Logic {
 // MARK: - Input Cards
     
 extension CardKit.Input {
+    /// Contains descriptors for Input/Logical cards
+    public struct Logical {
+        fileprivate init() {}
+    }
+    
     /// Contains descriptors for Input/Media cards
     public struct Media {
         fileprivate init() {}
@@ -217,6 +222,18 @@ extension CardKit.Input {
     public struct Time {
         fileprivate init() {}
     }
+}
+
+extension CardKit.Input.Logical {
+    // MARK: Logical
+    /// Descriptor for the Boolean card
+    public static let Boolean = InputCardDescriptor(
+        name: "Boolean",
+        subpath: "Logical",
+        inputType: Bool.self,
+        inputDescription: "Boolean value (true or false)",
+        assetCatalog: CardAssetCatalog(description: "Boolean"),
+        version: 0)
 }
 
 extension CardKit.Input.Media {
