@@ -19,9 +19,6 @@ public protocol CardDescriptor {
     /// The path of the card. Card paths are always prefixed by their type. For example, a card path for an Input card specifying a distance might be "Input/Location/Distance".
     var path: CardPath { get }
     
-    /// The version number of a card.
-    var version: Int { get }
-    
     /// Information about the card asset (image & text resources)
     var assetCatalog: CardAssetCatalog { get }
 }

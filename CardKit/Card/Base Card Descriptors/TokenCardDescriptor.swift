@@ -16,19 +16,17 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
     public let cardType: CardType = .token
     public let name: String
     public let path: CardPath
-    public let version: Int
     public let assetCatalog: CardAssetCatalog
     
     public let isConsumed: Bool
     
-    public init(name: String, subpath: String?, isConsumed: Bool, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, isConsumed: Bool, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {
             self.path = CardPath(withPath: "Token/\(subpath)")
         } else {
             self.path = CardPath(withPath: "Token")
         }
-        self.version = version
         self.assetCatalog = assetCatalog
         
         self.isConsumed = isConsumed
@@ -43,12 +41,11 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
 // MARK: Equatable
 
 extension TokenCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
+    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: TokenCardDescriptor, rhs: TokenCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
         equal = equal && lhs.path == rhs.path
-        equal = equal && lhs.version == rhs.version
         return equal
     }
 }
@@ -57,7 +54,7 @@ extension TokenCardDescriptor: Equatable {
 
 extension TokenCardDescriptor: Hashable {
     public var hashValue: Int {
-        return name.hashValue &+ (path.hashValue &* 3) &+ (version.hashValue &* 5)
+        return name.hashValue &+ (path.hashValue &* 3)
     }
 }
 
@@ -77,7 +74,6 @@ extension TokenCardDescriptor: JSONEncodable {
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
-            "version": version.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "isConsumed": isConsumed.toJSON()
             ])
@@ -90,7 +86,6 @@ extension TokenCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
         self.name = try json.getString(at: "name")
         self.path = try json.decode(at: "path", type: CardPath.self)
-        self.version = try json.getInt(at: "version")
         self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
         self.isConsumed = try json.getBool(at: "isConsumed")
     }
