@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Satisfiable
+
 /// Applied to card descriptors that are satisfiable
 protocol Satisfiable {
     var ends: Bool { get }

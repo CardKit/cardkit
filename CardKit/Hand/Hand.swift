@@ -508,6 +508,76 @@ extension Hand {
         
         return children
     }
+    
+    /// Returns the LogicHandCard parent of the given ActionCard, or nil if the ActionCard is
+    /// not bound to a LogicHandCard. Used by validation to check if non-ending ActionCards
+    /// are bound to logic.
+    public func logicalParent(of card: ActionCard) -> LogicHandCard? {
+        
+        func subtreeNode(_ node: CardTreeNode, is card: ActionCard) -> Bool {
+            switch node {
+            case .action(let actionCard):
+                return actionCard.identifier == card.identifier
+            default:
+                return false
+            }
+        }
+        
+        func logicalParent(from node: CardTreeNode, of card: ActionCard) -> LogicHandCard? {
+            switch node {
+            case .action(_):
+                return nil
+            case .unaryLogic(let logicCard, let subtree):
+                // if the subtree corresponds to the ActionCard we are looking for,
+                // then logicCard is it's logical parent
+                if let subtree = subtree {
+                    if subtreeNode(subtree, is: card) {
+                        return logicCard
+                    } else {
+                        return logicalParent(from: subtree, of: card)
+                    }
+                } else {
+                    return nil
+                }
+            case .binaryLogic(let logicCard, let left, let right):
+                // check left subtree
+                var parent: LogicHandCard? = nil
+                
+                if let left = left {
+                    if subtreeNode(left, is: card) {
+                        parent = logicCard
+                    } else {
+                        parent = logicalParent(from: left, of: card)
+                    }
+                }
+                
+                // did we find it? if so, we're done
+                if parent != nil {
+                    return parent
+                }
+                
+                // check right subtree
+                if let right = right {
+                    if subtreeNode(right, is: card) {
+                        parent = logicCard
+                    } else {
+                        parent = logicalParent(from: right, of: card)
+                    }
+                }
+                
+                // either we found it or it's nil
+                return parent
+            }
+        }
+        
+        guard let tree = self.cardTrees.cardTree(containing: card) else { return nil }
+        
+        if let root = tree.root {
+            return logicalParent(from: root, of: card)
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: Branching
