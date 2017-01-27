@@ -16,19 +16,17 @@ public struct HandCardDescriptor: CardDescriptor {
     public let cardType: CardType = .hand
     public let name: String
     public let path: CardPath
-    public let version: Int
     public let assetCatalog: CardAssetCatalog
     
     public let handCardType: HandCardType
     
-    public init(name: String, subpath: String?, handCardType: HandCardType, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, handCardType: HandCardType, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {
             self.path = CardPath(withPath: "Hand/\(subpath)")
         } else {
             self.path = CardPath(withPath: "Hand")
         }
-        self.version = version
         self.assetCatalog = assetCatalog
         
         self.handCardType = handCardType
@@ -82,12 +80,11 @@ public struct HandCardDescriptor: CardDescriptor {
 // MARK: Equatable
 
 extension HandCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
+    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: HandCardDescriptor, rhs: HandCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
         equal = equal && lhs.path == rhs.path
-        equal = equal && lhs.version == rhs.version
         return equal
     }
 }
@@ -96,7 +93,7 @@ extension HandCardDescriptor: Equatable {
 
 extension HandCardDescriptor: Hashable {
     public var hashValue: Int {
-        return name.hashValue &+ (path.hashValue &* 3) &+ (version.hashValue &* 5)
+        return name.hashValue &+ (path.hashValue &* 3)
     }
 }
 
@@ -116,7 +113,6 @@ extension HandCardDescriptor: JSONEncodable {
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
-            "version": version.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "handCardType": handCardType.toJSON()
             ])
@@ -129,7 +125,6 @@ extension HandCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
         self.name = try json.getString(at: "name")
         self.path = try json.decode(at: "path", type: CardPath.self)
-        self.version = try json.getInt(at: "version")
         self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
         self.handCardType = try json.decode(at: "handCardType", type: HandCardType.self)
     }

@@ -16,17 +16,15 @@ public struct DeckCardDescriptor: CardDescriptor {
     public let cardType: CardType = .deck
     public let name: String
     public let path: CardPath
-    public let version: Int
     public let assetCatalog: CardAssetCatalog
     
-    public init(name: String, subpath: String?, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {
             self.path = CardPath(withPath: "Deck/\(subpath)")
         } else {
             self.path = CardPath(withPath: "Deck")
         }
-        self.version = version
         self.assetCatalog = assetCatalog
     }
     
@@ -39,12 +37,11 @@ public struct DeckCardDescriptor: CardDescriptor {
 // MARK: Equatable
 
 extension DeckCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
+    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
         equal = equal && lhs.path == rhs.path
-        equal = equal && lhs.version == rhs.version
         return equal
     }
 }
@@ -53,7 +50,7 @@ extension DeckCardDescriptor: Equatable {
 
 extension DeckCardDescriptor: Hashable {
     public var hashValue: Int {
-        return name.hashValue &+ (path.hashValue &* 3) &+ (version.hashValue &* 5)
+        return name.hashValue &+ (path.hashValue &* 3)
     }
 }
 
@@ -73,7 +70,6 @@ extension DeckCardDescriptor: JSONEncodable {
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
-            "version": version.toJSON(),
             "assetCatalog": assetCatalog.toJSON()
             ])
     }
@@ -85,7 +81,6 @@ extension DeckCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
         self.name = try json.getString(at: "name")
         self.path = try json.decode(at: "path", type: CardPath.self)
-        self.version = try json.getInt(at: "version")
         self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
     }
 }

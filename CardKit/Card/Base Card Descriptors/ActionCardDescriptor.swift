@@ -16,7 +16,6 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let cardType: CardType = .action
     public let name: String
     public let path: CardPath
-    public let version: Int
     public let assetCatalog: CardAssetCatalog
     
     public let inputSlots: [InputSlot]
@@ -32,14 +31,13 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let endDescription: String
     
     //swiftlint:disable:next function_parameter_count
-    public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String?, assetCatalog: CardAssetCatalog, version: Int = 0) {
+    public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String?, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {
             self.path = CardPath(withPath: "Action/\(subpath)")
         } else {
             self.path = CardPath(withPath: "Action")
         }
-        self.version = version
         self.assetCatalog = assetCatalog
         
         self.inputSlots = inputs ?? []
@@ -59,12 +57,11 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
 // MARK: Equatable
 
 extension ActionCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names, paths, and versions are the same. All the other metadata should be the same when two descriptors have the same name, path, & version.
+    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: ActionCardDescriptor, rhs: ActionCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
         equal = equal && lhs.path == rhs.path
-        equal = equal && lhs.version == rhs.version
         return equal
     }
 }
@@ -73,7 +70,7 @@ extension ActionCardDescriptor: Equatable {
 
 extension ActionCardDescriptor: Hashable {
     public var hashValue: Int {
-        return name.hashValue &+ (path.hashValue &* 3) &+ (version.hashValue &* 5)
+        return name.hashValue &+ (path.hashValue &* 3)
     }
 }
 
@@ -93,7 +90,6 @@ extension ActionCardDescriptor: JSONEncodable {
             "cardType": cardType.toJSON(),
             "name": name.toJSON(),
             "path": path.toJSON(),
-            "version": version.toJSON(),
             "assetCatalog": assetCatalog.toJSON(),
             "inputSlots": inputSlots.toJSON(),
             "tokenSlots": tokenSlots.toJSON(),
@@ -111,7 +107,6 @@ extension ActionCardDescriptor: JSONDecodable {
     public init(json: JSON) throws {
         self.name = try json.getString(at: "name")
         self.path = try json.decode(at: "path", type: CardPath.self)
-        self.version = try json.getInt(at: "version")
         self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
         self.inputSlots = try json.decodedArray(at: "inputSlots", type: InputSlot.self)
         self.tokenSlots = try json.decodedArray(at: "tokenSlots", type: TokenSlot.self)
