@@ -46,8 +46,8 @@ extension HandCard: Hashable {
 // MARK: - BranchHandCard
 
 public class BranchHandCard: HandCard, JSONEncodable, JSONDecodable {
-    public var cardTreeIdentifier: CardTreeIdentifier? = nil
-    public var targetHandIdentifier: HandIdentifier? = nil
+    public var cardTreeIdentifier: CardTreeIdentifier?
+    public var targetHandIdentifier: HandIdentifier?
     
     public override init(with descriptor: HandCardDescriptor) {
         super.init(with: descriptor)

@@ -26,7 +26,7 @@ public class Hand: JSONEncodable, JSONDecodable {
     public fileprivate (set) var branchCards: [BranchHandCard] = []
     
     /// Specifies whether the hand should repeat a number of times
-    public fileprivate (set) var repeatCard: RepeatHandCard? = nil
+    public fileprivate (set) var repeatCard: RepeatHandCard?
     
     /// Specifies the End Rule that governs the logic of this Hand. The default
     /// is that ALL cards in the hand must End before moving to the next Hand.

@@ -23,7 +23,7 @@ public typealias CardTreeIdentifier = CardIdentifier
 /// used to specify which groups of cards are part of a Branch.
 public class CardTree: JSONEncodable, JSONDecodable {
     var identifier: CardTreeIdentifier = CardTreeIdentifier()
-    var root: CardTreeNode? = nil
+    var root: CardTreeNode?
     
     public var cards: [Card] {
         guard let root = self.root else { return [] }
