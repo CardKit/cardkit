@@ -301,7 +301,7 @@ extension CardKit.Input.Time {
     public static let Duration = InputCardDescriptor(
         name: "Duration",
         subpath: "Time",
-        inputType: Int.self,
+        inputType: Double.self,
         inputDescription: "Duration (seconds)",
         assetCatalog: CardAssetCatalog(description: "Duration (seconds)"))
     
@@ -310,7 +310,7 @@ extension CardKit.Input.Time {
     public static let Periodicity = InputCardDescriptor(
         name: "Periodicity",
         subpath: "Time",
-        inputType: Int.self,
+        inputType: Double.self,
         inputDescription: "Periodic frequency (seconds)",
         assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"))
 }
