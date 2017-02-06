@@ -30,20 +30,20 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorEquality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog())
+        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog())
         
-        let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog())
+        let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog())
         
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog())
+        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog())
         
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog())
+        let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog())
         
-        let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
-        let t2 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
+        let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog())
+        let t2 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog())
         
         XCTAssertTrue(a1 == a2)
         XCTAssertTrue(d1 == d2)
@@ -53,43 +53,20 @@ class CardDescriptorTests: XCTestCase {
     }
     
     func testDescriptorPathInequality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: "A", inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
+        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog())
+        let a2 = ActionCardDescriptor(name: "A", subpath: "A", inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog())
         
-        let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let d2 = DeckCardDescriptor(name: "A", subpath: "A", assetCatalog: CardAssetCatalog(), version: 0)
+        let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog())
+        let d2 = DeckCardDescriptor(name: "A", subpath: "A", assetCatalog: CardAssetCatalog())
         
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: "A", inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
+        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog())
+        let h2 = InputCardDescriptor(name: "A", subpath: "A", inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog())
         
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: "A", handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
+        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog())
+        let i2 = HandCardDescriptor(name: "A", subpath: "A", handCardType: .branch, assetCatalog: CardAssetCatalog())
         
-        let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
-        let t2 = TokenCardDescriptor(name: "A", subpath: "A", isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
-        
-        XCTAssertTrue(a1 != a2)
-        XCTAssertTrue(d1 != d2)
-        XCTAssertTrue(h1 != h2)
-        XCTAssertTrue(i1 != i2)
-        XCTAssertTrue(t1 != t2)
-    }
-    
-    func testDescriptorVersionInequality() {
-        let a1 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let a2 = ActionCardDescriptor(name: "A", subpath: nil, inputs: nil, tokens: nil, yields: nil, yieldDescription: nil, ends: true, endsDescription: nil, assetCatalog: CardAssetCatalog(), version: 1)
-        
-        let d1 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 0)
-        let d2 = DeckCardDescriptor(name: "A", subpath: nil, assetCatalog: CardAssetCatalog(), version: 1)
-        
-        let h1 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 0)
-        let h2 = InputCardDescriptor(name: "A", subpath: nil, inputType: Double.self, inputDescription: "", assetCatalog: CardAssetCatalog(), version: 1)
-        
-        let i1 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 0)
-        let i2 = HandCardDescriptor(name: "A", subpath: nil, handCardType: .branch, assetCatalog: CardAssetCatalog(), version: 1)
-        
-        let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 0)
-        let t2 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog(), version: 1)
+        let t1 = TokenCardDescriptor(name: "A", subpath: nil, isConsumed: false, assetCatalog: CardAssetCatalog())
+        let t2 = TokenCardDescriptor(name: "A", subpath: "A", isConsumed: false, assetCatalog: CardAssetCatalog())
         
         XCTAssertTrue(a1 != a2)
         XCTAssertTrue(d1 != d2)

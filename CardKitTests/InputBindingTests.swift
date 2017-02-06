@@ -93,8 +93,7 @@ class InputBindingTests: XCTestCase {
             subpath: nil,
             inputType: FooBar.self,
             inputDescription: "Foo! Bar!",
-            assetCatalog: CardAssetCatalog(),
-            version: 0)
+            assetCatalog: CardAssetCatalog())
         
         let card = foobarInput.makeCard()
         let foobarInstance = FooBar(1, 2)

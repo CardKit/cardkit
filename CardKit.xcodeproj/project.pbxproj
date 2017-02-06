@@ -709,7 +709,7 @@
 					};
 					CC9317BA1D479278001B71B1 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = L7PKFA64KR;
+						DevelopmentTeam = 76CMF53Q35;
 						LastSwiftMigration = 0800;
 					};
 					CC9317CF1D47929F001B71B1 = {
@@ -1267,7 +1267,7 @@
 		CC9317C91D479278001B71B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L7PKFA64KR;
+				DEVELOPMENT_TEAM = 76CMF53Q35;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1283,7 +1283,7 @@
 		CC9317CA1D479278001B71B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = L7PKFA64KR;
+				DEVELOPMENT_TEAM = 76CMF53Q35;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

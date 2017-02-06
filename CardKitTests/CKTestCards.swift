@@ -33,8 +33,7 @@ public struct CKTestCards {
             yieldDescription: nil,
             ends: true,
             endsDescription: "Ends instantly.",
-            assetCatalog: CardAssetCatalog(description: "No action performed."),
-            version: 0)
+            assetCatalog: CardAssetCatalog(description: "No action performed."))
         
         // MARK: YieldingNoAction
         /// Descriptor for YieldingNoAction card
@@ -47,8 +46,7 @@ public struct CKTestCards {
             yieldDescription: "The answer to the question.",
             ends: true,
             endsDescription: "Ends instantly.",
-            assetCatalog: CardAssetCatalog(description: "No action performed, but yields magic."),
-            version: 0)
+            assetCatalog: CardAssetCatalog(description: "No action performed, but yields magic."))
         
         // MARK: AcceptsMultipleInputTypes
         /// Descriptor for AcceptsMultipleInputTypes card
@@ -66,7 +64,6 @@ public struct CKTestCards {
             yieldDescription: nil,
             ends: true,
             endsDescription: "Ends instantly.",
-            assetCatalog: CardAssetCatalog(description: "No action performed, but accepts magic inputs."),
-            version: 0)
+            assetCatalog: CardAssetCatalog(description: "No action performed, but accepts magic inputs."))
     }
 }
