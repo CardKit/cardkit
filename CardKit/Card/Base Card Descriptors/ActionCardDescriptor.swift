@@ -30,7 +30,6 @@ public struct ActionCardDescriptor: CardDescriptor, AcceptsInputs, AcceptsTokens
     public let ends: Bool
     public let endDescription: String
     
-    //swiftlint:disable:next function_parameter_count
     public init(name: String, subpath: String?, inputs: [InputSlot]?, tokens: [TokenSlot]?, yields: [Yield]?, yieldDescription: String?, ends: Bool, endsDescription: String?, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {

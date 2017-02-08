@@ -14,5 +14,14 @@ excluded:
   - Pods
 
 type_body_length:
-  - 400 # warning
-  - 500 # error
+  warning: 400
+  error: 500
+
+variable_name:
+  min_length:
+    warning: 2
+    error: 2
+
+function_parameter_count:
+  warning: 10
+  error: 15

@@ -27,7 +27,6 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     public let inputType: String
     public let inputDescription: String
     
-    //swiftlint:disable:next function_parameter_count
     public init(name: String, subpath: String?, inputType: InputType, inputDescription: String, assetCatalog: CardAssetCatalog) {
         self.name = name
         if let subpath = subpath {
