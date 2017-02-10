@@ -2,11 +2,13 @@
 disabled_rules:
   - trailing_whitespace
   - line_length
-  - cyclomatic_complexity
-  - force_try
+  - function_parameter_count
   - file_length
   - valid_docs
   - vertical_whitespace
+
+opt_in_rules:
+ - force_unwrapping
 
 # paths to ignore during linting. Takes precedence over `included`.
 excluded:
@@ -22,6 +24,46 @@ variable_name:
     warning: 2
     error: 2
 
-function_parameter_count:
-  warning: 10
-  error: 15
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+
+# force_cast: warning # implicitly
+# force_try:
+#   severity: warning # explicitly
+
+# rules that have both warning and error levels, can set just the warning level
+# implicitly
+
+#line_length:
+#  - 50
+#  - 60
+
+# they can set both implicitly with an array
+
+# type_body_length:
+#   - 300 # warning
+#   - 400 # error
+
+# or they can set both explicitly
+
+# file_length:
+#   warning: 500
+#   error: 1200
+
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+
+# type_name:
+#   min_length: 4 # only warning
+#   max_length: # warning and error
+#     warning: 40
+#     error: 50
+#   excluded: iPhone # excluded via string
+# variable_name:
+#     min_length: # only min_length
+#     error: 4 # only error
+#   excluded: # excluded via string array
+#     - id
+#     - URL
+#     - GlobalAPIKey
