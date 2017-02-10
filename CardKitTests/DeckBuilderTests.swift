@@ -56,17 +56,22 @@ class DeckBuilderTests: XCTestCase {
         let b = CKTestCards.Action.YieldingNoAction.makeCard()
         
         do {
-            let boundA = try a <- (b, b.yields.first!)
-            
-            XCTAssertTrue(boundA.isSlotBound(boundA.inputSlots.first!))
-            
-            let binding = boundA.binding(of: boundA.inputSlots.first!)!
-            if case .boundToYieldingActionCard(let identifier, let yield) = binding {
-                XCTAssertTrue(identifier == b.identifier)
-                XCTAssertTrue(yield.identifier == b.yields.first!.identifier)
-            } else {
-                XCTFail("yield case is not BoundToYieldingActionCard")
+            if let firstElementB = b.yields.first, let firstInputSlotA = boundA.inputSlots.first {
+                if let boundA = try a <- (b, firstElementB)
+                
+                XCTAssertTrue(boundA.isSlotBound(firstInputSlotA))
+                
+                if let binding = boundA.binding(of: firstInputSlotA) {
+                    if case .boundToYieldingActionCard(let identifier, let yield) == binding {
+                        XCTAssertTrue(identifier == b.identifier)
+                        XCTAssertTrue(yield.identifier == firstElementB.identifier)
+                    } else {
+                        XCTFail("yield case is not BoundToYieldingActionCard")
+                    }
+                }
+                
             }
+           
             
         } catch let error {
             XCTFail("\(error)")
@@ -79,29 +84,30 @@ class DeckBuilderTests: XCTestCase {
         do {
             let boundA = try a <- (CardKit.Input.Numeric.Real <- 5.0) <- (CardKit.Input.Numeric.Real <- 3.0)
             
-            let slotA = boundA.inputSlots.slot(named: "A")!
-            let slotB = boundA.inputSlots.slot(named: "B")!
-            let slotC = boundA.inputSlots.slot(named: "C")!
-            let slotD = boundA.inputSlots.slot(named: "D")!
+            if let slotA = boundA.inputSlots.slot(named: "A"),
+                let slotB = boundA.inputSlots.slot(named: "B"),
+                let slotC = boundA.inputSlots.slot(named: "C"),
+                let slotD = boundA.inputSlots.slot(named: "D") {
             
-            XCTAssertTrue(boundA.isSlotBound(slotA))
-            XCTAssertFalse(boundA.isSlotBound(slotB))
-            XCTAssertTrue(boundA.isSlotBound(slotC))
-            XCTAssertFalse(boundA.isSlotBound(slotD))
+                XCTAssertTrue(boundA.isSlotBound(slotA))
+                XCTAssertFalse(boundA.isSlotBound(slotB))
+                XCTAssertTrue(boundA.isSlotBound(slotC))
+                XCTAssertFalse(boundA.isSlotBound(slotD))
             
-            guard let aValue: Double = boundA.value(of: slotA) else {
-                XCTFail("expected a Double value in slotA")
-                return
+                guard let aValue: Double = boundA.value(of: slotA) else {
+                    XCTFail("expected a Double value in slotA")
+                    return
+                }
+            
+                XCTAssertTrue(aValue == 5.0)
+            
+                guard let cValue: Double = boundA.value(of: slotC) else {
+                    XCTFail("expected a Double value in slotC")
+                    return
+                }
+            
+                XCTAssertTrue(cValue == 3.0)
             }
-            
-            XCTAssertTrue(aValue == 5.0)
-            
-            guard let cValue: Double = boundA.value(of: slotC) else {
-                XCTFail("expected a Double value in slotC")
-                return
-            }
-            
-            XCTAssertTrue(cValue == 3.0)
             
         } catch let error {
             XCTFail("\(error)")
