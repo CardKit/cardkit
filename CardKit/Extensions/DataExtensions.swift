@@ -15,7 +15,7 @@ extension Data: JSONEncodable, JSONDecodable {
         let base64 = try json.getString()
         
         // there's probably a better way to do this
-        if let data = Data(base64Encoded: base64) {
+        if Data(base64Encoded: base64) != nil {
             //seems like we're forced to ! it here becuase of the method signature
             self.init(base64Encoded: base64)!
         } else {

@@ -56,22 +56,25 @@ class DeckBuilderTests: XCTestCase {
         let b = CKTestCards.Action.YieldingNoAction.makeCard()
         
         do {
-            if let firstElementB = b.yields.first, let firstInputSlotA = boundA.inputSlots.first {
-                if let boundA = try a <- (b, firstElementB)
-                
-                XCTAssertTrue(boundA.isSlotBound(firstInputSlotA))
-                
-                if let binding = boundA.binding(of: firstInputSlotA) {
-                    if case .boundToYieldingActionCard(let identifier, let yield) == binding {
-                        XCTAssertTrue(identifier == b.identifier)
-                        XCTAssertTrue(yield.identifier == firstElementB.identifier)
-                    } else {
-                        XCTFail("yield case is not BoundToYieldingActionCard")
-                    }
-                }
-                
+            guard let firstElementB = b.yields.first else { XCTFail("Missing inputs and/oZ yields, you gots to figure it out")
+                return
             }
-           
+            let boundA = try a <- (b, firstElementB)
+            guard let firstInputSlotA = boundA.inputSlots.first else { XCTFail("Missing Bound A Input Slot")
+                return
+            }
+            XCTAssertTrue(boundA.isSlotBound(firstInputSlotA))
+            
+            if let binding = boundA.binding(of: firstInputSlotA) {
+                if case .boundToYieldingActionCard(let identifier, let yield) = binding {
+                    XCTAssertTrue(identifier == b.identifier)
+                    XCTAssertTrue(yield.identifier == firstElementB.identifier)
+                } else {
+                    XCTFail("yield case is not BoundToYieldingActionCard")
+                }
+            }
+            
+            
             
         } catch let error {
             XCTFail("\(error)")
@@ -84,30 +87,33 @@ class DeckBuilderTests: XCTestCase {
         do {
             let boundA = try a <- (CardKit.Input.Numeric.Real <- 5.0) <- (CardKit.Input.Numeric.Real <- 3.0)
             
-            if let slotA = boundA.inputSlots.slot(named: "A"),
+            guard let slotA = boundA.inputSlots.slot(named: "A"),
                 let slotB = boundA.inputSlots.slot(named: "B"),
                 let slotC = boundA.inputSlots.slot(named: "C"),
-                let slotD = boundA.inputSlots.slot(named: "D") {
-            
-                XCTAssertTrue(boundA.isSlotBound(slotA))
-                XCTAssertFalse(boundA.isSlotBound(slotB))
-                XCTAssertTrue(boundA.isSlotBound(slotC))
-                XCTAssertFalse(boundA.isSlotBound(slotD))
-            
-                guard let aValue: Double = boundA.value(of: slotA) else {
-                    XCTFail("expected a Double value in slotA")
+                let slotD = boundA.inputSlots.slot(named: "D")  else {
+                    XCTFail("Some Input slots missing")
                     return
-                }
-            
-                XCTAssertTrue(aValue == 5.0)
-            
-                guard let cValue: Double = boundA.value(of: slotC) else {
-                    XCTFail("expected a Double value in slotC")
-                    return
-                }
-            
-                XCTAssertTrue(cValue == 3.0)
             }
+            
+            XCTAssertTrue(boundA.isSlotBound(slotA))
+            XCTAssertFalse(boundA.isSlotBound(slotB))
+            XCTAssertTrue(boundA.isSlotBound(slotC))
+            XCTAssertFalse(boundA.isSlotBound(slotD))
+            
+        
+            guard let aValue: Double = boundA.value(of: slotA) else {
+                XCTFail("expected a Double value in slotA")
+                return
+            }
+        
+            XCTAssertTrue(aValue == 5.0)
+        
+            guard let cValue: Double = boundA.value(of: slotC) else {
+                XCTFail("expected a Double value in slotC")
+                return
+            }
+        
+            XCTAssertTrue(cValue == 3.0)
             
         } catch let error {
             XCTFail("\(error)")
