@@ -59,10 +59,10 @@ class DeckTests: XCTestCase {
                 noAction ==>
                     
                     // wait 5 seconds
-                    timer <- (CardKit.Input.Time.Duration <- 5)  ==>
+                    timer <- (CardKit.Input.Time.Duration <- 5.0)  ==>
                     
                     // wait 10 seconds and until the clock time is reached
-                    timer <- (CardKit.Input.Time.Duration <- 10)
+                    timer <- (CardKit.Input.Time.Duration <- 10.0)
                     && wait <- (CardKit.Input.Time.ClockTime <- Date())
                 )%
             

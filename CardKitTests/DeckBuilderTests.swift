@@ -24,8 +24,8 @@ class DeckBuilderTests: XCTestCase {
     
     func testInputBinding() {
         do {
-            let duration = try CardKit.Input.Time.Duration <- 5
-            XCTAssertTrue(duration.inputDataValue() == 5)
+            let duration = try CardKit.Input.Time.Duration <- 5.0
+            XCTAssertTrue(duration.inputDataValue() == 5.0)
         } catch let error {
             XCTFail("\(error)")
         }
@@ -34,18 +34,18 @@ class DeckBuilderTests: XCTestCase {
     func testInputBindingOverwrite() {
         var duration = CardKit.Input.Time.Duration.makeCard()
         do {
-            duration = try duration <- 5
-            duration = try duration <- 2
+            duration = try duration <- 5.0
+            duration = try duration <- 2.0
         } catch let error {
             XCTFail("\(error)")
         }
         
-        XCTAssertTrue(duration.inputDataValue() == 2)
+        XCTAssertTrue(duration.inputDataValue() == 2.0)
     }
     
     func testTransitiveBinding() {
         do {
-            let _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5)
+            let _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5.0)
         } catch let error {
             XCTFail("\(error)")
         }
@@ -140,10 +140,10 @@ class DeckBuilderTests: XCTestCase {
                 noAction ==>
                 
                 // wait 5 seconds
-                timer <- (CardKit.Input.Time.Duration <- 5)  ==>
+                timer <- (CardKit.Input.Time.Duration <- 5.0)  ==>
                 
                 // wait 10 seconds and until the clock time is reached
-                timer <- (CardKit.Input.Time.Duration <- 10)
+                timer <- (CardKit.Input.Time.Duration <- 10.0)
                     && wait <- (CardKit.Input.Time.ClockTime <- Date())
             )%
             
