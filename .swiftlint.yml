@@ -24,6 +24,25 @@ variable_name:
     warning: 2
     error: 2
 
+custom_rules:
+  equals_usage_whitespace: # rule identifier
+    included: ".*.swift" # regex that defines paths to include during linting. optional.
+    name: "Equals Usage Whitespace" # rule name. optional.
+    regex: "[^\s+*/<>\-!|&^~=]=+[^\s>=]" # matching pattern
+    match_kinds:
+      - argument
+      - attribute.builtin
+      - attribute.id
+      - identifier
+      - keyword
+      - number
+      - objectliteral
+      - parameter
+      - placeholder
+      - string_interpolation_anchor
+      - typeidentifier
+    message: "Equal operators should be surrounded by a single whitespace when they are being used." # violation message. optional.
+    severity: warning # violation severity. optional.
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
