@@ -333,7 +333,7 @@ extension ActionCard: BindsWithInputCard {
     
     /// Returns the InputDataBinding held in the specified InputSlot, or .Unbound if the
     /// slot is not bound.
-    public func boundData(of slot: InputSlot) -> InputDataBinding {
+    public func boundData(of slot: InputSlot) -> DataBinding {
         guard let binding = self.inputBindings[slot] else { return .unbound }
         
         switch binding {

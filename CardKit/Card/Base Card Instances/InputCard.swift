@@ -20,13 +20,13 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input data
-    public var boundData: InputDataBinding = .unbound
+    public var boundData: DataBinding = .unbound
     
     init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: InputCardDescriptor, boundData: InputDataBinding) {
+    init(with descriptor: InputCardDescriptor, boundData: DataBinding) {
         self.descriptor = descriptor
         self.boundData = boundData
     }
@@ -36,7 +36,7 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public required init(json: JSON) throws {
         self.identifier = try json.decode(at: "identifier", type: CardIdentifier.self)
         self.descriptor = try json.decode(at: "descriptor", type: InputCardDescriptor.self)
-        self.boundData = try json.decode(at: "boundData", type: InputDataBinding.self)
+        self.boundData = try json.decode(at: "boundData", type: DataBinding.self)
     }
     
     public func toJSON() -> JSON {
@@ -76,17 +76,9 @@ extension InputCard {
         case bindingTypeMismatch(given: String, expected: String)
     }
     
-    /// Bind the input data
-    fileprivate func boundValue<T>(_ value: T) throws -> InputDataBinding {
-        
-        // make sure the type of the value matches the type expected by the descriptor
-//        func throwIfTypesDisagree(_ given: InputType, _ expected: String) throws {
-//            let givenType = String(describing: type(of: given))
-//            if givenType != expected {
-//                throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expected)
-//            }
-//        }
-        
+    /// Convert the given value to a DataBinding. Throws an error if the type of the given
+    /// value doesn't match the type expected by this InputCard.
+    fileprivate func boundValue<T>(_ value: T) throws -> DataBinding {
         // make sure the type of the value matches the type expected by the descriptor
         let givenType = String(describing: type(of: value))
         let expectedType = self.descriptor.inputType
@@ -101,69 +93,18 @@ extension InputCard {
         } else {
             throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
         }
-        
-        // this is a little silly, but we can't just use Any.Type for our
-        // Inputs because we can't deserialize the type from a string
-        /*switch value {
-        case let v as Int:
-            try throwIfTypesDisagree(Int.Type, self.descriptor.inputType)
-            return .swiftInt(v)
-        case let v as Double:
-            try throwIfTypesDisagree(.swiftDouble, self.descriptor.inputType)
-            return .swiftDouble(v)
-        case let v as String:
-            try throwIfTypesDisagree(.swiftString, self.descriptor.inputType)
-            return .swiftString(v)
-        case let v as Data:
-            try throwIfTypesDisagree(.swiftData, self.descriptor.inputType)
-            return .swiftData(v)
-        case let v as Date:
-            try throwIfTypesDisagree(.swiftDate, self.descriptor.inputType)
-            return .swiftDate(v)
-        case let v as JSON:
-            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
-            return .jsonObject(v)
-        case let v as JSONEncodable:
-            try throwIfTypesDisagree(.jsonObject, self.descriptor.inputType)
-            let json = v.toJSON()
-            return .jsonObject(json)
-        default:
-            throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
-        }*/
     }
     
+    /// Bind the given value to this InputCard.
     func bind<T>(withValue value: T) throws {
         self.boundData = try self.boundValue(value)
     }
     
+    /// Returns a new InputCard with the given value bound to it.
     public func bound<T>(withValue value: T) throws -> InputCard {
         let data = try self.boundValue(value)
         return InputCard(with: self.descriptor, boundData: data)
     }
-    
-    /// Return the data value bound to the input. Returns nil if no data has yet been bound.
-    /*public func inputDataValue<T>() -> T? {
-        switch self.boundData {
-        case .unbound:
-            return nil
-        case .bound(let val):
-            
-        case .swiftInt(let val):
-            if let ret = val as? T { return ret }
-        case .swiftDouble(let val):
-            if let ret = val as? T { return ret }
-        case .swiftString(let val):
-            if let ret = val as? T { return ret }
-        case .swiftData(let val):
-            if let ret = val as? T { return ret }
-        case .swiftDate(let val):
-            if let ret = val as? T { return ret }
-        case .jsonObject(let val):
-            if let ret = val as? T { return ret }
-        }
-        
-        return nil
-    }*/
     
     /// Return the data value bound to the input. Returns nil if no data has yet been bound.
     public func inputDataValue<T>() -> T? where T : JSONDecodable {
