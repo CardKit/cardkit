@@ -20,7 +20,7 @@ public struct CardIdentifier {
         identifier = UUID().uuidString
     }
     
-    init(with identifier: String) {
+    init(identifiedBy identifier: String) {
         self.identifier = identifier
     }
 }
