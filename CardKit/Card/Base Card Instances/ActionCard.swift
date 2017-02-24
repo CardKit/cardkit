@@ -331,7 +331,7 @@ extension ActionCard: BindsWithInputCard {
         throw ActionCard.BindingError.noInputSlotFoundWithName(name)
     }
     
-    /// Returns the InputDataBinding held in the specified InputSlot, or .Unbound if the
+    /// Returns the DataBinding held in the specified InputSlot, or .Unbound if the
     /// slot is not bound.
     public func boundData(of slot: InputSlot) -> DataBinding {
         guard let binding = self.inputBindings[slot] else { return .unbound }
