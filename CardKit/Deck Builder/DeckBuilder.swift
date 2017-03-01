@@ -117,9 +117,28 @@ extension ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
     }
     
+    /// Bind an array of InputCards to an ActionCard in the given InputSlotName
+    public static func <- (lhs: ActionCard, rhs: [(InputSlotName, InputCard)]) throws -> ActionCard {
+        var ret = lhs
+        for tuple in rhs {
+            ret = try ret.bound(with: tuple.1, inSlotNamed: tuple.0)
+        }
+        return ret
+    }
+    
+    
     /// Bind a TokenCard to an ActionCard in the given TokenSlotName
     public static func <- (lhs: ActionCard, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
+    }
+    
+    /// Bind an array of TokenCards to an ActionCard in the given TokenSlotName
+    public static func <- (lhs: ActionCard, rhs: [(TokenSlotName, TokenCard)]) throws -> ActionCard {
+        var ret = lhs
+        for tuple in rhs {
+            ret = try ret.bound(with: tuple.1, inSlotNamed: tuple.0)
+        }
+        return ret
     }
     
     /// Bind an ActionCardDescriptor's Yield to an ActionCard. Creates a new ActionCard

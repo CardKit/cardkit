@@ -321,7 +321,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Returns a new ActionCard with the given InputCard bound to the slot with the given InputSlotName
-    func bound(with card: InputCard, inSlotNamed name: TokenSlotName) throws -> ActionCard {
+    func bound(with card: InputCard, inSlotNamed name: InputSlotName) throws -> ActionCard {
         for slot in self.descriptor.inputSlots {
             if slot.name == name {
                 return try self.bound(with: card, in: slot)
