@@ -19,12 +19,12 @@ public typealias YieldIdentifier = UUID
 // MARK: - Yield
 
 public struct Yield {
-    public var identifier: YieldIdentifier
+    public let identifier: YieldIdentifier
     
     // in the future, this should be Any.Type. however, swift3 has no way
     // to take a String and figure out the Swift struct type that corresponds to
     // that String (e.g. "Dictionary<Int, Int>" -> Dictionary<Int, Int>)
-    public var type: String
+    public let type: String
     
     public init(type: YieldType) {
         self.identifier = UUID()
@@ -37,6 +37,11 @@ public struct Yield {
         } else {
             self.type = typeStr
         }
+    }
+    
+    public func matchesType<T>(of value: T) -> Bool {
+        let valueType = String(describing: type(of: value))
+        return self.type == valueType
     }
 }
 

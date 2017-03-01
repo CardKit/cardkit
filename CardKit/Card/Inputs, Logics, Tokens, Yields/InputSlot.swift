@@ -148,7 +148,7 @@ extension InputSlotBinding: JSONDecodable {
             self = .boundToInputCard(target)
         case "boundToYieldingActionCard":
             let identifier = try json.getString(at: "identifier")
-            let cardIdentifier = CardIdentifier(with: identifier)
+            let cardIdentifier = CardIdentifier(identifiedBy: identifier)
             let yield = try json.decode(at: "yield", type: Yield.self)
             self = .boundToYieldingActionCard(cardIdentifier, yield)
         default:

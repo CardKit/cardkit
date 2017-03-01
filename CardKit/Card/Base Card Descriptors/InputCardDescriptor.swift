@@ -22,7 +22,7 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     // Type from a String. so we try to enforce some semblance of "type safety" by
     // requiring init() to take an InputType, but when we deserialize from JSON we
     // only get a String of the type name and must keep it as a string. this means
-    // at runtime, it's theoretically possible to have an InputDataBinding of a 
+    // at runtime, it's theoretically possible to have a DataBinding of a 
     // mismatching type from what the descriptor expects.
     public let inputType: String
     public let inputDescription: String
