@@ -494,9 +494,9 @@ extension CardTreeNode {
     func isSatisfied(by cards: Set<CardIdentifier>) -> Bool {
         switch self {
         case .action(let actionCard):
-            // if actionCard.identifier is in the set of satisfied cards, then YES
-            // it is satisfied
-            return cards.contains(actionCard.identifier)
+            // if actionCard.identifier is in the set of satisfied cards, OR if 
+            // the actionCard DOES NOT END, then YES it is considered satisfied
+            return cards.contains(actionCard.identifier) || !actionCard.descriptor.ends
         case .unaryLogic(let logicCard, let subtree):
             switch logicCard.operation {
             case .booleanNot:
