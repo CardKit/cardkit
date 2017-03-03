@@ -73,17 +73,17 @@ public class Deck {
         return deckHands.first
     }
     
-    convenience init() {
+    public convenience init() {
         self.init(with: [])
     }
     
-    init(with hands: [Hand]) {
+    public init(with hands: [Hand]) {
         self.deckHands = hands
         self.deckCards = []
         self.tokenCards = []
     }
     
-    init(copying deck: Deck) {
+    public init(copying deck: Deck) {
         self.deckHands = deck.deckHands
         self.deckCards = deck.deckCards
         self.tokenCards = []

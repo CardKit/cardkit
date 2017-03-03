@@ -21,6 +21,8 @@ public class HandCard: Card {
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
+    // fileprivate because this class should not be instantiated directly; rather,
+    // one of its subclasses should be instantiated (LogicHandCard, BranchHandCard, etc.)
     fileprivate init(with descriptor: HandCardDescriptor) {
         self.descriptor = descriptor
     }
