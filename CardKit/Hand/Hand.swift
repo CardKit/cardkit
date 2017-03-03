@@ -118,7 +118,7 @@ public class Hand: JSONEncodable, JSONDecodable {
         return self.repeatCount + 1
     }
     
-    init() {
+    public init() {
     }
     
     // MARK: JSONEncodable & JSONDecodable
