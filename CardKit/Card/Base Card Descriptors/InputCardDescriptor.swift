@@ -49,7 +49,7 @@ public struct InputCardDescriptor: CardDescriptor, ProducesInput {
     }
     
     /// Return a new InputCard instance using our descriptor
-    func makeCard() -> InputCard {
+    public func makeCard() -> InputCard {
         return InputCard(with: self)
     }
 }
