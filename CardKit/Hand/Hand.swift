@@ -154,7 +154,7 @@ public class Hand: JSONEncodable, JSONDecodable {
 
 extension Hand {
     /// Add the card to the hand if it isn't in the hand already.
-    func add(_ card: ActionCard) {
+    public func add(_ card: ActionCard) {
         if !self.contains(card) {
             // make a new CardTree with the card
             let tree = CardTree()
@@ -165,12 +165,12 @@ extension Hand {
     
     /// Add the given cards to the hand, ignoring cards that have already
     /// been added to the hand.
-    func add(_ cards: [ActionCard]) {
+    public func add(_ cards: [ActionCard]) {
         cards.forEach { self.add($0) }
     }
     
     /// Add the HandCard to the hand if it isn't in the hand already.
-    func add(_ card: HandCard) {
+    public func add(_ card: HandCard) {
         if !self.contains(card) {
             // figure out what this is to know where to add it
             switch card.descriptor.handCardType {
