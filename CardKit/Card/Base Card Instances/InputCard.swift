@@ -22,11 +22,11 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     // input data
     public var boundData: DataBinding = .unbound
     
-    init(with descriptor: InputCardDescriptor) {
+    public init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: InputCardDescriptor, boundData: DataBinding) {
+    public init(with descriptor: InputCardDescriptor, boundData: DataBinding) {
         self.descriptor = descriptor
         self.boundData = boundData
     }

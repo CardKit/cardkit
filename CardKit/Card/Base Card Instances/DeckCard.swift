@@ -19,7 +19,7 @@ public class DeckCard: Card, JSONEncodable, JSONDecodable {
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
-    init(with descriptor: DeckCardDescriptor) {
+    public init(with descriptor: DeckCardDescriptor) {
         self.descriptor = descriptor
     }
     

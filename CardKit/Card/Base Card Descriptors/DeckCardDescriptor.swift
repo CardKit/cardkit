@@ -29,7 +29,7 @@ public struct DeckCardDescriptor: CardDescriptor {
     }
     
     /// Return a new DeckCard instance using our descriptor
-    func makeCard() -> DeckCard {
+    public func makeCard() -> DeckCard {
         return DeckCard(with: self)
     }
 }

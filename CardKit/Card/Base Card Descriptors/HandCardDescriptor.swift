@@ -33,7 +33,7 @@ public struct HandCardDescriptor: CardDescriptor {
     }
     
     /// Return a new instance of the HandCard.
-    func makeCard() -> HandCard {
+    public func makeCard() -> HandCard {
         switch self.handCardType {
         case .branch:
             return BranchHandCard(with: self)
