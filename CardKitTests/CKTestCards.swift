@@ -6,13 +6,13 @@
 //  Copyright © 2016 IBM. All rights reserved.
 //
 
+// swiftlint:disable nesting
+
 import Foundation
 
 @testable import CardKit
 
 /// Descriptors for test cards.
-
-// swiftlint:disable nesting
 public struct CKTestCards {
     fileprivate init() {}
     

@@ -66,7 +66,7 @@ class InputBindingTests: XCTestCase {
     }
     
     func testValidStructBinding() {
-        //swiftlint:disable:next nesting
+        // swiftlint:disable:next nesting
         struct FooBar: JSONEncodable, JSONDecodable {
             var foo: Int
             var bar: Int

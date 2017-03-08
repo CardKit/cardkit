@@ -6,11 +6,12 @@
 //  Copyright © 2016 IBM. All rights reserved.
 //
 
+// swiftlint:disable type_body_length
+
 import XCTest
 
 @testable import CardKit
 
-//swiftlint:disable type_body_length
 class HandTests: XCTestCase {
 
     override func setUp() {
@@ -426,7 +427,7 @@ class HandTests: XCTestCase {
         }
     }
     
-    //swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length
     func testAttachDetach() {
         let noActionA = CKTestCards.Action.NoAction.makeCard()
         let noActionB = CKTestCards.Action.NoAction.makeCard()
