@@ -6,6 +6,8 @@
 //  Copyright © 2016 IBM. All rights reserved.
 //
 
+// swiftlint:disable cyclomatic_complexity
+
 import Foundation
 
 import Freddy
@@ -271,6 +273,7 @@ extension CardTreeNode {
         }
     }
     
+    // swiftlint:disable cyclomatic_complexity
     /// Remove a LogicHandCard from a CardTreeNode. Returns the root of the new tree,
     /// as well as any oprhan subtrees that were created by removing the card.
     /// (e.g. children of a {Unary,Binary}Logic tree).
