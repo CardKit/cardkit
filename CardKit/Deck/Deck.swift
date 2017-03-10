@@ -125,6 +125,11 @@ extension Deck {
     public func add(_ card: TokenCard) {
         self.tokenCards.append(card)
     }
+    
+    /// Add the Token card to the Deck.
+    public func add(_ cards: [TokenCard]) {
+        self.tokenCards.append(contentsOf: cards)
+    }
 }
 
 // MARK: Deck Removal
