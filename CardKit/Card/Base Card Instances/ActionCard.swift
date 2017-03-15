@@ -212,12 +212,12 @@ extension ActionCard: BindsWithActionCard {
     }
     
     /// Unbinds the card that was bound to the specified InputSlot
-    func unbind(_ slot: InputSlot) {
+    public func unbind(_ slot: InputSlot) {
         self.inputBindings.removeValue(forKey: slot)
     }
     
     /// Returns a new ActionCard with the given ActionCard bound to the specified InputSlot
-    func bound(with card: ActionCard, yield: Yield, in slot: InputSlot) -> ActionCard {
+    public func bound(with card: ActionCard, yield: Yield, in slot: InputSlot) -> ActionCard {
         var newInputBindings = inputBindings
         newInputBindings[slot] = .boundToYieldingActionCard(card.identifier, yield)
         return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
@@ -225,7 +225,7 @@ extension ActionCard: BindsWithActionCard {
     
     /// Returns a new ActionCard with the given ActionCard bound to the first available InputSlot where the
     /// InputCardDescriptor's InputType matches the Yield's YieldType.
-    func bound(with card: ActionCard, yield: Yield) throws -> ActionCard {
+    public func bound(with card: ActionCard, yield: Yield) throws -> ActionCard {
         for slot in self.inputSlots {
             if yield.type == slot.descriptor.inputType && !self.isSlotBound(slot) {
                 var newInputBindings = inputBindings
@@ -238,7 +238,7 @@ extension ActionCard: BindsWithActionCard {
     }
     
     /// Returns a new ActionCard with the given InputSlot unbound
-    func unbound(_ slot: InputSlot) -> ActionCard {
+    public func unbound(_ slot: InputSlot) -> ActionCard {
         var newInputBindings = inputBindings
         newInputBindings.removeValue(forKey: slot)
         return ActionCard(with: self.descriptor, inputBindings: newInputBindings, tokenBindings: self.tokenBindings)
@@ -263,7 +263,7 @@ extension ActionCard: BindsWithActionCard {
 
 extension ActionCard: BindsWithInputCard {
     /// Binds the given InputCard to the first available InputSlot with a matching InputCardDescriptor.
-    func bind(with card: InputCard) throws {
+    public func bind(with card: InputCard) throws {
         for slot in self.inputSlots {
             if card.descriptor == slot.descriptor && !self.isSlotBound(slot) {
                 try self.bind(with: card, in: slot)
@@ -275,7 +275,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Binds the given InputCard to the specified InputSlot
-    func bind(with card: InputCard, in slot: InputSlot) throws {
+    public func bind(with card: InputCard, in slot: InputSlot) throws {
         if card.descriptor == slot.descriptor {
             self.inputBindings[slot] = .boundToInputCard(card)
         } else {
@@ -284,7 +284,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Binds the given InputCard to slot with the given InputSlotName
-    func bind(with card: InputCard, inSlotNamed name: InputSlotName) throws {
+    public func bind(with card: InputCard, inSlotNamed name: InputSlotName) throws {
         for slot in self.descriptor.inputSlots {
             if slot.name == name {
                 try self.bind(with: card, in: slot)
@@ -297,7 +297,7 @@ extension ActionCard: BindsWithInputCard {
     
     /// Returns a new ActionCard with the given InputCard bound to the first free InputSlot 
     /// with matching InputCardDescriptor.
-    func bound(with card: InputCard) throws -> ActionCard {
+    public func bound(with card: InputCard) throws -> ActionCard {
         for slot in self.inputSlots {
             if card.descriptor == slot.descriptor && !self.isSlotBound(slot) {
                 var newInputBindings = inputBindings
@@ -310,7 +310,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Returns a new ActionCard with the given InputCard bound to the specified InputSlot
-    func bound(with card: InputCard, in slot: InputSlot) throws -> ActionCard {
+    public func bound(with card: InputCard, in slot: InputSlot) throws -> ActionCard {
         if card.descriptor == slot.descriptor {
             var newInputBindings = inputBindings
             newInputBindings[slot] = .boundToInputCard(card)
@@ -321,7 +321,7 @@ extension ActionCard: BindsWithInputCard {
     }
     
     /// Returns a new ActionCard with the given InputCard bound to the slot with the given InputSlotName
-    func bound(with card: InputCard, inSlotNamed name: InputSlotName) throws -> ActionCard {
+    public func bound(with card: InputCard, inSlotNamed name: InputSlotName) throws -> ActionCard {
         for slot in self.descriptor.inputSlots {
             if slot.name == name {
                 return try self.bound(with: card, in: slot)
@@ -373,7 +373,7 @@ extension ActionCard: BindsWithInputCard {
 
 extension ActionCard: BindsWithTokenCard {
     /// Binds the given TokenCard to the specified TokenSlot
-    func bind(with card: TokenCard, in slot: TokenSlot) throws {
+    public func bind(with card: TokenCard, in slot: TokenSlot) throws {
         if card.descriptor == slot.descriptor {
             self.tokenBindings[slot] = .boundToTokenCard(card.identifier)
         } else {
@@ -382,7 +382,7 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Binds the given TokenCard to slot with the given TokenSlotName
-    func bind(with card: TokenCard, inSlotNamed name: TokenSlotName) throws {
+    public func bind(with card: TokenCard, inSlotNamed name: TokenSlotName) throws {
         for slot in self.descriptor.tokenSlots {
             if slot.name == name {
                 try self.bind(with: card, in: slot)
@@ -394,12 +394,12 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Unbinds the card that was bound to the specified TokenSlot
-    func unbind(_ slot: TokenSlot) {
+    public func unbind(_ slot: TokenSlot) {
         self.tokenBindings.removeValue(forKey: slot)
     }
     
     /// Returns a new ActionCard with the given TokenCard bound to the specified TokenSlot
-    func bound(with card: TokenCard, in slot: TokenSlot) throws -> ActionCard {
+    public func bound(with card: TokenCard, in slot: TokenSlot) throws -> ActionCard {
         if card.descriptor == slot.descriptor {
             var newTokenBindings = tokenBindings
             newTokenBindings[slot] = .boundToTokenCard(card.identifier)
@@ -410,7 +410,7 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Returns a new ActionCard with the given TokenCard bound to the slot with the given TokenSlotName
-    func bound(with card: TokenCard, inSlotNamed name: TokenSlotName) throws -> ActionCard {
+    public func bound(with card: TokenCard, inSlotNamed name: TokenSlotName) throws -> ActionCard {
         for slot in self.descriptor.tokenSlots {
             if slot.name == name {
                 return try self.bound(with: card, in: slot)
@@ -421,7 +421,7 @@ extension ActionCard: BindsWithTokenCard {
     }
     
     /// Returns a new ActionCard with the given TokenSlot unbound
-    func unbound(_ slot: TokenSlot) -> ActionCard {
+    public func unbound(_ slot: TokenSlot) -> ActionCard {
         var newTokenBindings = tokenBindings
         newTokenBindings.removeValue(forKey: slot)
         return ActionCard(with: self.descriptor, inputBindings: self.inputBindings, tokenBindings: newTokenBindings)

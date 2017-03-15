@@ -219,7 +219,7 @@ extension CardKit.Input.Logical {
     public static let Boolean = InputCardDescriptor(
         name: "Boolean",
         subpath: "Logical",
-        inputType: Bool.self,
+        inputType: CKBool.self,
         inputDescription: "Boolean value (true or false)",
         assetCatalog: CardAssetCatalog(description: "Boolean"))
 }
