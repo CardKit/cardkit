@@ -26,7 +26,7 @@ public enum CKBool: String, InputProtocol, EnumerableEnum, CustomStringConvertib
         return [.ckTrue, .ckFalse]
     }
     
-    //instances vars
+    //instance vars
     public var description: String {
         return self.rawValue
     }
@@ -40,83 +40,3 @@ public enum CKBool: String, InputProtocol, EnumerableEnum, CustomStringConvertib
         }
     }
 }
-
-//public struct CKData: InputProtocol, JSONEncodable, JSONDecodable {
-//    public var data: Data
-//    
-//    public init(json: JSON) throws {
-//        self.data = try Data(json: json)
-//    }
-//    
-//    public func toJSON() -> JSON {
-//        return data.toJSON()
-//    }
-//
-//    public static var defaultUnit: String? {
-//        return nil
-//    }
-//
-//    public static var inputType: InputSetting {
-//        return .complex
-//    }
-//}
-//
-//public struct CKInt: InputProtocol, JSONEncodable, JSONDecodable {
-//    public var value: Int
-//    
-//    public init(json: JSON) throws {
-//        self.value = try Int(json: json)
-//    }
-//    
-//    public func toJSON() -> JSON {
-//        return value.toJSON()
-//    }
-//    
-//    public static var defaultUnit: String? {
-//        return nil
-//    }
-//    
-//    public static var inputType: InputSetting {
-//        return .simple
-//    }
-//}
-//
-//public struct CKDouble: InputProtocol, JSONEncodable, JSONDecodable {
-//    public var value: Double
-//    
-//    public init(json: JSON) throws {
-//        self.value = try Double(json: json)
-//    }
-//    
-//    public func toJSON() -> JSON {
-//        return value.toJSON()
-//    }
-//    
-//    public static var defaultUnit: String? {
-//        return nil
-//    }
-//    
-//    public static var inputType: InputSetting {
-//        return .simple
-//    }
-//}
-//
-//public struct CKString: InputProtocol, JSONEncodable, JSONDecodable {
-//    public var value: String
-//    
-//    public init(json: JSON) throws {
-//        self.value = try String(json: json)
-//    }
-//    
-//    public func toJSON() -> JSON {
-//        return value.toJSON()
-//    }
-//    
-//    public static var defaultUnit: String? {
-//        return nil
-//    }
-//    
-//    public static var inputType: InputSetting {
-//        return .simple
-//    }
-//}

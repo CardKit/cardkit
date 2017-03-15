@@ -18,24 +18,6 @@ public protocol EnumerableEnum {
     static var allValues: [Self] { get }
 }
 
-extension RawRepresentable where Self: EnumerableEnum, RawValue == Int {
-    public static var allValues: [Self] {
-        var allValuesArr: [Self] = []
-        
-        var count: Int = 0
-        
-        var enumVal = self.init(rawValue: count)
-        
-        while let enumValUR = enumVal {
-            allValuesArr.append(enumValUR)
-            count+=1
-            enumVal = self.init(rawValue: count)
-        }
-        
-        return allValuesArr
-    }
-}
-
 // MARK: - InputProtocol
 public enum InputDetails {
     case none
