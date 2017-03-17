@@ -9,34 +9,21 @@
 import Foundation
 import Freddy
 
-public enum CKBool: String, InputProtocol, EnumerableEnum, CustomStringConvertible, JSONEncodable, JSONDecodable {
-    case ckTrue = "True"
-    case ckFalse = "False"
-    
-    //static vars
-    public static var defaultUnit: String? {
-        return nil
+public enum CKBool: String {
+    case yes = "Yes"
+    case no = "No"
+}
+
+extension CKBool: EnumerableEnum, EnumerableAsString {
+    public static var values: [CKBool] {
+        return [.yes, .no]
     }
-    
-    public static var inputDetails: [InputDetails] {
-        return [.choices(self.allValues.map { $0.rawValue })]
-    }
-    
-    public static var allValues: [CKBool] {
-        return [.ckTrue, .ckFalse]
-    }
-    
-    //instance vars
+}
+
+extension CKBool: CustomStringConvertible {
     public var description: String {
         return self.rawValue
     }
-    
-    public var boolValue: Bool {
-        switch self {
-        case .ckTrue:
-            return true
-        case .ckFalse:
-            return false
-        }
-    }
 }
+
+extension CKBool: JSONEncodable, JSONDecodable {}

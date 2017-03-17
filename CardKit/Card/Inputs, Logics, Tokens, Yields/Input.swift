@@ -13,43 +13,18 @@ import Freddy
 // MARK: - InputType
 public typealias InputType = (JSONEncodable & JSONDecodable).Type
 
-// MARK: - EnumerableEnum
+// MARK: - EnumerableAsString
 public protocol EnumerableEnum {
-    static var allValues: [Self] { get }
+    static var values: [Self] { get }
 }
 
-// MARK: - InputProtocol
-public enum InputDetails {
-    case none
-    case supportedUnits([String])
-    case choices([String])
+
+public protocol EnumerableAsString {
+    static var stringValues: [String] { get }
 }
 
-public protocol InputProtocol {
-    static var inputDetails: [InputDetails] { get }
-}
-
-extension InputProtocol {
-    public static var inputDetails: [InputDetails] {
-        return [.none]
+extension EnumerableAsString where Self: RawRepresentable & EnumerableEnum, Self.RawValue == String {
+    public static var stringValues: [String] {
+        return values.map { $0.rawValue }
     }
 }
-
-// MARK: - InputProtocol Extensions for Basic Types
-extension Bool: InputProtocol {
-    public static var InputProtocol: [InputDetails] {
-        return [.choices(["True", "False"])]
-    }
-}
-
-// These fall back to the default implementation of
-// inputDetails (see extension of InputProtocol)
-extension Data: InputProtocol {}
-
-extension String: InputProtocol {}
-
-extension Int: InputProtocol {}
-
-extension Double: InputProtocol {}
-
-extension Date: InputProtocol {}
