@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 extension Date {
     fileprivate static let formatter = DateFormatter()
     fileprivate static let formatString = "yyyy-MM-dd HH:mm:ss ZZZ"
@@ -28,24 +26,5 @@ extension Date {
     
     static func date(fromTimezoneFormattedString string: String) -> Date? {
         return Date.formatter.date(from: string)
-    }
-}
-
-extension Date: JSONEncodable, JSONDecodable {
-    public init(json: JSON) throws {
-        let gmtString = try json.getString()
-        let formatter = DateFormatter()
-        formatter.dateFormat = Date.formatString
-        
-        if let date = formatter.date(from: gmtString) {
-            self.init(timeInterval: 0, since: date)
-        } else {
-            throw JSON.Error.valueNotConvertible(value: json, to: Date.self)
-        }
-    }
-    
-    public func toJSON() -> JSON {
-        let gmtString = self.gmtTimeString
-        return .string(gmtString)
     }
 }

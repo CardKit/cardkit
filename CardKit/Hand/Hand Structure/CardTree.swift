@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: CardTreeIdentifier
 
 /// Used to uniquely identify a CardTree
@@ -21,7 +19,7 @@ public typealias CardTreeIdentifier = CardIdentifier
 /// determine when a Hand is satisfied (the set of CardTrees in a Hand must be 
 /// satisfied according to the End Rule specified in the Hand). CardTrees are also
 /// used to specify which groups of cards are part of a Branch.
-public class CardTree: JSONEncodable, JSONDecodable {
+public class CardTree: Codable {
     var identifier: CardTreeIdentifier = CardTreeIdentifier()
     var root: CardTreeNode?
     
@@ -40,25 +38,6 @@ public class CardTree: JSONEncodable, JSONDecodable {
     }
     
     public init() {
-    }
-    
-    // MARK: JSONDecodable & JSONEncodable
-    public required init(json: JSON) throws {
-        self.identifier = try json.decode(at: "identifier", type: CardTreeIdentifier.self)
-        
-        let rootStr = try json.getString(at: "root")
-        if rootStr == "nil" {
-            self.root = nil
-        } else {
-            self.root = try json.decode(at: "root", type: CardTreeNode.self)
-        }
-    }
-    
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "identifier": self.identifier.toJSON(),
-            "root": self.root?.toJSON() ?? .string("nil")
-            ])
     }
 }
 

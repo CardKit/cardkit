@@ -45,7 +45,7 @@ class DeckBuilderTests: XCTestCase {
     
     func testTransitiveBinding() {
         do {
-            let _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5.0)
+            _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5.0)
         } catch let error {
             XCTFail("\(error)")
         }

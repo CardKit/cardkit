@@ -8,22 +8,17 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: InputSlot
 
-/// Input slots are named with Strings.
-public typealias InputSlotName = String
-
 /// Represents the metadata of an input to a card. Input is bound to a specified slot in the card. Inputs may be optional.
-public struct InputSlot {
+public struct InputSlot: Codable {
     /// The name of an InputSlot is a human-understandable name, such as "Duration" or
     /// "Location". This is NOT a UUID-based identifier as used for Cards, Yields, etc.
-    public let name: InputSlotName
+    public let name: String
     public let descriptor: InputCardDescriptor
     public let isOptional: Bool
     
-    public init(name: InputSlotName, descriptor: InputCardDescriptor, isOptional: Bool) {
+    public init(name: String, descriptor: InputCardDescriptor, isOptional: Bool) {
         self.name = name
         self.descriptor = descriptor
         self.isOptional = isOptional
@@ -50,31 +45,9 @@ extension InputSlot: Hashable {
     }
 }
 
-// MARK: JSONDecodable
-
-extension InputSlot: JSONDecodable {
-    public init(json: JSON) throws {
-        self.name = try json.getString(at: "name")
-        self.descriptor = try json.decode(at: "descriptor", type: InputCardDescriptor.self)
-        self.isOptional = try json.getBool(at: "isOptional")
-    }
-}
-
-// MARK: JSONEncodable
-
-extension InputSlot: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "name": self.name.toJSON(),
-            "descriptor": self.descriptor.toJSON(),
-            "isOptional": self.isOptional.toJSON()
-            ])
-    }
-}
-
 // MARK: [InputSlot]
 
-extension Sequence where Iterator.Element == InputSlot {
+extension Array where Element == InputSlot {
     public func slot(named name: String) -> InputSlot? {
         for slot in self {
             if slot.name == name {
@@ -107,52 +80,57 @@ extension InputSlotBinding: CustomStringConvertible {
             return "[unbound]"
         case .boundToInputCard(let card):
             return "[bound to InputCard \(card.identifier)]"
-        case .boundToYieldingActionCard(let cardIdentifier, let yield):
-            return "[bound to ActionCard \(cardIdentifier) Yield \(yield)]"
+        case .boundToYieldingActionCard(let identifier, let yield):
+            return "[bound to ActionCard \(identifier) Yield \(yield)]"
         }
     }
 }
 
-// MARK: JSONEncodable
+// MARK: Codable
 
-extension InputSlotBinding: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .unbound:
-            return .dictionary([
-                "type": "unbound"])
-        case .boundToInputCard(let card):
-            return .dictionary([
-                "type": "boundToInputCard",
-                "target": card.toJSON()])
-        case .boundToYieldingActionCard(let cardIdentifier, let yield):
-            return .dictionary([
-                "type": "boundToYieldingActionCard",
-                "identifier": cardIdentifier.toJSON(),
-                "yield": yield.toJSON()])
-        }
+extension InputSlotBinding: Codable {
+    enum CodingError: Error {
+        case unknownBindingStatus(String)
     }
-}
-
-// MARK: JSONDecodable
-
-extension InputSlotBinding: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.getString(at: "type")
-        
-        switch type {
+    
+    enum CodingKeys: String, CodingKey {
+        case status
+        case inputCard
+        case cardIdentifier
+        case yield
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let status = try values.decode(String.self, forKey: .status)
+        switch status {
         case "unbound":
             self = .unbound
         case "boundToInputCard":
-            let target = try json.decode(at: "target", type: InputCard.self)
-            self = .boundToInputCard(target)
+            let inputCard = try values.decode(InputCard.self, forKey: .inputCard)
+            self = .boundToInputCard(inputCard)
         case "boundToYieldingActionCard":
-            let identifier = try json.getString(at: "identifier")
-            let cardIdentifier = CardIdentifier(identifiedBy: identifier)
-            let yield = try json.decode(at: "yield", type: Yield.self)
-            self = .boundToYieldingActionCard(cardIdentifier, yield)
+            let identifier = try values.decode(CardIdentifier.self, forKey: .cardIdentifier)
+            let yield = try values.decode(Yield.self, forKey: .yield)
+            self = .boundToYieldingActionCard(identifier, yield)
         default:
-            throw JSON.Error.valueNotConvertible(value: json, to: InputSlotBinding.self)
+            throw CodingError.unknownBindingStatus(status)
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        switch self {
+        case .unbound:
+            try container.encode("unbound", forKey: .status)
+        case .boundToInputCard(let inputCard):
+            try container.encode("boundToInputCard", forKey: .status)
+            try container.encode(inputCard, forKey: .inputCard)
+        case .boundToYieldingActionCard(let identifier, let yield):
+            try container.encode("boundToYieldingActionCard", forKey: .status)
+            try container.encode(identifier, forKey: .cardIdentifier)
+            try container.encode(yield, forKey: .yield)
         }
     }
 }

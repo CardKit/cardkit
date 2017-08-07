@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Freddy
-
-public class DeckCard: Card, JSONEncodable, JSONDecodable {
+public class DeckCard: Card, Codable {
     public let descriptor: DeckCardDescriptor
     
     // Card protocol
@@ -21,20 +19,6 @@ public class DeckCard: Card, JSONEncodable, JSONDecodable {
     
     public init(with descriptor: DeckCardDescriptor) {
         self.descriptor = descriptor
-    }
-    
-    // MARK: JSONEncodable & JSONDecodable
-    
-    public required init(json: JSON) throws {
-        self.identifier = try json.decode(at: "identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode(at: "descriptor", type: DeckCardDescriptor.self)
-    }
-    
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON()
-            ])
     }
 }
 

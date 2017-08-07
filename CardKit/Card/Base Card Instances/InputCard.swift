@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Freddy
-
-public class InputCard: Card, JSONEncodable, JSONDecodable {
+public class InputCard: Card, Codable {
     public let descriptor: InputCardDescriptor
     
     // Card protocol
@@ -20,31 +18,15 @@ public class InputCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // input data
-    public var boundData: DataBinding = .unbound
+    public var boundData: Data?
     
     public init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
     }
     
-    public init(with descriptor: InputCardDescriptor, boundData: DataBinding) {
+    public init(with descriptor: InputCardDescriptor, boundData: Data) {
         self.descriptor = descriptor
         self.boundData = boundData
-    }
-    
-    // MARK: JSONEncodable & JSONDecodable
-    
-    public required init(json: JSON) throws {
-        self.identifier = try json.decode(at: "identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode(at: "descriptor", type: InputCardDescriptor.self)
-        self.boundData = try json.decode(at: "boundData", type: DataBinding.self)
-    }
-    
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON(),
-            "boundData": boundData.toJSON()
-            ])
     }
 }
 
@@ -76,9 +58,9 @@ extension InputCard {
         case bindingTypeMismatch(given: String, expected: String)
     }
     
-    /// Convert the given value to a DataBinding. Throws an error if the type of the given
+    /// Encodes the given value as Data. Throws an error if the type of the given
     /// value doesn't match the type expected by this InputCard.
-    fileprivate func boundValue<T>(_ value: T) throws -> DataBinding {
+    fileprivate func boundValue<T>(_ value: T) throws -> Data where T : Codable {
         // make sure the type of the value matches the type expected by the descriptor
         let givenType = String(describing: type(of: value))
         let expectedType = self.descriptor.inputType
@@ -88,44 +70,28 @@ extension InputCard {
         }
         
         // bind the value
-        if let v = value as? JSONEncodable {
-            return .bound(v.toJSON())
-        } else {
-            throw InputCard.BindingError.unsupportedDataType(type: type(of: value))
+        let encoder = JSONEncoder()
+        do {
+            let boundValue = try encoder.encode(value)
+            return boundValue
+        } catch {
+            throw InputCard.BindingError.unsupportedDataType(type: Swift.type(of: value))
         }
     }
     
     /// Bind the given value to this InputCard.
-    func bind<T>(withValue value: T) throws {
+    func bind<T>(withValue value: T) throws where T : Codable {
         self.boundData = try self.boundValue(value)
     }
     
     /// Returns a new InputCard with the given value bound to it.
-    public func bound<T>(withValue value: T) throws -> InputCard {
+    public func bound<T>(withValue value: T) throws -> InputCard where T : Codable {
         let data = try self.boundValue(value)
         return InputCard(with: self.descriptor, boundData: data)
     }
     
-    /// Return the data value bound to the input. Returns nil if no data has yet been bound.
-    public func inputDataValue<T>() -> T? where T : JSONDecodable {
-        switch self.boundData {
-        case .unbound:
-            return nil
-        case .bound(let val):
-            do {
-                return try T(json: val)
-            } catch {
-                return nil
-            }
-        }
-    }
-    
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
-        if case .unbound = self.boundData {
-            return false
-        } else {
-            return true
-        }
+        return self.boundData != nil
     }
 }

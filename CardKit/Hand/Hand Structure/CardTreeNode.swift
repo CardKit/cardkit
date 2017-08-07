@@ -10,8 +10,6 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: CardTreeNode
 
 public indirect enum CardTreeNode {
@@ -124,74 +122,66 @@ extension CardTreeNode: Hashable {
     }
 }
 
-// MARK: JSONEncodable
+// MARK: Codable
 
-extension CardTreeNode: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .action(let actionCard):
-            return .dictionary([
-                "type": "action",
-                "card": actionCard.toJSON()
-                ])
-        case .unaryLogic(let logicCard, let subtree):
-            return .dictionary([
-                "type": "unaryLogic",
-                "logicCard": logicCard.toJSON(),
-                "subtree": subtree?.toJSON() ?? .string("nil")
-                ])
-        case .binaryLogic(let logicCard, let left, let right):
-            return .dictionary([
-                "type": "binaryLogic",
-                "logicCard": logicCard.toJSON(),
-                "leftSubtree": left?.toJSON() ?? .string("nil"),
-                "rightSubtree": right?.toJSON() ?? .string("nil")
-                ])
-        }
+extension CardTreeNode: Codable {
+    enum CodingError: Error {
+        case unknownCardTreeNodeType(String)
     }
-}
 
-// MARK: JSONDecodable
+    enum CodingKeys: String, CodingKey {
+        case type
+        case card
+        case subtree
+        case leftSubtree
+        case rightSubtree
+    }
 
-extension CardTreeNode: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.getString(at: "type")
-        
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try values.decode(String.self, forKey: .type)
         switch type {
         case "action":
-            let actionCard = try json.decode(at: "actionCard", type: ActionCard.self)
-            self = .action(actionCard)
+            let card = try values.decode(ActionCard.self, forKey: .card)
+            self = .action(card)
         case "unaryLogic":
-            let logicCard = try json.decode(at: "logicCard", type: LogicHandCard.self)
-            
-            let subtreeStr = try json.getString(at: "subtree")
-            if subtreeStr == "nil" {
-                self = .unaryLogic(logicCard, nil)
-            } else {
-                let subtree = try json.decode(at: "subtree", type: CardTreeNode.self)
-                self = .unaryLogic(logicCard, subtree)
-            }
+            let card = try values.decode(LogicHandCard.self, forKey: .card)
+            let subtree = try values.decode(CardTreeNode.self, forKey: .subtree)
+            self = .unaryLogic(card, subtree)
         case "binaryLogic":
-            let logicCard = try json.decode(at: "logicCard", type: LogicHandCard.self)
+            let card = try values.decode(LogicHandCard.self, forKey: .card)
+            var leftSubtree: CardTreeNode? = nil
+            do {
+                leftSubtree = try values.decode(CardTreeNode.self, forKey: .leftSubtree)
+            } catch {}
             
-            let leftStr = try json.getString(at: "leftSubtree")
-            let rightStr = try json.getString(at: "rightSubtree")
+            var rightSubtree: CardTreeNode? = nil
+            do {
+                rightSubtree = try values.decode(CardTreeNode.self, forKey: .rightSubtree)
+            } catch {}
             
-            var left: CardTreeNode? = nil
-            var right: CardTreeNode? = nil
-            
-            if leftStr != "nil" {
-                left = try json.decode(at: "leftSubtree", type: CardTreeNode.self)
-            }
-            
-            if rightStr != "nil" {
-                right = try json.decode(at: "rightSubtree", type: CardTreeNode.self)
-            }
-            
-            self = .binaryLogic(logicCard, left, right)
-            
+            self = .binaryLogic(card, leftSubtree, rightSubtree)
         default:
-            throw JSON.Error.valueNotConvertible(value: json, to: CardTreeNode.self)
+            throw CodingError.unknownCardTreeNodeType(type)
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        switch self {
+        case .action(let actionCard):
+            try container.encode("action", forKey: .type)
+            try container.encode(actionCard, forKey: .card)
+        case .unaryLogic(let logicCard, let subtree):
+            try container.encode("unaryLogic", forKey: .type)
+            try container.encode(logicCard, forKey: .card)
+            try container.encode(subtree, forKey: .subtree)
+        case .binaryLogic(let logicCard, let leftSubtree, let rightSubtree):
+            try container.encode("binaryLogic", forKey: .type)
+            try container.encode(logicCard, forKey: .card)
+            try container.encode(leftSubtree, forKey: .leftSubtree)
+            try container.encode(rightSubtree, forKey: .rightSubtree)
         }
     }
 }
@@ -394,7 +384,7 @@ extension CardTreeNode {
     /// Returns all LogicHandCards with the given descriptor.
     func cards(matching descriptor: HandCardDescriptor) -> [LogicHandCard] {
         switch self {
-        case .action(_):
+        case .action:
             return []
         case .unaryLogic(let logicCard, let subtree):
             var matching: [LogicHandCard] = []
@@ -460,7 +450,7 @@ extension CardTreeNode {
     /// if no such node was found.
     func cardTreeNode(of card: LogicHandCard) -> CardTreeNode? {
         switch self {
-        case .action(_):
+        case .action:
             return nil
         case .unaryLogic(let logicCard, let subtree):
             if logicCard == card {

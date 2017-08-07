@@ -8,12 +8,10 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: CardIdentifier
 
 /// CardIdentifiers are used to uniquely identify instances of Cards in a Deck to ensure Inputs and Yields are bound to the correct instance.
-public struct CardIdentifier {
+public struct CardIdentifier: Codable {
     fileprivate let identifier: String
     
     init() {
@@ -46,22 +44,6 @@ extension CardIdentifier: Hashable {
 extension CardIdentifier: CustomStringConvertible {
     public var description: String {
         return identifier
-    }
-}
-
-// MARK: JSONDecodable
-
-extension CardIdentifier: JSONDecodable {
-    public init(json: JSON) throws {
-        self.identifier = try json.getString()
-    }
-}
-
-// MARK: JSONEncodable
-
-extension CardIdentifier: JSONEncodable {
-    public func toJSON() -> JSON {
-        return self.identifier.toJSON()
     }
 }
 

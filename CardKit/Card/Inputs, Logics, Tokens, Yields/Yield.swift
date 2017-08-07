@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: YieldType
 public typealias YieldType = InputType
 
@@ -18,7 +16,7 @@ public typealias YieldIdentifier = UUID
 
 // MARK: - Yield
 
-public struct Yield {
+public struct Yield: Codable {
     public let identifier: YieldIdentifier
     
     // in the future, this should be Any.Type. however, swift3 has no way
@@ -30,17 +28,17 @@ public struct Yield {
         self.identifier = UUID()
         
         // remove the ".Type" suffix
-        let typeStr = String(describing: type(of: type))
+        let typeStr = String(describing: Swift.type(of: type))
         if typeStr.hasSuffix(".Type") {
             let index = typeStr.index(typeStr.endIndex, offsetBy: -5)
-            self.type = typeStr.substring(to: index)
+            self.type = String(typeStr[..<index])
         } else {
             self.type = typeStr
         }
     }
     
     public func matchesType<T>(of value: T) -> Bool {
-        let valueType = String(describing: type(of: value))
+        let valueType = String(describing: Swift.type(of: value))
         return self.type == valueType
     }
 }
@@ -69,28 +67,5 @@ extension Yield: Hashable {
 extension Yield: CustomStringConvertible {
     public var description: String {
         return "\(self.identifier) [\(self.type)]"
-    }
-}
-
-// MARK: JSONEncodable
-
-extension Yield: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "identifier": self.identifier.uuidString.toJSON(),
-            "type": self.type.toJSON()])
-    }
-}
-
-// MARK: JSONDecodable
-
-extension Yield: JSONDecodable {
-    public init(json: JSON) throws {
-        let uuidStr = try json.getString(at: "identifier")
-        guard let uuid = UUID(uuidString: uuidStr) else {
-            throw JSON.Error.valueNotConvertible(value: json, to: Yield.self)
-        }
-        self.identifier = uuid
-        self.type = try json.getString(at: "type")
     }
 }

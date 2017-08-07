@@ -8,11 +8,9 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: TokenCardDescriptor
 
-public struct TokenCardDescriptor: CardDescriptor, Consumable {
+public struct TokenCardDescriptor: CardDescriptor, Consumable, Codable {
     public let cardType: CardType = .token
     public let name: String
     public let path: CardPath
@@ -41,7 +39,8 @@ public struct TokenCardDescriptor: CardDescriptor, Consumable {
 // MARK: Equatable
 
 extension TokenCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
+    /// Card descriptors are equal when their names and paths are the same.
+    /// All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: TokenCardDescriptor, rhs: TokenCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
@@ -63,30 +62,5 @@ extension TokenCardDescriptor: Hashable {
 extension TokenCardDescriptor: CustomStringConvertible {
     public var description: String {
         return "\(self.path.description)/\(self.name)"
-    }
-}
-
-// MARK: JSONEncodable
-
-extension TokenCardDescriptor: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "cardType": cardType.toJSON(),
-            "name": name.toJSON(),
-            "path": path.toJSON(),
-            "assetCatalog": assetCatalog.toJSON(),
-            "isConsumed": isConsumed.toJSON()
-            ])
-    }
-}
-
-// MARK: JSONDecodable
-
-extension TokenCardDescriptor: JSONDecodable {
-    public init(json: JSON) throws {
-        self.name = try json.getString(at: "name")
-        self.path = try json.decode(at: "path", type: CardPath.self)
-        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
-        self.isConsumed = try json.getBool(at: "isConsumed")
     }
 }

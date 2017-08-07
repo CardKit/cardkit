@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: HandCardType
 
 public enum HandCardType: String {
@@ -35,37 +33,6 @@ public enum HandCardType: String {
     case booleanLogicNot
 }
 
-// MARK: JSONEncodable
+// MARK: Codable
 
-extension HandCardType: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .branch:
-            return .string("branch")
-        case .repeatHand:
-            return .string("repeatHand")
-        case .endWhenAllSatisfied:
-            return .string("endWHenAllSatisfied")
-        case .endWhenAnySatisfied:
-            return .string("endWhenAnySatisfied")
-        case .booleanLogicAnd:
-            return .string("booleanLogicAnd")
-        case .booleanLogicOr:
-            return .string("booleanLogicOr")
-        case .booleanLogicNot:
-            return .string("booleanLogicNot")
-        }
-    }
-}
-
-// MARK: JSONDecodable
-
-extension HandCardType: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.getString()
-        guard let typeEnum = HandCardType(rawValue: type) else {
-            throw JSON.Error.valueNotConvertible(value: json, to: HandCardType.self)
-        }
-        self = typeEnum
-    }
-}
+extension HandCardType: Codable {}

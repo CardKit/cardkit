@@ -31,7 +31,18 @@ class CardKitTests: XCTestCase {
         d.deckHands.append(h1)
         d.deckHands.append(h2)
         
-        print("\(d.toJSON())")
+        let encoder = JSONEncoder()
+        
+        do {
+            let data = try encoder.encode(d)
+            guard let str = String(data: data, encoding: .utf8) else {
+                XCTFail("could not convert Data to UTF-8 string")
+                return
+            }
+            print("\(str)")
+        } catch let error {
+            XCTFail("\(error)")
+        }
         
         XCTAssertTrue(true)
     }

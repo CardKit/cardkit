@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Freddy
-
-public struct CardPath {
+public struct CardPath: Codable {
     fileprivate let pathComponents: [String]
     
     /// Create a CardPath from a path string. Path strings are of the form "a/b/c" (e.g. "Input/Location").
@@ -47,21 +45,5 @@ extension CardPath: Hashable {
 extension CardPath: CustomStringConvertible {
     public var description: String {
         return self.pathComponents.joined(separator: "/")
-    }
-}
-
-// MARK: JSONEncodable
-
-extension CardPath: JSONEncodable {
-    public func toJSON() -> JSON {
-        return self.pathComponents.toJSON()
-    }
-}
-
-// MARK: JSONDecodable
-
-extension CardPath: JSONDecodable {
-    public init(json: JSON) throws {
-        self.pathComponents = try json.decodedArray(type: String.self)
     }
 }
