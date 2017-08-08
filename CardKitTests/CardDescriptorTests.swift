@@ -75,13 +75,16 @@ class CardDescriptorTests: XCTestCase {
         XCTAssertTrue(t1 != t2)
     }
     
-    func testDescriptorToAndFromJSON() {
+    func testDescriptorSerialization() {
         let noAction = CKTestCards.Action.NoAction
-        let jsonNoAction = noAction.toJSON()
+        
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
         
         do {
-            let noActionFromJSON = try ActionCardDescriptor(json: jsonNoAction)
-            XCTAssertTrue(noAction == noActionFromJSON)
+            let data = try encoder.encode(noAction)
+            let decodedNoAction: ActionCardDescriptor = try decoder.decode(ActionCardDescriptor.self, from: data)
+            XCTAssertTrue(noAction == decodedNoAction)
         } catch let error {
             XCTFail("error: \(error)")
         }

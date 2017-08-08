@@ -17,8 +17,11 @@ public class InputCard: Card, Codable {
     public var description: String { return descriptor.description }
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
-    // input data
-    public var boundData: Data?
+    /// The data bound to this Input card, seralized in a box of type `Dictionary<String, T>` where `T`
+    /// is the type of the data bound to the card. The bound value is contained in the dictionary under
+    /// the key "value". For example, a bound integer with a value of 1 would be stored in the box
+    /// `["value": 1]`. The box is used because `JSONEncoder` doesn't handle primitive types.
+    private var boundData: Data?
     
     public init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
@@ -60,19 +63,20 @@ extension InputCard {
     
     /// Encodes the given value as Data. Throws an error if the type of the given
     /// value doesn't match the type expected by this InputCard.
-    fileprivate func boundValue<T>(_ value: T) throws -> Data where T : Codable {
+    fileprivate func bindingValue<T>(_ value: T) throws -> Data where T : Codable {
         // make sure the type of the value matches the type expected by the descriptor
-        let givenType = String(describing: type(of: value))
+        let givenType = String(describing: Swift.type(of: value))
         let expectedType = self.descriptor.inputType
         
         if givenType != expectedType {
             throw InputCard.BindingError.bindingTypeMismatch(given: givenType, expected: expectedType)
         }
         
-        // bind the value
+        // bind the value -- need to put it in a box because the JSONEncoder can't encode primitive values
+        let box = ["value": value]
         let encoder = JSONEncoder()
         do {
-            let boundValue = try encoder.encode(value)
+            let boundValue = try encoder.encode(box)
             return boundValue
         } catch {
             throw InputCard.BindingError.unsupportedDataType(type: Swift.type(of: value))
@@ -81,17 +85,32 @@ extension InputCard {
     
     /// Bind the given value to this InputCard.
     func bind<T>(withValue value: T) throws where T : Codable {
-        self.boundData = try self.boundValue(value)
+        self.boundData = try self.bindingValue(value)
     }
     
     /// Returns a new InputCard with the given value bound to it.
     public func bound<T>(withValue value: T) throws -> InputCard where T : Codable {
-        let data = try self.boundValue(value)
+        let data = try self.bindingValue(value)
         return InputCard(with: self.descriptor, boundData: data)
     }
     
     /// Returns true if data has been bound to this InputCard.
     public func isBound() -> Bool {
         return self.boundData != nil
+    }
+    
+    /// Returns the value bound to this card, or nil if no value has been bound or
+    /// if the type expected by the caller doesn't match the type actually stored in
+    /// the binding.
+    public func boundValue<T>() -> T? where T : Codable {
+        guard let boundData = self.boundData else { return nil }
+        let decoder = JSONDecoder()
+        do {
+            let box = try decoder.decode(Dictionary<String, T>.self, from: boundData)
+            let boundValue = box["value"]
+            return boundValue
+        } catch {
+            return nil
+        }
     }
 }

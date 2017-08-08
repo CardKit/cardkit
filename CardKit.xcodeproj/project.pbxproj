@@ -121,9 +121,6 @@
 		CCE729B71D5CB18E00A347D8 /* HandLogicOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729B41D5CB18E00A347D8 /* HandLogicOperation.swift */; };
 		CCE729BC1D5E09BC00A347D8 /* CardTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */; };
 		CCE729BE1D5E09BC00A347D8 /* CardTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */; };
-		CCE72A0B1D64992900A347D8 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9319FE1D493D45001B71B1 /* Freddy.framework */; };
-		CCE72A0C1D64993600A347D8 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9E75CE1D5145BD00B7C738 /* Freddy.framework */; };
-		CCE72A0D1D64993D00A347D8 /* Freddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC931A021D493D54001B71B1 /* Freddy.framework */; };
 		F9FDA9821DFF09B700256F2C /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84DF161D95774700FE9612 /* CardKit.swift */; };
 		F9FDA9831DFF09B700256F2C /* CardDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319931D4937C9001B71B1 /* CardDescriptor.swift */; };
 		F9FDA9841DFF09B700256F2C /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319951D4937C9001B71B1 /* CardPath.swift */; };
@@ -265,7 +262,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE72A0B1D64992900A347D8 /* Freddy.framework in Frameworks */,
 				CC9317BC1D479278001B71B1 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,7 +277,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE72A0C1D64993600A347D8 /* Freddy.framework in Frameworks */,
 				CC9317DA1D47929F001B71B1 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +292,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE72A0D1D64993D00A347D8 /* Freddy.framework in Frameworks */,
 				CC9317F61D4792B7001B71B1 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

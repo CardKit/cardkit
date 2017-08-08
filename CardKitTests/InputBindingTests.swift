@@ -30,7 +30,7 @@ class InputBindingTests: XCTestCase {
             XCTFail("error binding double value to Real card: \(error)")
         }
         
-        XCTAssertTrue(card.inputDataValue() == 1.0)
+        XCTAssertTrue(card.boundValue() == 1.0)
     }
     
     func testValidDataBinding() {
@@ -45,12 +45,12 @@ class InputBindingTests: XCTestCase {
         do {
             try image.bind(withValue: data)
         } catch let error {
-            XCTFail("error binding double value to Angle card: \(error)")
+            XCTFail("error binding Data value to Image card: \(error)")
             return
         }
         
-        guard let boundData: Data = image.inputDataValue() else {
-            XCTFail("could not get inputDataValue() as type Data")
+        guard let boundData: Data = image.boundValue() else {
+            XCTFail("boundData should not be nil")
             return
         }
         
@@ -64,24 +64,13 @@ class InputBindingTests: XCTestCase {
     
     func testValidStructBinding() {
         // swiftlint:disable:next nesting
-        struct FooBar: JSONEncodable, JSONDecodable {
+        struct FooBar: Codable {
             var foo: Int
             var bar: Int
             
             init(_ foo: Int, _ bar: Int) {
                 self.foo = foo
                 self.bar = bar
-            }
-            
-            init(json: JSON) throws {
-                self.foo = try json.getInt(at: "foo")
-                self.bar = try json.getInt(at: "bar")
-            }
-            
-            func toJSON() -> JSON {
-                return .dictionary([
-                    "foo": self.foo.toJSON(),
-                    "bar": self.bar.toJSON()])
             }
         }
         
@@ -102,8 +91,8 @@ class InputBindingTests: XCTestCase {
             return
         }
         
-        guard let value: FooBar = card.inputDataValue() else {
-            XCTFail("could not get inputDataValue() as type FooBar")
+        guard let value: FooBar = card.boundValue() else {
+            XCTFail("could not get boundValue() as type FooBar")
             return
         }
         

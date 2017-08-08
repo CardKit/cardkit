@@ -272,30 +272,14 @@ extension ActionCard: BindsWithInputCard {
         throw ActionCard.BindingError.noInputSlotFoundWithName(name)
     }
     
-    /// Returns the data held in the specified InputSlot, or nil if the
-    /// slot is not bound.
-    public func boundData(of slot: InputSlot) -> Data? {
-        guard let binding = self.inputBindings[slot] else { return nil }
-        
-        switch binding {
-        case .unbound:
-            return nil
-        case .boundToInputCard(let card):
-            return card.boundData
-        case .boundToYieldingActionCard:
-            return nil
-        }
-    }
-    
     /// Returns the value held in the specified InputSlot, or nil if the slot is unbound
     /// or if the data cannot be cast to the requested type.
-    public func value<T>(of slot: InputSlot) -> T? where T : Decodable {
-        guard let boundValue = self.boundData(of: slot) else { return nil }
-        let decoder = JSONDecoder()
-        do {
-            let value = try decoder.decode(T.self, from: boundValue)
-            return value
-        } catch {
+    public func value<T>(of slot: InputSlot) -> T? where T : Codable {
+        guard let binding = self.inputBindings[slot] else { return nil }
+        if case .boundToInputCard(let card) = binding {
+            guard let boundValue: T = card.boundValue() else { return nil }
+            return boundValue
+        } else {
             return nil
         }
     }

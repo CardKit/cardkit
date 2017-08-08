@@ -29,6 +29,5 @@ protocol BindsWithInputCard {
     
     // retrieve the binding of a slot
     func binding(of slot: InputSlot) -> InputSlotBinding?
-    func boundData(of slot: InputSlot) -> Data?
     func value<T>(of slot: InputSlot) -> T? where T : Codable
 }
