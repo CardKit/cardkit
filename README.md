@@ -1,14 +1,12 @@
 # CardKit
 
-Welcome to CardKit. This is the fundamental framework for building IoT applications using a card-based methodology. CardKit defines a number of classes, structs, and protocols to encapsulate the creation and execution of card-based IoT programs.
+Welcome to CardKit. This is the foundational framework for programming IoT devices using a card-based metaphor. CardKit defines a number of classes, structs, and protocols to encapsulate the creation of card-based IoT programs.
 
-CardKit is written in Swift and supports macOS, iOS, and tvOS.
-
-CardKit depends on [Freddy](https://github.com/bignerdranch/Freddy) for JSON object serialization & deserialization.
+CardKit is written in Swift 4 and supports macOS, iOS, and tvOS.
 
 The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validating and executing CardKit programs.
 
-## Card Descriptors & Cards
+## Card Descriptors & Instances
 
 A `CardDescriptor` represents the information that would appear on a printed card. For example, the image below shows a sample annotated card containing various kinds of information.
 
@@ -19,10 +17,9 @@ A `CardDescriptor` contains a host of information used to describe the card:
 * **Card Type**: There are five types of cards in CardKit: Action, Deck, Hand, Input, Token. These are described in the Card Types section below.
 * **Name**. The name of the card.
 * **Path**. Paths are used to group cards with similar functionality, making it easier to find cards when the number of cards is large. Card paths are implemented by the `CardPath` struct.
-* **Version**. Version numbers are used to keep track of cards in case a card's metadata ever changes, or we need to support execution of multiple versions of the same card.
 * **Asset Catalog**. An Asset Catalog contains information about all assets needed to render the card on screen (e.g. a PNG rendering of the card, textual descriptions, etc.)
 
-A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and it's implementation is managed by `CardKit Runtime`.
+A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and its implementation is managed by `CardKit Runtime`.
 
 The `Card` protocol, plus a set of associated base classes (`ActionCard`, `DeckCard`, `HandCard`, `InputCard`, and `TokenCard`) are the basis for card instances. A card's *instance* tracks information about how the card is bound to other cards and in which hand a card appears. For example, an `InputCardDescriptor` may specify that an Input card should contain a `Double` value. The corresponding `InputCard` instance would track *which* `Double` was assigned to the Input card (e.g. "5.0").
 
@@ -65,6 +62,16 @@ Input cards are similar to Action cards in that both produce some piece of data 
 The `InputSlot` class manages the Input slots of an Action card. Each `InputSlot` has a human-understandable name (e.g. "Duration" or "Location") and a corresponding `InputType` (stored internally as a `String`).
 
 `ActionCard` keeps track of `InputSlot` binding using the `InputSlotBinding` enum; a slot may be unbound, bound to an `InputCard`, or bound to the `Yield` of an `ActionCard`.
+
+#### Boxing of Data Bound to `InputCard`
+
+The implmenetation of `JSONEncoder` does not support encoding primitive types as JSON fragments. Thus, we use a box when binding a value to an `InputCard`. The box is a simple `Dictionary<String, T>`, where `T` is the type of the value being bound. The sole key in this dictionary is "value"; thus, when binding an `Integer` with value 1 to a `CardKit.Input.Numeric.Integer`, the struct that will be serialized to JSON looks like `["value": 1]`. This box is automatically unwrapped when obtaining the value of the binding via `boundValue()`.
+
+```
+let card = CardKit.Input.Numeric.Integer.makeCard() <- 1 // internally, the `boundData` of `card` is `["value": 1]` (Dictionary<String, Int>)
+let value: Int = card.boundValue() // returns 1. note the explicit type notation is necessary.
+let value: String = card.boundValue() // returns nil because the internal Int cannot be decoded as a String.
+```
 
 ### Token
 
@@ -120,16 +127,12 @@ Cards are bound to each other when the yields from one card are used as inputs t
 * `ActionCard` to `ActionCard` – this is a Yield relationship
 * `InputCard` to `ActionCard` – this is an Input relationship
 * `TokenCard` to `ActionCard` – this is a Token relationship
-* Value to `InputCard` – this binds a specific data value (wrapped in an `InputDataBinding`) to an Input card
+* Value to `InputCard` – this binds a specific data value to an Input card
 
 The `bind()` methods are implemented generically, enabling any kind of data to be bound to a card. However, there are a few caveats:
 
 * Input slots are specified with the type of data they are expecting. Thus, a type-checking step is performed during binding to ensure that the type of the given data matches the expected type.
-* Input bindings need to serialize to and from JSON. Because Swift does not currently allow instantiating an instance of a struct from its String type name (e.g. cannot instantiate a struct `Foo` from the string "Foo"), we box the values of bound input using `InputDataBinding` enum. This enum contains two cases: 
-	* `.unbound`: the slot has not been bound
-	* `.bound(JSON)`: a `JSON` value has been bound to the slot
-
-This way, cards can bind data to any Swift type so long as it conforms to `JSONEncodable & JSONDecodable`.
+* Input bindings need to be serializable. Thus, they need to implement the `Codable` protocol introduced in Swift 4.
 
 ## Hands, Decks & Deck Building
 
@@ -252,7 +255,7 @@ If this Hand contained a `BranchHandCard`, then the Hand would be satisfied only
 
 ### Serialization
 
-Our intention is for CardKit programs to be specified entirely in JSON to allow for portability across devices. For example, an iOS app may be created to allow a programmer to create a CardKit program. That program ought to be serializable and transferred to a tvOS app which is responsible for it's execution. Thus, many of the structs and classes defined in CardKit are `JSONEncodable` and `JSONDecodable` using the Freddy framework.
+Our intention is for CardKit programs to be specified entirely in JSON to allow for portability across devices. For example, an iOS app may be created to allow a programmer to create a CardKit program. That program ought to be serializable and transferred to a tvOS app which is responsible for it's execution. Thus, many of the structs and classes defined in CardKit implement the `Codable` protocol, and `JSONEncoder` and `JSONDecoder` are used internally for serialization and deserialization of data bound to `InputCard`s.
 
 ### Static Card Descriptors
 
@@ -270,16 +273,6 @@ We follow a few naming guidelines in CardKit.
 * We prefer simple noun-based names for concrete concepts. For example, Cards, Hands, and Decks are core concepts in CardKit; thus, their class names are `Card`, `Hand`, and `Deck`.
 * We try to use value semantics (structs) wherever possible, although we really want to use inheritance in some places (e.g. `LogicHandCard : HandCard`), so we use classes in those cases. But, because of the Serialization requirement, we use value-like semantics when performing equality testing for these classes (e.g. using `CardIdentifier` and `HandIdentifier`).
 * Extensions to Swift types are specified in `Extensions/(Type)Extension.swift`
-
-### Input Boxing
-
-Due to limitations in Swift reflection, we use an `enum InputDataBinding` to box bound `Input` values. This is because we are not able to instantiate a reference to a type from it's String name, as would be given in the JSON representation of a CardKit program (`NSClassFromName()` does not work for `struct` types). Note that the value stored inside the box is a `JSON` object, enabling any type that conforms to `JSONEncodable & JSONDecodable` to be boxed.
-
-When removing bound values from the box, we must be explicit about its type. Internally, the `CardKit Runtime` attempts to construct an object instance for the type specified. For example, an `ExecutableActionCard` may retrieve the value bound to slot "A" as follows.
-
-`let a: Double = self.value(forInput: "A")`
-
-If the `InputSlot` "A" is `.bound` and the `JSON` value contained within it is convertible to `Double`, then the method returns the correct value. Otherwise, it returns `nil`.
 
 ## Building
 
