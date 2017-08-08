@@ -19,7 +19,7 @@ A `CardDescriptor` contains a host of information used to describe the card:
 * **Path**. Paths are used to group cards with similar functionality, making it easier to find cards when the number of cards is large. Card paths are implemented by the `CardPath` struct.
 * **Asset Catalog**. An Asset Catalog contains information about all assets needed to render the card on screen (e.g. a PNG rendering of the card, textual descriptions, etc.)
 
-A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and its implementation is managed by `CardKit Runtime`.
+A `CardDescriptor` does not contain any information about the *implementation* of the card; rather, it only contains the metadata associated with a card. The mapping between a `CardDescriptor` and its implementation is managed by CardKit Runtime.
 
 The `Card` protocol, plus a set of associated base classes (`ActionCard`, `DeckCard`, `HandCard`, `InputCard`, and `TokenCard`) are the basis for card instances. A card's *instance* tracks information about how the card is bound to other cards and in which hand a card appears. For example, an `InputCardDescriptor` may specify that an Input card should contain a `Double` value. The corresponding `InputCard` instance would track *which* `Double` was assigned to the Input card (e.g. "5.0").
 
@@ -29,7 +29,7 @@ With the separation of card descriptors and card instances, all *logical* cards 
 
 ## Card Types
 
-There are five different types of cards in `CardKit`.
+There are five different types of cards in CardKit.
 
 ### Action
 
@@ -75,7 +75,7 @@ let value: String = card.boundValue() // returns nil because the internal Int ca
 
 ### Token
 
-Token cards represent physical IoT hardware. Token card implementations, based on the `ExecutableTokenCard` class in `CardKit Runtime`, are designed to communicate with IoT hardware to perform the requisite actions as specified by the CardKit program. For example, a `Drone` token implementation may be created to control a drone. It is the responsibility for the Token card's implementation to perform any actual communication with the drone (or other IoT hardware).
+Token cards represent physical IoT hardware. Token card implementations, based on the `ExecutableTokenCard` class in CardKit Runtime, are designed to communicate with IoT hardware to perform the requisite actions as specified by the CardKit program. For example, a `Drone` token implementation may be created to control a drone. It is the responsibility for the Token card's implementation to perform any actual communication with the drone (or other IoT hardware).
 
 Tokens adhere to the `Consumable` protocol to specify whether their use is consumed by an `ActionCard`. If a token is consumed, its use by one `ActionCard` prevents its use by another `ActionCard` (e.g. a camera that can only respond to one command at a time). Tokens that are not consumed may be bound to multiple `ActionCard`s in the same hand. Token consumability applies only within the current Hand; a Token that was consumed in a previous hand may be used by a new `ActionCard` in the current hand.
 
@@ -89,7 +89,7 @@ Card execution works as shown below.
 
 Cards are placed in Hands, and execution flows from the first hand to the last hand.  Cards in a hand are executed in parallel. Hands are executed sequentially. Cards may produce outputs (called Yields) which may be used by cards in subsequent hands. A Deck encapsulates a sequence of Hands, and is considered a single, standalone CardKit program.
 
-Note that `CardKit` only provides facilities for defining the structure of a CardKit program. The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validation and execution of CardKit programs.
+Note that CardKit only provides facilities for defining the structure of a CardKit program. The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validation and execution of CardKit programs.
 
 ## Card Concepts
 
@@ -263,7 +263,7 @@ Card Descriptors encapsulate all of the metadata associated with a card. We stat
 
 ### Separation Between Specification and Runtime
 
-We have an explicit separation between the specification of a CardKit program and its runtime execution. It is the responsibility of the `CardKit Runtime` library to map the Card Descriptors defined in `CardKit.swift` to class implementations that execute the logic for the card.
+We have an explicit separation between the specification of a CardKit program and its runtime execution. It is the responsibility of the CardKit Runtime library to map the Card Descriptors defined in `CardKit.swift` to class implementations that execute the logic for the card.
 
 ### Naming
 
@@ -276,7 +276,7 @@ We follow a few naming guidelines in CardKit.
 
 ## Building
 
-No external dependencies are needed to build this framework. Other frameworks that depend on `CardKit` may include `CardKit` using Carthage.
+No external dependencies are needed to build this framework. Other frameworks that depend on CardKit may include it using Carthage.
 
 ## Contributing
 
@@ -284,13 +284,13 @@ If you would like to contribute to CardKit, we recommend forking the repository,
 
 ## History
 
-`CardKit` was developed at IBM Research. The core contributers are:
+CardKit was developed at IBM Research. The core contributers are:
 
 - [Saad Ismail](https://github.com/thesaadismail) developed the card-programming paradigm as part of his internship project investigating novel ways to program and control drones.
 - [Justin Manweiler](http://researcher.ibm.com/researcher/view.php?person=us-jmanweiler) sketched the initial implementation and came up with the notion of separating card descriptiors from instances and the deck builder syntax.
 - [Justin Weisz](https://github.com/jweisz) refined the initial implementation and implemented large chunks of the current framework.
 
-Additional contributions to `CardKit` have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
+Additional contributions to CardKit have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
 
 ## Contact
 
