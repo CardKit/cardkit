@@ -276,17 +276,22 @@ We follow a few naming guidelines in CardKit.
 
 ## Building
 
-We use Carthage to manage our dependencies. Run `carthage bootstrap` to build all of the dependencies before building the CardKit Xcode project.
+No external dependencies are needed to build this framework. Other frameworks that depend on `CardKit` may include `CardKit` using Carthage.
 
 ## Contributing
 
 If you would like to contribute to CardKit, we recommend forking the repository, making your changes, and submitting a pull request.
 
+## History
+
+`CardKit` was developed at IBM Research. The core contributers are:
+
+- [Saad Ismail](https://github.com/thesaadismail) developed the card-programming paradigm as part of his internship project investigating novel ways to program and control drones.
+- [Justin Manweiler](http://researcher.ibm.com/researcher/view.php?person=us-jmanweiler) sketched the initial implementation and came up with the notion of separating card descriptiors from instances and the deck builder syntax.
+- [Justin Weisz](https://github.com/jweisz) refined the initial implementation and implemented large chunks of the current framework.
+
+Additional contributions to `CardKit` have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
+
 ## Contact
 
-The authors of CardKit are members of the Center for Mobile Enterprise Research in IBM Research.
-
-* Justin Weisz, jweisz@us.ibm.com
-* Justin Manweiler, jmanweiler@us.ibm.com
-* Saad Ismail, saad@us.ibm.com
-
+Please contact Justin Weisz (jweisz [at] us.ibm.com) with any questions.
