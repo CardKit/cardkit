@@ -287,10 +287,10 @@ If you would like to contribute to CardKit, we recommend forking the repository,
 CardKit was developed at IBM Research. The core contributers are:
 
 - [Saad Ismail](https://github.com/thesaadismail) developed the card-programming paradigm as part of his internship project investigating novel ways to program and control drones.
-- [Justin Manweiler](http://researcher.ibm.com/researcher/view.php?person=us-jmanweiler) sketched the initial implementation and came up with the notion of separating card descriptiors from instances and the deck builder syntax.
-- [Justin Weisz](https://github.com/jweisz) refined the initial implementation and implemented large chunks of the current framework.
+- [Justin Manweiler](http://researcher.ibm.com/researcher/view.php?person=us-jmanweiler) sketched the initial implementation and came up with the notion of separating card descriptors from instances and the deck builder syntax.
+- [Justin Weisz](https://github.com/jweisz) refined the initial implementation and implemented large chunks of CardKit, CardKit Runtime, and Drone Cards.
 
-Additional contributions to CardKit have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
+Additional contributions to CardKit and its related projects have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
 
 ## Contact
 
