@@ -574,7 +574,7 @@
 				CC9317AD1D479278001B71B1 /* Frameworks */,
 				CC9317AE1D479278001B71B1 /* Headers */,
 				CC9317AF1D479278001B71B1 /* Resources */,
-				CC93194B1D49056B001B71B1 /* ShellScript */,
+				CC93194B1D49056B001B71B1 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -611,7 +611,7 @@
 				CC9317CC1D47929F001B71B1 /* Frameworks */,
 				CC9317CD1D47929F001B71B1 /* Headers */,
 				CC9317CE1D47929F001B71B1 /* Resources */,
-				CC93194C1D490579001B71B1 /* ShellScript */,
+				CC93194C1D490579001B71B1 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -648,7 +648,7 @@
 				CC9317E81D4792B7001B71B1 /* Frameworks */,
 				CC9317E91D4792B7001B71B1 /* Headers */,
 				CC9317EA1D4792B7001B71B1 /* Resources */,
-				CC93194D1D490581001B71B1 /* ShellScript */,
+				CC93194D1D490581001B71B1 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -783,39 +783,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CC93194B1D49056B001B71B1 /* ShellScript */ = {
+		CC93194B1D49056B001B71B1 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		CC93194C1D490579001B71B1 /* ShellScript */ = {
+		CC93194C1D490579001B71B1 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		CC93194D1D490581001B71B1 /* ShellScript */ = {
+		CC93194D1D490581001B71B1 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
