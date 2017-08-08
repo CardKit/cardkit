@@ -21,7 +21,7 @@ public class InputCard: Card, Codable {
     /// is the type of the data bound to the card. The bound value is contained in the dictionary under
     /// the key "value". For example, a bound integer with a value of 1 would be stored in the box
     /// `["value": 1]`. The box is used because `JSONEncoder` doesn't handle primitive types.
-    private var boundData: Data?
+    fileprivate var boundData: Data?
     
     public init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
