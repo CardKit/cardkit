@@ -21,7 +21,7 @@ public class InputCard: Card, Codable {
     /// is the type of the data bound to the card. The bound value is contained in the dictionary under
     /// the key "value". For example, a bound integer with a value of 1 would be stored in the box
     /// `["value": 1]`. The box is used because `JSONEncoder` doesn't handle primitive types.
-    fileprivate var boundData: Data?
+    public fileprivate (set) var boundData: Data?
     
     public init(with descriptor: InputCardDescriptor) {
         self.descriptor = descriptor
@@ -73,10 +73,9 @@ extension InputCard {
         }
         
         // bind the value -- need to put it in a box because the JSONEncoder can't encode primitive values
-        let box = ["value": value]
         let encoder = JSONEncoder()
         do {
-            let boundValue = try encoder.encode(box)
+            let boundValue = try encoder.boxEncode(value)
             return boundValue
         } catch {
             throw InputCard.BindingError.unsupportedDataType(type: Swift.type(of: value))
@@ -106,8 +105,7 @@ extension InputCard {
         guard let boundData = self.boundData else { return nil }
         let decoder = JSONDecoder()
         do {
-            let box = try decoder.decode(Dictionary<String, T>.self, from: boundData)
-            let boundValue = box["value"]
+            let boundValue = try decoder.boxDecode(T.self, from: boundData)
             return boundValue
         } catch {
             return nil

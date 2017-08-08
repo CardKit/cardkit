@@ -85,6 +85,9 @@
 		CCBB792B1D7466E0003B6458 /* CKTestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTestCards.swift */; };
 		CCBB792C1D7466E0003B6458 /* CKTestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTestCards.swift */; };
 		CCBB792D1D7466E0003B6458 /* CKTestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBB792A1D7466E0003B6458 /* CKTestCards.swift */; };
+		CCD067B11F3A484B0075CA41 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD067B01F3A484B0075CA41 /* CodableExtensions.swift */; };
+		CCD067B21F3A484B0075CA41 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD067B01F3A484B0075CA41 /* CodableExtensions.swift */; };
+		CCD067B31F3A484B0075CA41 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD067B01F3A484B0075CA41 /* CodableExtensions.swift */; };
 		CCE729191D5A33F400A347D8 /* HandEndRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729161D5A33F400A347D8 /* HandEndRule.swift */; };
 		CCE7291B1D5A33F400A347D8 /* HandEndRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729161D5A33F400A347D8 /* HandEndRule.swift */; };
 		CCE729251D5A33F400A347D8 /* HandCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729181D5A33F400A347D8 /* HandCardType.swift */; };
@@ -231,6 +234,7 @@
 		CC9E76611D54F33500B7C738 /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CCBB792A1D7466E0003B6458 /* CKTestCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKTestCards.swift; sourceTree = "<group>"; };
 		CCD067AE1F3A10210075CA41 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CCD067B01F3A484B0075CA41 /* CodableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
 		CCE729161D5A33F400A347D8 /* HandEndRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandEndRule.swift; sourceTree = "<group>"; };
 		CCE729181D5A33F400A347D8 /* HandCardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandCardType.swift; sourceTree = "<group>"; };
 		CCE729331D5A465E00A347D8 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
@@ -445,6 +449,7 @@
 			children = (
 				CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */,
 				CC51F7011E7C81E7002CDC3B /* BoolExtensions.swift */,
+				CCD067B01F3A484B0075CA41 /* CodableExtensions.swift */,
 				CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */,
 				CC9E765D1D54C31C00B7C738 /* SetExtensions.swift */,
 			);
@@ -852,6 +857,7 @@
 				CC931A451D495457001B71B1 /* HandCardDescriptor.swift in Sources */,
 				CC93199D1D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CCE729511D5A465E00A347D8 /* TokenSlot.swift in Sources */,
+				CCD067B11F3A484B0075CA41 /* CodableExtensions.swift in Sources */,
 				CC9319971D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
 				68437DDA1E784B8000D97A61 /* InputCardDescriptor.swift in Sources */,
 				CC931A7C1D496231001B71B1 /* HandCard.swift in Sources */,
@@ -915,6 +921,7 @@
 				CC93199F1D4937C9001B71B1 /* CardDescriptor.swift in Sources */,
 				CC9319991D4937C9001B71B1 /* CardAssetCatalog.swift in Sources */,
 				CC931A7E1D496231001B71B1 /* HandCard.swift in Sources */,
+				CCD067B21F3A484B0075CA41 /* CodableExtensions.swift in Sources */,
 				CCE729531D5A465E00A347D8 /* TokenSlot.swift in Sources */,
 				CC9319AB1D4937C9001B71B1 /* CardPath.swift in Sources */,
 				CCE729411D5A465E00A347D8 /* InputSlot.swift in Sources */,
@@ -978,6 +985,7 @@
 				F9FDA99C1DFF09B700256F2C /* InputSlot.swift in Sources */,
 				F9FDA9991DFF09B700256F2C /* BindsWithInputCard.swift in Sources */,
 				F9FDA9921DFF09B700256F2C /* Card.swift in Sources */,
+				CCD067B31F3A484B0075CA41 /* CodableExtensions.swift in Sources */,
 				F9FDA9841DFF09B700256F2C /* CardPath.swift in Sources */,
 				F9FDA9851DFF09B700256F2C /* CardType.swift in Sources */,
 				F9FDA9A91DFF09B700256F2C /* DateExtensions.swift in Sources */,
