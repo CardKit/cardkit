@@ -8,18 +8,28 @@
 
 import Foundation
 
-extension JSONEncoder {
-    public func boxEncode<T>(_ value: T) throws -> Data where T : Encodable {
-        let box = ["value": value]
-        return try self.encode(box)
+extension Encodable {
+    public func boxedEncoding() -> Data? {
+        let encoder = JSONEncoder()
+        let box = ["value": self]
+        do {
+            let data = try encoder.encode(box)
+            return data
+        } catch {
+            return nil
+        }
     }
 }
 
-extension JSONDecoder {
-    public func boxDecode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable {
-        let box = try self.decode(Dictionary<String, T>.self, from: data)
-        // swiftlint:disable:next force_unwrapping
-        let value = box["value"]!
-        return value
+extension Data {
+    public func unboxedValue<T>() -> T? where T : Codable {
+        let decoder = JSONDecoder()
+        do {
+            let box = try decoder.decode(Dictionary<String, T>.self, from: self)
+            guard let value = box["value"] else { return nil }
+            return value
+        } catch {
+            return nil
+        }
     }
 }

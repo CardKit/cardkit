@@ -73,13 +73,11 @@ extension InputCard {
         }
         
         // bind the value -- need to put it in a box because the JSONEncoder can't encode primitive values
-        let encoder = JSONEncoder()
-        do {
-            let boundValue = try encoder.boxEncode(value)
-            return boundValue
-        } catch {
+        guard let boxedValue = value.boxedEncoding() else {
             throw InputCard.BindingError.unsupportedDataType(type: Swift.type(of: value))
         }
+        
+        return boxedValue
     }
     
     /// Bind the given value to this InputCard.
@@ -103,12 +101,7 @@ extension InputCard {
     /// the binding.
     public func boundValue<T>() -> T? where T : Codable {
         guard let boundData = self.boundData else { return nil }
-        let decoder = JSONDecoder()
-        do {
-            let boundValue = try decoder.boxDecode(T.self, from: boundData)
-            return boundValue
-        } catch {
-            return nil
-        }
+        guard let boundValue: T = boundData.unboxedValue() else { return nil }
+        return boundValue
     }
 }
