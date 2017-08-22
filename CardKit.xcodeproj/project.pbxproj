@@ -207,8 +207,6 @@
 		CC9319931D4937C9001B71B1 /* CardDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptor.swift; sourceTree = "<group>"; };
 		CC9319951D4937C9001B71B1 /* CardPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPath.swift; sourceTree = "<group>"; };
 		CC9319961D4937C9001B71B1 /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
-		CC9319FE1D493D45001B71B1 /* Freddy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Freddy.framework; path = Carthage/Build/iOS/Freddy.framework; sourceTree = "<group>"; };
-		CC931A021D493D54001B71B1 /* Freddy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Freddy.framework; path = Carthage/Build/tvOS/Freddy.framework; sourceTree = "<group>"; };
 		CC931A071D494D1F001B71B1 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		CC931A341D495457001B71B1 /* ActionCardDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActionCardDescriptor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CC931A351D495457001B71B1 /* DeckCardDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckCardDescriptor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -223,7 +221,6 @@
 		CC931A891D49623E001B71B1 /* TokenCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenCard.swift; sourceTree = "<group>"; };
 		CC931ABC1D4A8557001B71B1 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		CC931BCC1D4BB350001B71B1 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
-		CC9E75CE1D5145BD00B7C738 /* Freddy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Freddy.framework; path = Carthage/Build/Mac/Freddy.framework; sourceTree = "<group>"; };
 		CC9E763E1D523DBE00B7C738 /* CardDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDescriptorTests.swift; sourceTree = "<group>"; };
 		CC9E76431D524AD800B7C738 /* DeckBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckBuilder.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CC9E764A1D526F0200B7C738 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -318,7 +315,6 @@
 				CCD067AE1F3A10210075CA41 /* README.md */,
 				CC9317B31D479278001B71B1 /* CardKit */,
 				CC9317BF1D479278001B71B1 /* CardKitTests */,
-				CC931A041D493D5F001B71B1 /* Frameworks */,
 				CC9317B21D479278001B71B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -395,16 +391,6 @@
 				CC9319921D4937C9001B71B1 /* CardAssetCatalog.swift */,
 			);
 			path = "Card Descriptor";
-			sourceTree = "<group>";
-		};
-		CC931A041D493D5F001B71B1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CCE72A2B1D64BCA800A347D8 /* iOS */,
-				CCE72A2C1D64BCAD00A347D8 /* macOS */,
-				CCE72A2D1D64BCB100A347D8 /* tvOS */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CC931A061D494CFD001B71B1 /* Hand */ = {
@@ -515,30 +501,6 @@
 				CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */,
 			);
 			path = "Hand Structure";
-			sourceTree = "<group>";
-		};
-		CCE72A2B1D64BCA800A347D8 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				CC9319FE1D493D45001B71B1 /* Freddy.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		CCE72A2C1D64BCAD00A347D8 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				CC9E75CE1D5145BD00B7C738 /* Freddy.framework */,
-			);
-			name = macOS;
-			sourceTree = "<group>";
-		};
-		CCE72A2D1D64BCB100A347D8 /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				CC931A021D493D54001B71B1 /* Freddy.framework */,
-			);
-			name = tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
