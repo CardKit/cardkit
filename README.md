@@ -4,7 +4,7 @@ Welcome to CardKit. This is the foundational framework for programming IoT devic
 
 CardKit is written in Swift 4 and supports macOS, iOS, and tvOS.
 
-The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validating and executing CardKit programs.
+The [CardKit Runtime](https://github.com/CardKit/card-kit-runtime) provides support for validating and executing CardKit programs.
 
 ## Card Descriptors & Instances
 
@@ -89,7 +89,7 @@ Card execution works as shown below.
 
 Cards are placed in Hands, and execution flows from the first hand to the last hand.  Cards in a hand are executed in parallel. Hands are executed sequentially. Cards may produce outputs (called Yields) which may be used by cards in subsequent hands. A Deck encapsulates a sequence of Hands, and is considered a single, standalone CardKit program.
 
-Note that CardKit only provides facilities for defining the structure of a CardKit program. The [CardKit Runtime](https://github.ibm.com/CMER/card-kit-runtime) provides support for validation and execution of CardKit programs.
+Note that CardKit only provides facilities for defining the structure of a CardKit program. The [CardKit Runtime](https://github.com/CardKit/card-kit-runtime) provides support for validation and execution of CardKit programs.
 
 ## Card Concepts
 
