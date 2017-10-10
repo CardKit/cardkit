@@ -63,7 +63,7 @@ extension InputCard {
     
     /// Encodes the given value as Data. Throws an error if the type of the given
     /// value doesn't match the type expected by this InputCard.
-    fileprivate func bindingValue<T>(_ value: T) throws -> Data where T : Codable {
+    fileprivate func bindingValue<T>(_ value: T) throws -> Data where T: Codable {
         // make sure the type of the value matches the type expected by the descriptor
         let givenType = String(describing: Swift.type(of: value))
         let expectedType = self.descriptor.inputType
@@ -81,12 +81,12 @@ extension InputCard {
     }
     
     /// Bind the given value to this InputCard.
-    func bind<T>(withValue value: T) throws where T : Codable {
+    func bind<T>(withValue value: T) throws where T: Codable {
         self.boundData = try self.bindingValue(value)
     }
     
     /// Returns a new InputCard with the given value bound to it.
-    public func bound<T>(withValue value: T) throws -> InputCard where T : Codable {
+    public func bound<T>(withValue value: T) throws -> InputCard where T: Codable {
         let data = try self.bindingValue(value)
         return InputCard(with: self.descriptor, boundData: data)
     }
@@ -99,7 +99,7 @@ extension InputCard {
     /// Returns the value bound to this card, or nil if no value has been bound or
     /// if the type expected by the caller doesn't match the type actually stored in
     /// the binding.
-    public func boundValue<T>() -> T? where T : Codable {
+    public func boundValue<T>() -> T? where T: Codable {
         guard let boundData = self.boundData else { return nil }
         guard let boundValue: T = boundData.unboxedValue() else { return nil }
         return boundValue

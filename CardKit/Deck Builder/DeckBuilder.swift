@@ -43,14 +43,14 @@ postfix operator %
 extension InputCardDescriptor {
     /// Bind data to an InputCardDescriptor. Creates a new
     /// InputCard instance first.
-    public static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard where T : Codable {
+    public static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard where T: Codable {
         return try lhs.makeCard() <- rhs
     }
 }
 
 extension InputCard {
     /// Bind data to an InputCard
-    static func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard where T : Codable {
+    static func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard where T: Codable {
         return try lhs.bound(withValue: rhs)
     }
 }

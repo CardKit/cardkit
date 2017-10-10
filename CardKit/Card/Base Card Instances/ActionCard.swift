@@ -19,7 +19,7 @@ public class ActionCard: Card, Codable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // Input bindings
-    public fileprivate (set) var inputBindings: [InputSlot : InputSlotBinding] = [:]
+    public fileprivate (set) var inputBindings: [InputSlot: InputSlotBinding] = [:]
     
     // Exposed from the descriptor
     public var inputSlots: [InputSlot] {
@@ -59,7 +59,7 @@ public class ActionCard: Card, Codable {
     }
     
     // token bindings
-    public fileprivate (set) var tokenBindings: [TokenSlot : TokenSlotBinding] = [:]
+    public fileprivate (set) var tokenBindings: [TokenSlot: TokenSlotBinding] = [:]
     
     public var tokenSlots: [TokenSlot] {
         return self.descriptor.tokenSlots
@@ -82,7 +82,7 @@ public class ActionCard: Card, Codable {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : InputSlotBinding], tokenBindings: [TokenSlot : TokenSlotBinding]) {
+    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot: InputSlotBinding], tokenBindings: [TokenSlot: TokenSlotBinding]) {
         self.descriptor = descriptor
         self.inputBindings = inputBindings
         self.tokenBindings = tokenBindings
@@ -274,7 +274,7 @@ extension ActionCard: BindsWithInputCard {
     
     /// Returns the value held in the specified InputSlot, or nil if the slot is unbound
     /// or if the data cannot be cast to the requested type.
-    public func value<T>(of slot: InputSlot) -> T? where T : Codable {
+    public func value<T>(of slot: InputSlot) -> T? where T: Codable {
         guard let binding = self.inputBindings[slot] else { return nil }
         if case .boundToInputCard(let card) = binding {
             guard let boundValue: T = card.boundValue() else { return nil }

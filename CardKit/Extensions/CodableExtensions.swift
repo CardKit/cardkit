@@ -22,7 +22,7 @@ extension Encodable {
 }
 
 extension Data {
-    public func unboxedValue<T>() -> T? where T : Codable {
+    public func unboxedValue<T>() -> T? where T: Codable {
         let decoder = JSONDecoder()
         do {
             let box = try decoder.decode(Dictionary<String, T>.self, from: self)
