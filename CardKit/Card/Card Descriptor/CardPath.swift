@@ -13,7 +13,7 @@ public struct CardPath: Codable {
     
     /// Create a CardPath from a path string. Path strings are of the form "a/b/c" (e.g. "Input/Location").
     init(withPath path: String) {
-        self.pathComponents = path.characters.split(separator: "/").map(String.init)
+        self.pathComponents = path.split(separator: "/").map(String.init)
     }
 }
 
