@@ -8,11 +8,9 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: DeckCardDescriptor
 
-public struct DeckCardDescriptor: CardDescriptor {
+public struct DeckCardDescriptor: CardDescriptor, Codable {
     public let cardType: CardType = .deck
     public let name: String
     public let path: CardPath
@@ -37,7 +35,8 @@ public struct DeckCardDescriptor: CardDescriptor {
 // MARK: Equatable
 
 extension DeckCardDescriptor: Equatable {
-    /// Card descriptors are equal when their names and paths are the same. All the other metadata should be the same when two descriptors have the same name & path.
+    /// Card descriptors are equal when their names and paths are the same.
+    /// All the other metadata should be the same when two descriptors have the same name & path.
     static public func == (lhs: DeckCardDescriptor, rhs: DeckCardDescriptor) -> Bool {
         var equal = true
         equal = equal && lhs.name == rhs.name
@@ -59,28 +58,5 @@ extension DeckCardDescriptor: Hashable {
 extension DeckCardDescriptor: CustomStringConvertible {
     public var description: String {
         return "\(self.path.description)/\(self.name)"
-    }
-}
-
-// MARK: JSONEncodable
-
-extension DeckCardDescriptor: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "cardType": cardType.toJSON(),
-            "name": name.toJSON(),
-            "path": path.toJSON(),
-            "assetCatalog": assetCatalog.toJSON()
-            ])
-    }
-}
-
-// MARK: JSONDecodable
-
-extension DeckCardDescriptor: JSONDecodable {
-    public init(json: JSON) throws {
-        self.name = try json.getString(at: "name")
-        self.path = try json.decode(at: "path", type: CardPath.self)
-        self.assetCatalog = try json.decode(at: "assetCatalog", type: CardAssetCatalog.self)
     }
 }

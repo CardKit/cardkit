@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Freddy
-
-// MARK: HandLogicOperation.swift
+// MARK: HandLogicOperation
 
 public enum HandLogicOperation: String {
     case indeterminate
@@ -19,31 +17,6 @@ public enum HandLogicOperation: String {
     case booleanNot
 }
 
-// MARK: JSONEncodable
+// MARK: Codable
 
-extension HandLogicOperation: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .indeterminate:
-            return .string("indeterminate")
-        case .booleanAnd:
-            return .string("booleanAnd")
-        case .booleanOr:
-            return .string("booleanOr")
-        case .booleanNot:
-            return .string("booleanNot")
-        }
-    }
-}
-
-// MARK: JSONDecodable
-
-extension HandLogicOperation: JSONDecodable {
-    public init(json: JSON) throws {
-        let operation = try json.getString()
-        guard let operationEnum = HandLogicOperation(rawValue: operation) else {
-            throw JSON.Error.valueNotConvertible(value: json, to: HandLogicOperation.self)
-        }
-        self = operationEnum
-    }
-}
+extension HandLogicOperation: Codable {}

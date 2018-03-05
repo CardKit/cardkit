@@ -642,10 +642,10 @@ class HandTests: XCTestCase {
         }
         
         let handB = Hand()
-        let _ = handA.addBranch(from: tree, to: handB)
+        _ = handA.addBranch(from: tree, to: handB)
         
         let handC = Hand()
-        let _ = handA.addBranch(from: tree, to: handC)
+        _ = handA.addBranch(from: tree, to: handC)
         
         XCTAssertTrue(handA.branchTarget(of: tree) == handC.identifier)
     }
@@ -657,10 +657,10 @@ class HandTests: XCTestCase {
         let handD = Hand()
         let handE = Hand()
         
-        let _ = handA.addBranch(to: handB)
-        let _ = handB.addBranch(to: handC)
-        let _ = handC.addBranch(to: handD)
-        let _ = handD.addBranch(to: handE)
+        _ = handA.addBranch(to: handB)
+        _ = handB.addBranch(to: handC)
+        _ = handC.addBranch(to: handD)
+        _ = handD.addBranch(to: handE)
         
         // each hand has only one (direct) subhand
         XCTAssertTrue(handA.subhands.count == 1)
@@ -785,10 +785,10 @@ class HandTests: XCTestCase {
         let cdTree = handA.cardTrees[1]
         
         let handB = Hand()
-        let _ = handA.addBranch(from: abTree, to: handB)
+        _ = handA.addBranch(from: abTree, to: handB)
         
         let handC = Hand()
-        let _ = handA.addBranch(from: cdTree, to: handC)
+        _ = handA.addBranch(from: cdTree, to: handC)
         
         var ab: Set<CardIdentifier> = Set()
         ab.insert(noActionA.identifier)

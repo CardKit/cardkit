@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: Custom Operators
 
 // Binding Input and Yields
@@ -44,14 +43,14 @@ postfix operator %
 extension InputCardDescriptor {
     /// Bind data to an InputCardDescriptor. Creates a new
     /// InputCard instance first.
-    public static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard {
+    public static func <-<T> (lhs: InputCardDescriptor, rhs: T) throws -> InputCard where T: Codable {
         return try lhs.makeCard() <- rhs
     }
 }
 
 extension InputCard {
     /// Bind data to an InputCard
-    static func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard {
+    static func <-<T> (lhs: InputCard, rhs: T) throws -> InputCard where T: Codable {
         return try lhs.bound(withValue: rhs)
     }
 }
@@ -71,15 +70,15 @@ extension ActionCardDescriptor {
         return try lhs.makeCard() <- rhs
     }
     
-    /// Bind an InputCard to an ActionCardDescriptor in the given InputSlotName. Creates a new ActionCard
+    /// Bind an InputCard to an ActionCardDescriptor in the given slot. Creates a new ActionCard
     /// instance first.
-    public static func <- (lhs: ActionCardDescriptor, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (String, InputCard)) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
-    /// Bind a TokenCard to an ActionCardDescriptor in the given TokenSlotName. Creates a new ActionCard
+    /// Bind a TokenCard to an ActionCardDescriptor in the given slot. Creates a new ActionCard
     /// instance first.
-    public static func <- (lhs: ActionCardDescriptor, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
+    public static func <- (lhs: ActionCardDescriptor, rhs: (String, TokenCard)) throws -> ActionCard {
         return try lhs.makeCard() <- rhs
     }
     
@@ -112,13 +111,13 @@ extension ActionCard {
         return ret
     }
 
-    /// Bind an InputCard to an ActionCard in the given InputSlotName
-    public static func <- (lhs: ActionCard, rhs: (InputSlotName, InputCard)) throws -> ActionCard {
+    /// Bind an InputCard to an ActionCard in the given slot
+    public static func <- (lhs: ActionCard, rhs: (String, InputCard)) throws -> ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
     }
     
-    /// Bind an array of InputCards to an ActionCard in the given InputSlotName
-    public static func <- (lhs: ActionCard, rhs: [(InputSlotName, InputCard)]) throws -> ActionCard {
+    /// Bind an array of InputCards to an ActionCard in the given slot
+    public static func <- (lhs: ActionCard, rhs: [(String, InputCard)]) throws -> ActionCard {
         var ret = lhs
         for tuple in rhs {
             ret = try ret.bound(with: tuple.1, inSlotNamed: tuple.0)
@@ -127,13 +126,13 @@ extension ActionCard {
     }
     
     
-    /// Bind a TokenCard to an ActionCard in the given TokenSlotName
-    public static func <- (lhs: ActionCard, rhs: (TokenSlotName, TokenCard)) throws -> ActionCard {
+    /// Bind a TokenCard to an ActionCard in the given slot
+    public static func <- (lhs: ActionCard, rhs: (String, TokenCard)) throws -> ActionCard {
         return try lhs.bound(with: rhs.1, inSlotNamed: rhs.0)
     }
     
-    /// Bind an array of TokenCards to an ActionCard in the given TokenSlotName
-    public static func <- (lhs: ActionCard, rhs: [(TokenSlotName, TokenCard)]) throws -> ActionCard {
+    /// Bind an array of TokenCards to an ActionCard in the given slot
+    public static func <- (lhs: ActionCard, rhs: [(String, TokenCard)]) throws -> ActionCard {
         var ret = lhs
         for tuple in rhs {
             ret = try ret.bound(with: tuple.1, inSlotNamed: tuple.0)

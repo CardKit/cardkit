@@ -8,11 +8,9 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: - InputType
 
-public typealias InputType = (JSONEncodable & JSONDecodable).Type
+public typealias InputType = Codable.Type
 
 // MARK: - Enumerable
 

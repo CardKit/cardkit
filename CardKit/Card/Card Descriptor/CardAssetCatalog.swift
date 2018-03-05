@@ -8,9 +8,7 @@
 
 import Foundation
 
-import Freddy
-
-public struct CardAssetCatalog {
+public struct CardAssetCatalog: Codable {
     public var textualDescription: String
     
     public init() {
@@ -19,23 +17,5 @@ public struct CardAssetCatalog {
     
     public init(description: String) {
         self.textualDescription = description
-    }
-}
-
-// MARK: JSONEncodable
-
-extension CardAssetCatalog: JSONEncodable {
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "textualDescription": self.textualDescription.toJSON()
-            ])
-    }
-}
-
-// MARK: JSONDecodable
-
-extension CardAssetCatalog: JSONDecodable {
-    public init(json: JSON) throws {
-        self.textualDescription = try json.getString(at: "textualDescription")
     }
 }

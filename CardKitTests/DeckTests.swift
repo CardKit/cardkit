@@ -48,27 +48,27 @@ class DeckTests: XCTestCase {
         XCTAssertTrue(deck.deckCards.count == 2)
     }
     
-    func testDeckJSONSerialization() {
+    func testDeckSerialization() {
         let noAction = CKTestCards.Action.NoAction
         let timer = CardKit.Action.Trigger.Time.Timer
         let wait = CardKit.Action.Trigger.Time.WaitUntilTime
         
+        let encoder = JSONEncoder()
         do {
             let deck = try (
                 // do nothing
                 noAction ==>
                     
-                    // wait 5 seconds
-                    timer <- (CardKit.Input.Time.Duration <- 5.0)  ==>
-                    
-                    // wait 10 seconds and until the clock time is reached
-                    timer <- (CardKit.Input.Time.Duration <- 10.0)
-                    && wait <- (CardKit.Input.Time.ClockTime <- Date())
-                )%
+                // wait 5 seconds
+                timer <- (CardKit.Input.Time.Duration <- 5.0)  ==>
+                
+                // wait 10 seconds and until the clock time is reached
+                timer <- (CardKit.Input.Time.Duration <- 10.0) &&
+                wait <- (CardKit.Input.Time.ClockTime <- Date())
+            )%
             
-            let prettyStr = try deck.toJSON().serializeString()
-            print("\(prettyStr)")
-            
+            let str = try encoder.encode(deck)
+            print("\(str)")
         } catch let error {
             XCTFail("\(error)")
         }

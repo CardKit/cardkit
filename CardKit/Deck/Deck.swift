@@ -8,11 +8,9 @@
 
 import Foundation
 
-import Freddy
-
 public typealias DeckIdentifier = CardIdentifier
 
-public class Deck {
+public class Deck: Codable {
     /// These are the Hands that are stored at the Deck level.
     /// Hands may also be stored as subhands of a Hand, which means
     /// that this is NOT the complete set of Hands in the deck.
@@ -87,24 +85,6 @@ public class Deck {
         self.deckHands = deck.deckHands
         self.deckCards = deck.deckCards
         self.tokenCards = []
-    }
-    
-    // MARK: JSONEncodable & JSONDecodable
-    
-    public init(json: JSON) throws {
-        self.deckHands = try json.decodedArray(at: "deckHands", type: Hand.self)
-        self.deckCards = try json.decodedArray(at: "deckCards", type: DeckCard.self)
-        self.tokenCards = try json.decodedArray(at: "tokenCards", type: TokenCard.self)
-        self.identifier = try json.decode(at: "identifier", type: DeckIdentifier.self)
-    }
-    
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "deckHands": self.deckHands.toJSON(),
-            "deckCards": self.deckCards.toJSON(),
-            "tokenCards": self.tokenCards.toJSON(),
-            "identifier": self.identifier.toJSON()
-            ])
     }
 }
 

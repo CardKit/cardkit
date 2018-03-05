@@ -25,7 +25,7 @@ class DeckBuilderTests: XCTestCase {
     func testInputBinding() {
         do {
             let duration = try CardKit.Input.Time.Duration <- 5.0
-            XCTAssertTrue(duration.inputDataValue() == 5.0)
+            XCTAssertTrue(duration.boundValue() == 5.0)
         } catch let error {
             XCTFail("\(error)")
         }
@@ -40,12 +40,12 @@ class DeckBuilderTests: XCTestCase {
             XCTFail("\(error)")
         }
         
-        XCTAssertTrue(duration.inputDataValue() == 2.0)
+        XCTAssertTrue(duration.boundValue() == 2.0)
     }
     
     func testTransitiveBinding() {
         do {
-            let _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5.0)
+            _ = try CardKit.Action.Trigger.Time.Timer <- (CardKit.Input.Time.Duration <- 5.0)
         } catch let error {
             XCTFail("\(error)")
         }
@@ -85,12 +85,14 @@ class DeckBuilderTests: XCTestCase {
         let a = CKTestCards.Action.AcceptsMultipleInputTypes.makeCard()
         
         do {
+            // the card takes a Real, TextString, Real, RawData, so these values should be bound to slots A and C
             let boundA = try a <- (CardKit.Input.Numeric.Real <- 5.0) <- (CardKit.Input.Numeric.Real <- 3.0)
             
-            guard let slotA = boundA.inputSlots.slot(named: "A"),
+            guard
+                let slotA = boundA.inputSlots.slot(named: "A"),
                 let slotB = boundA.inputSlots.slot(named: "B"),
                 let slotC = boundA.inputSlots.slot(named: "C"),
-                let slotD = boundA.inputSlots.slot(named: "D")  else {
+                let slotD = boundA.inputSlots.slot(named: "D") else {
                     XCTFail("Some Input slots missing")
                     return
             }
@@ -100,7 +102,6 @@ class DeckBuilderTests: XCTestCase {
             XCTAssertTrue(boundA.isSlotBound(slotC))
             XCTAssertFalse(boundA.isSlotBound(slotD))
             
-        
             guard let aValue: Double = boundA.value(of: slotA) else {
                 XCTFail("expected a Double value in slotA")
                 return

@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Freddy
-
 // MARK: HandEndRule
 
 public enum HandEndRule: String {
@@ -18,29 +16,6 @@ public enum HandEndRule: String {
     case endWhenAnySatisfied
 }
 
-// MARK: JSONEncodable
+// MARK: Codable
 
-extension HandEndRule: JSONEncodable {
-    public func toJSON() -> JSON {
-        switch self {
-        case .indeterminate:
-            return .string("indeterminate")
-        case .endWhenAllSatisfied:
-            return .string("endWhenAllSatisfied")
-        case .endWhenAnySatisfied:
-            return .string("endWhenAnySatisfied")
-        }
-    }
-}
-
-// MARK: JSONDecodable
-
-extension HandEndRule: JSONDecodable {
-    public init(json: JSON) throws {
-        let type = try json.getString()
-        guard let typeEnum = HandEndRule(rawValue: type) else {
-            throw JSON.Error.valueNotConvertible(value: json, to: HandEndRule.self)
-        }
-        self = typeEnum
-    }
-}
+extension HandEndRule: Codable {}

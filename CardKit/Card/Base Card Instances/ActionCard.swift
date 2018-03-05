@@ -8,9 +8,8 @@
 
 import Foundation
 
-import Freddy
-
-public class ActionCard: Card, JSONEncodable, JSONDecodable {
+/// ActionCard instances correspond to a specific card contained in a sp
+public class ActionCard: Card, Codable {
     public let descriptor: ActionCardDescriptor
     
     // Card protocol
@@ -20,7 +19,7 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     public var assetCatalog: CardAssetCatalog { return descriptor.assetCatalog }
     
     // Input bindings
-    public fileprivate (set) var inputBindings: [InputSlot : InputSlotBinding] = [:]
+    public fileprivate (set) var inputBindings: [InputSlot: InputSlotBinding] = [:]
     
     // Exposed from the descriptor
     public var inputSlots: [InputSlot] {
@@ -60,7 +59,7 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
     }
     
     // token bindings
-    public fileprivate (set) var tokenBindings: [TokenSlot : TokenSlotBinding] = [:]
+    public fileprivate (set) var tokenBindings: [TokenSlot: TokenSlotBinding] = [:]
     
     public var tokenSlots: [TokenSlot] {
         return self.descriptor.tokenSlots
@@ -83,68 +82,10 @@ public class ActionCard: Card, JSONEncodable, JSONDecodable {
         self.descriptor = descriptor
     }
     
-    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot : InputSlotBinding], tokenBindings: [TokenSlot : TokenSlotBinding]) {
+    init(with descriptor: ActionCardDescriptor, inputBindings: [InputSlot: InputSlotBinding], tokenBindings: [TokenSlot: TokenSlotBinding]) {
         self.descriptor = descriptor
         self.inputBindings = inputBindings
         self.tokenBindings = tokenBindings
-    }
-    
-    // MARK: JSONEncodable & JSONDecodable
-    
-    public required init(json: JSON) throws {
-        self.identifier = try json.decode(at: "identifier", type: CardIdentifier.self)
-        self.descriptor = try json.decode(at: "descriptor", type: ActionCardDescriptor.self)
-        
-        self.inputBindings = [:]
-        let jsonInputBindings: [String : InputSlotBinding] = try json.decodedDictionary(at: "inputBindings")
-        for (slotName, binding) in jsonInputBindings {
-            // find the InputSlot
-            guard let slot = self.inputSlots.slot(named: slotName) else {
-                throw JSON.Error.valueNotConvertible(value: json, to: ActionCard.self)
-            }
-            
-            // bind it
-            self.inputBindings[slot] = binding
-        }
-        
-        self.tokenBindings = [:]
-        let jsonTokenBindings: [String : TokenSlotBinding] = try json.decodedDictionary(at: "tokenBindings")
-        for (slotName, binding) in jsonTokenBindings {
-            // find the TokenSlot
-            guard let slot = self.descriptor.tokenSlots.slot(named: slotName) else {
-                throw JSON.Error.valueNotConvertible(value: json, to: ActionCard.self)
-            }
-            
-            // bind it
-            self.tokenBindings[slot] = binding
-        }
-    }
-    
-    public func toJSON() -> JSON {
-        // need to treat inputBindings and tokenBindings special. we can't just rely on
-        // self.inputBindings.toJSON() because Freddy will use String(InputSlot) to create
-        // the string values for the dictionary keys. which means our keys will end up looking
-        // like this, which is impossible to decode:
-        //   InputSlot(name: \"Duration\", inputType: CardKitTests_iOS.InputType.SwiftInt, isOptional: false)
-        // instead, we will use the *name* of the slot as the key, and when we deserialize, we will restore
-        // the original mapping back to the actual InputSlot object.
-        
-        var jsonInputBindings: [String : InputSlotBinding] = [:]
-        for (slot, binding) in self.inputBindings {
-            jsonInputBindings[slot.name] = binding
-        }
-        
-        var jsonTokenBindings: [String : TokenSlotBinding] = [:]
-        for (slot, binding) in self.tokenBindings {
-            jsonTokenBindings[slot.name] = binding
-        }
-        
-        return .dictionary([
-            "identifier": self.identifier.toJSON(),
-            "descriptor": self.descriptor.toJSON(),
-            "inputBindings": jsonInputBindings.toJSON(),
-            "tokenBindings": jsonTokenBindings.toJSON()
-            ])
     }
 }
 
@@ -182,11 +123,11 @@ extension ActionCard {
         /// InputSlot's InputType
         case noFreeSlotMatchingYieldTypeFound
         
-        /// No InputSlot found with the given TokenSlotName
-        case noInputSlotFoundWithName(InputSlotName)
+        /// No InputSlot found with the given name
+        case noInputSlotFoundWithName(String)
         
-        /// No TokenSlot found with the given TokenSlotName
-        case noTokenSlotFoundWithName(TokenSlotName)
+        /// No TokenSlot found with the given name
+        case noTokenSlotFoundWithName(String)
     }
 }
 
@@ -283,8 +224,8 @@ extension ActionCard: BindsWithInputCard {
         }
     }
     
-    /// Binds the given InputCard to slot with the given InputSlotName
-    public func bind(with card: InputCard, inSlotNamed name: InputSlotName) throws {
+    /// Binds the given InputCard to the given slot
+    public func bind(with card: InputCard, inSlotNamed name: String) throws {
         for slot in self.descriptor.inputSlots {
             if slot.name == name {
                 try self.bind(with: card, in: slot)
@@ -320,8 +261,8 @@ extension ActionCard: BindsWithInputCard {
         }
     }
     
-    /// Returns a new ActionCard with the given InputCard bound to the slot with the given InputSlotName
-    public func bound(with card: InputCard, inSlotNamed name: InputSlotName) throws -> ActionCard {
+    /// Returns a new ActionCard with the given InputCard bound to the slot with the given name
+    public func bound(with card: InputCard, inSlotNamed name: String) throws -> ActionCard {
         for slot in self.descriptor.inputSlots {
             if slot.name == name {
                 return try self.bound(with: card, in: slot)
@@ -331,39 +272,14 @@ extension ActionCard: BindsWithInputCard {
         throw ActionCard.BindingError.noInputSlotFoundWithName(name)
     }
     
-    /// Returns the DataBinding held in the specified InputSlot, or .Unbound if the
-    /// slot is not bound.
-    public func boundData(of slot: InputSlot) -> DataBinding {
-        guard let binding = self.inputBindings[slot] else { return .unbound }
-        
-        switch binding {
-        case .unbound:
-            return .unbound
-        case .boundToInputCard(let card):
-            return card.boundData
-        case .boundToYieldingActionCard(_):
-            return .unbound
-        }
-    }
-    
-    /// Returns the raw value held in the specified InputSlot, or nil
-    /// if the slot is unbound or if the data cannot be cast to the requested
-    /// type.
-    public func value<T>(of slot: InputSlot) -> T? where T : JSONDecodable {
+    /// Returns the value held in the specified InputSlot, or nil if the slot is unbound
+    /// or if the data cannot be cast to the requested type.
+    public func value<T>(of slot: InputSlot) -> T? where T: Codable {
         guard let binding = self.inputBindings[slot] else { return nil }
-        switch binding {
-        case .boundToInputCard(let card):
-            switch card.boundData {
-            case .bound(let val):
-                do {
-                    return try T(json: val)
-                } catch {
-                    return nil
-                }
-            default:
-                return nil
-            }
-        default:
+        if case .boundToInputCard(let card) = binding {
+            guard let boundValue: T = card.boundValue() else { return nil }
+            return boundValue
+        } else {
             return nil
         }
     }
@@ -381,8 +297,8 @@ extension ActionCard: BindsWithTokenCard {
         }
     }
     
-    /// Binds the given TokenCard to slot with the given TokenSlotName
-    public func bind(with card: TokenCard, inSlotNamed name: TokenSlotName) throws {
+    /// Binds the given TokenCard to the given slot
+    public func bind(with card: TokenCard, inSlotNamed name: String) throws {
         for slot in self.descriptor.tokenSlots {
             if slot.name == name {
                 try self.bind(with: card, in: slot)
@@ -409,8 +325,8 @@ extension ActionCard: BindsWithTokenCard {
         }
     }
     
-    /// Returns a new ActionCard with the given TokenCard bound to the slot with the given TokenSlotName
-    public func bound(with card: TokenCard, inSlotNamed name: TokenSlotName) throws -> ActionCard {
+    /// Returns a new ActionCard with the given TokenCard bound to the given slot
+    public func bound(with card: TokenCard, inSlotNamed name: String) throws -> ActionCard {
         for slot in self.descriptor.tokenSlots {
             if slot.name == name {
                 return try self.bound(with: card, in: slot)

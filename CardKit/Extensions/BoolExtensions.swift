@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Freddy
 
 extension Bool: Enumerable {
     public static var values: [Bool] {

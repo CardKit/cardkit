@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CC9317B01D479278001B71B1"
+               BlueprintIdentifier = "CC9317EB1D4792B7001B71B1"
                BuildableName = "CardKit.framework"
-               BlueprintName = "CardKit iOS"
+               BlueprintName = "CardKit tvOS"
                ReferencedContainer = "container:CardKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CC9317BA1D479278001B71B1"
-               BuildableName = "CardKitTests iOS.xctest"
-               BlueprintName = "CardKitTests iOS"
+               BlueprintIdentifier = "CC9317F41D4792B7001B71B1"
+               BuildableName = "CardKitTests tvOS.xctest"
+               BlueprintName = "CardKitTests tvOS"
                ReferencedContainer = "container:CardKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CC9317B01D479278001B71B1"
+            BlueprintIdentifier = "CC9317EB1D4792B7001B71B1"
             BuildableName = "CardKit.framework"
-            BlueprintName = "CardKit iOS"
+            BlueprintName = "CardKit tvOS"
             ReferencedContainer = "container:CardKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,9 +66,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CC9317B01D479278001B71B1"
+            BlueprintIdentifier = "CC9317EB1D4792B7001B71B1"
             BuildableName = "CardKit.framework"
-            BlueprintName = "CardKit iOS"
+            BlueprintName = "CardKit tvOS"
             ReferencedContainer = "container:CardKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,9 +84,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CC9317B01D479278001B71B1"
+            BlueprintIdentifier = "CC9317EB1D4792B7001B71B1"
             BuildableName = "CardKit.framework"
-            BlueprintName = "CardKit iOS"
+            BlueprintName = "CardKit tvOS"
             ReferencedContainer = "container:CardKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

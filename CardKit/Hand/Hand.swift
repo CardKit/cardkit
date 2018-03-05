@@ -10,11 +10,9 @@
 
 import Foundation
 
-import Freddy
-
 public typealias HandIdentifier = CardIdentifier
 
-public class Hand: JSONEncodable, JSONDecodable {
+public class Hand: Codable {
     /// A Hand is a forest of CardTrees. Each CardTree encapsulates a set of
     /// LogicHandCards and ActionCards. A CardTree may be associated with a BranchHandCard
     /// in the case that upon satisfaction of the CardTree's logic, execution branches
@@ -121,34 +119,6 @@ public class Hand: JSONEncodable, JSONDecodable {
     }
     
     public init() {
-    }
-    
-    // MARK: JSONEncodable & JSONDecodable
-    
-    public required init(json: JSON) throws {
-        self.cardTrees = try json.decodedArray(at: "cardTrees", type: CardTree.self)
-        self.subhands = try json.decodedArray(at: "sughands", type: Hand.self)
-        self.branchCards = try json.decodedArray(at: "branchCards", type: BranchHandCard.self)
-        self.endRuleCard = try json.decode(at: "endRuleCard", type: EndRuleHandCard.self)
-        self.identifier = try json.decode(at: "identifier", type: HandIdentifier.self)
-        
-        let repeatStr = try json.getString(at: "repeatCard")
-        if repeatStr == "nil" {
-            self.repeatCard = nil
-        } else {
-            self.repeatCard = try json.decode(at: "repeatCard", type: RepeatHandCard.self)
-        }
-    }
-    
-    public func toJSON() -> JSON {
-        return .dictionary([
-            "cardTrees": self.cardTrees.toJSON(),
-            "subhands": self.subhands.toJSON(),
-            "branchCards": self.branchCards.toJSON(),
-            "repeatCard": self.repeatCard?.toJSON() ?? .string("nil"),
-            "endRuleCard": self.endRuleCard.toJSON(),
-            "identifier": self.identifier.toJSON()
-            ])
     }
 }
 
@@ -306,7 +276,7 @@ extension Hand {
     /// Remove the given card from the hand.
     public func remove(_ card: ActionCard) {
         guard let tree = self.cardTrees.cardTree(containing: card) else { return }
-        let _ = tree.remove(card)
+        _ = tree.remove(card)
     }
     
     /// Remove the given cards from the hand.
@@ -476,7 +446,6 @@ extension Hand {
     
     /// Returns the CardIdentifiers of the child cards of the given LogicHandCard.
     func children(of card: LogicHandCard) -> [CardIdentifier] {
-        
         func cardIdentifierFromNode(_ node: CardTreeNode) -> CardIdentifier {
             switch node {
             case .action(let child):
@@ -515,7 +484,6 @@ extension Hand {
     /// not bound to a LogicHandCard. Used by validation to check if non-ending ActionCards
     /// are bound to logic.
     public func logicalParent(of card: ActionCard) -> LogicHandCard? {
-        
         func subtreeNode(_ node: CardTreeNode, is card: ActionCard) -> Bool {
             switch node {
             case .action(let actionCard):
@@ -527,7 +495,7 @@ extension Hand {
         
         func logicalParent(from node: CardTreeNode, of card: ActionCard) -> LogicHandCard? {
             switch node {
-            case .action(_):
+            case .action:
                 return nil
             case .unaryLogic(let logicCard, let subtree):
                 // if the subtree corresponds to the ActionCard we are looking for,
@@ -647,8 +615,8 @@ extension Hand {
         return branch
     }
     
-    /// Remove the branch from the Hand to the given Hand. Removes all BranchHandCards with a targetHandIdentifier matching the given Hand. Does not remove the subhand the branch 
-    /// targeted.
+    /// Remove the branch from the Hand to the given Hand. Removes all BranchHandCards with a targetHandIdentifier matching the given Hand.
+    /// Does not remove the subhand the branch targeted.
     func removeBranches(to hand: Hand) {
         // remove everything that targets hand.identifier
         self.branchCards = self.branchCards.filter { $0.targetHandIdentifier != hand.identifier }
