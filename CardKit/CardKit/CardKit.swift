@@ -1,10 +1,18 @@
-//
-//  CardKit.swift
-//  CardKit
-//
-//  Created by Justin Weisz on 7/27/16.
-//  Copyright © 2016 IBM. All rights reserved.
-//
+/**
+ * Copyright 2018 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import Foundation
 
@@ -60,9 +68,9 @@ extension CardKit.Action.Trigger {
             yieldDescription: nil,
             ends: true,
             endsDescription: "Ends after the specified duration",
-            assetCatalog: CardAssetCatalog(description: "Set a timer"))
+            assetCatalog: CardAssetCatalog(description: "Set a timer", cardImageName: "trigger-timer"))
         
-        // MARK: Triger/WaitUntilTime
+        // MARK: Trigger/WaitUntilTime
         /// Descriptor for the WaitUntilTime card
         public static let WaitUntilTime = ActionCardDescriptor(
             name: "Wait Until Time",
@@ -75,7 +83,7 @@ extension CardKit.Action.Trigger {
             yieldDescription: nil,
             ends: true,
             endsDescription: "Ends when the specified time is reached",
-            assetCatalog: CardAssetCatalog(description: "Wait until the specified time"))
+            assetCatalog: CardAssetCatalog(description: "Wait until the specified time", cardImageName: "trigger-wait-until-time"))
     }
 }
 
@@ -87,13 +95,13 @@ extension CardKit.Deck {
     public static let Repeat = DeckCardDescriptor(
         name: "Repeat",
         subpath: nil,
-        assetCatalog: CardAssetCatalog(description: "Repeat the deck"))
+        assetCatalog: CardAssetCatalog(description: "Repeat the deck", cardImageName: "deck-repeat"))
     
     // MARK: Terminate
     public static let Terminate = DeckCardDescriptor(
         name: "Terminate",
         subpath: nil,
-        assetCatalog: CardAssetCatalog(description: "Terminate the deck"))
+        assetCatalog: CardAssetCatalog(description: "Terminate the deck", cardImageName: ""))
 }
 
 
@@ -123,7 +131,7 @@ extension CardKit.Hand.Next {
         name: "Branch",
         subpath: "Next",
         handCardType: .branch,
-        assetCatalog: CardAssetCatalog(description: "Branch to the specified hand"))
+        assetCatalog: CardAssetCatalog(description: "Branch to the specified hand", cardImageName: "hand-branch"))
     
     // MARK: Repeat
     /// Descriptor for the Repeat card
@@ -131,7 +139,7 @@ extension CardKit.Hand.Next {
         name: "Repeat",
         subpath: "Next",
         handCardType: .repeatHand,
-        assetCatalog: CardAssetCatalog(description: "Repeat the hand"))
+        assetCatalog: CardAssetCatalog(description: "Repeat the hand", cardImageName: "hand-repeat"))
 }
 
 extension CardKit.Hand.End {
@@ -141,7 +149,7 @@ extension CardKit.Hand.End {
         name: "All",
         subpath: "End",
         handCardType: .endWhenAllSatisfied,
-        assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied"))
+        assetCatalog: CardAssetCatalog(description: "Move to the next hand when all End conditions have been satisfied", cardImageName: ""))
     
     // MARK: Any
     /// Descriptor for the Any card
@@ -149,7 +157,7 @@ extension CardKit.Hand.End {
         name: "Any",
         subpath: "End",
         handCardType: .endWhenAnySatisfied,
-        assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied"))
+        assetCatalog: CardAssetCatalog(description: "Move to the next hand when any End condition has been satisfied", cardImageName: "hand-end-any"))
 }
 
 extension CardKit.Hand.Logic {
@@ -159,7 +167,7 @@ extension CardKit.Hand.Logic {
         name: "Not",
         subpath: "Logic",
         handCardType: .booleanLogicNot,
-        assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied"))
+        assetCatalog: CardAssetCatalog(description: "Satisfied when the target card has NOT been satisfied", cardImageName: "logic-not"))
     
     // MARK: LogicalAnd
     /// Descriptor for the LogicalAnd card
@@ -167,7 +175,7 @@ extension CardKit.Hand.Logic {
         name: "And",
         subpath: "Logic",
         handCardType: .booleanLogicAnd,
-        assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied"))
+        assetCatalog: CardAssetCatalog(description: "Satisfied when the target cards have both been satisfied", cardImageName: "logic-and"))
     
     // MARK: LogicalOr
     /// Descriptor for the LogicalOr card
@@ -175,7 +183,7 @@ extension CardKit.Hand.Logic {
         name: "Or",
         subpath: "Logic",
         handCardType: .booleanLogicOr,
-        assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied"))
+        assetCatalog: CardAssetCatalog(description: "Satisfied when one of the two target cards have both been satisfied", cardImageName: "logic-or"))
 }
 
 
@@ -221,7 +229,7 @@ extension CardKit.Input.Logical {
         subpath: "Logical",
         inputType: Bool.self,
         inputDescription: "Boolean value (true or false)",
-        assetCatalog: CardAssetCatalog(description: "Boolean"))
+        assetCatalog: CardAssetCatalog(description: "Boolean", cardImageName: ""))
 }
 
 extension CardKit.Input.Media {
@@ -232,7 +240,7 @@ extension CardKit.Input.Media {
         subpath: "Media/Audio",
         inputType: Data.self,
         inputDescription: "Audio (data)",
-        assetCatalog: CardAssetCatalog(description: "Audio"))
+        assetCatalog: CardAssetCatalog(description: "Audio", cardImageName: "input-audio"))
     
     // MARK: Media/Image
     /// Descriptor for the Image card
@@ -241,7 +249,7 @@ extension CardKit.Input.Media {
         subpath: "Media/Image",
         inputType: Data.self,
         inputDescription: "Audio (data)",
-        assetCatalog: CardAssetCatalog(description: "Image"))
+        assetCatalog: CardAssetCatalog(description: "Image", cardImageName: "input-image"))
 }
 
 extension CardKit.Input.Numeric {
@@ -252,7 +260,7 @@ extension CardKit.Input.Numeric {
         subpath: "Numeric",
         inputType: Int.self,
         inputDescription: "Integer",
-        assetCatalog: CardAssetCatalog(description: "Integer number"))
+        assetCatalog: CardAssetCatalog(description: "Integer number", cardImageName: ""))
     
     // MARK: Numeric/Real
     /// Descriptor for the Real card
@@ -261,7 +269,7 @@ extension CardKit.Input.Numeric {
         subpath: "Numeric",
         inputType: Double.self,
         inputDescription: "Real",
-        assetCatalog: CardAssetCatalog(description: "Real number"))
+        assetCatalog: CardAssetCatalog(description: "Real number", cardImageName: ""))
 }
 
 extension CardKit.Input.Raw {
@@ -272,7 +280,7 @@ extension CardKit.Input.Raw {
         subpath: "Raw",
         inputType: Data.self,
         inputDescription: "Raw data",
-        assetCatalog: CardAssetCatalog(description: "Raw data"))
+        assetCatalog: CardAssetCatalog(description: "Raw data", cardImageName: ""))
 }
 
 extension CardKit.Input.Text {
@@ -283,7 +291,7 @@ extension CardKit.Input.Text {
         subpath: "Text",
         inputType: String.self,
         inputDescription: "String",
-        assetCatalog: CardAssetCatalog(description: "A string"))
+        assetCatalog: CardAssetCatalog(description: "A string", cardImageName: ""))
 }
 
 extension CardKit.Input.Time {
@@ -294,7 +302,7 @@ extension CardKit.Input.Time {
         subpath: "Time",
         inputType: Date.self,
         inputDescription: "Date & time string",
-        assetCatalog: CardAssetCatalog(description: "Time (date & time)"))
+        assetCatalog: CardAssetCatalog(description: "Time (date & time)", cardImageName: "input-clock-time"))
     
     // MARK: Time/Duration
     /// Descriptor for Duration card
@@ -303,7 +311,7 @@ extension CardKit.Input.Time {
         subpath: "Time",
         inputType: TimeInterval.self,
         inputDescription: "Duration (seconds)",
-        assetCatalog: CardAssetCatalog(description: "Duration (seconds)"))
+        assetCatalog: CardAssetCatalog(description: "Duration (seconds)", cardImageName: "input-duration"))
     
     // MARK: Time/Periodicity
     /// Descriptor for the Periodicity card
@@ -312,5 +320,5 @@ extension CardKit.Input.Time {
         subpath: "Time",
         inputType: TimeInterval.self,
         inputDescription: "Periodic frequency (seconds)",
-        assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)"))
+        assetCatalog: CardAssetCatalog(description: "Periodic frequency (seconds)", cardImageName: ""))
 }

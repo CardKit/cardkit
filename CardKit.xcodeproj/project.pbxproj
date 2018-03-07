@@ -124,6 +124,9 @@
 		CCE729B71D5CB18E00A347D8 /* HandLogicOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729B41D5CB18E00A347D8 /* HandLogicOperation.swift */; };
 		CCE729BC1D5E09BC00A347D8 /* CardTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */; };
 		CCE729BE1D5E09BC00A347D8 /* CardTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */; };
+		CCF5400D20503EDB00022405 /* CardKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF5400C20503EDB00022405 /* CardKit.xcassets */; };
+		CCF5400E20503EDB00022405 /* CardKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF5400C20503EDB00022405 /* CardKit.xcassets */; };
+		CCF5400F20503EDB00022405 /* CardKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF5400C20503EDB00022405 /* CardKit.xcassets */; };
 		F9FDA9821DFF09B700256F2C /* CardKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC84DF161D95774700FE9612 /* CardKit.swift */; };
 		F9FDA9831DFF09B700256F2C /* CardDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319931D4937C9001B71B1 /* CardDescriptor.swift */; };
 		F9FDA9841DFF09B700256F2C /* CardPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9319951D4937C9001B71B1 /* CardPath.swift */; };
@@ -250,6 +253,7 @@
 		CCE729A61D5CAD1F00A347D8 /* CardTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTree.swift; sourceTree = "<group>"; };
 		CCE729B41D5CB18E00A347D8 /* HandLogicOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandLogicOperation.swift; sourceTree = "<group>"; };
 		CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTreeNode.swift; sourceTree = "<group>"; };
+		CCF5400C20503EDB00022405 /* CardKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CardKit.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +347,7 @@
 				CC93180D1D479527001B71B1 /* Deck */,
 				CC9E76421D524ACF00B7C738 /* Deck Builder */,
 				CC931BCB1D4BB344001B71B1 /* Extensions */,
+				CCF5401020503EE100022405 /* Resources */,
 			);
 			path = CardKit;
 			sourceTree = "<group>";
@@ -501,6 +506,15 @@
 				CCE729BB1D5E09BC00A347D8 /* CardTreeNode.swift */,
 			);
 			path = "Hand Structure";
+			sourceTree = "<group>";
+		};
+		CCF5401020503EE100022405 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CCF5400C20503EDB00022405 /* CardKit.xcassets */,
+			);
+			name = Resources;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -709,6 +723,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF5400D20503EDB00022405 /* CardKit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +738,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF5400E20503EDB00022405 /* CardKit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +753,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF5400F20503EDB00022405 /* CardKit.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

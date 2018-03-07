@@ -4,7 +4,7 @@ Welcome to CardKit. This is the foundational framework for programming IoT devic
 
 CardKit is written in Swift 4 and supports macOS, iOS, and tvOS.
 
-The [CardKit Runtime](https://github.com/CardKit/card-kit-runtime) provides support for validating and executing CardKit programs.
+The [CardKit Runtime](https://github.com/CardKit/cardkit-runtime) provides support for validating and executing CardKit programs.
 
 ## Card Descriptors & Instances
 
@@ -292,6 +292,3 @@ CardKit was developed at IBM Research. The core contributers are:
 
 Additional contributions to CardKit and its related projects have been made by [Greg Boland](https://github.com/boland25), [Kristina Brimijoin](https://github.com/kbrimijoin), and Kyungmin Lee.
 
-## Contact
-
-Please contact Justin Weisz (jweisz [at] us.ibm.com) with any questions.
